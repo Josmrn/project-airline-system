@@ -46,6 +46,17 @@ public class Users {
 	public void setState(String state) {
 		this.state = state;
 	}
+	
+	public String[] getDataName() {
+		String[] dataName = {"user","password","typeUser","state"};
+		return dataName;
+		
+	}
+	
+	public String[] getData() {
+		String[] data = {user,password,typeUser,state};
+		return data;
+	}
 
 	@Override
 	public String toString() {
