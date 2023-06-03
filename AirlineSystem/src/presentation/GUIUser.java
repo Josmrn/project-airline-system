@@ -182,4 +182,12 @@ public class GUIUser extends JFrame {
 		}
 		return btnReturn;
 	}
+	
+	public void cleanForm() {
+		txtCrearNuevoUsuario.setText("Crear nuevo usuario");
+		pwdIngresarContrasea.setText("******");
+		CXTypeUser.setSelectedIndex(0);
+		comboBox.setSelectedIndex(0);
+		
+	}
 }

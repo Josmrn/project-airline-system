@@ -7,6 +7,8 @@ public class Users {
 	private String typeUser;
 	private String state;
 	
+	public Users() {}
+	
 	public Users(String user, String password, String typeUser, String state) {
 		super();
 		this.user = user;
