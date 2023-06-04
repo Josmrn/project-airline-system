@@ -37,7 +37,7 @@ public class GUILogin extends JFrame {
 		setTitle("Airline System");
 		setLocationByPlatform(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 452, 330);
+		setBounds(700, 300, 452, 330);
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(0, 0, 0));
 		contentPane.setBackground(new Color(255, 255, 255));

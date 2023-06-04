@@ -55,7 +55,20 @@ public class FilesXML {
 	}
 
 	public void writeXML(String FileName, String elementType, String[] dataName, String[] data) {
-
+		
+		boolean userExist= userExistOnXML(FileName,elementType,dataName[0],data[0]);
+		
+		if (userExist && (data[0]=="admin")) {
+		    
+		    return; // Detener la ejecución del método writeXML
+		}
+		if (userExist && (data[0]!="admin")) {
+			System.out.println("El usuario ya existe en el sistema");
+		    return; // Detener la ejecución del método writeXML
+		}
+		
+		
+		
 		try {
 
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -81,6 +94,8 @@ public class FilesXML {
 
 				ele.appendChild(dato);
 			}
+			
+			
 
 			//escribirmos el contenido en un archivo xml
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -109,9 +124,46 @@ public class FilesXML {
 		} catch (TransformerException e) {
 
 			e.printStackTrace();
+			}
+		
 		}
-	}
+	
+	public boolean userExistOnXML(String fileName, String elementType, String dataName, String username) {
+	    try {
+	        File file = new File(fileName);
+	        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder db = dbf.newDocumentBuilder();
 
+	        if (file.exists()) {
+	            Document doc = db.parse(file);
+	            doc.getDocumentElement().normalize();
+
+	            Element rootElement = doc.getDocumentElement();
+	            NodeList nodeList = rootElement.getElementsByTagName(elementType);
+
+	            for (int i = 0; i < nodeList.getLength(); i++) {
+	                Node node = nodeList.item(i);
+	                if (node instanceof Element) {
+	                    Element element = (Element) node;
+	                    String value = element.getAttribute(dataName);
+	                    if (value.equals(username)) {
+	                        return true; // El usuario existe en el archivo
+	                    }
+	                }
+	            }
+	        }
+	    } catch (ParserConfigurationException pce) {
+	        pce.printStackTrace();
+	    } catch (SAXException e) {
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+
+	    return false; // El usuario no existe en el archivo o se produjo un error
+	}
+	
+	
 	public void readXML(String Filename, String elementType) {
 
 		try {
@@ -131,12 +183,12 @@ public class FilesXML {
 
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
-					System.out.println("Cédula: " + eElement.getAttribute("id"));         
-					System.out.println("Nombre: " + eElement.getElementsByTagName("name").
+					System.out.println("Usuario: " + eElement.getAttribute("user"));         
+					System.out.println("Contraseña: " + eElement.getElementsByTagName("password").
 							item(0).getTextContent());
-					System.out.println("Edad: "  + eElement.getElementsByTagName("age").
+					System.out.println("Tipo de Usuario: "  + eElement.getElementsByTagName("typeUser").
 							item(0).getTextContent());
-					System.out.println("Género: "  + eElement.getElementsByTagName("gender").
+					System.out.println("Estado: "  + eElement.getElementsByTagName("state").
 							item(0).getTextContent()); 
 				}
 			}
@@ -166,12 +218,12 @@ public class FilesXML {
 
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
-					Data+="Cédula: " + eElement.getAttribute("id")+"\n";         
-					Data+="Nombre: " + eElement.getElementsByTagName("name").
+					Data+="Usuario: " + eElement.getAttribute("user")+"\n";         
+					Data+="Contraseña: " + eElement.getElementsByTagName("password").
 							item(0).getTextContent()+"\n";
-					Data+="Edad: "  + eElement.getElementsByTagName("age").
+					Data+="Tipo de Usuario: "  + eElement.getElementsByTagName("typeUser").
 							item(0).getTextContent()+"\n";
-					Data+="Género: "  + eElement.getElementsByTagName("gender").
+					Data+="Estado: "  + eElement.getElementsByTagName("state").
 							item(0).getTextContent()+"\n"; 
 				}
 			} 

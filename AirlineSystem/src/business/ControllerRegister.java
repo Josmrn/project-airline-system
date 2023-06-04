@@ -22,13 +22,13 @@ public class ControllerRegister implements ActionListener{
 		fXML = new FilesXML();
 		us = new Users();
 		
-		fXML.createXML("Users", "Users.xml");
 		initializerAction();
 	}
 
 	private void initializerAction() {
 		// TODO Auto-generated method stub
 		guiU.getBtnNewRegister().addActionListener(this);
+		guiU.getBtnReturn().addActionListener(this);
 	}
 
 	@Override
@@ -59,6 +59,15 @@ public class ControllerRegister implements ActionListener{
 	        Arrays.fill(passwordChars, ' ');
 	        
 	        guiU.cleanForm();
+			
+		}
+		
+		if(e.getSource() == guiU.getBtnReturn()) {
+			
+			
+			new ControllerLogin();
+			guiU.dispose();
+			
 			
 		}
 	}
