@@ -183,7 +183,8 @@ public class FilesXML {
 	                if (node instanceof Element) {
 	                    Element element = (Element) node;
 	                    String userValue = element.getAttribute(userAttributeName);
-	                    String passwordValue = element.getAttribute(passwordAttributeName);
+	                    String passwordValue = element.getElementsByTagName(passwordAttributeName).
+								item(0).getTextContent();
 
 	                    if (userValue.equals(username) && passwordValue.equals(password)) {
 	                        return true; // Usuario y contraseña coinciden en el archivo

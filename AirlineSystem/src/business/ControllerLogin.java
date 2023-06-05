@@ -49,6 +49,7 @@ public class ControllerLogin implements ActionListener{
 			if(loginSuccess) {
 				
 				JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
+				guiL.dispose();
 				
 			}else {
 				
@@ -61,7 +62,7 @@ public class ControllerLogin implements ActionListener{
 				guiL.cleanForm();
 				
 				new ControllerMain();
-				guiL.dispose();
+				
 			
 		}
 		
