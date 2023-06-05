@@ -208,4 +208,10 @@ public class GUILogin extends JFrame {
 		}
 		return separator_1;
 	}
+	
+	public void cleanForm() {
+		tUser.setText("Crear nuevo usuario");
+		jPassword.setText("******");
+		
+	}
 }

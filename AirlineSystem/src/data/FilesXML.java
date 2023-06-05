@@ -128,6 +128,7 @@ public class FilesXML {
 		
 		}
 	
+	//metodo que me dice si el usuario existe en el archivo XML
 	public boolean userExistOnXML(String fileName, String elementType, String dataName, String username) {
 	    try {
 	        File file = new File(fileName);
@@ -161,6 +162,44 @@ public class FilesXML {
 	    }
 
 	    return false; // El usuario no existe en el archivo o se produjo un error
+	}
+	
+	//metodo que me dice si el usuario y contraseña existen en el archivo XML
+	public boolean userExistWithPasswordOnXML(String fileName, String elementType, String userAttributeName, String passwordAttributeName, String username, String password) {
+	    try {
+	        File file = new File(fileName);
+	        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder db = dbf.newDocumentBuilder();
+
+	        if (file.exists()) {
+	            Document doc = db.parse(file);
+	            doc.getDocumentElement().normalize();
+
+	            Element rootElement = doc.getDocumentElement();
+	            NodeList nodeList = rootElement.getElementsByTagName(elementType);
+
+	            for (int i = 0; i < nodeList.getLength(); i++) {
+	                Node node = nodeList.item(i);
+	                if (node instanceof Element) {
+	                    Element element = (Element) node;
+	                    String userValue = element.getAttribute(userAttributeName);
+	                    String passwordValue = element.getAttribute(passwordAttributeName);
+
+	                    if (userValue.equals(username) && passwordValue.equals(password)) {
+	                        return true; // Usuario y contraseña coinciden en el archivo
+	                    }
+	                }
+	            }
+	        }
+	    } catch (ParserConfigurationException pce) {
+	        pce.printStackTrace();
+	    } catch (SAXException e) {
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+
+	    return false; // Usuario no encontrado o contraseña incorrecta, o se produjo un error
 	}
 	
 	
