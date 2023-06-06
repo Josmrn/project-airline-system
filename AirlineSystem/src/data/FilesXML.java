@@ -128,80 +128,7 @@ public class FilesXML {
 		
 		}
 	
-	//metodo que me dice si el usuario existe en el archivo XML
-	public boolean userExistOnXML(String fileName, String elementType, String dataName, String username) {
-	    try {
-	        File file = new File(fileName);
-	        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-	        DocumentBuilder db = dbf.newDocumentBuilder();
-
-	        if (file.exists()) {
-	            Document doc = db.parse(file);
-	            doc.getDocumentElement().normalize();
-
-	            Element rootElement = doc.getDocumentElement();
-	            NodeList nodeList = rootElement.getElementsByTagName(elementType);
-
-	            for (int i = 0; i < nodeList.getLength(); i++) {
-	                Node node = nodeList.item(i);
-	                if (node instanceof Element) {
-	                    Element element = (Element) node;
-	                    String value = element.getAttribute(dataName);
-	                    if (value.equals(username)) {
-	                        return true; // El usuario existe en el archivo
-	                    }
-	                }
-	            }
-	        }
-	    } catch (ParserConfigurationException pce) {
-	        pce.printStackTrace();
-	    } catch (SAXException e) {
-	        e.printStackTrace();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-
-	    return false; // El usuario no existe en el archivo o se produjo un error
-	}
 	
-	//metodo que me dice si el usuario y contraseña existen en el archivo XML
-	public boolean userExistWithPasswordOnXML(String fileName, String elementType, String userAttributeName, String passwordAttributeName, String username, String password) {
-	    try {
-	        File file = new File(fileName);
-	        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-	        DocumentBuilder db = dbf.newDocumentBuilder();
-
-	        if (file.exists()) {
-	            Document doc = db.parse(file);
-	            doc.getDocumentElement().normalize();
-
-	            Element rootElement = doc.getDocumentElement();
-	            NodeList nodeList = rootElement.getElementsByTagName(elementType);
-
-	            for (int i = 0; i < nodeList.getLength(); i++) {
-	                Node node = nodeList.item(i);
-	                if (node instanceof Element) {
-	                    Element element = (Element) node;
-	                    String userValue = element.getAttribute(userAttributeName);
-	                    String passwordValue = element.getElementsByTagName(passwordAttributeName).
-								item(0).getTextContent();
-
-	                    if (userValue.equals(username) && passwordValue.equals(password)) {
-	                        return true; // Usuario y contraseña coinciden en el archivo
-	                    }
-	                }
-	            }
-	        }
-	    } catch (ParserConfigurationException pce) {
-	        pce.printStackTrace();
-	    } catch (SAXException e) {
-	        e.printStackTrace();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-
-	    return false; // Usuario no encontrado o contraseña incorrecta, o se produjo un error
-	}
 	
 	
 	public void readXML(String Filename, String elementType) {
@@ -237,7 +164,135 @@ public class FilesXML {
 		}
 	}
 	
-	public String returnStringXML(String Filename, String elementType) {
+	//metodo que me dice si el usuario existe en el archivo XML
+		public boolean userExistOnXML(String fileName, String elementType, String dataName, String username) {
+		    try {
+		        File file = new File(fileName);
+		        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		        DocumentBuilder db = dbf.newDocumentBuilder();
+
+		        if (file.exists()) {
+		            Document doc = db.parse(file);
+		            doc.getDocumentElement().normalize();
+
+		            Element rootElement = doc.getDocumentElement();
+		            NodeList nodeList = rootElement.getElementsByTagName(elementType);
+
+		            for (int i = 0; i < nodeList.getLength(); i++) {
+		                Node node = nodeList.item(i);
+		                if (node instanceof Element) {
+		                    Element element = (Element) node;
+		                    String value = element.getAttribute(dataName);
+		                    if (value.equals(username)) {
+		                        return true; // El usuario existe en el archivo
+		                    }
+		                }
+		            }
+		        }
+		    } catch (ParserConfigurationException pce) {
+		        pce.printStackTrace();
+		    } catch (SAXException e) {
+		        e.printStackTrace();
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+
+		    return false; // El usuario no existe en el archivo o se produjo un error
+		}
+		
+		//metodo que me dice si el usuario y contraseña existen en el archivo XML
+		public boolean userExistWithPasswordOnXML(String fileName, String elementType, String userAttributeName, String passwordAttributeName, String username, String password) {
+		    try {
+		        File file = new File(fileName);
+		        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		        DocumentBuilder db = dbf.newDocumentBuilder();
+
+		        if (file.exists()) {
+		            Document doc = db.parse(file);
+		            doc.getDocumentElement().normalize();
+
+		            Element rootElement = doc.getDocumentElement();
+		            NodeList nodeList = rootElement.getElementsByTagName(elementType);
+
+		            for (int i = 0; i < nodeList.getLength(); i++) {
+		                Node node = nodeList.item(i);
+		                if (node instanceof Element) {
+		                    Element element = (Element) node;
+		                    String userValue = element.getAttribute(userAttributeName);
+		                    String passwordValue = element.getElementsByTagName(passwordAttributeName).
+									item(0).getTextContent();
+
+		                    if (userValue.equals(username) && passwordValue.equals(password)) {
+		                        return true; // Usuario y contraseña coinciden en el archivo
+		                    }
+		                }
+		            }
+		        }
+		    } catch (ParserConfigurationException pce) {
+		        pce.printStackTrace();
+		    } catch (SAXException e) {
+		        e.printStackTrace();
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+
+		    return false; // Usuario no encontrado o contraseña incorrecta, o se produjo un error
+		}
+		
+		public String[] returnTypeAndStatus(String FileName,String elementType, String userAttributeName, String passwordAttributeName, String username, String password) {
+			
+			String [] userTypeAndStatus = {"",""}; 
+				
+			try {
+		        File file = new File(FileName);
+		        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		        DocumentBuilder db = dbf.newDocumentBuilder();
+
+		        if (file.exists()) {
+		            Document doc = db.parse(file);
+		            doc.getDocumentElement().normalize();
+
+		            Element rootElement = doc.getDocumentElement();
+		            NodeList nodeList = rootElement.getElementsByTagName(elementType);
+
+		            for (int i = 0; i < nodeList.getLength(); i++) {
+		                Node node = nodeList.item(i);
+		                if (node instanceof Element) {
+		                    Element element = (Element) node;
+		                    
+		                    //Se verifica el usuario y Contraseña
+		                    String userValue = element.getAttribute(userAttributeName);
+		                    String passwordValue = element.getElementsByTagName(passwordAttributeName).
+									item(0).getTextContent();
+		                    
+
+		                    if (userValue.equals(username) && passwordValue.equals(password)) {
+		                    	
+		                    	//Se guardan tanto el tipo de usuario como el estado
+			                    userTypeAndStatus[0] = element.getElementsByTagName("typeUser").
+			                    		item(0).getTextContent();
+			                    userTypeAndStatus[1] = element.getElementsByTagName("state").
+										item(0).getTextContent();
+			                    
+		                    }
+		                }
+		            }
+		        }
+		    } catch (ParserConfigurationException pce) {
+		        pce.printStackTrace();
+		    } catch (SAXException e) {
+		        e.printStackTrace();
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+			
+			
+			return userTypeAndStatus;
+		}
+	
+	
+	
+	/*public String returnStringXML(String Filename, String elementType) {
 
 		String Data = "";
 		try {
@@ -271,7 +326,7 @@ public class FilesXML {
 			e.printStackTrace();
 		}
 		return Data;
-	}
+	}*/
 	
-	
+
 }

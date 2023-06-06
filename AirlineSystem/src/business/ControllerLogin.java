@@ -39,17 +39,46 @@ public class ControllerLogin implements ActionListener{
 		
 		if(e.getSource() == guiL.getBtnLogin()) {
 			
+			////////////////////////////////////////////////
 			char[] passwordChars = guiL.getJPassword().getPassword();
 			String password = new String(passwordChars);
 			
-			boolean loginSuccess = fXML.userExistWithPasswordOnXML("Users.xml", "Users", "user", "password", guiL.getTUser().getText(), 
+		    ////////////////////////////////////////////////
+						
+			
+			
+			boolean loginUserAndPassword = fXML.userExistWithPasswordOnXML("Users.xml", "Users", "user", "password", guiL.getTUser().getText(), 
 					password);
 			
+			String[] TypeAndStatus = fXML.returnTypeAndStatus("Users.xml", "Users", "user", "password", guiL.getTUser().getText(), 
+					password);
 			
-			if(loginSuccess) {
+			String typeUser = TypeAndStatus[0];
+			String statusUser = TypeAndStatus[1];
+			
+			
+			if(loginUserAndPassword==true) {
 				
-				JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
-				guiL.dispose();
+				if(typeUser=="Administrador") {
+					
+					if(statusUser=="Activo") {
+						
+					}
+					if(statusUser=="Inactivo") {
+						
+					}
+					
+				}
+				if(typeUser=="Colaborador") {
+					
+					if(statusUser=="Activo") {
+						
+					}
+					if(statusUser=="Inactivo") {
+						
+					}
+					
+				}
 				
 			}else {
 				
@@ -61,7 +90,7 @@ public class ControllerLogin implements ActionListener{
 	        
 				guiL.cleanForm();
 				
-				new ControllerMain();
+				
 				
 			
 		}

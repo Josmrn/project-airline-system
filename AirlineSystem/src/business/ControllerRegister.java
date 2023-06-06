@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
-import javax.swing.JPasswordField;
+ //import javax.swing.JPasswordField;
 
 import domain.Users;
 import presentation.GUIUser;
