@@ -184,7 +184,7 @@ public class GUILogin extends JFrame {
 		if (lSesion == null) {
 			lSesion = new JLabel("INICIAR SESIÓN");
 			lSesion.setBackground(new Color(0, 0, 51));
-			lSesion.setIcon(new ImageIcon("C:\\Users\\UNA\\OneDrive\\Documentos\\Universidad\\Eclipse-Práctica\\Ui\\src\\images\\clientes_.png"));
+			lSesion.setIcon(new ImageIcon("C:\\Users\\UNA\\OneDrive\\Documentos\\Universidad\\Java-Eclipse\\clientes.png"));
 			lSesion.setHorizontalAlignment(SwingConstants.CENTER);
 			lSesion.setFont(new Font("Roboto Black", Font.BOLD, 22));
 			lSesion.setForeground(new Color(0, 0, 51));

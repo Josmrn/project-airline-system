@@ -35,18 +35,16 @@ public class ControllerLogin implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		
 		if(e.getSource() == guiL.getBtnLogin()) {
 			
-			////////////////////////////////////////////////
+			/*--------------------------------------------------------*/
+			
 			char[] passwordChars = guiL.getJPassword().getPassword();
 			String password = new String(passwordChars);
 			
-		    ////////////////////////////////////////////////
+			/*--------------------------------------------------------*/
 						
-			
-			
 			boolean loginUserAndPassword = fXML.userExistWithPasswordOnXML("Users.xml", "Users", "user", "password", guiL.getTUser().getText(), 
 					password);
 			
@@ -75,9 +73,8 @@ public class ControllerLogin implements ActionListener{
 						
 					}
 					if(statusUser=="Inactivo") {
-						
+	
 					}
-					
 				}
 				
 			}else {
