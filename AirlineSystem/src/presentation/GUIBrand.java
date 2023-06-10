@@ -30,7 +30,7 @@ public class GUIBrand extends JFrame {
 	private JButton btnEditBrands;
 	private JButton btnConsultBrand;
 	private JButton btnReadBrand;
-	//private JTextField textField_1;
+	
 	private JLabel lTextBrandsReg;
 	private JSeparator separator;
 	//--------------------------------------
@@ -42,7 +42,7 @@ public class GUIBrand extends JFrame {
 	//--------------------------------------
 
 	public GUIBrand() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 487, 595);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
@@ -64,7 +64,7 @@ public class GUIBrand extends JFrame {
 		setSPTBrands(tBrands);
 		contentPane.add(spTBrands);
 		//----------------------------------------------------------
-		//contentPane.add(getTextField_1());
+		
 		contentPane.add(getLTextBrandsReg());
 		contentPane.add(getSeparator());
 		setVisible(true);
@@ -162,15 +162,8 @@ public class GUIBrand extends JFrame {
 		}
 		return btnReadBrand;
 	}
-	/*
-	public JTextField getTextField_1() {
-		if (textField_1 == null) {
-			textField_1 = new JTextField();
-			textField_1.setBounds(10, 268, 452, 247);
-			textField_1.setColumns(10);
-		}
-		return textField_1;
-	}*/
+	
+	
 	
 	//-------------------------------------------------------------------------------------
 	public void setDTMTBrands(Object data[][], String [] columnsNames) {
@@ -219,5 +212,12 @@ public class GUIBrand extends JFrame {
 			separator.setBounds(10, 138, 300, 1);
 		}
 		return separator;
+	}
+	
+	public void cleanForm() {
+		
+		tNameBrands.setText("");
+		
+		
 	}
 }

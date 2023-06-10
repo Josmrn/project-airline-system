@@ -18,6 +18,17 @@ public class Brands {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String[] getDataName() {
+		String[] dataName = {"name"};
+		return dataName;
+		
+	}
+	
+	public String[] getData() {
+		String[] data = {name};
+		return data;
+	}
 
 	@Override
 	public String toString() {

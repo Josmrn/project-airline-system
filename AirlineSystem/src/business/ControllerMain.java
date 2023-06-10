@@ -18,6 +18,8 @@ public class ControllerMain implements ActionListener{
 		// TODO Auto-generated method stub
 		guiMain.getMiCreateUser().addActionListener(this);
 		
+		guiMain.getMiAddBrand().addActionListener(this);
+		
 	}
 
 	@Override
@@ -27,6 +29,13 @@ public class ControllerMain implements ActionListener{
 			
 			new ControllerRegister();
 			
+			
+		}
+		
+		
+		if(e.getSource() == guiMain.getMiAddBrand()) {
+			
+			new ControllerBrands();
 			
 		}
 		
