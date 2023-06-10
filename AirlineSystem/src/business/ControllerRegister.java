@@ -27,6 +27,7 @@ public class ControllerRegister implements ActionListener{
 
 	private void initializerAction() {
 		// TODO Auto-generated method stub
+		//Comento el boton register, porque deberia ser eliminado
 		guiU.getBtnNewRegister().addActionListener(this);
 		guiU.getBtnReturn().addActionListener(this);
 	}
@@ -34,6 +35,7 @@ public class ControllerRegister implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		//Asi como este if, porque deberia ser eliminado el boton register
 		if(e.getSource() == guiU.getBtnNewRegister()) {
 			
 			//PasswordField se pasa a un vector de tipo char

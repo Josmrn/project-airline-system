@@ -28,7 +28,7 @@ public class GUILogin extends JFrame {
 	private JTextField tUser;
 	private JPasswordField jPassword;
 	private JButton btnLogin;
-	private JButton btnRegister;
+	//private JButton btnRegister;
 	private JLabel lSesion;
 	private JSeparator separator;
 	private JSeparator separator_1;
@@ -50,7 +50,7 @@ public class GUILogin extends JFrame {
 		contentPane.add(getTUser());
 		contentPane.add(getJPassword());
 		contentPane.add(getBtnLogin());
-		contentPane.add(getBtnRegister());
+		//contentPane.add(getBtnRegister());
 		contentPane.add(getLSesion());
 		contentPane.add(getSeparator());
 		contentPane.add(getSeparator_1());
@@ -154,7 +154,7 @@ public class GUILogin extends JFrame {
 		}
 		return btnLogin;
 	}
-	public JButton getBtnRegister() {
+	/*public JButton getBtnRegister() {
 		if (btnRegister == null) {
 			btnRegister = new JButton("Registrar");
 			btnRegister.addMouseListener(new MouseAdapter() {
@@ -179,7 +179,7 @@ public class GUILogin extends JFrame {
 			btnRegister.setBounds(277, 247, 100, 25);
 		}
 		return btnRegister;
-	}
+	}*/
 	public JLabel getLSesion() {
 		if (lSesion == null) {
 			lSesion = new JLabel("INICIAR SESIÓN");
@@ -210,7 +210,7 @@ public class GUILogin extends JFrame {
 	}
 	
 	public void cleanForm() {
-		tUser.setText("Crear nuevo usuario");
+		tUser.setText(" Ingrese su nombre de usuario");
 		jPassword.setText("******");
 		
 	}

@@ -16,12 +16,20 @@ public class ControllerMain implements ActionListener{
 
 	private void initializerAction() {
 		// TODO Auto-generated method stub
+		guiMain.getMiCreateUser().addActionListener(this);
 		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		if(e.getSource() == guiMain.getMiCreateUser()) {
+			
+			new ControllerRegister();
+			
+			
+		}
+		
 		
 	}
 }

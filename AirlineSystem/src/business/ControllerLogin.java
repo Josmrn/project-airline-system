@@ -30,7 +30,7 @@ public class ControllerLogin implements ActionListener{
 	private void initializerAction() {
 		// TODO Auto-generated method stub
 		guiL.getBtnLogin().addActionListener(this);
-		guiL.getBtnRegister().addActionListener(this);
+		//guiL.getBtnRegister().addActionListener(this);
 	}
 
 	@Override
@@ -47,34 +47,36 @@ public class ControllerLogin implements ActionListener{
 						
 			boolean loginUserAndPassword = fXML.userExistWithPasswordOnXML("Users.xml", "Users", "user", "password", guiL.getTUser().getText(), 
 					password);
-			
+			//Vector que en la posicion 0 tendra el tipo de usuario y en la posicion 1 tendra el estado del usuario 
 			String[] TypeAndStatus = fXML.returnTypeAndStatus("Users.xml", "Users", "user", "password", guiL.getTUser().getText(), 
 					password);
-			
-			String typeUser = TypeAndStatus[0];
-			String statusUser = TypeAndStatus[1];
 			
 			
 			if(loginUserAndPassword==true) {
 				
-				if(typeUser=="Administrador") {
+				System.out.println(TypeAndStatus[0]);
+				System.out.println(TypeAndStatus[1]);
+				
+				if(TypeAndStatus[0].equals("Administrador") && TypeAndStatus[1].equals("Activo")) {
 					
-					if(statusUser=="Activo") {
-						
-					}
-					if(statusUser=="Inactivo") {
-						
-					}
+					new ControllerMain();
+					guiL.dispose();
+					
+					
+				}else if(TypeAndStatus[0].equals("Administrador") && TypeAndStatus[1].equals("Inactivo")) {
+					
+					JOptionPane.showMessageDialog(null, "El Usuario se encuentra inactivo");
 					
 				}
-				if(typeUser=="Colaborador") {
+				if(TypeAndStatus[0].equals("Colaborador") && TypeAndStatus[1].equals("Activo")) {
 					
-					if(statusUser=="Activo") {
-						
-					}
-					if(statusUser=="Inactivo") {
-	
-					}
+					//Aqui deberia ir una ControllerMain sin la pestaña de Gestion de usuarios, porque es un Colaborador
+					
+					
+				}else if(TypeAndStatus[0].equals("Colaborador") && TypeAndStatus[1].equals("Inactivo")) {
+					
+					JOptionPane.showMessageDialog(null, "El Usuario se encuentra inactivo");
+					
 				}
 				
 			}else {
@@ -92,10 +94,10 @@ public class ControllerLogin implements ActionListener{
 			
 		}
 		
-		if(e.getSource() == guiL.getBtnRegister()) {
+		/*if(e.getSource() == guiL.getBtnRegister()) {
 			new ControllerRegister();
 			guiL.dispose();
-		}
+		}*/
 		
 	}
 	
