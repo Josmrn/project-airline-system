@@ -37,7 +37,7 @@ public class GUIUser extends JFrame {
 
 	public GUIUser() {
 		setTitle("Registro usuario");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(700, 300, 386, 443);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
