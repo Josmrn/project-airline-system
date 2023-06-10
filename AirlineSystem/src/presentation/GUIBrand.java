@@ -78,7 +78,7 @@ public class GUIBrand extends JFrame {
 			lWelcomeBrand.setBackground(new Color(255, 255, 255));
 			lWelcomeBrand.setHorizontalAlignment(SwingConstants.CENTER);
 			lWelcomeBrand.setFont(new Font("Roboto Black", Font.PLAIN, 18));
-			lWelcomeBrand.setBounds(10, 10, 452, 41);
+			lWelcomeBrand.setBounds(10, 10, 452, 40);
 		}
 		return lWelcomeBrand;
 	}
@@ -105,6 +105,7 @@ public class GUIBrand extends JFrame {
 	public JButton getBtnRegisterBrand() {
 		if (btnRegisterBrand == null) {
 			btnRegisterBrand = new JButton("Registrar");
+			btnRegisterBrand.setContentAreaFilled(false);
 			btnRegisterBrand.setOpaque(false);
 			btnRegisterBrand.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnRegisterBrand.setForeground(new Color(0, 0, 128));
@@ -129,6 +130,7 @@ public class GUIBrand extends JFrame {
 	public JButton getBtnEditBrands() {
 		if (btnEditBrands == null) {
 			btnEditBrands = new JButton("Editar");
+			btnEditBrands.setContentAreaFilled(false);
 			btnEditBrands.setForeground(new Color(0, 0, 128));
 			btnEditBrands.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnEditBrands.setOpaque(false);
@@ -141,6 +143,7 @@ public class GUIBrand extends JFrame {
 	public JButton getBtnConsultBrand() {
 		if (btnConsultBrand == null) {
 			btnConsultBrand = new JButton("Consultar");
+			btnConsultBrand.setContentAreaFilled(false);
 			btnConsultBrand.setForeground(new Color(0, 0, 128));
 			btnConsultBrand.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnConsultBrand.setOpaque(false);
@@ -153,6 +156,7 @@ public class GUIBrand extends JFrame {
 	public JButton getBtnReadBrand() {
 		if (btnReadBrand == null) {
 			btnReadBrand = new JButton("Mostrar");
+			btnReadBrand.setContentAreaFilled(false);
 			btnReadBrand.setForeground(new Color(0, 0, 128));
 			btnReadBrand.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnReadBrand.setOpaque(false);
