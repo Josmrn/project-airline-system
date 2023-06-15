@@ -14,7 +14,6 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
-import java.awt.SystemColor;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -131,6 +130,8 @@ public class GUILogin extends JFrame {
 	public JButton getBtnLogin() {
 		if (btnLogin == null) {
 			btnLogin = new JButton("Ingresar");
+			btnLogin.setHorizontalAlignment(SwingConstants.LEFT);
+			btnLogin.setContentAreaFilled(false);
 			btnLogin.setBorder(new EmptyBorder(0, 0, 0, 0));
 			btnLogin.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -147,8 +148,8 @@ public class GUILogin extends JFrame {
 				}
 			});
 			btnLogin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnLogin.setForeground(SystemColor.menu);
-			btnLogin.setBackground(new Color(0, 51, 51));
+			btnLogin.setForeground(new Color(0, 0, 51));
+			btnLogin.setBackground(new Color(0, 0, 51));
 			btnLogin.setFont(new Font("Roboto", Font.BOLD, 15));
 			btnLogin.setBounds(122, 247, 100, 25);
 		}

@@ -2,22 +2,21 @@ package business;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import presentation.GUIBrand;
-
+import presentation.GUIBrands;
 import domain.Brands;
-
 import data.FilesXML;
 
 public class ControllerBrands implements ActionListener {
 	
-	private GUIBrand guiB;
+	private GUIBrands guiB;
 	private Brands brand;
 	private FilesXML fXMLBr;
 
 	public ControllerBrands() {
 		
-		guiB = new GUIBrand();
+		//No registra marcas
+		
+		guiB = new GUIBrands();
 		brand = new Brands();
 		fXMLBr = new FilesXML();
 		
@@ -29,14 +28,11 @@ public class ControllerBrands implements ActionListener {
 	
 	
 	private void initializerAction() {
-		
 		guiB.getBtnRegisterBrand().addActionListener(this);
 		guiB.getBtnConsultBrand().addActionListener(this);
 		guiB.getBtnEditBrands().addActionListener(this);
 		guiB.getBtnReadBrand().addActionListener(this);
 		guiB.getBtnRemoveBrand().addActionListener(this);
-		
-		
 	}
 	
 	
@@ -45,15 +41,13 @@ public class ControllerBrands implements ActionListener {
 		// TODO Auto-generated method stub
 		if(e.getSource() == guiB.getBtnRegisterBrand()) {
 			
-			brand = new Brands(guiB.getTNameBrands().getText());
+			brand = new Brands(guiB.getTAddBrand().getText());
 			
 			fXMLBr.writeXML("Brands.xml", "Brands", brand.getDataName(), brand.getData());
 			
 			guiB.cleanForm();
 			
 			guiB.getDTMTBrands().addRow(brand.getData());
-			
-			
 		}
 		
 	}

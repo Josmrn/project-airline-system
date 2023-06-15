@@ -1,42 +1,64 @@
 package business;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import presentation.GUIBrands;
 import presentation.GUIMain;
+import presentation.GUIModel;
+import presentation.GUIRegister;
 
 public class ControllerMain implements ActionListener{
 	
 	private GUIMain guiMain; 
+	private GUIRegister guiR;
+	private GUIBrands guiB;
+	private GUIModel guiM;
+	private Dimension desktopSize, FrameSize;
 
 	public ControllerMain() {
 		guiMain = new GUIMain();
+		guiR = new GUIRegister();
+		guiB = new GUIBrands();
+		guiM = new GUIModel();
 		initializerAction();
 	}
 
 	private void initializerAction() {
-		// TODO Auto-generated method stub
 		guiMain.getMiCreateUser().addActionListener(this);
-		
 		guiMain.getMiAddBrand().addActionListener(this);
-		
+		guiMain.getMiEditModels().addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		if(e.getSource() == guiMain.getMiCreateUser()) {
 			
-			new ControllerRegister();
-			
-			
+			 desktopSize = guiMain.getDesktopMain().getSize();
+			 FrameSize = guiR.getSize();
+			 guiR.setLocation((desktopSize.width-FrameSize.width)/2, (desktopSize.height-FrameSize.height)/2);
+			 guiMain.getDesktopMain().add(guiR);
+			 guiR.setVisible(true);
 		}
 		
 		
 		if(e.getSource() == guiMain.getMiAddBrand()) {
 			
-			new ControllerBrands();
-			
+			desktopSize = guiMain.getDesktopMain().getSize();
+			FrameSize = guiB.getSize();
+			guiB.setLocation((desktopSize.width-FrameSize.width)/2, (desktopSize.height-FrameSize.height)/2);
+			guiMain.getDesktopMain().add(guiB);
+			guiB.setVisible(true);
+			//new ControllerBrands();
+		}
+		
+		if(e.getSource() == guiMain.getMiEditModels()) {
+			desktopSize = guiMain.getDesktopMain().getSize();
+			FrameSize = guiM.getSize();
+			guiM.setLocation((desktopSize.width-FrameSize.width)/2, (desktopSize.height-FrameSize.height)/2);
+			guiMain.getDesktopMain().add(guiM);
+			guiM.setVisible(true);
 		}
 		
 		

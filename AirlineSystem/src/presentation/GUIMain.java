@@ -9,6 +9,10 @@ import javax.swing.JMenuItem;
 import java.awt.Cursor;
 import java.awt.Color;
 import javax.swing.JSeparator;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JDesktopPane;
+import java.awt.CardLayout;
 
 @SuppressWarnings("serial")
 
@@ -41,40 +45,35 @@ public class GUIMain extends JFrame {
 	private JSeparator separator;
 	private JSeparator separator_1;
 	private JMenuItem miCreateUser;
-	private JMenuItem miSearchUsers;
 	private JMenuItem miAddBrand;
-	private JMenuItem miSearchBrand;
-	private JMenuItem miAddModels;
-	private JMenuItem miSearchModels;
 	private JMenuItem miAddAirline;
-	private JMenuItem miSearchAirline;
 	private JMenuItem miAddAircraft;
-	private JMenuItem miSearchAircraft;
 	private JMenuItem miAddFlight;
-	private JMenuItem miSearchFlight;
 	private JMenuItem miAddPassenger;
-	private JMenuItem miSearchPassenger;
 	private JMenuItem miAddTickets;
-	private JMenuItem miSearchTickets;
+	private JDesktopPane desktopMain;
 	
 	public GUIMain() {
 		setTitle("Airline Software");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 550, 500);
 		setJMenuBar(getMenuBar_1());
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		setSize(getMaximumSize());
+		contentPane.setLayout(new CardLayout(0, 0));
+		contentPane.add(getDesktopMain(), "name_264125534228499");
+		//contentPane.setLayout(null);
+		setExtendedState(MAXIMIZED_BOTH);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 	public JMenuBar getMenuBar_1() {
 		if (menuBar == null) {
 			menuBar = new JMenuBar();
+			menuBar.setBorderPainted(false);
 			menuBar.add(getMUsers());
 			menuBar.add(getMBrand());
 			menuBar.add(getMModels());
@@ -91,9 +90,8 @@ public class GUIMain extends JFrame {
 		if (mUsers == null) {
 			mUsers = new JMenu("Usuarios");
 			mUsers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			mUsers.add(getMiUsersManag());
 			mUsers.add(getMiCreateUser());
-			mUsers.add(getMiSearchUsers());
+			mUsers.add(getMiUsersManag());
 		}
 		return mUsers;
 	}
@@ -101,9 +99,8 @@ public class GUIMain extends JFrame {
 		if (mBrand == null) {
 			mBrand = new JMenu("Marcas");
 			mBrand.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			mBrand.add(getMiEditBrand());
 			mBrand.add(getMiAddBrand());
-			mBrand.add(getMiSearchBrand());
+			mBrand.add(getMiEditBrand());
 		}
 		return mBrand;
 	}
@@ -112,8 +109,6 @@ public class GUIMain extends JFrame {
 			mModels = new JMenu("Modelos");
 			mModels.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			mModels.add(getMiEditModels());
-			mModels.add(getMiAddModels());
-			mModels.add(getMiSearchModels());
 		}
 		return mModels;
 	}
@@ -121,9 +116,8 @@ public class GUIMain extends JFrame {
 		if (mAirlines == null) {
 			mAirlines = new JMenu("Aerolíneas");
 			mAirlines.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			mAirlines.add(getMiEditAirline());
 			mAirlines.add(getMiAddAirline());
-			mAirlines.add(getMiSearchAirline());
+			mAirlines.add(getMiEditAirline());
 		}
 		return mAirlines;
 	}
@@ -137,18 +131,16 @@ public class GUIMain extends JFrame {
 	public JMenu getMAircraft() {
 		if (mAircraft == null) {
 			mAircraft = new JMenu("Aviones");
-			mAircraft.add(getMiEditAircraft());
 			mAircraft.add(getMiAddAircraft());
-			mAircraft.add(getMiSearchAircraft());
+			mAircraft.add(getMiEditAircraft());
 		}
 		return mAircraft;
 	}
 	public JMenu getMFlight() {
 		if (mFlight == null) {
 			mFlight = new JMenu("Vuelos");
-			mFlight.add(getMiEditFlight());
 			mFlight.add(getMiAddFlight());
-			mFlight.add(getMiSearchFlight());
+			mFlight.add(getMiEditFlight());
 			mFlight.add(getSeparator_1());
 			mFlight.add(getMiConsult());
 		}
@@ -157,18 +149,16 @@ public class GUIMain extends JFrame {
 	public JMenu getMPassenger() {
 		if (mPassenger == null) {
 			mPassenger = new JMenu("Pasajeros");
-			mPassenger.add(getMiEditPassenger());
 			mPassenger.add(getMiAddPassenger());
-			mPassenger.add(getMiSearchPassenger());
+			mPassenger.add(getMiEditPassenger());
 		}
 		return mPassenger;
 	}
 	public JMenu getMTickets() {
 		if (mTickets == null) {
 			mTickets = new JMenu("Tiquetes");
-			mTickets.add(getMiEditTickets());
 			mTickets.add(getMiAddTickets());
-			mTickets.add(getMiSearchTickets());
+			mTickets.add(getMiEditTickets());
 			mTickets.add(getSeparator());
 			mTickets.add(getMiPrintTicket());
 			mTickets.add(getMiTicketsHistory());
@@ -192,6 +182,11 @@ public class GUIMain extends JFrame {
 	public JMenuItem getMiExit() {
 		if (miExit == null) {
 			miExit = new JMenuItem("Salir");
+			miExit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					System.exit(0);
+				}
+			});
 		}
 		return miExit;
 	}
@@ -204,7 +199,7 @@ public class GUIMain extends JFrame {
 	}
 	public JMenuItem getMiEditModels() {
 		if (miEditModels == null) {
-			miEditModels = new JMenuItem("Gestión de Marcas");
+			miEditModels = new JMenuItem("Gestión de Modelos");
 			miEditModels.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		}
 		return miEditModels;
@@ -272,14 +267,18 @@ public class GUIMain extends JFrame {
 	public JMenuItem getMiCreateUser() {
 		if (miCreateUser == null) {
 			miCreateUser = new JMenuItem("Crear Usuario");
+			miCreateUser.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					/*GUIRegister guiR = new GUIRegister();
+					 Dimension desktopSize = desktopRegister.getSize();
+					 Dimension FrameSize = guiR.getSize();
+					 guiR.setLocation((desktopSize.width-FrameSize.width)/2, (desktopSize.height-FrameSize.height)/2);
+					 desktopRegister.add(guiR);
+					 setVisible(true);*/
+				}
+			});
 		}
 		return miCreateUser;
-	}
-	public JMenuItem getMiSearchUsers() {
-		if (miSearchUsers == null) {
-			miSearchUsers = new JMenuItem("Buscar ");
-		}
-		return miSearchUsers;
 	}
 	public JMenuItem getMiAddBrand() {
 		if (miAddBrand == null) {
@@ -287,35 +286,11 @@ public class GUIMain extends JFrame {
 		}
 		return miAddBrand;
 	}
-	public JMenuItem getMiSearchBrand() {
-		if (miSearchBrand == null) {
-			miSearchBrand = new JMenuItem("Buscar");
-		}
-		return miSearchBrand;
-	}
-	public JMenuItem getMiAddModels() {
-		if (miAddModels == null) {
-			miAddModels = new JMenuItem("Agregar");
-		}
-		return miAddModels;
-	}
-	public JMenuItem getMiSearchModels() {
-		if (miSearchModels == null) {
-			miSearchModels = new JMenuItem("Buscar");
-		}
-		return miSearchModels;
-	}
 	public JMenuItem getMiAddAirline() {
 		if (miAddAirline == null) {
 			miAddAirline = new JMenuItem("Agregar");
 		}
 		return miAddAirline;
-	}
-	public JMenuItem getMiSearchAirline() {
-		if (miSearchAirline == null) {
-			miSearchAirline = new JMenuItem("Buscar");
-		}
-		return miSearchAirline;
 	}
 	public JMenuItem getMiAddAircraft() {
 		if (miAddAircraft == null) {
@@ -323,23 +298,11 @@ public class GUIMain extends JFrame {
 		}
 		return miAddAircraft;
 	}
-	public JMenuItem getMiSearchAircraft() {
-		if (miSearchAircraft == null) {
-			miSearchAircraft = new JMenuItem("Buscar");
-		}
-		return miSearchAircraft;
-	}
 	public JMenuItem getMiAddFlight() {
 		if (miAddFlight == null) {
 			miAddFlight = new JMenuItem("Agregar");
 		}
 		return miAddFlight;
-	}
-	public JMenuItem getMiSearchFlight() {
-		if (miSearchFlight == null) {
-			miSearchFlight = new JMenuItem("Buscar");
-		}
-		return miSearchFlight;
 	}
 	public JMenuItem getMiAddPassenger() {
 		if (miAddPassenger == null) {
@@ -347,22 +310,17 @@ public class GUIMain extends JFrame {
 		}
 		return miAddPassenger;
 	}
-	public JMenuItem getMiSearchPassenger() {
-		if (miSearchPassenger == null) {
-			miSearchPassenger = new JMenuItem("Buscar");
-		}
-		return miSearchPassenger;
-	}
 	public JMenuItem getMiAddTickets() {
 		if (miAddTickets == null) {
 			miAddTickets = new JMenuItem("Agregar");
 		}
 		return miAddTickets;
 	}
-	public JMenuItem getMiSearchTickets() {
-		if (miSearchTickets == null) {
-			miSearchTickets = new JMenuItem("Buscar");
+	public JDesktopPane getDesktopMain() {
+		if (desktopMain == null) {
+			desktopMain = new JDesktopPane();
+			desktopMain.setBackground(new Color(255, 255, 255));
 		}
-		return miSearchTickets;
+		return desktopMain;
 	}
 }

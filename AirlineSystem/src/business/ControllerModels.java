@@ -3,14 +3,14 @@ package business;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import presentation.GUIModels;
+import presentation.GUIModel;
 
 public class ControllerModels implements ActionListener{
 
-	private GUIModels guiM;
+	private GUIModel guiM;
 	
 	public ControllerModels() {
-		guiM = new GUIModels();
+		guiM = new GUIModel();
 		initializerAction();
 	}
 

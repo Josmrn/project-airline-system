@@ -3,22 +3,24 @@ package business;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
-
- //import javax.swing.JPasswordField;
-
 import domain.Users;
-import presentation.GUIUser;
+import presentation.GUIRegister;
 import data.FilesXML;
 
 public class ControllerRegister implements ActionListener{
 	
-	private GUIUser guiU;
+	// Hay que arreglar el registro de usuario
+	
+	private GUIRegister guiR;
+	//private GUIMain guiM;
+	//private GUIUser guiU;
 	private Users us;
 	private FilesXML fXML;
 
 	public ControllerRegister() {
-		// TODO Auto-generated constructor stub
-		guiU = new GUIUser();
+		guiR = new GUIRegister();
+		//guiM = new GUIMain();
+		//guiU = new GUIUser();
 		fXML = new FilesXML();
 		us = new Users();
 		
@@ -26,32 +28,29 @@ public class ControllerRegister implements ActionListener{
 	}
 
 	private void initializerAction() {
-		// TODO Auto-generated method stub
+		
 		//Comento el boton register, porque deberia ser eliminado
-		guiU.getBtnNewRegister().addActionListener(this);
-		guiU.getBtnReturn().addActionListener(this);
+		guiR.getBtnNewRegister().addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		
 		//Asi como este if, porque deberia ser eliminado el boton register
-		if(e.getSource() == guiU.getBtnNewRegister()) {
+		if(e.getSource() == guiR.getBtnNewRegister()) {
 			
-			//PasswordField se pasa a un vector de tipo char
-	        
-			char[] passwordChars = guiU.getPwdIngresarContrasea().getPassword();
+			// PasswordField se pasa a un vector de tipo char
+			char[] passwordChars = guiR.getJNewPassword().getPassword();
 	        
 	        // Se vonvierte el vector de caracteres en una cadena de texto
-	        
 			String password = new String(passwordChars);
-	        ////////////////////////////////////////////////
+	        //---------------------------------------------------------------------
 			
-			String typeUser = (String) guiU.getCXTypeUser().getSelectedItem();
-			String statusUser = (String) guiU.getComboBox().getSelectedItem();
+			String typeUser = (String) guiR.getCXTypeUser().getSelectedItem();
+			String statusUser = (String) guiR.getCxState().getSelectedItem();
 			
 			
-	        us = new Users(guiU.getTxtCrearNuevoUsuario().getText(),password,
+	        us = new Users(guiR.getTAddUser().getText(),password,
 					typeUser,statusUser);
 	        
 	        fXML.writeXML("Users.xml", "Users", us.getDataName(), us.getData());
@@ -60,18 +59,8 @@ public class ControllerRegister implements ActionListener{
 	        
 	        Arrays.fill(passwordChars, ' ');
 	        
-	        guiU.cleanForm();
-			
-		}
-		
-		if(e.getSource() == guiU.getBtnReturn()) {
-			
-			
-			new ControllerLogin();
-			guiU.dispose();
-			
+	        guiR.cleanForm();
 			
 		}
 	}
-
 }
