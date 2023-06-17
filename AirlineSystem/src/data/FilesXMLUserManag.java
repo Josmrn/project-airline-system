@@ -242,7 +242,58 @@ public class FilesXMLUserManag {
 		    return false; // Usuario no encontrado o contraseña incorrecta, o se produjo un error
 		}
 		
-		public ArrayList <Users> returnUsers(String FileName,String elementType) {
+		public String[] returnTypeAndStatus(String FileName,String elementType, String userAttributeName, String passwordAttributeName, String username, String password) {
+			
+			String [] userTypeAndStatus = {"",""}; 
+				
+			try {
+		        File file = new File(FileName);
+		        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		        DocumentBuilder db = dbf.newDocumentBuilder();
+
+		        if (file.exists()) {
+		            Document doc = db.parse(file);
+		            doc.getDocumentElement().normalize();
+
+		            Element rootElement = doc.getDocumentElement();
+		            NodeList nodeList = rootElement.getElementsByTagName(elementType);
+
+		            for (int i = 0; i < nodeList.getLength(); i++) {
+		                Node node = nodeList.item(i);
+		                if (node instanceof Element) {
+		                    Element element = (Element) node;
+		                    
+		                    //Se verifica el usuario y Contraseña
+		                    String userValue = element.getAttribute(userAttributeName);
+		                    String passwordValue = element.getElementsByTagName(passwordAttributeName).
+									item(0).getTextContent();
+		                    
+
+		                    if (userValue.equals(username) && passwordValue.equals(password)) {
+		                    	
+		                    	//Se guardan tanto el tipo de usuario como el estado
+			                    userTypeAndStatus[0] = element.getElementsByTagName("typeUser").
+			                    		item(0).getTextContent();
+			                    userTypeAndStatus[1] = element.getElementsByTagName("state").
+										item(0).getTextContent();
+			                    
+		                    }
+		                }
+		            }
+		        }
+		    } catch (ParserConfigurationException pce) {
+		        pce.printStackTrace();
+		    } catch (SAXException e) {
+		        e.printStackTrace();
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+			
+			
+			return userTypeAndStatus;
+		}
+		
+		/*public ArrayList <Users> returnUsers(String FileName,String elementType) {
 			
 			ArrayList usersAL = new ArrayList <Users>();;
 			Users usersToAdd = new Users();
@@ -282,7 +333,7 @@ public class FilesXMLUserManag {
 			
 			
 			return usersAL;
-		}
+		}*/
 	
 	
 	
