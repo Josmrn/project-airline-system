@@ -54,8 +54,8 @@ public class ControllerLogin implements ActionListener{
 			
 			if(loginUserAndPassword==true) {
 				
-				System.out.println(TypeAndStatus[0]);
-				System.out.println(TypeAndStatus[1]);
+				//System.out.println(TypeAndStatus[0]);
+				//System.out.println(TypeAndStatus[1]);
 				
 				if(TypeAndStatus[0].equals("Administrador") && TypeAndStatus[1].equals("Activo")) {
 					

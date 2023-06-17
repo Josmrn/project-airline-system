@@ -29,14 +29,14 @@ public class ControllerRegister implements ActionListener{
 
 	private void initializerAction() {
 		
-		//Comento el boton register, porque deberia ser eliminado
+		
 		guiR.getBtnNewRegister().addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		//Asi como este if, porque deberia ser eliminado el boton register
+		
 		if(e.getSource() == guiR.getBtnNewRegister()) {
 			
 			// PasswordField se pasa a un vector de tipo char

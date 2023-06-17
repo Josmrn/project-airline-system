@@ -8,6 +8,7 @@ import presentation.GUIBrands;
 import presentation.GUIMain;
 import presentation.GUIModel;
 import presentation.GUIRegister;
+import presentation.GUIUserManage;
 
 public class ControllerMain implements ActionListener{
 	
@@ -15,6 +16,7 @@ public class ControllerMain implements ActionListener{
 	private GUIRegister guiR;
 	private GUIBrands guiB;
 	private GUIModel guiM;
+	private GUIUserManage guiUM;
 	private Dimension desktopSize, FrameSize;
 
 	public ControllerMain() {
@@ -22,6 +24,7 @@ public class ControllerMain implements ActionListener{
 		guiR = new GUIRegister();
 		guiB = new GUIBrands();
 		guiM = new GUIModel();
+		guiUM = new GUIUserManage();
 		initializerAction();
 	}
 
@@ -29,10 +32,12 @@ public class ControllerMain implements ActionListener{
 		guiMain.getMiCreateUser().addActionListener(this);
 		guiMain.getMiAddBrand().addActionListener(this);
 		guiMain.getMiEditModels().addActionListener(this);
+		guiMain.getMiUsersManag().addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		//Crear Usuario
 		if(e.getSource() == guiMain.getMiCreateUser()) {
 			
 			 desktopSize = guiMain.getDesktopMain().getSize();
@@ -41,7 +46,16 @@ public class ControllerMain implements ActionListener{
 			 guiMain.getDesktopMain().add(guiR);
 			 guiR.setVisible(true);
 		}
-		
+		//Gestion de Usuarios
+		if(e.getSource() == guiMain.getMiUsersManag()) {
+			 System.out.println("MenuItem UsersManag clicked!");
+			 desktopSize = guiMain.getDesktopMain().getSize();
+				FrameSize = guiUM.getSize();
+				guiUM.setLocation((desktopSize.width-FrameSize.width)/2, (desktopSize.height-FrameSize.height)/2);
+				guiMain.getDesktopMain().add(guiUM);
+				guiUM.setVisible(true);
+			
+		}
 		
 		if(e.getSource() == guiMain.getMiAddBrand()) {
 			
@@ -50,7 +64,7 @@ public class ControllerMain implements ActionListener{
 			guiB.setLocation((desktopSize.width-FrameSize.width)/2, (desktopSize.height-FrameSize.height)/2);
 			guiMain.getDesktopMain().add(guiB);
 			guiB.setVisible(true);
-			//new ControllerBrands();
+			
 		}
 		
 		if(e.getSource() == guiMain.getMiEditModels()) {
