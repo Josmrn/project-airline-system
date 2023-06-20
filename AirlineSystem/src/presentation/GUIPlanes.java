@@ -279,7 +279,7 @@ public class GUIPlanes extends JInternalFrame {
 	}
 	public void setSPTPlanes(JTable tModels) {
 		spTPlanes = new JScrollPane(tModels);
-		spTPlanes.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Datos de modelos registrados", TitledBorder.LEFT, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)));
+		spTPlanes.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Datos de aviones registrados", TitledBorder.LEFT, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)));
 		spTPlanes.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spTPlanes.setToolTipText("");
 		spTPlanes.setBackground(new Color(255, 255, 255));
@@ -307,7 +307,7 @@ public class GUIPlanes extends JInternalFrame {
 			tSearchPlanes.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
-					if(tSearchPlanes.getText().equals("Escribir el modelo que desea consultar")) {
+					if(tSearchPlanes.getText().equals("Escribir el avion que desea consultar")) {
 						tSearchPlanes.setText("");
 						tSearchPlanes.setForeground(Color.black);
 					}
