@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
+
 import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.swing.JSeparator;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.border.CompoundBorder;
 
 @SuppressWarnings("serial")
 public class GUILogin extends JFrame {
@@ -31,12 +33,15 @@ public class GUILogin extends JFrame {
 	private JLabel lSesion;
 	private JSeparator separator;
 	private JSeparator separator_1;
+	private JPanel panel;
+	
+
 
 	public GUILogin() {
 		setTitle("Airline System");
 		setLocationByPlatform(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(700, 300, 452, 330);
+		setBounds(700, 300, 672, 410);
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(0, 0, 0));
 		contentPane.setBackground(new Color(255, 255, 255));
@@ -53,6 +58,7 @@ public class GUILogin extends JFrame {
 		contentPane.add(getLSesion());
 		contentPane.add(getSeparator());
 		contentPane.add(getSeparator_1());
+		contentPane.add(getPanel());
 		setVisible(true);
 	}
 	public JLabel getLUsers() {
@@ -62,7 +68,7 @@ public class GUILogin extends JFrame {
 			lUsers.setForeground(new Color(0, 0, 51));
 			lUsers.setHorizontalAlignment(SwingConstants.LEFT);
 			lUsers.setFont(new Font("Roboto Light", Font.BOLD, 14));
-			lUsers.setBounds(10, 125, 100, 20);
+			lUsers.setBounds(393, 100, 100, 20);
 		}
 		return lUsers;
 	}
@@ -72,7 +78,7 @@ public class GUILogin extends JFrame {
 			lPassword.setForeground(new Color(0, 0, 51));
 			lPassword.setHorizontalAlignment(SwingConstants.LEFT);
 			lPassword.setFont(new Font("Roboto Light", Font.BOLD, 14));
-			lPassword.setBounds(10, 182, 100, 20);
+			lPassword.setBounds(393, 199, 100, 20);
 		}
 		return lPassword;
 	}
@@ -97,7 +103,7 @@ public class GUILogin extends JFrame {
 			tUser.setBorder(null);
 			tUser.setForeground(new Color(192, 192, 192));
 			tUser.setText(" Ingrese su nombre de usuario");
-			tUser.setBounds(122, 115, 255, 30);
+			tUser.setBounds(393, 130, 255, 30);
 			tUser.setColumns(10);
 		}
 		return tUser;
@@ -123,16 +129,15 @@ public class GUILogin extends JFrame {
 			jPassword.setBorder(null);
 			jPassword.setText("******");
 			jPassword.setToolTipText("");
-			jPassword.setBounds(122, 175, 255, 30);
+			jPassword.setBounds(393, 224, 255, 30);
 		}
 		return jPassword;
 	}
 	public JButton getBtnLogin() {
 		if (btnLogin == null) {
 			btnLogin = new JButton("Ingresar");
-			btnLogin.setHorizontalAlignment(SwingConstants.LEFT);
-			btnLogin.setContentAreaFilled(false);
-			btnLogin.setBorder(new EmptyBorder(0, 0, 0, 0));
+			btnLogin.setBorderPainted(false);
+			btnLogin.setBorder(new CompoundBorder());
 			btnLogin.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				}
@@ -140,18 +145,18 @@ public class GUILogin extends JFrame {
 			btnLogin.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseEntered(MouseEvent e) {
-					btnLogin.setBackground(new Color(25, 80, 80));
+					btnLogin.setBackground(new Color(0, 102, 255));
 				}
 				@Override
 				public void mouseExited(MouseEvent e) {
-					btnLogin.setBackground(new Color(0, 51, 51));
+					btnLogin.setBackground(new Color(0, 102, 255));
 				}
 			});
 			btnLogin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnLogin.setForeground(new Color(0, 0, 51));
-			btnLogin.setBackground(new Color(0, 0, 51));
+			btnLogin.setForeground(new Color(255, 255, 255));
+			btnLogin.setBackground(new Color(0, 0, 255));
 			btnLogin.setFont(new Font("Roboto", Font.BOLD, 15));
-			btnLogin.setBounds(122, 247, 100, 25);
+			btnLogin.setBounds(393, 338, 255, 25);
 		}
 		return btnLogin;
 	}
@@ -189,7 +194,7 @@ public class GUILogin extends JFrame {
 			lSesion.setHorizontalAlignment(SwingConstants.CENTER);
 			lSesion.setFont(new Font("Roboto Black", Font.BOLD, 22));
 			lSesion.setForeground(new Color(0, 0, 51));
-			lSesion.setBounds(55, 43, 235, 30);
+			lSesion.setBounds(393, 20, 235, 30);
 		}
 		return lSesion;
 	}
@@ -197,7 +202,7 @@ public class GUILogin extends JFrame {
 		if (separator == null) {
 			separator = new JSeparator();
 			separator.setForeground(new Color(0, 0, 0));
-			separator.setBounds(122, 148, 255, 2);
+			separator.setBounds(393, 163, 255, 2);
 		}
 		return separator;
 	}
@@ -205,7 +210,7 @@ public class GUILogin extends JFrame {
 		if (separator_1 == null) {
 			separator_1 = new JSeparator();
 			separator_1.setForeground(new Color(0, 0, 0));
-			separator_1.setBounds(122, 205, 255, 2);
+			separator_1.setBounds(393, 254, 255, 2);
 		}
 		return separator_1;
 	}
@@ -215,4 +220,16 @@ public class GUILogin extends JFrame {
 		jPassword.setText("******");
 		
 	}
+	public JPanel getPanel() {
+		
+
+		if (panel == null) {
+			panel = new JPanel();
+			panel.setBackground(new Color(0, 102, 204));
+			panel.setBounds(0, 0, 335, 373);
+		}
+		return panel;
+	}
+
+	
 }
