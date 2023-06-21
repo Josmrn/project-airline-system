@@ -265,7 +265,6 @@ public class FilesXML {
 		                    String passwordValue = element.getElementsByTagName(passwordAttributeName).
 									item(0).getTextContent();
 		                    
-
 		                    if (userValue.equals(username) && passwordValue.equals(password)) {
 		                    	
 		                    	//Se guardan tanto el tipo de usuario como el estado

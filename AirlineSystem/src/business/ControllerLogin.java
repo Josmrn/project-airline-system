@@ -15,15 +15,19 @@ public class ControllerLogin implements ActionListener{
 	private GUILogin guiL;
 	private FilesXML fXML;
 	private Users userAdmin;
+	private ArrayListUsers arrayLU;
 	
 	public ControllerLogin() {
-		
 		guiL = new GUILogin();
 		fXML = new FilesXML();
 		userAdmin = new Users("admin","admin","Administrador","Activo");
+		arrayLU = new ArrayListUsers();
 		
 		fXML.createXML("Users", "Users.xml");
 		fXML.writeXML("Users.xml", "Users", userAdmin.getDataName(), userAdmin.getData());
+		
+		arrayLU.addUser(userAdmin);
+		
 		initializerAction();
 	}
 
@@ -45,6 +49,8 @@ public class ControllerLogin implements ActionListener{
 						
 			boolean loginUserAndPassword = fXML.userExistWithPasswordOnXML("Users.xml", "Users", "user", "password", guiL.getTUser().getText(), password);
 			
+			System.out.println(loginUserAndPassword);
+			
 			//Vector que en la posicion 0 tendra el tipo de usuario y en la posicion 1 tendra el estado del usuario 
 			
 			String[] TypeAndStatus = fXML.returnTypeAndStatus("Users.xml", "Users", "user", "password", guiL.getTUser().getText(), password);
@@ -52,11 +58,12 @@ public class ControllerLogin implements ActionListener{
 			
 			if(loginUserAndPassword==true) {
 				
-				//System.out.println(TypeAndStatus[0]);
-				//System.out.println(TypeAndStatus[1]);
+				System.out.println(TypeAndStatus[0]);
+				System.out.println(TypeAndStatus[1]);
 				
 				if(TypeAndStatus[0].equals("Administrador") && TypeAndStatus[1].equals("Activo")) {
 					
+					System.out.println("Entre en el If admin acti");
 					new ControllerMain();
 					guiL.dispose();
 					
@@ -68,8 +75,9 @@ public class ControllerLogin implements ActionListener{
 				}
 				if(TypeAndStatus[0].equals("Colaborador") && TypeAndStatus[1].equals("Activo")) {
 					
-					//Aqui deberia ir una ControllerMain sin la pestaña de Gestion de usuarios, porque es un Colaborador
-					
+					System.out.println("Entre en el If colab acti");
+					new ControllerMain2();
+					guiL.dispose();
 					
 				}else if(TypeAndStatus[0].equals("Colaborador") && TypeAndStatus[1].equals("Inactivo")) {
 					
