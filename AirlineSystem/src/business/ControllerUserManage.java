@@ -13,17 +13,24 @@ public class ControllerUserManage implements ActionListener{
 	private ViewUserManage viewUM;
 	private Users us;
 	private FilesXML fXML;
+	private ArrayListUsers arrayLU;
 
 	public ControllerUserManage() {
 		viewUM = new ViewUserManage();
 		us = new Users();
 		fXML = new FilesXML();
+		arrayLU = new ArrayListUsers();
 		initializerAction();
 	}
 
 	private void initializerAction() {
 		// TODO Auto-generated method stub
 		viewUM.getBtnRegister().addActionListener(this);
+		viewUM.getBtnConsultUser().addActionListener(this);
+		viewUM.getBtnEditUsers().addActionListener(this);
+		viewUM.getBtnReadUsers().addActionListener(this);
+		viewUM.getBtnRemoveUser().addActionListener(this);
+		viewUM.getBtnUpdateUsers().addActionListener(this);
 	}
 
 	@Override
@@ -42,6 +49,7 @@ public class ControllerUserManage implements ActionListener{
 						
 				        us = new Users(viewUM.getTUserAdd().getText(),password,
 								typeUser,statusUser);
+				        arrayLU.addUser(us);
 				        
 				        fXML.writeXML("Users.xml", "Users", us.getDataName(), us.getData());
 				        
@@ -50,6 +58,22 @@ public class ControllerUserManage implements ActionListener{
 				        Arrays.fill(passwordChars, ' ');
 				        
 				        viewUM.cleanForm();
+				        System.out.print(arrayLU.getArrayListUsers().size());
+		}
+		if(e.getSource() == viewUM.getBtnReadUsers()) {
+						
+		}
+		if(e.getSource() == viewUM.getBtnEditUsers()) {
+			
+		}
+		if(e.getSource() == viewUM.getBtnUpdateUsers()) {
+			
+		}
+		if(e.getSource() == viewUM.getBtnRemoveUser()) {
+			
+		}
+		if(e.getSource() == viewUM.getBtnConsultUser()) {
+			
 		}
 		
 	}
