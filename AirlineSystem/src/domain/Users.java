@@ -55,6 +55,13 @@ public class Users {
 		
 	}
 	
+	public String getDataNameUser() {
+		String dataName = "user";
+		return dataName;
+		
+	}
+	
+	
 	public String[] getData() {
 		String[] data = {user,password,typeUser,state};
 		return data;

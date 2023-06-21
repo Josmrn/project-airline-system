@@ -388,7 +388,7 @@ public class ViewUserManage extends JFrame {
 	public void setTUsers(DefaultTableModel dtmTBrands) {
 		tUsers = new JTable(dtmTBrands);
 		tUsers.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		tUsers.setEnabled(false);
+		tUsers.setEnabled(true);
 		tUsers.getTableHeader().setReorderingAllowed(false);
 		tUsers.getTableHeader().setResizingAllowed(false);
 	}
