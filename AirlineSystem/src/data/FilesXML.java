@@ -2,6 +2,7 @@ package data;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,6 +18,9 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import domain.Users;
+
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
@@ -289,7 +293,41 @@ public class FilesXML {
 			return userTypeAndStatus;
 		}
 	
-	
+		/*public ArrayList<Users> returnUsers(String Filename, String elementType) {
+			ArrayList<Users> arrayUsers = new ArrayList<Users>();
+		Users user = new Users(); ;
+		try {
+			
+			File inputFile = new File(Filename);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName(elementType);
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					
+					user.setUser(eElement.getAttribute("user")); 
+					user.setPassword(eElement.getElementsByTagName("password").
+							item(0).getTextContent());
+					user.setTypeUser(eElement.getElementsByTagName("typeUser").
+							item(0).getTextContent());
+					user.setState(eElement.getElementsByTagName("state").
+							item(0).getTextContent());
+					arrayUsers.add(user);
+					
+				}
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return arrayUsers;
+	}/*
 	
 	/*public String returnStringXML(String Filename, String elementType) {
 

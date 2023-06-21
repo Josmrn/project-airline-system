@@ -17,6 +17,7 @@ public class ControllerLogin implements ActionListener{
 	private Users userAdmin;
 	private ArrayListUsers arrayLU;
 	
+	
 	public ControllerLogin() {
 		guiL = new GUILogin();
 		fXML = new FilesXML();
@@ -27,6 +28,7 @@ public class ControllerLogin implements ActionListener{
 		fXML.writeXML("Users.xml", "Users", userAdmin.getDataName(), userAdmin.getData());
 		
 		arrayLU.addUser(userAdmin);
+		
 		
 		initializerAction();
 	}

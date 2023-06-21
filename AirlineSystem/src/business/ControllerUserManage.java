@@ -57,6 +57,10 @@ public class ControllerUserManage implements ActionListener{
 				        
 				        Arrays.fill(passwordChars, ' ');
 				        
+				        //Se añade a la tabla
+				        viewUM.getDTMTUsers().addRow(new Object[] {viewUM.getTUserAdd().getText(),password,
+								typeUser,statusUser});
+				        
 				        viewUM.cleanForm();
 				        System.out.print(arrayLU.getArrayListUsers().size());
 		}
