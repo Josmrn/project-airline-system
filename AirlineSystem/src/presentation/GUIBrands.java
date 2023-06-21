@@ -15,6 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.border.BevelBorder;
+import javax.swing.ImageIcon;
+import javax.swing.border.EtchedBorder;
 
 @SuppressWarnings("serial")
 public class GUIBrands extends JInternalFrame {
@@ -34,6 +36,8 @@ public class GUIBrands extends JInternalFrame {
 	
 	private JScrollPane spTBrands;
 	private Object dataTable[][];
+	private JLabel lOperationUser;
+	private JTextField txtEscribirElMarca;
 
 	public GUIBrands() {
 		getContentPane().setBackground(Color.WHITE);
@@ -41,7 +45,7 @@ public class GUIBrands extends JInternalFrame {
 		setIconifiable(true);
 		setMaximizable(true);
 		setClosable(true);
-		setBounds(100, 100, 487, 595);
+		setBounds(100, 100, 524, 669);
 		getContentPane().setLayout(null);
 		getContentPane().add(getLWelcomeBrand());
 		getContentPane().add(getLNameBrands());
@@ -57,16 +61,20 @@ public class GUIBrands extends JInternalFrame {
 		setTBrands(dtmTBrands);
 		setSPTBrands(tBrands);
 		getContentPane().add(spTBrands);
+		getContentPane().add(getLOperationUser());
+		getContentPane().add(getTxtEscribirElMarca());
 		setVisible(true);
 	}
 	public JLabel getLWelcomeBrand() {
 		if (lWelcomeBrand == null) {
 			lWelcomeBrand = new JLabel("Bienvenido a Gestión de Marcas de Aviones");
+			lWelcomeBrand.setForeground(new Color(255, 255, 255));
+			lWelcomeBrand.setOpaque(true);
 			lWelcomeBrand.setHorizontalAlignment(SwingConstants.CENTER);
 			lWelcomeBrand.setFont(new Font("Roboto Black", Font.PLAIN, 18));
 			lWelcomeBrand.setBorder(new LineBorder(new Color(0, 0, 0)));
-			lWelcomeBrand.setBackground(Color.WHITE);
-			lWelcomeBrand.setBounds(10, 10, 452, 40);
+			lWelcomeBrand.setBackground(new Color(0, 102, 204));
+			lWelcomeBrand.setBounds(10, 10, 472, 40);
 		}
 		return lWelcomeBrand;
 	}
@@ -92,6 +100,7 @@ public class GUIBrands extends JInternalFrame {
 	public JButton getBtnRegisterBrand() {
 		if (btnRegisterBrand == null) {
 			btnRegisterBrand = new JButton("Registrar");
+			btnRegisterBrand.setIcon(new ImageIcon(GUIBrands.class.getResource("/images/icons_add.png")));
 			btnRegisterBrand.setHorizontalAlignment(SwingConstants.LEFT);
 			btnRegisterBrand.setOpaque(false);
 			btnRegisterBrand.setForeground(new Color(0, 0, 128));
@@ -99,7 +108,7 @@ public class GUIBrands extends JInternalFrame {
 			btnRegisterBrand.setContentAreaFilled(false);
 			btnRegisterBrand.setBorder(null);
 			btnRegisterBrand.setBackground(new Color(95, 158, 160));
-			btnRegisterBrand.setBounds(10, 150, 85, 25);
+			btnRegisterBrand.setBounds(10, 232, 102, 25);
 		}
 		return btnRegisterBrand;
 	}
@@ -115,55 +124,59 @@ public class GUIBrands extends JInternalFrame {
 			lTextBrandsReg = new JLabel("Marcas registradas");
 			lTextBrandsReg.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 			lTextBrandsReg.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-			lTextBrandsReg.setBounds(10, 232, 132, 25);
+			lTextBrandsReg.setBounds(10, 348, 132, 25);
 		}
 		return lTextBrandsReg;
 	}
 	public JButton getBtnConsultBrand() {
 		if (btnConsultBrand == null) {
 			btnConsultBrand = new JButton("Consultar");
+			btnConsultBrand.setIcon(new ImageIcon(GUIBrands.class.getResource("/images/icons_consult.png")));
 			btnConsultBrand.setOpaque(false);
 			btnConsultBrand.setForeground(new Color(0, 0, 128));
 			btnConsultBrand.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnConsultBrand.setContentAreaFilled(false);
 			btnConsultBrand.setBorder(null);
-			btnConsultBrand.setBounds(152, 232, 85, 25);
+			btnConsultBrand.setBounds(373, 289, 109, 25);
 		}
 		return btnConsultBrand;
 	}
 	public JButton getBtnEditBrands() {
 		if (btnEditBrands == null) {
 			btnEditBrands = new JButton("Editar");
+			btnEditBrands.setIcon(new ImageIcon(GUIBrands.class.getResource("/images/icons_edit.png")));
 			btnEditBrands.setOpaque(false);
 			btnEditBrands.setForeground(new Color(0, 0, 128));
 			btnEditBrands.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnEditBrands.setContentAreaFilled(false);
 			btnEditBrands.setBorder(null);
-			btnEditBrands.setBounds(247, 232, 50, 25);
+			btnEditBrands.setBounds(200, 232, 84, 25);
 		}
 		return btnEditBrands;
 	}
 	public JButton getBtnReadBrand() {
 		if (btnReadBrand == null) {
 			btnReadBrand = new JButton("Mostrar");
+			btnReadBrand.setIcon(new ImageIcon(GUIBrands.class.getResource("/images/icons_show.png")));
 			btnReadBrand.setOpaque(false);
 			btnReadBrand.setForeground(new Color(0, 0, 128));
 			btnReadBrand.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnReadBrand.setContentAreaFilled(false);
 			btnReadBrand.setBorder(null);
-			btnReadBrand.setBounds(307, 232, 77, 25);
+			btnReadBrand.setBounds(10, 289, 85, 25);
 		}
 		return btnReadBrand;
 	}
 	public JButton getBtnRemoveBrand() {
 		if (btnRemoveBrand == null) {
 			btnRemoveBrand = new JButton("Eliminar");
+			btnRemoveBrand.setIcon(new ImageIcon(GUIBrands.class.getResource("/images/icons_remove.png")));
 			btnRemoveBrand.setOpaque(false);
 			btnRemoveBrand.setForeground(new Color(0, 0, 128));
 			btnRemoveBrand.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnRemoveBrand.setContentAreaFilled(false);
 			btnRemoveBrand.setBorder(null);
-			btnRemoveBrand.setBounds(380, 232, 85, 25);
+			btnRemoveBrand.setBounds(380, 232, 102, 25);
 		}
 		return btnRemoveBrand;
 	}
@@ -186,7 +199,7 @@ public class GUIBrands extends JInternalFrame {
 	
 	public void setSPTBrands(JTable tBrands) {
 		spTBrands = new JScrollPane(tBrands);
-		spTBrands.setBounds(10, 268, 452, 247);
+		spTBrands.setBounds(10, 383, 452, 247);
 	}
 	public JScrollPane getSPTPeople() {
 		return this.spTBrands;
@@ -198,5 +211,26 @@ public class GUIBrands extends JInternalFrame {
 	}
 public void cleanForm() {
 		tAddBrand.setText("");
+	}
+	public JLabel getLOperationUser() {
+		if (lOperationUser == null) {
+			lOperationUser = new JLabel("Operaciones");
+			lOperationUser.setFont(new Font("Segoe UI", Font.BOLD, 15));
+			lOperationUser.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+			lOperationUser.setBounds(10, 190, 472, 25);
+		}
+		return lOperationUser;
+	}
+	public JTextField getTxtEscribirElMarca() {
+		if (txtEscribirElMarca == null) {
+			txtEscribirElMarca = new JTextField();
+			txtEscribirElMarca.setText("Escribir la marca que desea consultar/mostrar");
+			txtEscribirElMarca.setForeground(Color.LIGHT_GRAY);
+			txtEscribirElMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			txtEscribirElMarca.setColumns(10);
+			txtEscribirElMarca.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+			txtEscribirElMarca.setBounds(105, 284, 258, 30);
+		}
+		return txtEscribirElMarca;
 	}
 }

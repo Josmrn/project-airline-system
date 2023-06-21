@@ -44,7 +44,6 @@ public class GUIMain extends JFrame {
 	private JMenuItem miConsult;
 	private JSeparator separator;
 	private JSeparator separator_1;
-	private JMenuItem miCreateUser;
 	private JMenuItem miAddBrand;
 	private JMenuItem miAddAirline;
 	private JMenuItem miAddAircraft;
@@ -90,7 +89,6 @@ public class GUIMain extends JFrame {
 		if (mUsers == null) {
 			mUsers = new JMenu("Usuarios");
 			mUsers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			mUsers.add(getMiCreateUser());
 			mUsers.add(getMiUsersManag());
 		}
 		return mUsers;
@@ -263,22 +261,6 @@ public class GUIMain extends JFrame {
 			separator_1 = new JSeparator();
 		}
 		return separator_1;
-	}
-	public JMenuItem getMiCreateUser() {
-		if (miCreateUser == null) {
-			miCreateUser = new JMenuItem("Crear Usuario");
-			miCreateUser.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					/*GUIRegister guiR = new GUIRegister();
-					 Dimension desktopSize = desktopRegister.getSize();
-					 Dimension FrameSize = guiR.getSize();
-					 guiR.setLocation((desktopSize.width-FrameSize.width)/2, (desktopSize.height-FrameSize.height)/2);
-					 desktopRegister.add(guiR);
-					 setVisible(true);*/
-				}
-			});
-		}
-		return miCreateUser;
 	}
 	public JMenuItem getMiAddBrand() {
 		if (miAddBrand == null) {

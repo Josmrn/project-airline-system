@@ -39,17 +39,15 @@ public class ControllerLogin implements ActionListener{
 		if(e.getSource() == guiL.getBtnLogin()) {
 			
 			/*--------------------------------------------------------*/
-			
 			char[] passwordChars = guiL.getJPassword().getPassword();
 			String password = new String(passwordChars);
-			
 			/*--------------------------------------------------------*/
 						
-			boolean loginUserAndPassword = fXML.userExistWithPasswordOnXML("Users.xml", "Users", "user", "password", guiL.getTUser().getText(), 
-					password);
+			boolean loginUserAndPassword = fXML.userExistWithPasswordOnXML("Users.xml", "Users", "user", "password", guiL.getTUser().getText(), password);
+			
 			//Vector que en la posicion 0 tendra el tipo de usuario y en la posicion 1 tendra el estado del usuario 
-			String[] TypeAndStatus = fXML.returnTypeAndStatus("Users.xml", "Users", "user", "password", guiL.getTUser().getText(), 
-					password);
+			
+			String[] TypeAndStatus = fXML.returnTypeAndStatus("Users.xml", "Users", "user", "password", guiL.getTUser().getText(), password);
 			
 			
 			if(loginUserAndPassword==true) {
@@ -88,9 +86,7 @@ public class ControllerLogin implements ActionListener{
 				Arrays.fill(passwordChars, ' ');
 	        
 				guiL.cleanForm();
-				
-				
-				
+					
 			
 		}
 		
