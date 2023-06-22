@@ -53,6 +53,7 @@ public class ArrayListUsers {
 		return arrayLUsers;
 	}
 	
+	//La matrix de datos de usuario ingresados
 	public void setDataMatrixUsers(ArrayList<Users> arrayLUsers) {
 		
 		data = new Object[arrayLUsers.size()][5];
@@ -63,13 +64,11 @@ public class ArrayListUsers {
 			data[i][1]=arrayLUsers.get(i).getPassword();
 			data[i][2]=arrayLUsers.get(i).getTypeUser();
 			data[i][3]=arrayLUsers.get(i).getState();
-			
 		}
 	}
 	
 	
 	public Object[][] getDataMatrixUsers(){
-
 		return data;
 	}
 	

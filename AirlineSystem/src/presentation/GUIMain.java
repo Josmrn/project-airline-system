@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JDesktopPane;
 import java.awt.CardLayout;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 
@@ -32,25 +33,20 @@ public class GUIMain extends JFrame {
 	private JMenu mHelp;
 	private JMenuItem miAbout;
 	private JMenuItem miExit;
-	private JMenuItem miEditBrand;
+	private JMenuItem miAddBrand;
 	private JMenuItem miEditModels;
-	private JMenuItem miEditAirline;
-	private JMenuItem miEditAircraft;
-	private JMenuItem miEditFlight;
-	private JMenuItem miEditPassenger;
-	private JMenuItem miEditTickets;
+	private JMenuItem miManageAirline;
+	private JMenuItem miManageAircraft;
+	private JMenuItem miManageFlight;
+	private JMenuItem miManagePassenger;
+	private JMenuItem miManageTickets;
 	private JMenuItem miPrintTicket;
 	private JMenuItem miTicketsHistory;
-	private JMenuItem miConsult;
 	private JSeparator separator;
 	private JSeparator separator_1;
-	private JMenuItem miAddBrand;
-	private JMenuItem miAddAirline;
-	private JMenuItem miAddAircraft;
-	private JMenuItem miAddFlight;
-	private JMenuItem miAddPassenger;
-	private JMenuItem miAddTickets;
 	private JDesktopPane desktopMain;
+	private JMenu mManagement;
+	private JMenu mOperations;
 	
 	public GUIMain() {
 		setTitle("Airline Software");
@@ -73,14 +69,8 @@ public class GUIMain extends JFrame {
 		if (menuBar == null) {
 			menuBar = new JMenuBar();
 			menuBar.setBorderPainted(false);
-			menuBar.add(getMUsers());
-			menuBar.add(getMBrand());
-			menuBar.add(getMModels());
-			menuBar.add(getMAirlines());
-			menuBar.add(getMAircraft());
-			menuBar.add(getMFlight());
-			menuBar.add(getMPassenger());
-			menuBar.add(getMTickets());
+			menuBar.add(getMManagement());
+			menuBar.add(getMOperations());
 			menuBar.add(getMHelp());
 		}
 		return menuBar;
@@ -98,7 +88,6 @@ public class GUIMain extends JFrame {
 			mBrand = new JMenu("Marcas");
 			mBrand.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			mBrand.add(getMiAddBrand());
-			mBrand.add(getMiEditBrand());
 		}
 		return mBrand;
 	}
@@ -114,8 +103,7 @@ public class GUIMain extends JFrame {
 		if (mAirlines == null) {
 			mAirlines = new JMenu("Aerolíneas");
 			mAirlines.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			mAirlines.add(getMiAddAirline());
-			mAirlines.add(getMiEditAirline());
+			mAirlines.add(getMiManageAirline());
 		}
 		return mAirlines;
 	}
@@ -129,43 +117,37 @@ public class GUIMain extends JFrame {
 	public JMenu getMAircraft() {
 		if (mAircraft == null) {
 			mAircraft = new JMenu("Aviones");
-			mAircraft.add(getMiAddAircraft());
-			mAircraft.add(getMiEditAircraft());
+			mAircraft.add(getMiManageAircraft());
 		}
 		return mAircraft;
 	}
 	public JMenu getMFlight() {
 		if (mFlight == null) {
 			mFlight = new JMenu("Vuelos");
-			mFlight.add(getMiAddFlight());
-			mFlight.add(getMiEditFlight());
+			mFlight.add(getMiManageFlight());
 			mFlight.add(getSeparator_1());
-			mFlight.add(getMiConsult());
 		}
 		return mFlight;
 	}
 	public JMenu getMPassenger() {
 		if (mPassenger == null) {
 			mPassenger = new JMenu("Pasajeros");
-			mPassenger.add(getMiAddPassenger());
-			mPassenger.add(getMiEditPassenger());
+			mPassenger.add(getMiManagePassenger());
 		}
 		return mPassenger;
 	}
 	public JMenu getMTickets() {
 		if (mTickets == null) {
 			mTickets = new JMenu("Tiquetes");
-			mTickets.add(getMiAddTickets());
-			mTickets.add(getMiEditTickets());
+			mTickets.add(getMiManageTickets());
 			mTickets.add(getSeparator());
-			mTickets.add(getMiPrintTicket());
-			mTickets.add(getMiTicketsHistory());
 		}
 		return mTickets;
 	}
 	public JMenu getMHelp() {
 		if (mHelp == null) {
 			mHelp = new JMenu("Ayuda");
+			mHelp.setFont(new Font("Roboto Black", Font.PLAIN, 15));
 			mHelp.add(getMiAbout());
 			mHelp.add(getMiExit());
 		}
@@ -188,12 +170,12 @@ public class GUIMain extends JFrame {
 		}
 		return miExit;
 	}
-	public JMenuItem getMiEditBrand() {
-		if (miEditBrand == null) {
-			miEditBrand = new JMenuItem("Gestión de Marcas");
-			miEditBrand.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	public JMenuItem getMiAddBrand() {
+		if (miAddBrand == null) {
+			miAddBrand = new JMenuItem("Gestión de Marcas");
+			miAddBrand.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		}
-		return miEditBrand;
+		return miAddBrand;
 	}
 	public JMenuItem getMiEditModels() {
 		if (miEditModels == null) {
@@ -202,35 +184,35 @@ public class GUIMain extends JFrame {
 		}
 		return miEditModels;
 	}
-	public JMenuItem getMiEditAirline() {
-		if (miEditAirline == null) {
-			miEditAirline = new JMenuItem("Gestión de Aerolíneas");
+	public JMenuItem getMiManageAirline() {
+		if (miManageAirline == null) {
+			miManageAirline = new JMenuItem("Gestión de Aerolíneas");
 		}
-		return miEditAirline;
+		return miManageAirline;
 	}
-	public JMenuItem getMiEditAircraft() {
-		if (miEditAircraft == null) {
-			miEditAircraft = new JMenuItem("Gestión de Aviones");
+	public JMenuItem getMiManageAircraft() {
+		if (miManageAircraft == null) {
+			miManageAircraft = new JMenuItem("Gestión de Aviones");
 		}
-		return miEditAircraft;
+		return miManageAircraft;
 	}
-	public JMenuItem getMiEditFlight() {
-		if (miEditFlight == null) {
-			miEditFlight = new JMenuItem("Gestión de Vuelos");
+	public JMenuItem getMiManageFlight() {
+		if (miManageFlight == null) {
+			miManageFlight = new JMenuItem("Gestión de Vuelos");
 		}
-		return miEditFlight;
+		return miManageFlight;
 	}
-	public JMenuItem getMiEditPassenger() {
-		if (miEditPassenger == null) {
-			miEditPassenger = new JMenuItem("Gestión de Pasajeros");
+	public JMenuItem getMiManagePassenger() {
+		if (miManagePassenger == null) {
+			miManagePassenger = new JMenuItem("Gestión de Pasajeros");
 		}
-		return miEditPassenger;
+		return miManagePassenger;
 	}
-	public JMenuItem getMiEditTickets() {
-		if (miEditTickets == null) {
-			miEditTickets = new JMenuItem("Gestion de Tiquetes");
+	public JMenuItem getMiManageTickets() {
+		if (miManageTickets == null) {
+			miManageTickets = new JMenuItem("Gestion de Tiquetes");
 		}
-		return miEditTickets;
+		return miManageTickets;
 	}
 	public JMenuItem getMiPrintTicket() {
 		if (miPrintTicket == null) {
@@ -244,12 +226,6 @@ public class GUIMain extends JFrame {
 		}
 		return miTicketsHistory;
 	}
-	public JMenuItem getMiConsult() {
-		if (miConsult == null) {
-			miConsult = new JMenuItem("Consultar Vuelos");
-		}
-		return miConsult;
-	}
 	public JSeparator getSeparator() {
 		if (separator == null) {
 			separator = new JSeparator();
@@ -262,47 +238,35 @@ public class GUIMain extends JFrame {
 		}
 		return separator_1;
 	}
-	public JMenuItem getMiAddBrand() {
-		if (miAddBrand == null) {
-			miAddBrand = new JMenuItem("Agregar");
-		}
-		return miAddBrand;
-	}
-	public JMenuItem getMiAddAirline() {
-		if (miAddAirline == null) {
-			miAddAirline = new JMenuItem("Agregar");
-		}
-		return miAddAirline;
-	}
-	public JMenuItem getMiAddAircraft() {
-		if (miAddAircraft == null) {
-			miAddAircraft = new JMenuItem("Agregar");
-		}
-		return miAddAircraft;
-	}
-	public JMenuItem getMiAddFlight() {
-		if (miAddFlight == null) {
-			miAddFlight = new JMenuItem("Agregar");
-		}
-		return miAddFlight;
-	}
-	public JMenuItem getMiAddPassenger() {
-		if (miAddPassenger == null) {
-			miAddPassenger = new JMenuItem("Agregar");
-		}
-		return miAddPassenger;
-	}
-	public JMenuItem getMiAddTickets() {
-		if (miAddTickets == null) {
-			miAddTickets = new JMenuItem("Agregar");
-		}
-		return miAddTickets;
-	}
 	public JDesktopPane getDesktopMain() {
 		if (desktopMain == null) {
 			desktopMain = new JDesktopPane();
 			desktopMain.setBackground(new Color(255, 255, 255));
 		}
 		return desktopMain;
+	}
+	public JMenu getMManagement() {
+		if (mManagement == null) {
+			mManagement = new JMenu("Gestiones");
+			mManagement.setFont(new Font("Roboto Black", Font.PLAIN, 15));
+			mManagement.add(getMUsers());
+			mManagement.add(getMBrand());
+			mManagement.add(getMModels());
+			mManagement.add(getMAirlines());
+			mManagement.add(getMAircraft());
+			mManagement.add(getMFlight());
+			mManagement.add(getMPassenger());
+			mManagement.add(getMTickets());
+		}
+		return mManagement;
+	}
+	public JMenu getMOperations() {
+		if (mOperations == null) {
+			mOperations = new JMenu("Operaciones");
+			mOperations.setFont(new Font("Roboto Black", Font.PLAIN, 15));
+			mOperations.add(getMiPrintTicket());
+			mOperations.add(getMiTicketsHistory());
+		}
+		return mOperations;
 	}
 }

@@ -52,13 +52,11 @@ public class Users {
 	public String[] getDataName() {
 		String[] dataName = {"user","password","typeUser","state"};
 		return dataName;
-		
 	}
 	
 	public String getDataNameUser() {
 		String dataName = "user";
 		return dataName;
-		
 	}
 	
 	
