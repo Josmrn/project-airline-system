@@ -256,7 +256,7 @@ public class GUIFlights extends JInternalFrame {
 	public void setDTMTFlights(Object data[][], String[] columnsNamesM) {
 		dtmTFlights = new DefaultTableModel(data, columnsNamesM);
 	}
-	public DefaultTableModel getDTMTModels() {
+	public DefaultTableModel getDTMTFlights() {
 		return dtmTFlights;
 	}
 	public void setTFlights(DefaultTableModel dtmtFlights) {
@@ -301,7 +301,7 @@ public class GUIFlights extends JInternalFrame {
 			tSearchFlights.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
-					if(tSearchFlights.getText().equals("Escribir el modelo que desea consultar")) {
+					if(tSearchFlights.getText().equals("Escribir el vuelo que desea consultar")) {
 						tSearchFlights.setText("");
 						tSearchFlights.setForeground(Color.black);
 					}

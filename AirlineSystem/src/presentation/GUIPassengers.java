@@ -31,17 +31,17 @@ public class GUIPassengers extends JInternalFrame {
 	private JTextField tPassport;
 	private JSeparator separator;
 	private JLabel lFullName;
-	private JLabel lOperationFlights;
+	private JLabel lOperationPassengers;
 	private JButton btnRemovePassengers;
 	private JButton btnEditPassengers;
 	private JButton btnConsultPassenger;
 	private JButton btnShowPassengers;
-	private JButton btnAddFlight;
+	private JButton btnAddPassenger;
 	private JTextArea taInfo;
-	private DefaultTableModel dtmTFlights;
-	private JTable tFlights;
-	private JScrollPane spTFlights;
-	private Object dataTableM[][];
+	private DefaultTableModel dtmTPassengers;
+	private JTable tPassengers;
+	private JScrollPane spTPassengers;
+	private Object dataTableP[][];
 	private JSeparator separator_1;
 	private JTextField tSearchPassenger;
 	private JTextField tFullName;
@@ -70,17 +70,17 @@ public class GUIPassengers extends JInternalFrame {
 		getContentPane().add(getTPassport());
 		getContentPane().add(getSeparator());
 		getContentPane().add(getLFullName());
-		getContentPane().add(getLOperationFlights());
+		getContentPane().add(getLOperationPassengers());
 		getContentPane().add(getBtnRemovePassengers());
 		getContentPane().add(getBtnEditPassengers());
 		getContentPane().add(getBtnConsultPassenger());
 		getContentPane().add(getBtnShowPassengers());
-		getContentPane().add(getBtnAddFlight());
+		getContentPane().add(getBtnAddPassenger());
 		getContentPane().add(getTaInfo());
-		setDTMTFlights(dataTableM, getColumnsNamesM());
-		setTFlights(dtmTFlights);
-		setSPTFlights(tFlights);
-		getContentPane().add(spTFlights);
+		setDTMTPassengers(dataTableP, getColumnsNamesM());
+		setTPassengers(dtmTPassengers);
+		setSPTPassengers(tPassengers);
+		getContentPane().add(spTPassengers);
 		getContentPane().add(getTaInfo());
 		getContentPane().add(getSeparator_1());
 		getContentPane().add(getTSearchPassenger());
@@ -140,14 +140,14 @@ public class GUIPassengers extends JInternalFrame {
 		}
 		return lFullName;
 	}
-	public JLabel getLOperationFlights() {
-		if (lOperationFlights == null) {
-			lOperationFlights = new JLabel("Operaciones");
-			lOperationFlights.setBounds(10, 75, 975, 25);
-			lOperationFlights.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-			lOperationFlights.setFont(new Font("Segoe UI", Font.BOLD, 15));
+	public JLabel getLOperationPassengers() {
+		if (lOperationPassengers == null) {
+			lOperationPassengers = new JLabel("Operaciones");
+			lOperationPassengers.setBounds(10, 75, 975, 25);
+			lOperationPassengers.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+			lOperationPassengers.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		}
-		return lOperationFlights;
+		return lOperationPassengers;
 	}
 	public JButton getBtnRemovePassengers() {
 		if (btnRemovePassengers == null) {
@@ -210,20 +210,20 @@ public class GUIPassengers extends JInternalFrame {
 		}
 		return btnShowPassengers;
 	}
-	public JButton getBtnAddFlight() {
-		if (btnAddFlight == null) {
-			btnAddFlight = new JButton("Agregar");
-			btnAddFlight.setBounds(10, 511, 110, 35);
-			btnAddFlight.setIcon(new ImageIcon(GUIPassengers.class.getResource("/images/icons_add.png")));
-			btnAddFlight.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnAddFlight.setOpaque(false);
-			btnAddFlight.setHorizontalAlignment(SwingConstants.LEADING);
-			btnAddFlight.setForeground(new Color(0, 0, 128));
-			btnAddFlight.setFont(new Font("Segoe UI", Font.BOLD, 16));
-			btnAddFlight.setContentAreaFilled(false);
-			btnAddFlight.setBorder(null);
+	public JButton getBtnAddPassenger() {
+		if (btnAddPassenger == null) {
+			btnAddPassenger = new JButton("Agregar");
+			btnAddPassenger.setBounds(10, 511, 110, 35);
+			btnAddPassenger.setIcon(new ImageIcon(GUIPassengers.class.getResource("/images/icons_add.png")));
+			btnAddPassenger.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			btnAddPassenger.setOpaque(false);
+			btnAddPassenger.setHorizontalAlignment(SwingConstants.LEADING);
+			btnAddPassenger.setForeground(new Color(0, 0, 128));
+			btnAddPassenger.setFont(new Font("Segoe UI", Font.BOLD, 16));
+			btnAddPassenger.setContentAreaFilled(false);
+			btnAddPassenger.setBorder(null);
 		}
-		return btnAddFlight;
+		return btnAddPassenger;
 	}
 	public JTextArea getTaInfo() {
 		if (taInfo == null) {
@@ -238,32 +238,32 @@ public class GUIPassengers extends JInternalFrame {
 		}
 		return taInfo;
 	}
-	public void setDTMTFlights(Object data[][], String[] columnsNamesM) {
-		dtmTFlights = new DefaultTableModel(data, columnsNamesM);
+	public void setDTMTPassengers(Object data[][], String[] columnsNamesM) {
+		dtmTPassengers = new DefaultTableModel(data, columnsNamesM);
 	}
-	public DefaultTableModel getDTMTModels() {
-		return dtmTFlights;
+	public DefaultTableModel getDTMTPassengers() {
+		return dtmTPassengers;
 	}
-	public void setTFlights(DefaultTableModel dtmtFlights) {
-		tFlights = new JTable(dtmTFlights);
-		tFlights.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		tFlights.setEnabled(false);
-		tFlights.getTableHeader().setReorderingAllowed(false);
-		tFlights.getTableHeader().setResizingAllowed(false);
+	public void setTPassengers(DefaultTableModel dtmtPassengers) {
+		tPassengers = new JTable(dtmTPassengers);
+		tPassengers.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		tPassengers.setEnabled(false);
+		tPassengers.getTableHeader().setReorderingAllowed(false);
+		tPassengers.getTableHeader().setResizingAllowed(false);
 	}
-	public JTable getTFlights() {
-		return this.tFlights;
+	public JTable getTPassengers() {
+		return this.tPassengers;
 	}
-	public void setSPTFlights(JTable tFlights) {
-		spTFlights = new JScrollPane(tFlights);
-		spTFlights.setBounds(448, 233, 873, 328);
-		spTFlights.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Datos de pasajeros registrados", TitledBorder.LEFT, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)));
-		spTFlights.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		spTFlights.setToolTipText("");
-		spTFlights.setBackground(new Color(255, 255, 255));
+	public void setSPTPassengers(JTable tPassengers) {
+		spTPassengers = new JScrollPane(tPassengers);
+		spTPassengers.setBounds(448, 233, 873, 328);
+		spTPassengers.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Datos de pasajeros registrados", TitledBorder.LEFT, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)));
+		spTPassengers.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		spTPassengers.setToolTipText("");
+		spTPassengers.setBackground(new Color(255, 255, 255));
 	}
-	public JScrollPane getSPTFlights() {
-		return this.spTFlights;
+	public JScrollPane getSPTPassengers() {
+		return this.spTPassengers;
 	}
 	public String[] getColumnsNamesM() {
 		String columnsName[] = {"Numero de Pasaporte","Nombre Completo","Fecha de Nacimiento","Correo Electronico","Numero Celular"};
