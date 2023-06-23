@@ -5,14 +5,14 @@ import java.util.Arrays;
 public class Flights {
 	
 	private int flightNum,amountOfExecSeat,amountOfEcoSeat,amountOfTourSeat;
-	private String departureCity,arrivalCity;
+	private String departureCity,arrivalCity,plane;
 	private int[] departureDate,departureHour,arrivalDate,arrivalHour;
-	private Planes plane;
+	
 	
 	public Flights() {}
 
 	public Flights(int flightNum, String departureCity, int[] departureDate, int[] departureHour, String arrivalCity,
-			int[] arrivalDate, int[] arrivalHour, Planes plane, int amountOfExecSeat, int amountOfTourSeat,
+			int[] arrivalDate, int[] arrivalHour, String plane, int amountOfExecSeat, int amountOfTourSeat,
 			int amountOfEcoSeat) {
 		super();
 		this.flightNum = flightNum;
@@ -85,11 +85,11 @@ public class Flights {
 		this.arrivalHour = arrivalHour;
 	}
 
-	public Planes getPlane() {
+	public String getPlane() {
 		return plane;
 	}
 
-	public void setPlane(Planes plane) {
+	public void setPlane(String plane) {
 		this.plane = plane;
 	}
 
