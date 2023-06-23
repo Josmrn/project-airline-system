@@ -23,7 +23,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
 @SuppressWarnings("serial")
 public class GUITickets extends JInternalFrame {
 	private JLabel lTicketsManag;
@@ -88,7 +87,11 @@ public class GUITickets extends JInternalFrame {
 	public JLabel getLTicketsManag() {
 		if (lTicketsManag == null) {
 			lTicketsManag = new JLabel("Bienvenidos a la Gestión de Tickets");
+
 			lTicketsManag.setBounds(10, 10, 1204, 40);
+
+			lTicketsManag.setBounds(10, 10, 975, 40);
+
 			lTicketsManag.setHorizontalAlignment(SwingConstants.CENTER);
 			lTicketsManag.setFont(new Font("Roboto Black", Font.PLAIN, 18));
 			lTicketsManag.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -98,15 +101,24 @@ public class GUITickets extends JInternalFrame {
 	public JLabel getLTicketNumber() {
 		if (lTicketNumber == null) {
 			lTicketNumber = new JLabel("Numero de Ticket");
+
 			lTicketNumber.setBounds(10, 233, 150, 25);
 			lTicketNumber.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+
+			lTicketNumber.setBounds(10, 251, 150, 25);
+			lTicketNumber.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+
 		}
 		return lTicketNumber;
 	}
 	public JTextField getTTicketNumber() {
 		if (tTicketNumber == null) {
 			tTicketNumber = new JTextField();
+
 			tTicketNumber.setBounds(10, 255, 300, 25);
+
+			tTicketNumber.setBounds(10, 273, 300, 25);
+
 			tTicketNumber.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tTicketNumber.setColumns(10);
 			tTicketNumber.setBorder(null);
@@ -116,22 +128,35 @@ public class GUITickets extends JInternalFrame {
 	public JSeparator getSeparator() {
 		if (separator == null) {
 			separator = new JSeparator();
+
 			separator.setBounds(10, 281, 300, 1);
+
+			separator.setBounds(10, 299, 300, 1);
+
 		}
 		return separator;
 	}
 	public JLabel getLPassportNumber() {
 		if (lPassportNumber == null) {
 			lPassportNumber = new JLabel("Numero de Pasaporte");
+
 			lPassportNumber.setBounds(10, 327, 162, 25);
 			lPassportNumber.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+
+			lPassportNumber.setBounds(10, 345, 150, 25);
+			lPassportNumber.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+
 		}
 		return lPassportNumber;
 	}
 	public JLabel getLOperationTickets() {
 		if (lOperationTickets == null) {
 			lOperationTickets = new JLabel("Operaciones");
+
 			lOperationTickets.setBounds(10, 75, 1204, 25);
+
+			lOperationTickets.setBounds(10, 75, 975, 25);
+
 			lOperationTickets.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			lOperationTickets.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		}
@@ -201,7 +226,11 @@ public class GUITickets extends JInternalFrame {
 	public JButton getBtnAddTickets() {
 		if (btnAddTickets == null) {
 			btnAddTickets = new JButton("Agregar");
+
 			btnAddTickets.setBounds(23, 526, 124, 35);
+
+			btnAddTickets.setBounds(10, 526, 110, 35);
+
 			btnAddTickets.setIcon(new ImageIcon(GUITickets.class.getResource("/images/icons_add.png")));
 			btnAddTickets.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnAddTickets.setOpaque(false);
@@ -216,7 +245,11 @@ public class GUITickets extends JInternalFrame {
 	public JTextArea getTaInfo() {
 		if (taInfo == null) {
 			taInfo = new JTextArea();
+
 			taInfo.setBounds(387, 169, 540, 54);
+
+			taInfo.setBounds(448, 183, 540, 54);
+
 			taInfo.setBorder(null);
 			taInfo.setWrapStyleWord(true);
 			taInfo.setText("Consultar o mostrar los tickets registrados, se puede hacer individual o grupal, según su preferencia.");
@@ -244,7 +277,11 @@ public class GUITickets extends JInternalFrame {
 	}
 	public void setSPTTickets(JTable tTickets) {
 		spTTickets = new JScrollPane(tTickets);
+
 		spTTickets.setBounds(387, 233, 873, 328);
+
+		spTTickets.setBounds(341, 233, 873, 328);
+
 		spTTickets.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Datos de tickets registrados", TitledBorder.LEFT, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)));
 		spTTickets.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spTTickets.setToolTipText("");
@@ -260,7 +297,11 @@ public class GUITickets extends JInternalFrame {
 	public JSeparator getSeparator_1() {
 		if (separator_1 == null) {
 			separator_1 = new JSeparator();
+
 			separator_1.setBounds(10, 150, 1204, 1);
+
+			separator_1.setBounds(10, 150, 975, 1);
+
 		}
 		return separator_1;
 	}
@@ -291,22 +332,34 @@ public class GUITickets extends JInternalFrame {
 			tPassportNumber.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tPassportNumber.setColumns(10);
 			tPassportNumber.setBorder(null);
+
 			tPassportNumber.setBounds(10, 351, 300, 25);
+			tPassportNumber.setBounds(10, 369, 300, 25);
+
 		}
 		return tPassportNumber;
 	}
 	public JSeparator getSeparator_2() {
 		if (separator_2 == null) {
 			separator_2 = new JSeparator();
+
 			separator_2.setBounds(10, 376, 300, 1);
+
+			separator_2.setBounds(10, 394, 300, 1);
+
 		}
 		return separator_2;
 	}
 	public JLabel getLFlightNumber() {
 		if (lFlightNumber == null) {
 			lFlightNumber = new JLabel("Numero de Vuelo");
+
 			lFlightNumber.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 			lFlightNumber.setBounds(10, 424, 137, 25);
+
+			lFlightNumber.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+			lFlightNumber.setBounds(10, 442, 123, 25);
+
 		}
 		return lFlightNumber;
 	}
@@ -316,14 +369,18 @@ public class GUITickets extends JInternalFrame {
 			tFlightNumber.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tFlightNumber.setColumns(10);
 			tFlightNumber.setBorder(null);
+
 			tFlightNumber.setBounds(10, 448, 300, 25);
+
+			tFlightNumber.setBounds(10, 466, 300, 25);
+
 		}
 		return tFlightNumber;
 	}
 	public JSeparator getSeparator_2_1() {
 		if (separator_2_1 == null) {
 			separator_2_1 = new JSeparator();
-			separator_2_1.setBounds(10, 473, 300, 1);
+			separator_2_1.setBounds(10, 492, 300, 1);
 		}
 		return separator_2_1;
 	}

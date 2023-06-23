@@ -64,6 +64,7 @@ public class GUIPassengers extends JInternalFrame {
 		setIconifiable(true);
 		setClosable(true);
 		setBounds(100, 100, 1341, 539);
+		setBounds(100, 100, 1378, 639);
 		getContentPane().setLayout(null);
 		getContentPane().add(getLPassengersManag());
 		getContentPane().add(getLPassport());
@@ -101,6 +102,7 @@ public class GUIPassengers extends JInternalFrame {
 		if (lPassengersManag == null) {
 			lPassengersManag = new JLabel("Bienvenidos a la Gestión de Pasajeros");
 			lPassengersManag.setBounds(10, 10, 1300, 40);
+			lPassengersManag.setBounds(10, 10, 975, 40);
 			lPassengersManag.setHorizontalAlignment(SwingConstants.CENTER);
 			lPassengersManag.setFont(new Font("Roboto Black", Font.PLAIN, 18));
 			lPassengersManag.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -144,6 +146,7 @@ public class GUIPassengers extends JInternalFrame {
 		if (lOperationPassengers == null) {
 			lOperationPassengers = new JLabel("Operaciones");
 			lOperationPassengers.setBounds(10, 75, 1300, 25);
+			lOperationPassengers.setBounds(10, 75, 975, 25);
 			lOperationPassengers.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			lOperationPassengers.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		}
@@ -152,7 +155,10 @@ public class GUIPassengers extends JInternalFrame {
 	public JButton getBtnRemovePassengers() {
 		if (btnRemovePassengers == null) {
 			btnRemovePassengers = new JButton("Eliminar");
+
 			btnRemovePassengers.setBounds(538, 110, 90, 35);
+			btnRemovePassengers.setBounds(220, 110, 90, 35);
+
 			btnRemovePassengers.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				}
@@ -170,7 +176,11 @@ public class GUIPassengers extends JInternalFrame {
 	public JButton getBtnEditPassengers() {
 		if (btnEditPassengers == null) {
 			btnEditPassengers = new JButton("Editar");
+
 			btnEditPassengers.setBounds(252, 110, 80, 35);
+
+			btnEditPassengers.setBounds(10, 110, 80, 35);
+
 			btnEditPassengers.setIcon(new ImageIcon(GUIPassengers.class.getResource("/images/icons_edit.png")));
 			btnEditPassengers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnEditPassengers.setOpaque(false);
@@ -184,7 +194,11 @@ public class GUIPassengers extends JInternalFrame {
 	public JButton getBtnConsultPassenger() {
 		if (btnConsultPassenger == null) {
 			btnConsultPassenger = new JButton("Consultar");
+
 			btnConsultPassenger.setBounds(1190, 110, 120, 35);
+
+			btnConsultPassenger.setBounds(865, 110, 120, 35);
+
 			btnConsultPassenger.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnConsultPassenger.setHorizontalAlignment(SwingConstants.LEFT);
 			btnConsultPassenger.setIcon(new ImageIcon(GUIPassengers.class.getResource("/images/icons_consult.png")));
@@ -199,7 +213,11 @@ public class GUIPassengers extends JInternalFrame {
 	public JButton getBtnShowPassengers() {
 		if (btnShowPassengers == null) {
 			btnShowPassengers = new JButton("Mostrar");
+
 			btnShowPassengers.setBounds(773, 110, 97, 35);
+
+			btnShowPassengers.setBounds(448, 110, 97, 35);
+
 			btnShowPassengers.setIcon(new ImageIcon(GUIPassengers.class.getResource("/images/icons_show.png")));
 			btnShowPassengers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnShowPassengers.setOpaque(false);
@@ -213,7 +231,11 @@ public class GUIPassengers extends JInternalFrame {
 	public JButton getBtnAddPassenger() {
 		if (btnAddPassenger == null) {
 			btnAddPassenger = new JButton("Agregar");
+
 			btnAddPassenger.setBounds(10, 110, 110, 35);
+
+			btnAddPassenger.setBounds(10, 511, 110, 35);
+
 			btnAddPassenger.setIcon(new ImageIcon(GUIPassengers.class.getResource("/images/icons_add.png")));
 			btnAddPassenger.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnAddPassenger.setOpaque(false);
@@ -256,7 +278,11 @@ public class GUIPassengers extends JInternalFrame {
 	}
 	public void setSPTPassengers(JTable tPassengers) {
 		spTPassengers = new JScrollPane(tPassengers);
+
 		spTPassengers.setBounds(440, 234, 870, 266);
+
+		spTPassengers.setBounds(448, 233, 873, 328);
+
 		spTPassengers.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Datos de pasajeros registrados", TitledBorder.LEFT, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)));
 		spTPassengers.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spTPassengers.setToolTipText("");
@@ -272,14 +298,22 @@ public class GUIPassengers extends JInternalFrame {
 	public JSeparator getSeparator_1() {
 		if (separator_1 == null) {
 			separator_1 = new JSeparator();
+
 			separator_1.setBounds(10, 150, 1300, 1);
+
+			separator_1.setBounds(10, 150, 975, 1);
+
 		}
 		return separator_1;
 	}
 	public JTextField getTSearchPassenger() {
 		if (tSearchPassenger == null) {
 			tSearchPassenger = new JTextField();
+
 			tSearchPassenger.setBounds(880, 115, 300, 30);
+
+			tSearchPassenger.setBounds(555, 115, 300, 30);
+
 			tSearchPassenger.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			tSearchPassenger.setForeground(new Color(192, 192, 192));
 			tSearchPassenger.addMouseListener(new MouseAdapter() {
@@ -389,4 +423,6 @@ public class GUIPassengers extends JInternalFrame {
 		}
 		return separator_2_1_1;
 	}
+
 }
+
