@@ -3,12 +3,12 @@ package domain;
 public class Models {
 	
 	private String name;
-	private Models Model;
+	private String Model;
 	private int execSeats,tourSeats,ecoSeats;
 	
 	public Models() {}
 
-	public Models(String name, Models model, int execSeats, int tourSeats, int ecoSeats) {
+	public Models(String name, String model, int execSeats, int tourSeats, int ecoSeats) {
 		super();
 		this.name = name;
 		Model = model;
@@ -25,11 +25,11 @@ public class Models {
 		this.name = name;
 	}
 
-	public Models getModel() {
+	public String getModel() {
 		return Model;
 	}
 
-	public void setModel(Models model) {
+	public void setModel(String model) {
 		Model = model;
 	}
 

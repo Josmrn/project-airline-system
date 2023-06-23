@@ -3,13 +3,13 @@ package domain;
 public class Planes {
 	
 	private String tuition;
-	private Airlines airline;
-	private Models model;
+	private String airline;
+	private String model;
 	private int year;
 	
 	public Planes() {}
 
-	public Planes(String tuition, Airlines airline, Models model, int year) {
+	public Planes(String tuition, String airline, String model, int year) {
 		super();
 		this.tuition = tuition;
 		this.airline = airline;
@@ -25,19 +25,19 @@ public class Planes {
 		this.tuition = tuition;
 	}
 
-	public Airlines getAirline() {
+	public String getAirline() {
 		return airline;
 	}
 
-	public void setAirline(Airlines airline) {
+	public void setAirline(String airline) {
 		this.airline = airline;
 	}
 
-	public Models getModel() {
+	public String getModel() {
 		return model;
 	}
 
-	public void setModel(Models model) {
+	public void setModel(String model) {
 		this.model = model;
 	}
 

@@ -2,8 +2,8 @@ package business;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
-
 import data.FilesXML;
 import domain.Users;
 import presentation.ViewUserManage;
@@ -23,8 +23,20 @@ public class ControllerUserManage implements ActionListener {
 		initializerAction();
 	}
 
+	private void refreshData() {
+		
+		viewUM.getDTMTUsers().setRowCount(0);
+		ArrayList<Users> arrayUsers = fXML.returnUsers("Users.xml", "Users");
+		
+		for(Users elemento : arrayUsers) {
+			viewUM.getDTMTUsers().addRow(new Object[] { elemento.getUser(), elemento.getPassword(), elemento.getTypeUser(), elemento.getState()});
+		}
+		
+	}
+	
 	private void initializerAction() {
 		// TODO Auto-generated method stub
+		refreshData();
 		viewUM.getBtnRegister().addActionListener(this);
 		viewUM.getBtnConsultUser().addActionListener(this);
 		viewUM.getBtnEditUsers().addActionListener(this);
@@ -48,12 +60,11 @@ public class ControllerUserManage implements ActionListener {
 
 			us = new Users(viewUM.getTUserAdd().getText(), password, typeUser, statusUser);
 
-			fXML.writeXML("Users.xml", "Users", us.getDataName(), us.getData());
+			fXML.writeLoginXML("Users.xml", "User", us.getDataName(), us.getData());
 
 			arrayLU.addUser(us);
 
-			viewUM.getDTMTUsers()
-					.addRow(new Object[] { viewUM.getTUserAdd().getText(), password, typeUser, statusUser });
+			viewUM.getDTMTUsers().addRow(new Object[] { viewUM.getTUserAdd().getText(), password, typeUser, statusUser});
 
 			// Borrar el contenido del array de caracteres por motivos de seguridad
 
@@ -65,12 +76,15 @@ public class ControllerUserManage implements ActionListener {
 			System.out.print(arrayLU.getArrayListUsers().size());
 		}
 		if (e.getSource() == viewUM.getBtnReadUsers()) {
-
+			//Botón para leer los datos del usuario que están dentro del archivo xml
 		}
 		if (e.getSource() == viewUM.getBtnEditUsers()) {
+			//Botón de editar usuarios que están dentro del xml
 
 		}
 		if (e.getSource() == viewUM.getBtnUpdateUsers()) {
+			
+			//Se tiene que actualizar los datos dentro del xml y refrescar en la tabla
 
 			char[] passwordChars = viewUM.getJPassword().getPassword();
 
@@ -87,12 +101,14 @@ public class ControllerUserManage implements ActionListener {
 			viewUM.getDTMTUsers().setValueAt(statusUser, viewUM.getTUsers().getSelectedRow(), 3);
 
 		}
+	
 		if (e.getSource() == viewUM.getBtnRemoveUser()) {
-
-			viewUM.getDTMTUsers().removeRow(viewUM.getTUsers().getSelectedRow());
+			//Eliminar dato dentro del xml y refrescar en la tabla
+			viewUM.getDTMTUsers().removeRow(viewUM.getTUsers().getSelectedRow());//este no
 
 		}
 		if (e.getSource() == viewUM.getBtnConsultUser()) {
+			//Buscar dentro del xml y mostrar en los espacios correspondientes
 
 		}
 

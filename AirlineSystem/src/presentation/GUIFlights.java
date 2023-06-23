@@ -72,7 +72,7 @@ public class GUIFlights extends JInternalFrame {
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		setBounds(100, 100, 1549, 734);
+		setBounds(100, 100, 1540, 773);
 		getContentPane().setLayout(null);
 		getContentPane().add(getLFlightsManag());
 		getContentPane().add(getLDepartureCity());
@@ -115,7 +115,7 @@ public class GUIFlights extends JInternalFrame {
 	public JLabel getLFlightsManag() {
 		if (lFlightsManag == null) {
 			lFlightsManag = new JLabel("Bienvenidos a la Gestión de Vuelos");
-			lFlightsManag.setBounds(10, 10, 975, 40);
+			lFlightsManag.setBounds(10, 10, 1508, 40);
 			lFlightsManag.setHorizontalAlignment(SwingConstants.CENTER);
 			lFlightsManag.setFont(new Font("Roboto Black", Font.PLAIN, 18));
 			lFlightsManag.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -158,7 +158,7 @@ public class GUIFlights extends JInternalFrame {
 	public JLabel getLOperationFlights() {
 		if (lOperationFlights == null) {
 			lOperationFlights = new JLabel("Operaciones");
-			lOperationFlights.setBounds(10, 75, 975, 25);
+			lOperationFlights.setBounds(10, 75, 1508, 25);
 			lOperationFlights.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			lOperationFlights.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		}
@@ -228,7 +228,7 @@ public class GUIFlights extends JInternalFrame {
 	public JButton getBtnAddFlight() {
 		if (btnAddFlight == null) {
 			btnAddFlight = new JButton("Agregar");
-			btnAddFlight.setBounds(328, 656, 110, 35);
+			btnAddFlight.setBounds(10, 709, 110, 35);
 			btnAddFlight.setIcon(new ImageIcon(GUIFlights.class.getResource("/images/icons_add.png")));
 			btnAddFlight.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnAddFlight.setOpaque(false);
@@ -271,7 +271,7 @@ public class GUIFlights extends JInternalFrame {
 	}
 	public void setSPTFlights(JTable tFlights) {
 		spTFlights = new JScrollPane(tFlights);
-		spTFlights.setBounds(448, 233, 1055, 458);
+		spTFlights.setBounds(448, 233, 1070, 458);
 		spTFlights.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Datos de vuelos registrados", TitledBorder.LEFT, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)));
 		spTFlights.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spTFlights.setToolTipText("");
@@ -288,7 +288,7 @@ public class GUIFlights extends JInternalFrame {
 	public JSeparator getSeparator_1() {
 		if (separator_1 == null) {
 			separator_1 = new JSeparator();
-			separator_1.setBounds(10, 150, 975, 1);
+			separator_1.setBounds(10, 150, 1508, 1);
 		}
 		return separator_1;
 	}

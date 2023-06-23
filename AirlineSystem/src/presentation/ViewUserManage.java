@@ -9,6 +9,7 @@ import javax.swing.border.LineBorder;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Vector;
 
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -287,7 +288,7 @@ public class ViewUserManage extends JFrame {
 	public JComboBox getCxState() {
 		if (cxState == null) {
 			cxState = new JComboBox();
-			cxState.setModel(new DefaultComboBoxModel(new String[] {"Activo ", "Inactivo"}));
+			cxState.setModel(new DefaultComboBoxModel(new String[] {"Activo", "Inactivo"}));
 			cxState.setRequestFocusEnabled(false);
 			cxState.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 14));
 			cxState.setBounds(12, 348, 100, 25);
@@ -380,13 +381,34 @@ public class ViewUserManage extends JFrame {
 	//----------------------------------------------------------------------------------------------------------------------
 	public void setDTMTUsers(Object data[][], String [] columnsNames) {
 		dtmTUsers = new DefaultTableModel(data, columnsNames);
+		
 	}
 	public DefaultTableModel getDTMTUsers() {
 		return dtmTUsers;
 	}
 	
-	public void setTUsers(DefaultTableModel dtmTBrands) {
-		tUsers = new JTable(dtmTBrands);
+	public void setTUsers(DefaultTableModel dtmTUsers) {
+		tUsers = new JTable(dtmTUsers);
+		tUsers.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int index = 0;
+				
+				int filaSeleccionada = tUsers.getSelectedRow();
+	            DefaultTableModel modelo = (DefaultTableModel) tUsers.getModel();
+	            Vector<Object> datosFila = modelo.getDataVector().elementAt(filaSeleccionada);
+	           
+	            tUserAdd.setText((String) datosFila.get(0));
+	            jPassword.setText((String) datosFila.get(1));
+	            
+	            index = (datosFila.get(2).equals("Administrador")) ? 0 : 1 ;
+	            CXTypeUser.setSelectedIndex(index);
+	            
+	            index = (datosFila.get(3).equals("Activo")) ? 0 : 1 ;
+	            cxState.setSelectedIndex(index);
+			}
+		});
 		tUsers.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		tUsers.setEnabled(true);
 		tUsers.getTableHeader().setReorderingAllowed(false);
@@ -396,8 +418,8 @@ public class ViewUserManage extends JFrame {
 		return this.tUsers;
 	}
 	
-	public void setSPTUsers(JTable tBrands) {
-		spTUsers = new JScrollPane(tBrands);
+	public void setSPTUsers(JTable tUsers) {
+		spTUsers = new JScrollPane(tUsers);
 		spTUsers.setBorder(new TitledBorder(null, "Datos de usuarios", TitledBorder.LEFT, TitledBorder.ABOVE_TOP, null, null));
 		spTUsers.setBounds(10, 417, 828, 247);
 	}

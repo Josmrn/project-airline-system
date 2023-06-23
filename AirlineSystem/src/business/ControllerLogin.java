@@ -21,11 +21,12 @@ public class ControllerLogin implements ActionListener{
 	public ControllerLogin() {
 		guiL = new GUILogin();
 		fXML = new FilesXML();
+		
 		users = new Users("admin","admin","Administrador","Activo");
 		arrayLU = new ArrayListUsers();
 		
 		fXML.createXML("Users", "Users.xml");
-		fXML.writeXML("Users.xml", "User", users.getDataName(), users.getData());
+		fXML.writeLoginXML("Users.xml", "User", users.getDataName(), users.getData());
 		
 		arrayLU.addUser(users);
 		
@@ -57,8 +58,9 @@ public class ControllerLogin implements ActionListener{
 			
 			String[] TypeAndStatus = fXML.returnTypeAndStatus("Users.xml", "User", "user", "password", guiL.getTUser().getText(), password);
 			
+			System.out.println("Hola Login");
 			
-			if(loginUserAndPassword==true) {
+			if(loginUserAndPassword == true) {
 				
 				System.out.println(TypeAndStatus[0]);
 				System.out.println(TypeAndStatus[1]);

@@ -10,7 +10,7 @@ public class ControllerBrands implements ActionListener {
 	
 	private GUIBrands guiB;
 	private Brands brand;
-	private FilesXML fXMLBr;
+	private FilesXML fXML;
 
 	public ControllerBrands() {
 		
@@ -18,9 +18,9 @@ public class ControllerBrands implements ActionListener {
 		
 		guiB = new GUIBrands();
 		brand = new Brands();
-		fXMLBr = new FilesXML();
+		fXML = new FilesXML();
 		
-		fXMLBr.createXML("Brands", "Brands.xml");
+		fXML.createXML("Brands", "Brands.xml");
 		initializerAction();
 	}
 	
@@ -43,7 +43,7 @@ public class ControllerBrands implements ActionListener {
 			
 			brand = new Brands(guiB.getTAddBrand().getText());
 			
-			fXMLBr.writeXML("Brands.xml", "Brands", brand.getDataName(), brand.getData());
+			fXML.writeLoginXML("Brands.xml", "Brands", brand.getDataName(), brand.getData());
 			
 			guiB.cleanForm();
 			
