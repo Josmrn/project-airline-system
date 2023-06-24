@@ -23,10 +23,11 @@ public class ControllerUserManage implements ActionListener {
 		initializerAction();
 	}
 
+	//Método para refrescar la tabla con los datos dentro del xml
 	private void refreshData() {
 		
 		viewUM.getDTMTUsers().setRowCount(0);
-		ArrayList<Users> arrayUsers = fXML.returnUsers("Users.xml", "Users");
+		ArrayList<Users> arrayUsers = fXML.returnUsers("Users.xml", "User");
 		
 		for(Users elemento : arrayUsers) {
 			viewUM.getDTMTUsers().addRow(new Object[] { elemento.getUser(), elemento.getPassword(), elemento.getTypeUser(), elemento.getState()});
@@ -42,7 +43,6 @@ public class ControllerUserManage implements ActionListener {
 		viewUM.getBtnEditUsers().addActionListener(this);
 		viewUM.getBtnReadUsers().addActionListener(this);
 		viewUM.getBtnRemoveUser().addActionListener(this);
-		viewUM.getBtnUpdateUsers().addActionListener(this);
 	}
 
 	@Override
@@ -71,7 +71,6 @@ public class ControllerUserManage implements ActionListener {
 			Arrays.fill(passwordChars, ' ');
 
 			// Se añade a la tabla
-
 			viewUM.cleanForm();
 			System.out.print(arrayLU.getArrayListUsers().size());
 		}
@@ -80,10 +79,6 @@ public class ControllerUserManage implements ActionListener {
 		}
 		if (e.getSource() == viewUM.getBtnEditUsers()) {
 			//Botón de editar usuarios que están dentro del xml
-
-		}
-		if (e.getSource() == viewUM.getBtnUpdateUsers()) {
-			
 			//Se tiene que actualizar los datos dentro del xml y refrescar en la tabla
 
 			char[] passwordChars = viewUM.getJPassword().getPassword();
@@ -101,7 +96,7 @@ public class ControllerUserManage implements ActionListener {
 			viewUM.getDTMTUsers().setValueAt(statusUser, viewUM.getTUsers().getSelectedRow(), 3);
 
 		}
-	
+
 		if (e.getSource() == viewUM.getBtnRemoveUser()) {
 			//Eliminar dato dentro del xml y refrescar en la tabla
 			viewUM.getDTMTUsers().removeRow(viewUM.getTUsers().getSelectedRow());//este no
@@ -109,7 +104,12 @@ public class ControllerUserManage implements ActionListener {
 		}
 		if (e.getSource() == viewUM.getBtnConsultUser()) {
 			//Buscar dentro del xml y mostrar en los espacios correspondientes
-
+			us = fXML.searchUsers("Users.xml", "user", viewUM.getTWriteName().getText());
+			viewUM.getTUserAdd().setText(us.getUser());
+			viewUM.getJPassword().setText(us.getPassword());
+			viewUM.getCXTypeUser().setSelectedItem(us.getTypeUser());
+			viewUM.getCxState().setSelectedItem(us.getState());
+			
 		}
 
 	}

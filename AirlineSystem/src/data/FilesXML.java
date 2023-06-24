@@ -211,10 +211,8 @@ public class FilesXML {
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
 					System.out.println("Usuario: " + eElement.getAttribute("user"));
-					System.out.println(
-							"Contraseña: " + eElement.getElementsByTagName("password").item(0).getTextContent());
-					System.out.println(
-							"Tipo de Usuario: " + eElement.getElementsByTagName("typeUser").item(0).getTextContent());
+					System.out.println("Contraseña: " + eElement.getElementsByTagName("password").item(0).getTextContent());
+					System.out.println("Tipo de Usuario: " + eElement.getElementsByTagName("typeUser").item(0).getTextContent());
 					System.out.println("Estado: " + eElement.getElementsByTagName("state").item(0).getTextContent());
 				}
 			}
@@ -222,10 +220,47 @@ public class FilesXML {
 			e.printStackTrace();
 		}
 	}
+	
+	//Método que busca los datos en el archivo xml de usuarios
+	public Users searchUsers(String Filename, String elementType, String user ) {
+		
+		Users u = new Users();
+		
+		try {
+			File inputFile = new File("Users.xml");
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName("users");
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					
+					if(eElement.getAttribute("user").equals(user)) {
+						u = new Users(eElement.getAttribute("user"), 
+								eElement.getElementsByTagName("password").item(0).getTextContent(), 
+								eElement.getElementsByTagName("typeUser").item(0).getTextContent(), 
+								eElement.getElementsByTagName("state").item(0).getTextContent());
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return u;
+	}
 
 	public ArrayList<Users> returnUsers(String Filename, String elementType) {
+		
 		ArrayList<Users> arrayUsers = new ArrayList<Users>();
 		Users user = new Users();
+		
 		try {
 
 			File inputFile = new File(Filename);
@@ -241,9 +276,7 @@ public class FilesXML {
 
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
-					System.out.println(eElement);
 					user.setUser(eElement.getAttribute("user"));
-					System.out.println(eElement.getAttribute("user") + "Hola usuario");
 					user.setPassword(eElement.getElementsByTagName("password").item(0).getTextContent());
 					user.setTypeUser(eElement.getElementsByTagName("typeUser").item(0).getTextContent());
 					user.setState(eElement.getElementsByTagName("state").item(0).getTextContent());

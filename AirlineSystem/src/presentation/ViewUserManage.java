@@ -27,6 +27,7 @@ import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Cursor;
 
 @SuppressWarnings("serial")
 public class ViewUserManage extends JFrame {
@@ -35,7 +36,6 @@ public class ViewUserManage extends JFrame {
 	private JLabel lWelcomeUserManage;
 	private JButton btnConsultUser;
 	private JButton btnEditUsers;
-	private JButton btnUpdateUsers;
 	private JButton btnRemoveUser;
 	private JButton btnReadUsers;
 	private JButton btnRegister;
@@ -75,7 +75,6 @@ public class ViewUserManage extends JFrame {
 		contentPane.add(getLWelcomeUserManage());
 		contentPane.add(getBtnConsultUser());
 		contentPane.add(getBtnEditUsers());
-		contentPane.add(getBtnUpdateUsers());
 		contentPane.add(getBtnRemoveUser());
 		contentPane.add(getBtnReadUsers());
 		contentPane.add(getBtnRegister());
@@ -117,6 +116,7 @@ public class ViewUserManage extends JFrame {
 	public JButton getBtnConsultUser() {
 		if (btnConsultUser == null) {
 			btnConsultUser = new JButton("Consultar");
+			btnConsultUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnConsultUser.setContentAreaFilled(false);
 			btnConsultUser.setIcon(new ImageIcon(ViewUserManage.class.getResource("/images/icons_consult.png")));
 			btnConsultUser.setOpaque(false);
@@ -130,32 +130,16 @@ public class ViewUserManage extends JFrame {
 	public JButton getBtnEditUsers() {
 		if (btnEditUsers == null) {
 			btnEditUsers = new JButton("Editar");
-			btnEditUsers.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				}
-			});
+			btnEditUsers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnEditUsers.setIcon(new ImageIcon(ViewUserManage.class.getResource("/images/icons_edit.png")));
 			btnEditUsers.setOpaque(false);
 			btnEditUsers.setForeground(new Color(0, 0, 128));
 			btnEditUsers.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnEditUsers.setContentAreaFilled(false);
 			btnEditUsers.setBorder(null);
-			btnEditUsers.setBounds(652, 109, 75, 25);
+			btnEditUsers.setBounds(564, 109, 106, 25);
 		}
 		return btnEditUsers;
-	}
-	public JButton getBtnUpdateUsers() {
-		if (btnUpdateUsers == null) {
-			btnUpdateUsers = new JButton("Actualizar");
-			btnUpdateUsers.setIcon(new ImageIcon("C:\\Users\\UNA\\Downloads\\icons8-actualizar-28.png"));
-			btnUpdateUsers.setOpaque(false);
-			btnUpdateUsers.setForeground(new Color(0, 0, 128));
-			btnUpdateUsers.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnUpdateUsers.setContentAreaFilled(false);
-			btnUpdateUsers.setBorder(null);
-			btnUpdateUsers.setBounds(512, 109, 106, 25);
-		}
-		return btnUpdateUsers;
 	}
 	public JButton getBtnRemoveUser() {
 		if (btnRemoveUser == null) {
@@ -186,6 +170,7 @@ public class ViewUserManage extends JFrame {
 	public JButton getBtnRegister() {
 		if (btnRegister == null) {
 			btnRegister = new JButton("Registrar");
+			btnRegister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnRegister.setIcon(new ImageIcon(ViewUserManage.class.getResource("/images/icons_add.png")));
 			btnRegister.setForeground(new Color(0, 0, 128));
 			btnRegister.setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -393,19 +378,20 @@ public class ViewUserManage extends JFrame {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 				int index = 0;
 				
-				int filaSeleccionada = tUsers.getSelectedRow();
-	            DefaultTableModel modelo = (DefaultTableModel) tUsers.getModel();
-	            Vector<Object> datosFila = modelo.getDataVector().elementAt(filaSeleccionada);
+				int selectedRow = tUsers.getSelectedRow();
+	            DefaultTableModel model = (DefaultTableModel) tUsers.getModel();
+	            Vector<Object> rowData = model.getDataVector().elementAt(selectedRow);
 	           
-	            tUserAdd.setText((String) datosFila.get(0));
-	            jPassword.setText((String) datosFila.get(1));
+	            tUserAdd.setText((String) rowData.get(0));
+	            jPassword.setText((String) rowData.get(1));
 	            
-	            index = (datosFila.get(2).equals("Administrador")) ? 0 : 1 ;
+	            index = (rowData.get(2).equals("Administrador")) ? 0 : 1 ;
 	            CXTypeUser.setSelectedIndex(index);
 	            
-	            index = (datosFila.get(3).equals("Activo")) ? 0 : 1 ;
+	            index = (rowData.get(3).equals("Activo")) ? 0 : 1 ;
 	            cxState.setSelectedIndex(index);
 			}
 		});
