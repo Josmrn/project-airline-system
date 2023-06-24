@@ -98,13 +98,26 @@ public class ControllerUserManage implements ActionListener {
 		}
 
 		if (e.getSource() == viewUM.getBtnRemoveUser()) {
+			
 			//Eliminar dato dentro del xml y refrescar en la tabla
-			viewUM.getDTMTUsers().removeRow(viewUM.getTUsers().getSelectedRow());//este no
+			us = fXML.searchUserAndDelete("Users.xml", "User", viewUM.getTWriteName().getText());
+			
+			arrayLU.removePerson(us);
+			
+			refreshData();
+			
+			//viewUM.getDTMTUsers().removeRow(viewUM.getTUsers().getSelectedRow());//este no
+			
+			
+			
+			
+			
 
 		}
 		if (e.getSource() == viewUM.getBtnConsultUser()) {
+			
 			//Buscar dentro del xml y mostrar en los espacios correspondientes
-			us = fXML.searchUsers("Users.xml", "user", viewUM.getTWriteName().getText());
+			us = fXML.searchUsers("Users.xml", "User", viewUM.getTWriteName().getText());
 			viewUM.getTUserAdd().setText(us.getUser());
 			viewUM.getJPassword().setText(us.getPassword());
 			viewUM.getCXTypeUser().setSelectedItem(us.getTypeUser());

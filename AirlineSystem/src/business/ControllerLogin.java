@@ -25,7 +25,7 @@ public class ControllerLogin implements ActionListener{
 		users = new Users("admin","admin","Administrador","Activo");
 		arrayLU = new ArrayListUsers();
 		
-		fXML.createXML("Users", "Users.xml");
+		fXML.createXML("User", "Users.xml");
 		fXML.writeLoginXML("Users.xml", "User", users.getDataName(), users.getData());
 		
 		arrayLU.addUser(users);
@@ -50,13 +50,14 @@ public class ControllerLogin implements ActionListener{
 			String password = new String(passwordChars);
 			/*--------------------------------------------------------*/
 						
-			boolean loginUserAndPassword = fXML.userExistWithPasswordOnXML("Users.xml", "User", "user", "password", guiL.getTUser().getText(), password);
+			boolean loginUserAndPassword = fXML.userExistWithPasswordOnXML("Users.xml", "User",guiL.getTUser().getText(), password);
 			
 			System.out.println(loginUserAndPassword);
 			
 			//Vector que en la posicion 0 tendra el tipo de usuario y en la posicion 1 tendra el estado del usuario 
 			
-			String[] TypeAndStatus = fXML.returnTypeAndStatus("Users.xml", "User", "user", "password", guiL.getTUser().getText(), password);
+			String[] TypeAndStatus = fXML.returnTypeAndStatus("Users.xml", "User",guiL.getTUser().getText(), password);
+
 			
 			System.out.println("Hola Login");
 			

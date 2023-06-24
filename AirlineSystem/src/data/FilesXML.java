@@ -221,6 +221,64 @@ public class FilesXML {
 		}
 	}
 	
+	public Users searchUserAndDelete(String Filename, String elementType, String username ) {
+		
+		Users u = new Users();
+		
+		try {
+			File inputFile = new File(Filename);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName("Users");
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					
+					if(eElement.getAttribute("user").equals(username)) {
+						
+						System.out.println("Entre al if de userEqualsUsername");
+						System.out.println(eElement.getAttribute("user"));
+						
+						u.setUser(eElement.getAttribute("user"));
+						u.setPassword(eElement.getElementsByTagName("password").item(0).getTextContent());
+						u.setTypeUser(eElement.getElementsByTagName("typeUser").item(0).getTextContent());
+						u.setState(eElement.getElementsByTagName("state").item(0).getTextContent());
+						
+						// Eliminar el atributo "user"
+	                    eElement.removeAttribute("user");
+
+	                    // Eliminar los elementos asociados
+	                    eElement.getElementsByTagName("password").item(0).getParentNode().removeChild(eElement.getElementsByTagName("password").item(0));
+	                    eElement.getElementsByTagName("typeUser").item(0).getParentNode().removeChild(eElement.getElementsByTagName("typeUser").item(0));
+	                    eElement.getElementsByTagName("state").item(0).getParentNode().removeChild(eElement.getElementsByTagName("state").item(0));
+						
+						
+					}
+				
+				}
+			}
+			  // Guardar los cambios en el archivo
+	        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+	        Transformer transformer = transformerFactory.newTransformer();
+	        DOMSource source = new DOMSource(doc);
+	        StreamResult result = new StreamResult(new File(Filename));
+	        transformer.transform(source, result);
+
+	        System.out.println("Se eliminó el usuario del archivo XML correctamente.");
+	        
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return u;
+	}
+	
 	//Método que busca los datos en el archivo xml de usuarios
 	public Users searchUsers(String Filename, String elementType, String user ) {
 		
@@ -255,6 +313,7 @@ public class FilesXML {
 		
 		return u;
 	}
+		
 
 	public ArrayList<Users> returnUsers(String Filename, String elementType) {
 		
@@ -325,8 +384,7 @@ public class FilesXML {
 	}
 
 	// metodo que me dice si el usuario y contraseña existen en el archivo XML
-	public boolean userExistWithPasswordOnXML(String fileName, String elementType, String userAttributeName,
-			String passwordAttributeName, String username, String password) {
+	public boolean userExistWithPasswordOnXML(String fileName, String elementType, String username, String password) {
 		try {
 			File file = new File(fileName);
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -343,8 +401,8 @@ public class FilesXML {
 					Node node = nodeList.item(i);
 					if (node instanceof Element) {
 						Element element = (Element) node;
-						String userValue = element.getAttribute(userAttributeName);
-						String passwordValue = element.getElementsByTagName(passwordAttributeName).item(0)
+						String userValue = element.getAttribute("user");
+						String passwordValue = element.getElementsByTagName("password").item(0)
 								.getTextContent();
 
 						if (userValue.equals(username) && passwordValue.equals(password)) {
@@ -365,10 +423,9 @@ public class FilesXML {
 	}
 
 	// Método para verificar el tipo de usuario y el estado
-	public String[] returnTypeAndStatus(String FileName, String elementType, String userAttributeName,
-			String passwordAttributeName, String username, String password) {
+	public String[] returnTypeAndStatus(String FileName, String elementType, String username, String password) {
 
-		String[] userTypeAndStatus = { "", "" };
+		String[] userTypeAndStatus = { "", ""};
 
 		try {
 			File file = new File(FileName);
@@ -388,9 +445,12 @@ public class FilesXML {
 						Element element = (Element) node;
 
 						// Se verifica el usuario y Contraseña
-						String userValue = element.getAttribute(userAttributeName);
-						String passwordValue = element.getElementsByTagName(passwordAttributeName).item(0)
-								.getTextContent();
+						System.out.println(element.getAttribute("user"));
+						System.out.println(element.getElementsByTagName("password").item(0).getTextContent());
+						String userValue = element.getAttribute("user");
+						
+						String passwordValue = element.getElementsByTagName("password").item(0).getTextContent();
+						
 
 						if (userValue.equals(username) && passwordValue.equals(password)) {
 
