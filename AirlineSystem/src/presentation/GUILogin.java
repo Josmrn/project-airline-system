@@ -29,7 +29,6 @@ public class GUILogin extends JFrame {
 	private JTextField tUser;
 	private JPasswordField jPassword;
 	private JButton btnLogin;
-	//private JButton btnRegister;
 	private JLabel lSesion;
 	private JSeparator separator;
 	private JSeparator separator_1;
@@ -54,7 +53,6 @@ public class GUILogin extends JFrame {
 		contentPane.add(getTUser());
 		contentPane.add(getJPassword());
 		contentPane.add(getBtnLogin());
-		//contentPane.add(getBtnRegister());
 		contentPane.add(getLSesion());
 		contentPane.add(getSeparator());
 		contentPane.add(getSeparator_1());
@@ -138,10 +136,6 @@ public class GUILogin extends JFrame {
 			btnLogin = new JButton("Ingresar");
 			btnLogin.setBorderPainted(false);
 			btnLogin.setBorder(new CompoundBorder());
-			btnLogin.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				}
-			});
 			btnLogin.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseEntered(MouseEvent e) {
@@ -160,32 +154,7 @@ public class GUILogin extends JFrame {
 		}
 		return btnLogin;
 	}
-	/*public JButton getBtnRegister() {
-		if (btnRegister == null) {
-			btnRegister = new JButton("Registrar");
-			btnRegister.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseEntered(MouseEvent e) {
-					btnRegister.setBackground(new Color(140, 3, 13));
-				}
-				@Override
-				public void mouseExited(MouseEvent e) {
-					btnRegister.setBackground(new Color(204, 102, 51));
-				}
-			});
-			btnRegister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnRegister.setBorder(new EmptyBorder(0, 0, 0, 0));
-			btnRegister.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				}
-			});
-			btnRegister.setForeground(new Color(0, 0, 51));
-			btnRegister.setBackground(new Color(204, 51, 51));
-			btnRegister.setFont(new Font("Roboto", Font.BOLD, 15));
-			btnRegister.setBounds(277, 247, 100, 25);
-		}
-		return btnRegister;
-	}*/
+	
 	public JLabel getLSesion() {
 		if (lSesion == null) {
 			lSesion = new JLabel("INICIAR SESIÓN");

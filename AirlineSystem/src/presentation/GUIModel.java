@@ -28,6 +28,7 @@ import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class GUIModel extends JInternalFrame {
+	
 	private JLabel lModelManag;
 	private JLabel lblNewLabel;
 	private JTextField tWriteModels;
@@ -52,6 +53,7 @@ public class GUIModel extends JInternalFrame {
 	private Object dataTableM[][];
 	private JSeparator separator_1;
 	private JTextField tSearchModels;
+	
 
 	
 	public GUIModel() {

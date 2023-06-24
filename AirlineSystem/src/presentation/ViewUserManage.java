@@ -25,8 +25,6 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Cursor;
 
 @SuppressWarnings("serial")
@@ -377,17 +375,18 @@ public class ViewUserManage extends JFrame {
 		tUsers.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("unchecked")
 			@Override
+			//Método para poder seleccionar datos en la tabla y ser mostrados en los campos respectivos 
 			public void mouseClicked(MouseEvent e) {
 				
 				int index = 0;
 				
-				int selectedRow = tUsers.getSelectedRow();
-	            DefaultTableModel model = (DefaultTableModel) tUsers.getModel();
-	            Vector<Object> rowData = model.getDataVector().elementAt(selectedRow);
-	           
+				int selectedRow = tUsers.getSelectedRow(); //Variable que va a obtener lo que se encuentra en tUsers
+	            DefaultTableModel model = (DefaultTableModel) tUsers.getModel(); //Me va a obtener los datos asociados a tUsers que están en la tabla
+	            Vector<Object> rowData = model.getDataVector().elementAt(selectedRow); //Es el vector del objeto seleccionado en la tabla
+	           //Se agregan los componentes al los campos de texto y combo box
 	            tUserAdd.setText((String) rowData.get(0));
 	            jPassword.setText((String) rowData.get(1));
-	            
+	         
 	            index = (rowData.get(2).equals("Administrador")) ? 0 : 1 ;
 	            CXTypeUser.setSelectedIndex(index);
 	            

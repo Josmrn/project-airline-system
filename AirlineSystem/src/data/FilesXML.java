@@ -232,7 +232,7 @@ public class FilesXML {
 			Document doc = dBuilder.parse(inputFile);
 			doc.getDocumentElement().normalize();
 
-			NodeList nList = doc.getElementsByTagName("Users");
+			NodeList nList = doc.getElementsByTagName(elementType);
 
 			for (int indice = 0; indice < nList.getLength(); indice++) {
 				Node nNode = nList.item(indice);
@@ -260,7 +260,6 @@ public class FilesXML {
 						
 						
 					}
-				
 				}
 			}
 			  // Guardar los cambios en el archivo
@@ -285,13 +284,13 @@ public class FilesXML {
 		Users u = new Users();
 		
 		try {
-			File inputFile = new File("Users.xml");
+			File inputFile = new File(Filename);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(inputFile);
 			doc.getDocumentElement().normalize();
 
-			NodeList nList = doc.getElementsByTagName("users");
+			NodeList nList = doc.getElementsByTagName(elementType);
 
 			for (int indice = 0; indice < nList.getLength(); indice++) {
 				Node nNode = nList.item(indice);
@@ -316,38 +315,37 @@ public class FilesXML {
 		
 
 	public ArrayList<Users> returnUsers(String Filename, String elementType) {
-		
-		ArrayList<Users> arrayUsers = new ArrayList<Users>();
-		Users user = new Users();
-		
-		try {
+	    ArrayList<Users> arrayUsers = new ArrayList<>();
 
-			File inputFile = new File(Filename);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(inputFile);
-			doc.getDocumentElement().normalize();
+	    try {
+	        File inputFile = new File(Filename);
+	        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+	        Document doc = dBuilder.parse(inputFile);
+	        doc.getDocumentElement().normalize();
 
-			NodeList nList = doc.getElementsByTagName(elementType);
+	        NodeList nList = doc.getElementsByTagName(elementType);
 
-			for (int indice = 0; indice < nList.getLength(); indice++) {
-				Node nNode = nList.item(indice);
+	        for (int indice = 0; indice < nList.getLength(); indice++) {
+	            Node nNode = nList.item(indice);
 
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-					Element eElement = (Element) nNode;
-					user.setUser(eElement.getAttribute("user"));
-					user.setPassword(eElement.getElementsByTagName("password").item(0).getTextContent());
-					user.setTypeUser(eElement.getElementsByTagName("typeUser").item(0).getTextContent());
-					user.setState(eElement.getElementsByTagName("state").item(0).getTextContent());
-					arrayUsers.add(user);
+	            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+	                Element eElement = (Element) nNode;
+	                Users user = new Users(); // Crear una nueva instancia de Users
+	                user.setUser(eElement.getAttribute("user"));
+	                user.setPassword(eElement.getElementsByTagName("password").item(0).getTextContent());
+	                user.setTypeUser(eElement.getElementsByTagName("typeUser").item(0).getTextContent());
+	                user.setState(eElement.getElementsByTagName("state").item(0).getTextContent());
+	                arrayUsers.add(user);
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return arrayUsers;
+	    return arrayUsers;
 	}
+
 
 	public String readXMLToString(String Filename, String elementType) {
 

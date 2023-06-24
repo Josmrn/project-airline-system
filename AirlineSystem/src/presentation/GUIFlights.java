@@ -46,8 +46,6 @@ public class GUIFlights extends JInternalFrame {
 	private Object dataTableM[][];
 	private JSeparator separator_1;
 	private JTextField tSearchFlights;
-	private JTextField tDate;
-	private JSeparator separator_2;
 	private JLabel lDepartureHour;
 	private JTextField tDepartureHour;
 	private JSeparator separator_2_1;
@@ -93,8 +91,6 @@ public class GUIFlights extends JInternalFrame {
 		getContentPane().add(getTaInfo());
 		getContentPane().add(getSeparator_1());
 		getContentPane().add(getTSearchFlights());
-		getContentPane().add(getTDate());
-		getContentPane().add(getSeparator_2());
 		getContentPane().add(getLDepartureHour());
 		getContentPane().add(getTDepartureHour());
 		getContentPane().add(getSeparator_2_1());
@@ -312,23 +308,6 @@ public class GUIFlights extends JInternalFrame {
 			tSearchFlights.setColumns(10);
 		}
 		return tSearchFlights;
-	}
-	public JTextField getTDate() {
-		if (tDate == null) {
-			tDate = new JTextField();
-			tDate.setFont(new Font("Tahoma", Font.PLAIN, 10));
-			tDate.setColumns(10);
-			tDate.setBorder(null);
-			tDate.setBounds(10, 268, 300, 25);
-		}
-		return tDate;
-	}
-	public JSeparator getSeparator_2() {
-		if (separator_2 == null) {
-			separator_2 = new JSeparator();
-			separator_2.setBounds(10, 293, 300, 1);
-		}
-		return separator_2;
 	}
 	public JLabel getLDepartureHour() {
 		if (lDepartureHour == null) {

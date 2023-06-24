@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import data.FilesXML;
 import domain.Users;
 import presentation.ViewUserManage;
@@ -32,8 +33,19 @@ public class ControllerUserManage implements ActionListener {
 		for(Users elemento : arrayUsers) {
 			viewUM.getDTMTUsers().addRow(new Object[] { elemento.getUser(), elemento.getPassword(), elemento.getTypeUser(), elemento.getState()});
 		}
-		
 	}
+	
+	/*private void refreshData() {
+	    DefaultTableModel model = viewUM.getDTMTUsers();
+	    model.setRowCount(0); // Limpiar la tabla antes de agregar nuevas filas
+
+	    ArrayList<Users> arrayUsers = fXML.returnUsers("Users.xml", "User");
+	    
+	    for (Users elemento : arrayUsers) {
+	        model.addRow(new Object[] { elemento.getUser(), elemento.getPassword(), elemento.getTypeUser(), elemento.getState() });
+	    }
+	}*/
+
 	
 	private void initializerAction() {
 		// TODO Auto-generated method stub
@@ -73,6 +85,7 @@ public class ControllerUserManage implements ActionListener {
 			// Se añade a la tabla
 			viewUM.cleanForm();
 			System.out.print(arrayLU.getArrayListUsers().size());
+			
 		}
 		if (e.getSource() == viewUM.getBtnReadUsers()) {
 			//Botón para leer los datos del usuario que están dentro del archivo xml
@@ -113,16 +126,6 @@ public class ControllerUserManage implements ActionListener {
 			
 			
 
-		}
-		if (e.getSource() == viewUM.getBtnConsultUser()) {
-			
-			//Buscar dentro del xml y mostrar en los espacios correspondientes
-			us = fXML.searchUsers("Users.xml", "User", viewUM.getTWriteName().getText());
-			viewUM.getTUserAdd().setText(us.getUser());
-			viewUM.getJPassword().setText(us.getPassword());
-			viewUM.getCXTypeUser().setSelectedItem(us.getTypeUser());
-			viewUM.getCxState().setSelectedItem(us.getState());
-			
 		}
 
 	}

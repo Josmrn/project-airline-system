@@ -101,12 +101,9 @@ public class ControllerLogin implements ActionListener{
 				guiL.cleanForm();
 					
 			
+				
 		}
 		
-		/*if(e.getSource() == guiL.getBtnRegister()) {
-			new ControllerRegister();
-			guiL.dispose();
-		}*/
 		
 	}
 	

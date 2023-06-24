@@ -3,6 +3,7 @@ package business;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import presentation.GUIBrands;
+import presentation.GUIMain;
 import domain.Brands;
 import data.FilesXML;
 
@@ -12,11 +13,9 @@ public class ControllerBrands implements ActionListener {
 	private Brands brand;
 	private FilesXML fXML;
 
-	public ControllerBrands() {
-		
-		//No registra marcas
-		
+	public ControllerBrands(GUIMain guiMain) {
 		guiB = new GUIBrands();
+		guiMain.getDesktopMain().add(guiB);
 		brand = new Brands();
 		fXML = new FilesXML();
 		
@@ -41,13 +40,15 @@ public class ControllerBrands implements ActionListener {
 		// TODO Auto-generated method stub
 		if(e.getSource() == guiB.getBtnRegisterBrand()) {
 			
-			brand = new Brands(guiB.getTAddBrand().getText());
+			System.out.println("Click en registro de marca");
+		}
+		
+		if(e.getSource() == guiB.getBtnEditBrands()) {
 			
-			fXML.writeLoginXML("Brands.xml", "Brands", brand.getDataName(), brand.getData());
+		}
+		
+		if(e.getSource() == guiB.getBtnRemoveBrand()) {
 			
-			guiB.cleanForm();
-			
-			guiB.getDTMTBrands().addRow(brand.getData());
 		}
 		
 	}
