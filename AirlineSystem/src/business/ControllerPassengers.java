@@ -3,10 +3,8 @@ package business;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 import domain.Passengers;
 import data.FilesXML;
@@ -110,12 +108,43 @@ public class ControllerPassengers implements ActionListener{
 		}
 		if(e.getSource() == guiPass.getBtnEditPassengers()) {
 			
-			
+			 // Obtiene los datos del formulario
+		    int passportNum = Integer.parseInt(guiPass.getTPassport().getText());
+		    String name = guiPass.getTName().getText();
+		    String lastName = guiPass.getTLastName().getText();
+		    String birthDate = guiPass.getTBirthDate().getText();
+		    String email = guiPass.getTEmail().getText();
+		    int cellphone = Integer.parseInt(guiPass.getTCellphone().getText());
+
+
+		    int selectedRow = guiPass.getTPassengers().getSelectedRow();
+
+		    // Modifica los datos en la tabla
+		    guiPass.getDTMTPassengers().setValueAt(passportNum, selectedRow, 0);
+		    guiPass.getDTMTPassengers().setValueAt(name, selectedRow, 1);
+		    guiPass.getDTMTPassengers().setValueAt(lastName, selectedRow, 2);
+		    guiPass.getDTMTPassengers().setValueAt(birthDate, selectedRow, 3);
+		    guiPass.getDTMTPassengers().setValueAt(email, selectedRow, 4);
+		    guiPass.getDTMTPassengers().setValueAt(cellphone, selectedRow, 5);
+
+		    // Modifica el pasajero en el archivo XML
+		    fLogXML.modifyPassenger("Passengers.xml", "Passenger", passportNum, name, lastName, birthDate,email,cellphone );
 			
 		}
 		if(e.getSource() == guiPass.getBtnRemovePassengers()) {
 			
-			
+			 int passportNum = Integer.parseInt(guiPass.getTSearchPassenger().getText());
+			    
+			    // Elimina el dato dentro del xml y refrescar en la tabla
+			    Passengers p = fLogXML.searchPassengerAndDelete("Passengers.xml", "passenger", passportNum);
+
+			    if (p != null) {
+			        arrayLPass.removePassenger(p);
+			        refreshData();
+			        JOptionPane.showMessageDialog(null, "El pasajero se eliminó correctamente.");
+			    } else {
+			    	JOptionPane.showMessageDialog(null, "El pasajero no se encontró o no pudo ser eliminado.");  
+			    }
 			
 		}
 		

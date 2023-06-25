@@ -606,6 +606,46 @@ public class FilesLogicXML {
 		}
 	}
 	
+	// Método para modificar el pasajero
+		public void modifyPassenger(String filename, String elementType, int passportNum, String name, String lastName,
+				String birthDate, String email, int cellphone) {
+			try {
+				File inputFile = new File(filename);
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(inputFile);
+				doc.getDocumentElement().normalize();
+
+				NodeList nList = doc.getElementsByTagName(elementType);
+
+				for (int i = 0; i < nList.getLength(); i++) {
+					Node nNode = nList.item(i);
+
+					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+						Element eElement = (Element) nNode;
+
+						if ( Integer.parseInt(eElement.getAttribute("passportNum"))== passportNum) {
+							// Modificar los elementos del pasajero
+							eElement.getElementsByTagName("name").item(0).setTextContent(name);
+							eElement.getElementsByTagName("lastName").item(0).setTextContent(lastName);
+							eElement.getElementsByTagName("birthDate").item(0).setTextContent(birthDate);
+							eElement.getElementsByTagName("email").item(0).setTextContent(email);
+							eElement.getElementsByTagName("cellphone").item(0).setTextContent(String.valueOf(cellphone));
+						}
+					}
+				}
+
+				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+				Transformer transformer = transformerFactory.newTransformer();
+				DOMSource source = new DOMSource(doc);
+				StreamResult result = new StreamResult(new File(filename));
+				transformer.transform(source, result);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	
 	// Escribe el XML del pasajero
 		public void writePassengerXML(String FileName, String elementType, String[] dataName, String[] data) {
 
@@ -701,6 +741,68 @@ public class FilesLogicXML {
 		    }
 
 		    return false; // El pasajero no existe en el XML
+		}
+		
+		// Método que elimina al pasajero dentro del XML (funcionando)
+		public Passengers searchPassengerAndDelete(String Filename, String elementType, int passportNum) {
+			Passengers p = null;
+
+			try {
+				File inputFile = new File(Filename);
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(inputFile);
+				doc.getDocumentElement().normalize();
+
+				NodeList nList = doc.getElementsByTagName(elementType);
+
+				for (int indice = 0; indice < nList.getLength(); indice++) {
+					Node nNode = nList.item(indice);
+
+					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+						Element eElement = (Element) nNode;
+
+						if (Integer.parseInt(eElement.getAttribute("passportNum")) == passportNum) {
+
+							eElement.removeAttribute("passportNum");
+							eElement.getParentNode().removeChild(eElement);
+
+							TransformerFactory transformerFactory = TransformerFactory.newInstance();
+							Transformer transformer = transformerFactory.newTransformer();
+							DOMSource source = new DOMSource(doc);
+							StreamResult result = new StreamResult(new File(Filename));
+							transformer.transform(source, result);
+
+							p = new Passengers();
+							p.setPassportNum(passportNum);
+
+							// Validaciones que verifican si los nodos hijos existen antes de acceder al
+							// contenido
+							if (eElement.getElementsByTagName("name").getLength() > 0) {
+								p.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
+							}
+							if (eElement.getElementsByTagName("lastName").getLength() > 0) {
+								p.setLastName(eElement.getElementsByTagName("lastName").item(0).getTextContent());
+							}
+							if (eElement.getElementsByTagName("birthDate").getLength() > 0) {
+								p.setBornDate(eElement.getElementsByTagName("birthDate").item(0).getTextContent());
+							}
+							if (eElement.getElementsByTagName("email").getLength() > 0) {
+								p.setEmail(eElement.getElementsByTagName("email").item(0).getTextContent());
+							}
+							if (eElement.getElementsByTagName("cellphone").getLength() > 0) {
+								p.setCellphone(Integer.parseInt(eElement.getElementsByTagName("cellphone").item(0).getTextContent()));
+							}
+
+							break;
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return p;
 		}
 
 }
