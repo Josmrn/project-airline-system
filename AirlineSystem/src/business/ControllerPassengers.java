@@ -29,6 +29,7 @@ public class ControllerPassengers implements ActionListener{
 		guiMain.getDesktopMain().add(guiPass);
 		fXML = new FilesXML();
 		fLogXML = new FilesLoginXML();
+		//arrayLPass = new ArrayListPassengers();
 		
 		fXML.createXML("Passengers", "Passengers.xml");
 		
@@ -65,10 +66,28 @@ public class ControllerPassengers implements ActionListener{
 		
 		if(e.getSource() == guiPass.getBtnAddPassenger()) {
 			
+			passen = new Passengers(Integer.parseInt(guiPass.getTPassport().getText()),
+					guiPass.getTName().getText(),guiPass.getTLastName().getText(),
+					guiPass.getTBirthDate().getText(),guiPass.getTEmail().getText(),
+					Integer.parseInt(guiPass.getTCellphone().getText()));
+			
+			fLogXML.writePassengerXML("Passengers.xml", "Passengers", passen.getDataName(), passen.getData());
+			
+			//arrayLPass.addPassenger(passen);
+			
+			guiPass.getDTMTPassengers().addRow(new Object[] {guiPass.getTPassport().getText(),
+					guiPass.getTName().getText(),guiPass.getTLastName().getText(),
+					guiPass.getTBirthDate().getText(),guiPass.getTEmail().getText(),
+					guiPass.getTCellphone().getText()});
+			
+			//System.out.print(arrayLPass.getArrayListPassengers().size());
 			
 			
 		}
 		if(e.getSource() == guiPass.getBtnConsultPassenger()) {
+			
+			
+			
 			
 			
 			

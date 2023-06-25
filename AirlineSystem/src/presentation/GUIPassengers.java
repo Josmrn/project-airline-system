@@ -253,7 +253,7 @@ public class GUIPassengers extends JInternalFrame {
 		return this.spTPassengers;
 	}
 	public String[] getColumnsNamesM() {
-		String columnsName[] = {"Numero de Pasaporte","Nombre Completo","Fecha de Nacimiento","Correo Electronico","Numero Celular"};
+		String columnsName[] = {"Numero de Pasaporte","Nombre/s","Apellido/s","Fecha de Nacimiento","Correo Electronico","Numero Celular"};
 		return columnsName;
 	}
 	public JSeparator getSeparator_1() {

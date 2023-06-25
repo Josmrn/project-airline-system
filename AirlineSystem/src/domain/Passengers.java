@@ -64,6 +64,17 @@ public class Passengers {
 	public void setCellphone(int cellphone) {
 		this.cellphone = cellphone;
 	}
+	
+	public String[] getDataName() {
+		String[] dataName = {"passportNum","name","lastName","bornDate","email","cellphone"};
+		return dataName;
+	}
+	
+	
+	public String[] getData() {
+		String[] data = {String.valueOf(passportNum),name,lastName,email,bornDate,String.valueOf(cellphone)};
+		return data;
+	}
 
 	@Override
 	public String toString() {

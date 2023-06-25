@@ -460,6 +460,109 @@ public class FilesLoginXML {
 		        e.printStackTrace();
 		    }
 		}
+		
+		public void writePassengerXML(String FileName, String elementType, String[] dataName, String[] data) {
+
+			boolean passportExist = passportExistOnXML(FileName, elementType, dataName[0], Integer.parseInt(data[0]));
+
+			if (passportExist == true) {
+				JOptionPane.showMessageDialog(null, "El numero de pasaporte ya existe en el sistema");
+				return; // Detener la ejecución del método writeXML
+			}
+			
+
+			try {
+
+				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+				DocumentBuilder db = dbf.newDocumentBuilder();
+
+				Document doc = db.parse(new File(FileName));
+				doc.getDocumentElement().normalize();
+
+				Element rootElement = doc.getDocumentElement();
+
+				Element ele = doc.createElement(elementType);
+				rootElement.appendChild(ele);
+
+				Attr attr = doc.createAttribute(dataName[0]);
+				attr.setValue(data[0]);
+				ele.setAttributeNode(attr);
+
+				for (int i = 1; i < data.length; i++) {
+
+					Element dato = doc.createElement(dataName[i]);
+
+					dato.appendChild(doc.createTextNode(data[i]));
+
+					ele.appendChild(dato);
+				}
+
+				// escribirmos el contenido en un archivo xml
+				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+				Transformer transformer = transformerFactory.newTransformer();
+
+				DOMSource source = new DOMSource(doc);
+
+				StreamResult result = new StreamResult(new File(FileName));
+				transformer.transform(source, result);
+
+				JOptionPane.showMessageDialog(null, "Pasajero registrado");
+
+			} catch (ParserConfigurationException pce) {
+
+				pce.printStackTrace();
+
+			} catch (SAXException e) {
+
+				e.printStackTrace();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			} catch (TransformerConfigurationException e) {
+
+				e.printStackTrace();
+			} catch (TransformerException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+		
+		// metodo que me dice si el pasaporte existe en el archivo XML
+				public boolean passportExistOnXML(String fileName, String elementType, String dataName, int passport) {
+					try {
+						File file = new File(fileName);
+						DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+						DocumentBuilder db = dbf.newDocumentBuilder();
+
+						if (file.exists()) {
+							Document doc = db.parse(file);
+							doc.getDocumentElement().normalize();
+
+							Element rootElement = doc.getDocumentElement();
+							NodeList nodeList = rootElement.getElementsByTagName(elementType);
+
+							for (int i = 0; i < nodeList.getLength(); i++) {
+								Node node = nodeList.item(i);
+								if (node instanceof Element) {
+									Element element = (Element) node;
+									int value = Integer.parseInt(element.getAttribute(dataName));
+									if (value == passport) {
+										return true; // El pasaporte existe en el archivo
+									}
+								}
+							}
+						}
+					} catch (ParserConfigurationException pce) {
+						pce.printStackTrace();
+					} catch (SAXException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
+					return false; // El pasaporte no existe en el archivo o se produjo un error
+				}
 
 
 
