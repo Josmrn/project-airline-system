@@ -15,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
-import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.MouseAdapter;
@@ -35,9 +34,7 @@ public class GUIAirlines extends JInternalFrame {
 	private JButton btnRemoveAirlines;
 	private JButton btnEditAirlines;
 	private JButton btnConsultAirlines;
-	private JButton btnShowAirlines;
 	private JButton btnAddAirlines;
-	private JTextArea taInfo;
 	private DefaultTableModel dtmTAirlines;
 	private JTable tAirlines;
 	private JScrollPane spTAirlines;
@@ -65,14 +62,11 @@ public class GUIAirlines extends JInternalFrame {
 		getContentPane().add(getBtnRemoveAirlines());
 		getContentPane().add(getBtnEditAirlines());
 		getContentPane().add(getBtnConsultAirlines());
-		getContentPane().add(getBtnShowAirlines());
 		getContentPane().add(getBtnAddAirlines());
-		getContentPane().add(getTaInfo());
 		setDTMTAirlines(dataTableM, getColumnsNamesM());
 		setTAirlines(dtmTAirlines);
 		setSPTAirlines(tAirlines);
 		getContentPane().add(spTAirlines);
-		getContentPane().add(getTaInfo());
 		getContentPane().add(getSeparator_1());
 		getContentPane().add(getTSearchAirline());
 		getContentPane().add(getTOpeCenter());
@@ -93,7 +87,7 @@ public class GUIAirlines extends JInternalFrame {
 		if (lName == null) {
 			lName = new JLabel("Nombre de Aerolinea");
 			lName.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lName.setBounds(10, 180, 150, 25);
+			lName.setBounds(10, 155, 150, 25);
 		}
 		return lName;
 	}
@@ -103,14 +97,14 @@ public class GUIAirlines extends JInternalFrame {
 			tWriteAirlines.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tWriteAirlines.setColumns(10);
 			tWriteAirlines.setBorder(null);
-			tWriteAirlines.setBounds(10, 210, 300, 25);
+			tWriteAirlines.setBounds(10, 178, 300, 25);
 		}
 		return tWriteAirlines;
 	}
 	public JSeparator getSeparator() {
 		if (separator == null) {
 			separator = new JSeparator();
-			separator.setBounds(10, 236, 300, 1);
+			separator.setBounds(10, 204, 300, 1);
 		}
 		return separator;
 	}
@@ -118,7 +112,7 @@ public class GUIAirlines extends JInternalFrame {
 		if (lOpeCenter == null) {
 			lOpeCenter = new JLabel("Centro de Operaciones");
 			lOpeCenter.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lOpeCenter.setBounds(10, 244, 161, 25);
+			lOpeCenter.setBounds(320, 155, 161, 25);
 		}
 		return lOpeCenter;
 	}
@@ -178,20 +172,6 @@ public class GUIAirlines extends JInternalFrame {
 		}
 		return btnConsultAirlines;
 	}
-	public JButton getBtnShowAirlines() {
-		if (btnShowAirlines == null) {
-			btnShowAirlines = new JButton("Mostrar");
-			btnShowAirlines.setIcon(new ImageIcon(GUIAirlines.class.getResource("/images/icons_show.png")));
-			btnShowAirlines.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnShowAirlines.setOpaque(false);
-			btnShowAirlines.setForeground(new Color(0, 0, 128));
-			btnShowAirlines.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnShowAirlines.setContentAreaFilled(false);
-			btnShowAirlines.setBorder(null);
-			btnShowAirlines.setBounds(448, 110, 97, 35);
-		}
-		return btnShowAirlines;
-	}
 	public JButton getBtnAddAirlines() {
 		if (btnAddAirlines == null) {
 			btnAddAirlines = new JButton("Agregar");
@@ -203,22 +183,9 @@ public class GUIAirlines extends JInternalFrame {
 			btnAddAirlines.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			btnAddAirlines.setContentAreaFilled(false);
 			btnAddAirlines.setBorder(null);
-			btnAddAirlines.setBounds(10, 460, 110, 35);
+			btnAddAirlines.setBounds(435, 110, 110, 35);
 		}
 		return btnAddAirlines;
-	}
-	public JTextArea getTaInfo() {
-		if (taInfo == null) {
-			taInfo = new JTextArea();
-			taInfo.setBorder(null);
-			taInfo.setWrapStyleWord(true);
-			taInfo.setText("Consultar o mostrar las aerolineas registradas, se puede hacer individual o grupal, según su preferencia.");
-			taInfo.setLineWrap(true);
-			taInfo.setForeground(new Color(102, 102, 102));
-			taInfo.setEditable(false);
-			taInfo.setBounds(448, 183, 540, 54);
-		}
-		return taInfo;
 	}
 	public void setDTMTAirlines(Object data[][], String[] columnsNamesM) {
 		dtmTAirlines = new DefaultTableModel(data, columnsNamesM);
@@ -242,7 +209,7 @@ public class GUIAirlines extends JInternalFrame {
 		spTAirlines.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spTAirlines.setToolTipText("");
 		spTAirlines.setBackground(new Color(255, 255, 255));
-		spTAirlines.setBounds(448, 249, 540, 245);
+		spTAirlines.setBounds(10, 214, 975, 280);
 	}
 	public JScrollPane getSPTModels() {
 		return this.spTAirlines;
@@ -285,14 +252,14 @@ public class GUIAirlines extends JInternalFrame {
 			tOpeCenter.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tOpeCenter.setColumns(10);
 			tOpeCenter.setBorder(null);
-			tOpeCenter.setBounds(10, 280, 300, 25);
+			tOpeCenter.setBounds(320, 178, 300, 25);
 		}
 		return tOpeCenter;
 	}
 	public JSeparator getSeparator_2() {
 		if (separator_2 == null) {
 			separator_2 = new JSeparator();
-			separator_2.setBounds(10, 306, 300, 1);
+			separator_2.setBounds(320, 204, 300, 1);
 		}
 		return separator_2;
 	}

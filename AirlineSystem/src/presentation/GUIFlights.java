@@ -16,7 +16,6 @@ import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
-import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
@@ -37,9 +36,7 @@ public class GUIFlights extends JInternalFrame {
 	private JButton btnRemoveFlights;
 	private JButton btnEditFlights;
 	private JButton btnConsultFlight;
-	private JButton btnShowFlights;
 	private JButton btnAddFlight;
-	private JTextArea taInfo;
 	private DefaultTableModel dtmTFlights;
 	private JTable tFlights;
 	private JScrollPane spTFlights;
@@ -70,7 +67,7 @@ public class GUIFlights extends JInternalFrame {
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		setBounds(100, 100, 1540, 773);
+		setBounds(100, 100, 1717, 773);
 		getContentPane().setLayout(null);
 		getContentPane().add(getLFlightsManag());
 		getContentPane().add(getLDepartureCity());
@@ -81,14 +78,11 @@ public class GUIFlights extends JInternalFrame {
 		getContentPane().add(getBtnRemoveFlights());
 		getContentPane().add(getBtnEditFlights());
 		getContentPane().add(getBtnConsultFlight());
-		getContentPane().add(getBtnShowFlights());
 		getContentPane().add(getBtnAddFlight());
-		getContentPane().add(getTaInfo());
 		setDTMTFlights(dataTableM, getColumnsNamesM());
 		setTFlights(dtmTFlights);
 		setSPTFlights(tFlights);
 		getContentPane().add(spTFlights);
-		getContentPane().add(getTaInfo());
 		getContentPane().add(getSeparator_1());
 		getContentPane().add(getTSearchFlights());
 		getContentPane().add(getLDepartureHour());
@@ -163,7 +157,7 @@ public class GUIFlights extends JInternalFrame {
 	public JButton getBtnRemoveFlights() {
 		if (btnRemoveFlights == null) {
 			btnRemoveFlights = new JButton("Eliminar");
-			btnRemoveFlights.setBounds(220, 110, 90, 35);
+			btnRemoveFlights.setBounds(400, 110, 90, 35);
 			btnRemoveFlights.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				}
@@ -195,7 +189,7 @@ public class GUIFlights extends JInternalFrame {
 	public JButton getBtnConsultFlight() {
 		if (btnConsultFlight == null) {
 			btnConsultFlight = new JButton("Consultar");
-			btnConsultFlight.setBounds(865, 110, 120, 35);
+			btnConsultFlight.setBounds(1400, 110, 120, 35);
 			btnConsultFlight.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnConsultFlight.setHorizontalAlignment(SwingConstants.LEFT);
 			btnConsultFlight.setIcon(new ImageIcon(GUIFlights.class.getResource("/images/icons_consult.png")));
@@ -207,24 +201,10 @@ public class GUIFlights extends JInternalFrame {
 		}
 		return btnConsultFlight;
 	}
-	public JButton getBtnShowFlights() {
-		if (btnShowFlights == null) {
-			btnShowFlights = new JButton("Mostrar");
-			btnShowFlights.setBounds(448, 110, 97, 35);
-			btnShowFlights.setIcon(new ImageIcon(GUIFlights.class.getResource("/images/icons_show.png")));
-			btnShowFlights.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnShowFlights.setOpaque(false);
-			btnShowFlights.setForeground(new Color(0, 0, 128));
-			btnShowFlights.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnShowFlights.setContentAreaFilled(false);
-			btnShowFlights.setBorder(null);
-		}
-		return btnShowFlights;
-	}
 	public JButton getBtnAddFlight() {
 		if (btnAddFlight == null) {
 			btnAddFlight = new JButton("Agregar");
-			btnAddFlight.setBounds(10, 709, 110, 35);
+			btnAddFlight.setBounds(800, 110, 110, 35);
 			btnAddFlight.setIcon(new ImageIcon(GUIFlights.class.getResource("/images/icons_add.png")));
 			btnAddFlight.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnAddFlight.setOpaque(false);
@@ -235,19 +215,6 @@ public class GUIFlights extends JInternalFrame {
 			btnAddFlight.setBorder(null);
 		}
 		return btnAddFlight;
-	}
-	public JTextArea getTaInfo() {
-		if (taInfo == null) {
-			taInfo = new JTextArea();
-			taInfo.setBounds(448, 183, 540, 54);
-			taInfo.setBorder(null);
-			taInfo.setWrapStyleWord(true);
-			taInfo.setText("Consultar o mostrar los vuelos registrados, se puede hacer individual o grupal, según su preferencia.");
-			taInfo.setLineWrap(true);
-			taInfo.setForeground(new Color(102, 102, 102));
-			taInfo.setEditable(false);
-		}
-		return taInfo;
 	}
 	public void setDTMTFlights(Object data[][], String[] columnsNamesM) {
 		dtmTFlights = new DefaultTableModel(data, columnsNamesM);
@@ -267,7 +234,7 @@ public class GUIFlights extends JInternalFrame {
 	}
 	public void setSPTFlights(JTable tFlights) {
 		spTFlights = new JScrollPane(tFlights);
-		spTFlights.setBounds(448, 233, 1070, 458);
+		spTFlights.setBounds(320, 169, 1371, 563);
 		spTFlights.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Datos de vuelos registrados", TitledBorder.LEFT, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)));
 		spTFlights.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spTFlights.setToolTipText("");
@@ -291,7 +258,7 @@ public class GUIFlights extends JInternalFrame {
 	public JTextField getTSearchFlights() {
 		if (tSearchFlights == null) {
 			tSearchFlights = new JTextField();
-			tSearchFlights.setBounds(555, 115, 300, 30);
+			tSearchFlights.setBounds(1000, 115, 300, 30);
 			tSearchFlights.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			tSearchFlights.setForeground(new Color(192, 192, 192));
 			tSearchFlights.addMouseListener(new MouseAdapter() {

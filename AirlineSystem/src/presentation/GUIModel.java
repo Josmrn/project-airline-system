@@ -16,7 +16,6 @@ import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
-import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
@@ -44,9 +43,7 @@ public class GUIModel extends JInternalFrame {
 	private JButton btnRemoveModels;
 	private JButton btnEditModels;
 	private JButton btnConsultModel;
-	private JButton btnShowModel;
 	private JButton btnAddModels;
-	private JTextArea taInfo;
 	private DefaultTableModel dtmTModels;
 	private JTable tModels;
 	private JScrollPane spTModels;
@@ -78,14 +75,11 @@ public class GUIModel extends JInternalFrame {
 		getContentPane().add(getBtnRemoveModels());
 		getContentPane().add(getBtnEditModels());
 		getContentPane().add(getBtnConsultModel());
-		getContentPane().add(getBtnShowModel());
 		getContentPane().add(getBtnAddModels());
-		getContentPane().add(getTaInfo());
 		setDTMTModels(dataTableM, getColumnsNamesM());
 		setTModels(dtmTModels);
 		setSPTModels(tModels);
 		getContentPane().add(spTModels);
-		getContentPane().add(getTaInfo());
 		getContentPane().add(getSeparator_1());
 		getContentPane().add(getTSearchModels());
 		setVisible(true);
@@ -104,7 +98,7 @@ public class GUIModel extends JInternalFrame {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("Modelo");
 			lblNewLabel.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lblNewLabel.setBounds(10, 180, 60, 25);
+			lblNewLabel.setBounds(10, 155, 60, 25);
 		}
 		return lblNewLabel;
 	}
@@ -114,14 +108,14 @@ public class GUIModel extends JInternalFrame {
 			tWriteModels.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tWriteModels.setColumns(10);
 			tWriteModels.setBorder(null);
-			tWriteModels.setBounds(10, 210, 300, 25);
+			tWriteModels.setBounds(10, 178, 255, 25);
 		}
 		return tWriteModels;
 	}
 	public JSeparator getSeparator() {
 		if (separator == null) {
 			separator = new JSeparator();
-			separator.setBounds(10, 236, 300, 1);
+			separator.setBounds(10, 204, 255, 1);
 		}
 		return separator;
 	}
@@ -129,7 +123,7 @@ public class GUIModel extends JInternalFrame {
 		if (lAircraftBrand == null) {
 			lAircraftBrand = new JLabel("Marca de Avión");
 			lAircraftBrand.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lAircraftBrand.setBounds(10, 244, 110, 25);
+			lAircraftBrand.setBounds(275, 155, 110, 25);
 		}
 		return lAircraftBrand;
 	}
@@ -139,7 +133,7 @@ public class GUIModel extends JInternalFrame {
 			cxBrandAircraft = new JComboBox();
 			cxBrandAircraft.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar:"}));
 			cxBrandAircraft.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			cxBrandAircraft.setBounds(10, 279, 150, 25);
+			cxBrandAircraft.setBounds(275, 178, 150, 25);
 		}
 		return cxBrandAircraft;
 	}
@@ -147,7 +141,7 @@ public class GUIModel extends JInternalFrame {
 		if (lNumberOfSeats == null) {
 			lNumberOfSeats = new JLabel("Cantidad de Asientos");
 			lNumberOfSeats.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lNumberOfSeats.setBounds(10, 314, 150, 25);
+			lNumberOfSeats.setBounds(435, 155, 150, 25);
 		}
 		return lNumberOfSeats;
 	}
@@ -160,7 +154,7 @@ public class GUIModel extends JInternalFrame {
 			tExecutiveSeats.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tExecutiveSeats.setColumns(10);
 			tExecutiveSeats.setBackground(Color.WHITE);
-			tExecutiveSeats.setBounds(10, 349, 150, 25);
+			tExecutiveSeats.setBounds(435, 178, 150, 25);
 		}
 		return tExecutiveSeats;
 	}
@@ -172,7 +166,7 @@ public class GUIModel extends JInternalFrame {
 			tTouristSeats.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tTouristSeats.setColumns(10);
 			tTouristSeats.setBackground(Color.WHITE);
-			tTouristSeats.setBounds(10, 385, 150, 25);
+			tTouristSeats.setBounds(595, 178, 150, 25);
 		}
 		return tTouristSeats;
 	}
@@ -184,7 +178,7 @@ public class GUIModel extends JInternalFrame {
 			tEconomicSeats.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tEconomicSeats.setColumns(10);
 			tEconomicSeats.setBackground(Color.WHITE);
-			tEconomicSeats.setBounds(10, 420, 150, 25);
+			tEconomicSeats.setBounds(755, 178, 150, 25);
 		}
 		return tEconomicSeats;
 	}
@@ -244,20 +238,6 @@ public class GUIModel extends JInternalFrame {
 		}
 		return btnConsultModel;
 	}
-	public JButton getBtnShowModel() {
-		if (btnShowModel == null) {
-			btnShowModel = new JButton("Mostrar");
-			btnShowModel.setIcon(new ImageIcon(GUIModel.class.getResource("/images/icons_show.png")));
-			btnShowModel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnShowModel.setOpaque(false);
-			btnShowModel.setForeground(new Color(0, 0, 128));
-			btnShowModel.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnShowModel.setContentAreaFilled(false);
-			btnShowModel.setBorder(null);
-			btnShowModel.setBounds(448, 110, 97, 35);
-		}
-		return btnShowModel;
-	}
 	public JButton getBtnAddModels() {
 		if (btnAddModels == null) {
 			btnAddModels = new JButton("Agregar");
@@ -269,22 +249,9 @@ public class GUIModel extends JInternalFrame {
 			btnAddModels.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			btnAddModels.setContentAreaFilled(false);
 			btnAddModels.setBorder(null);
-			btnAddModels.setBounds(10, 460, 110, 35);
+			btnAddModels.setBounds(435, 110, 110, 35);
 		}
 		return btnAddModels;
-	}
-	public JTextArea getTaInfo() {
-		if (taInfo == null) {
-			taInfo = new JTextArea();
-			taInfo.setBorder(null);
-			taInfo.setWrapStyleWord(true);
-			taInfo.setText("Consultar o mostrar los modelos de aviones registrados, se puede hacer individual o grupal, según su preferencia.");
-			taInfo.setLineWrap(true);
-			taInfo.setForeground(new Color(102, 102, 102));
-			taInfo.setEditable(false);
-			taInfo.setBounds(448, 183, 540, 54);
-		}
-		return taInfo;
 	}
 	public void setDTMTModels(Object data[][], String[] columnsNamesM) {
 		dtmTModels = new DefaultTableModel(data, columnsNamesM);
@@ -308,7 +275,7 @@ public class GUIModel extends JInternalFrame {
 		spTModels.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spTModels.setToolTipText("");
 		spTModels.setBackground(new Color(255, 255, 255));
-		spTModels.setBounds(448, 249, 540, 245);
+		spTModels.setBounds(10, 214, 895, 280);
 	}
 	public JScrollPane getSPTModels() {
 		return this.spTModels;

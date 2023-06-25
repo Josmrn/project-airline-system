@@ -27,7 +27,7 @@ public class ControllerLogin implements ActionListener{
 		users = new Users("admin","admin","Administrador","Activo");
 		arrayLU = new ArrayListUsers();
 		
-		fXML.createXML("User", "Users.xml");
+		fXML.createXML("Users", "Users.xml");
 		fLXML.writeLoginXML("Users.xml", "User", users.getDataName(), users.getData());
 		
 		arrayLU.addUser(users);

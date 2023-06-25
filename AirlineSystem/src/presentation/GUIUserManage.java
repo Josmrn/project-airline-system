@@ -181,11 +181,24 @@ public class GUIUserManage extends JInternalFrame {
 	public JPasswordField getJPassword() {
 		if (jPassword == null) {
 			jPassword = new JPasswordField();
+			jPassword.addMouseListener(new MouseAdapter() {
+				public void mouseEntered(MouseEvent e) {
+					if(String.valueOf(jPassword.getPassword()).equals("******")) {
+						jPassword.setText("");
+						jPassword.setForeground(Color.black);
+					}
+					if(tUserAdd.getText().isEmpty()) {
+						tUserAdd.setText("Escribir usuario");
+						tUserAdd.setForeground(Color.gray);
+					}
+				}
+			});
 			jPassword.setText("******");
 			jPassword.setForeground(Color.LIGHT_GRAY);
 			jPassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			jPassword.setBorder(null);
 			jPassword.setBounds(47, 202, 252, 25);
+			
 		}
 		return jPassword;
 	}
