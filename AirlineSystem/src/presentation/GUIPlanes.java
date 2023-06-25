@@ -16,7 +16,6 @@ import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
-import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
@@ -41,9 +40,7 @@ public class GUIPlanes extends JInternalFrame {
 	private JButton btnRemovePlanes;
 	private JButton btnEditPlanes;
 	private JButton btnConsultPlane;
-	private JButton btnShowPlanes;
 	private JButton btnAddPlanes;
-	private JTextArea taInfo;
 	private DefaultTableModel dtmTPlanes;
 	private JTable tPlanes;
 	private JScrollPane spTPlanes;
@@ -75,14 +72,11 @@ public class GUIPlanes extends JInternalFrame {
 		getContentPane().add(getBtnRemovePlanes());
 		getContentPane().add(getBtnEditPlanes());
 		getContentPane().add(getBtnConsultPlane());
-		getContentPane().add(getBtnShowPlanes());
 		getContentPane().add(getBtnAddPlanes());
-		getContentPane().add(getTaInfo());
 		setDTMTPlanes(dataTableM, getColumnsNamesM());
 		setTPlanes(dtmTPlanes);
 		setSPTPlanes(tPlanes);
 		getContentPane().add(spTPlanes);
-		getContentPane().add(getTaInfo());
 		getContentPane().add(getSeparator_1());
 		getContentPane().add(getTSearchPlanes());
 		getContentPane().add(getLModel());
@@ -103,7 +97,7 @@ public class GUIPlanes extends JInternalFrame {
 		if (lId == null) {
 			lId = new JLabel("Matricula");
 			lId.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lId.setBounds(10, 180, 68, 25);
+			lId.setBounds(10, 155, 68, 25);
 		}
 		return lId;
 	}
@@ -113,14 +107,14 @@ public class GUIPlanes extends JInternalFrame {
 			tWritePlanes.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tWritePlanes.setColumns(10);
 			tWritePlanes.setBorder(null);
-			tWritePlanes.setBounds(10, 210, 300, 25);
+			tWritePlanes.setBounds(10, 175, 300, 25);
 		}
 		return tWritePlanes;
 	}
 	public JSeparator getSeparator() {
 		if (separator == null) {
 			separator = new JSeparator();
-			separator.setBounds(10, 236, 300, 1);
+			separator.setBounds(10, 200, 300, 1);
 		}
 		return separator;
 	}
@@ -128,7 +122,7 @@ public class GUIPlanes extends JInternalFrame {
 		if (lAirline == null) {
 			lAirline = new JLabel("Aerolinea de Avión");
 			lAirline.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lAirline.setBounds(10, 307, 127, 25);
+			lAirline.setBounds(480, 155, 127, 25);
 		}
 		return lAirline;
 	}
@@ -138,7 +132,7 @@ public class GUIPlanes extends JInternalFrame {
 			cxPlaneAirline = new JComboBox();
 			cxPlaneAirline.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar:"}));
 			cxPlaneAirline.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			cxPlaneAirline.setBounds(10, 342, 150, 25);
+			cxPlaneAirline.setBounds(480, 180, 150, 25);
 		}
 		return cxPlaneAirline;
 	}
@@ -146,7 +140,7 @@ public class GUIPlanes extends JInternalFrame {
 		if (lYear == null) {
 			lYear = new JLabel("Año del Avion");
 			lYear.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lYear.setBounds(10, 236, 97, 25);
+			lYear.setBounds(320, 155, 97, 25);
 		}
 		return lYear;
 	}
@@ -159,7 +153,7 @@ public class GUIPlanes extends JInternalFrame {
 			tYear.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tYear.setColumns(10);
 			tYear.setBackground(Color.WHITE);
-			tYear.setBounds(10, 271, 150, 25);
+			tYear.setBounds(320, 180, 150, 25);
 		}
 		return tYear;
 	}
@@ -219,20 +213,6 @@ public class GUIPlanes extends JInternalFrame {
 		}
 		return btnConsultPlane;
 	}
-	public JButton getBtnShowPlanes() {
-		if (btnShowPlanes == null) {
-			btnShowPlanes = new JButton("Mostrar");
-			btnShowPlanes.setIcon(new ImageIcon(GUIPlanes.class.getResource("/images/icons_show.png")));
-			btnShowPlanes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnShowPlanes.setOpaque(false);
-			btnShowPlanes.setForeground(new Color(0, 0, 128));
-			btnShowPlanes.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnShowPlanes.setContentAreaFilled(false);
-			btnShowPlanes.setBorder(null);
-			btnShowPlanes.setBounds(448, 110, 97, 35);
-		}
-		return btnShowPlanes;
-	}
 	public JButton getBtnAddPlanes() {
 		if (btnAddPlanes == null) {
 			btnAddPlanes = new JButton("Agregar");
@@ -244,22 +224,9 @@ public class GUIPlanes extends JInternalFrame {
 			btnAddPlanes.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			btnAddPlanes.setContentAreaFilled(false);
 			btnAddPlanes.setBorder(null);
-			btnAddPlanes.setBounds(10, 460, 110, 35);
+			btnAddPlanes.setBounds(423, 110, 110, 35);
 		}
 		return btnAddPlanes;
-	}
-	public JTextArea getTaInfo() {
-		if (taInfo == null) {
-			taInfo = new JTextArea();
-			taInfo.setBorder(null);
-			taInfo.setWrapStyleWord(true);
-			taInfo.setText("Consultar o mostrar los aviones registrados, se puede hacer individual o grupal, según su preferencia.");
-			taInfo.setLineWrap(true);
-			taInfo.setForeground(new Color(102, 102, 102));
-			taInfo.setEditable(false);
-			taInfo.setBounds(448, 183, 540, 54);
-		}
-		return taInfo;
 	}
 	public void setDTMTPlanes(Object data[][], String[] columnsNamesM) {
 		dtmTPlanes = new DefaultTableModel(data, columnsNamesM);
@@ -283,7 +250,7 @@ public class GUIPlanes extends JInternalFrame {
 		spTPlanes.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spTPlanes.setToolTipText("");
 		spTPlanes.setBackground(new Color(255, 255, 255));
-		spTPlanes.setBounds(448, 249, 540, 245);
+		spTPlanes.setBounds(10, 216, 780, 278);
 	}
 	public JScrollPane getSPTPlanes() {
 		return this.spTPlanes;
@@ -324,7 +291,7 @@ public class GUIPlanes extends JInternalFrame {
 		if (lPlane == null) {
 			lPlane = new JLabel("Modelo del Avion");
 			lPlane.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lPlane.setBounds(10, 378, 127, 25);
+			lPlane.setBounds(640, 155, 127, 25);
 		}
 		return lPlane;
 	}
@@ -334,7 +301,7 @@ public class GUIPlanes extends JInternalFrame {
 			cxPlaneModel = new JComboBox();
 			cxPlaneModel.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar:"}));
 			cxPlaneModel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			cxPlaneModel.setBounds(10, 413, 150, 25);
+			cxPlaneModel.setBounds(640, 180, 150, 25);
 		}
 		return cxPlaneModel;
 	}

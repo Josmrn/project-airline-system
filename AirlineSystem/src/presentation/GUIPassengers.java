@@ -15,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
-import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.MouseAdapter;
@@ -30,21 +29,19 @@ public class GUIPassengers extends JInternalFrame {
 	private JLabel lPassport;
 	private JTextField tPassport;
 	private JSeparator separator;
-	private JLabel lFullName;
+	private JLabel lName;
 	private JLabel lOperationPassengers;
 	private JButton btnRemovePassengers;
 	private JButton btnEditPassengers;
 	private JButton btnConsultPassenger;
-	private JButton btnShowPassengers;
 	private JButton btnAddPassenger;
-	private JTextArea taInfo;
 	private DefaultTableModel dtmTPassengers;
 	private JTable tPassengers;
 	private JScrollPane spTPassengers;
 	private Object dataTableP[][];
 	private JSeparator separator_1;
 	private JTextField tSearchPassenger;
-	private JTextField tFullName;
+	private JTextField tName;
 	private JSeparator separator_2;
 	private JLabel lBirthDate;
 	private JTextField tBirthDate;
@@ -55,6 +52,9 @@ public class GUIPassengers extends JInternalFrame {
 	private JLabel lCellphone;
 	private JTextField tCellphone;
 	private JSeparator separator_2_1_1;
+	private JLabel lLastName;
+	private JTextField tLastName;
+	private JSeparator separator_2_3;
 
 	
 	public GUIPassengers() {
@@ -70,22 +70,19 @@ public class GUIPassengers extends JInternalFrame {
 		getContentPane().add(getLPassport());
 		getContentPane().add(getTPassport());
 		getContentPane().add(getSeparator());
-		getContentPane().add(getLFullName());
+		getContentPane().add(getLName());
 		getContentPane().add(getLOperationPassengers());
 		getContentPane().add(getBtnRemovePassengers());
 		getContentPane().add(getBtnEditPassengers());
 		getContentPane().add(getBtnConsultPassenger());
-		getContentPane().add(getBtnShowPassengers());
 		getContentPane().add(getBtnAddPassenger());
-		getContentPane().add(getTaInfo());
 		setDTMTPassengers(dataTableP, getColumnsNamesM());
 		setTPassengers(dtmTPassengers);
 		setSPTPassengers(tPassengers);
 		getContentPane().add(spTPassengers);
-		getContentPane().add(getTaInfo());
 		getContentPane().add(getSeparator_1());
 		getContentPane().add(getTSearchPassenger());
-		getContentPane().add(getTFullName());
+		getContentPane().add(getTName());
 		getContentPane().add(getSeparator_2());
 		getContentPane().add(getLBirthDate());
 		getContentPane().add(getTBirthDate());
@@ -96,6 +93,9 @@ public class GUIPassengers extends JInternalFrame {
 		getContentPane().add(getLCellphone());
 		getContentPane().add(getTCellphone());
 		getContentPane().add(getSeparator_2_1_1());
+		getContentPane().add(getLLastName());
+		getContentPane().add(getTLastName());
+		getContentPane().add(getSeparator_2_3());
 		setVisible(true);
 	}
 	public JLabel getLPassengersManag() {
@@ -112,7 +112,7 @@ public class GUIPassengers extends JInternalFrame {
 	public JLabel getLPassport() {
 		if (lPassport == null) {
 			lPassport = new JLabel("Numero de Pasaporte");
-			lPassport.setBounds(10, 180, 150, 25);
+			lPassport.setBounds(10, 155, 150, 25);
 			lPassport.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		}
 		return lPassport;
@@ -120,7 +120,7 @@ public class GUIPassengers extends JInternalFrame {
 	public JTextField getTPassport() {
 		if (tPassport == null) {
 			tPassport = new JTextField();
-			tPassport.setBounds(10, 202, 300, 25);
+			tPassport.setBounds(10, 175, 252, 25);
 			tPassport.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tPassport.setColumns(10);
 			tPassport.setBorder(null);
@@ -130,17 +130,17 @@ public class GUIPassengers extends JInternalFrame {
 	public JSeparator getSeparator() {
 		if (separator == null) {
 			separator = new JSeparator();
-			separator.setBounds(10, 228, 300, 1);
+			separator.setBounds(10, 200, 250, 1);
 		}
 		return separator;
 	}
-	public JLabel getLFullName() {
-		if (lFullName == null) {
-			lFullName = new JLabel("Nombre completo");
-			lFullName.setBounds(10, 244, 123, 25);
-			lFullName.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+	public JLabel getLName() {
+		if (lName == null) {
+			lName = new JLabel("Nombre/s");
+			lName.setBounds(272, 155, 123, 25);
+			lName.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		}
-		return lFullName;
+		return lName;
 	}
 	public JLabel getLOperationPassengers() {
 		if (lOperationPassengers == null) {
@@ -210,32 +210,10 @@ public class GUIPassengers extends JInternalFrame {
 		}
 		return btnConsultPassenger;
 	}
-	public JButton getBtnShowPassengers() {
-		if (btnShowPassengers == null) {
-			btnShowPassengers = new JButton("Mostrar");
-
-			btnShowPassengers.setBounds(773, 110, 97, 35);
-
-			btnShowPassengers.setBounds(448, 110, 97, 35);
-
-			btnShowPassengers.setIcon(new ImageIcon(GUIPassengers.class.getResource("/images/icons_show.png")));
-			btnShowPassengers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnShowPassengers.setOpaque(false);
-			btnShowPassengers.setForeground(new Color(0, 0, 128));
-			btnShowPassengers.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnShowPassengers.setContentAreaFilled(false);
-			btnShowPassengers.setBorder(null);
-		}
-		return btnShowPassengers;
-	}
 	public JButton getBtnAddPassenger() {
 		if (btnAddPassenger == null) {
 			btnAddPassenger = new JButton("Agregar");
-
-			btnAddPassenger.setBounds(10, 110, 110, 35);
-
-			btnAddPassenger.setBounds(10, 511, 110, 35);
-
+			btnAddPassenger.setBounds(397, 110, 110, 35);
 			btnAddPassenger.setIcon(new ImageIcon(GUIPassengers.class.getResource("/images/icons_add.png")));
 			btnAddPassenger.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnAddPassenger.setOpaque(false);
@@ -246,19 +224,6 @@ public class GUIPassengers extends JInternalFrame {
 			btnAddPassenger.setBorder(null);
 		}
 		return btnAddPassenger;
-	}
-	public JTextArea getTaInfo() {
-		if (taInfo == null) {
-			taInfo = new JTextArea();
-			taInfo.setBounds(448, 183, 540, 54);
-			taInfo.setBorder(null);
-			taInfo.setWrapStyleWord(true);
-			taInfo.setText("Consultar o mostrar los pasajeros registrados, se puede hacer individual o grupal, según su preferencia.");
-			taInfo.setLineWrap(true);
-			taInfo.setForeground(new Color(102, 102, 102));
-			taInfo.setEditable(false);
-		}
-		return taInfo;
 	}
 	public void setDTMTPassengers(Object data[][], String[] columnsNamesM) {
 		dtmTPassengers = new DefaultTableModel(data, columnsNamesM);
@@ -278,11 +243,7 @@ public class GUIPassengers extends JInternalFrame {
 	}
 	public void setSPTPassengers(JTable tPassengers) {
 		spTPassengers = new JScrollPane(tPassengers);
-
-		spTPassengers.setBounds(440, 234, 870, 266);
-
-		spTPassengers.setBounds(448, 233, 873, 328);
-
+		spTPassengers.setBounds(10, 243, 1312, 355);
 		spTPassengers.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Datos de pasajeros registrados", TitledBorder.LEFT, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)));
 		spTPassengers.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spTPassengers.setToolTipText("");
@@ -292,7 +253,7 @@ public class GUIPassengers extends JInternalFrame {
 		return this.spTPassengers;
 	}
 	public String[] getColumnsNamesM() {
-		String columnsName[] = {"Numero de Pasaporte","Nombre Completo","Fecha de Nacimiento","Correo Electronico","Numero Celular"};
+		String columnsName[] = {"Numero de Pasaporte","Nombre/s","Apellido/s","Fecha de Nacimiento","Correo Electronico","Numero Celular"};
 		return columnsName;
 	}
 	public JSeparator getSeparator_1() {
@@ -331,20 +292,20 @@ public class GUIPassengers extends JInternalFrame {
 		}
 		return tSearchPassenger;
 	}
-	public JTextField getTFullName() {
-		if (tFullName == null) {
-			tFullName = new JTextField();
-			tFullName.setFont(new Font("Tahoma", Font.PLAIN, 10));
-			tFullName.setColumns(10);
-			tFullName.setBorder(null);
-			tFullName.setBounds(10, 268, 300, 25);
+	public JTextField getTName() {
+		if (tName == null) {
+			tName = new JTextField();
+			tName.setFont(new Font("Tahoma", Font.PLAIN, 10));
+			tName.setColumns(10);
+			tName.setBorder(null);
+			tName.setBounds(272, 175, 123, 25);
 		}
-		return tFullName;
+		return tName;
 	}
 	public JSeparator getSeparator_2() {
 		if (separator_2 == null) {
 			separator_2 = new JSeparator();
-			separator_2.setBounds(10, 293, 300, 1);
+			separator_2.setBounds(272, 200, 123, 1);
 		}
 		return separator_2;
 	}
@@ -352,7 +313,7 @@ public class GUIPassengers extends JInternalFrame {
 		if (lBirthDate == null) {
 			lBirthDate = new JLabel("Fecha de Nacimiento");
 			lBirthDate.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lBirthDate.setBounds(10, 304, 140, 25);
+			lBirthDate.setBounds(534, 155, 252, 25);
 		}
 		return lBirthDate;
 	}
@@ -362,14 +323,14 @@ public class GUIPassengers extends JInternalFrame {
 			tBirthDate.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tBirthDate.setColumns(10);
 			tBirthDate.setBorder(null);
-			tBirthDate.setBounds(10, 328, 300, 25);
+			tBirthDate.setBounds(534, 175, 252, 25);
 		}
 		return tBirthDate;
 	}
 	public JSeparator getSeparator_2_1() {
 		if (separator_2_1 == null) {
 			separator_2_1 = new JSeparator();
-			separator_2_1.setBounds(10, 353, 300, 1);
+			separator_2_1.setBounds(534, 200, 252, 1);
 		}
 		return separator_2_1;
 	}
@@ -377,7 +338,7 @@ public class GUIPassengers extends JInternalFrame {
 		if (lEmail == null) {
 			lEmail = new JLabel("Correo Electronico");
 			lEmail.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lEmail.setBounds(10, 364, 123, 25);
+			lEmail.setBounds(808, 155, 123, 25);
 		}
 		return lEmail;
 	}
@@ -387,14 +348,14 @@ public class GUIPassengers extends JInternalFrame {
 			tEmail.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tEmail.setColumns(10);
 			tEmail.setBorder(null);
-			tEmail.setBounds(10, 388, 300, 25);
+			tEmail.setBounds(808, 179, 252, 25);
 		}
 		return tEmail;
 	}
 	public JSeparator getSeparator_2_2() {
 		if (separator_2_2 == null) {
 			separator_2_2 = new JSeparator();
-			separator_2_2.setBounds(10, 413, 300, 1);
+			separator_2_2.setBounds(808, 204, 250, 1);
 		}
 		return separator_2_2;
 	}
@@ -402,7 +363,7 @@ public class GUIPassengers extends JInternalFrame {
 		if (lCellphone == null) {
 			lCellphone = new JLabel("Numero celular");
 			lCellphone.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lCellphone.setBounds(10, 424, 110, 25);
+			lCellphone.setBounds(1070, 155, 110, 25);
 		}
 		return lCellphone;
 	}
@@ -412,17 +373,41 @@ public class GUIPassengers extends JInternalFrame {
 			tCellphone.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tCellphone.setColumns(10);
 			tCellphone.setBorder(null);
-			tCellphone.setBounds(10, 448, 300, 25);
+			tCellphone.setBounds(1070, 179, 252, 25);
 		}
 		return tCellphone;
 	}
 	public JSeparator getSeparator_2_1_1() {
 		if (separator_2_1_1 == null) {
 			separator_2_1_1 = new JSeparator();
-			separator_2_1_1.setBounds(10, 473, 300, 1);
+			separator_2_1_1.setBounds(1070, 204, 250, 1);
 		}
 		return separator_2_1_1;
 	}
-
+	public JLabel getLLastName() {
+		if (lLastName == null) {
+			lLastName = new JLabel("Apellido/s");
+			lLastName.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+			lLastName.setBounds(397, 155, 123, 25);
+		}
+		return lLastName;
+	}
+	public JTextField getTLastName() {
+		if (tLastName == null) {
+			tLastName = new JTextField();
+			tLastName.setFont(new Font("Tahoma", Font.PLAIN, 10));
+			tLastName.setColumns(10);
+			tLastName.setBorder(null);
+			tLastName.setBounds(397, 175, 123, 25);
+		}
+		return tLastName;
+	}
+	public JSeparator getSeparator_2_3() {
+		if (separator_2_3 == null) {
+			separator_2_3 = new JSeparator();
+			separator_2_3.setBounds(397, 200, 123, 1);
+		}
+		return separator_2_3;
+	}
 }
 

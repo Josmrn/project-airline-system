@@ -198,6 +198,7 @@ public class GUIUserManage extends JInternalFrame {
 			jPassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			jPassword.setBorder(null);
 			jPassword.setBounds(47, 202, 252, 25);
+			
 		}
 		return jPassword;
 	}
