@@ -2,21 +2,21 @@ package domain;
 
 public class Airlines {
 	
-	private String name,country;
+	private String nameAirline,country;
 	
 	public Airlines() {}
 	
-	public Airlines(String name, String country) {
+	public Airlines(String nameAirline, String country) {
 		super();
-		this.name = name;
+		this.nameAirline = nameAirline;
 		this.country = country;
 	}
 
-	public String getName() {
-		return name;
+	public String getNameAirline() {
+		return nameAirline;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setNameAirlne(String nameAirline) {
+		this.nameAirline = nameAirline;
 	}
 	public String getCountry() {
 		return country;
@@ -27,7 +27,7 @@ public class Airlines {
 
 	@Override
 	public String toString() {
-		return "Airlines [name=" + name + ", country=" + country + "]";
+		return nameAirline + country;
 	}
 	
 

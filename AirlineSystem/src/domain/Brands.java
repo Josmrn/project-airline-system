@@ -2,37 +2,37 @@ package domain;
 
 public class Brands {
 	
-	private String name;
+	private String nameBrands;
 	
 	public Brands() {}
 
-	public Brands(String name) {
+	public Brands(String nameBrands) {
 		super();
-		this.name = name;
+		this.nameBrands = nameBrands;
 	}
 
-	public String getName() {
-		return name;
+	public String getNameBrands() {
+		return nameBrands;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String nameBrands) {
+		this.nameBrands = nameBrands;
 	}
 	
 	public String[] getDataName() {
-		String[] dataName = {"name"};
+		String[] dataName = {"nameBrands"};
 		return dataName;
 		
 	}
 	
 	public String[] getData() {
-		String[] data = {name};
+		String[] data = {nameBrands};
 		return data;
 	}
 
 	@Override
 	public String toString() {
-		return "Brands [name=" + name + "]";
+		return  "Nombre de la Marca" + nameBrands;
 	}
 	
 	

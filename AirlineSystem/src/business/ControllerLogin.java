@@ -7,7 +7,7 @@ import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 import presentation.GUILogin;
-import data.FilesLoginXML;
+import data.FilesLogicXML;
 import data.FilesXML;
 import domain.Users;
 
@@ -15,7 +15,7 @@ public class ControllerLogin implements ActionListener{
 
 	private GUILogin guiL;
 	private FilesXML fXML;
-	private FilesLoginXML fLXML;
+	private FilesLogicXML fLXML;
 	private Users users;
 	private ArrayListUsers arrayLU;
 	
@@ -23,11 +23,11 @@ public class ControllerLogin implements ActionListener{
 	public ControllerLogin() {
 		guiL = new GUILogin();
 		fXML = new FilesXML();
-		fLXML = new FilesLoginXML();
+		fLXML = new FilesLogicXML();
 		users = new Users("admin","admin","Administrador","Activo");
 		arrayLU = new ArrayListUsers();
 		
-		fXML.createXML("User", "Users.xml");
+		fXML.createXML("Users", "Users.xml");
 		fLXML.writeLoginXML("Users.xml", "User", users.getDataName(), users.getData());
 		
 		arrayLU.addUser(users);
@@ -37,9 +37,7 @@ public class ControllerLogin implements ActionListener{
 	}
 
 	private void initializerAction() {
-		// TODO Auto-generated method stub
 		guiL.getBtnLogin().addActionListener(this);
-		//guiL.getBtnRegister().addActionListener(this);
 	}
 
 	@Override
@@ -78,21 +76,18 @@ public class ControllerLogin implements ActionListener{
 				}
 				if(TypeAndStatus[0].equals("Colaborador") && TypeAndStatus[1].equals("Activo")) {
 					
-					System.out.println("Entre en el If colab acti");
 					new ControllerMain2();
 					guiL.dispose();
 					
 				}else if(TypeAndStatus[0].equals("Colaborador") && TypeAndStatus[1].equals("Inactivo")) {
 					
 					JOptionPane.showMessageDialog(null, "El Usuario se encuentra inactivo");
-					
 				}
 				
 			}else {
 				
 	            JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos");
 	        }
-			
 			
 				Arrays.fill(passwordChars, ' ');
 	        

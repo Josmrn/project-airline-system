@@ -37,7 +37,7 @@ public class GUIBrands extends JInternalFrame {
 	private JScrollPane spTBrands;
 	private Object dataTable[][];
 	private JLabel lOperationUser;
-	private JTextField txtEscribirElMarca;
+	private JTextField tWriteBrand;
 
 	public GUIBrands() {
 		getContentPane().setBackground(Color.WHITE);
@@ -62,7 +62,7 @@ public class GUIBrands extends JInternalFrame {
 		setSPTBrands(tBrands);
 		getContentPane().add(spTBrands);
 		getContentPane().add(getLOperationUser());
-		getContentPane().add(getTxtEscribirElMarca());
+		getContentPane().add(getTWriteBrand());
 		setVisible(true);
 	}
 	public JLabel getLWelcomeBrand() {
@@ -221,16 +221,16 @@ public void cleanForm() {
 		}
 		return lOperationUser;
 	}
-	public JTextField getTxtEscribirElMarca() {
-		if (txtEscribirElMarca == null) {
-			txtEscribirElMarca = new JTextField();
-			txtEscribirElMarca.setText("Escribir la marca que desea consultar/mostrar");
-			txtEscribirElMarca.setForeground(Color.LIGHT_GRAY);
-			txtEscribirElMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			txtEscribirElMarca.setColumns(10);
-			txtEscribirElMarca.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-			txtEscribirElMarca.setBounds(105, 284, 258, 30);
+	public JTextField getTWriteBrand() {
+		if (tWriteBrand == null) {
+			tWriteBrand = new JTextField();
+			tWriteBrand.setText("Escribir la marca que desea consultar/mostrar");
+			tWriteBrand.setForeground(Color.LIGHT_GRAY);
+			tWriteBrand.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			tWriteBrand.setColumns(10);
+			tWriteBrand.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+			tWriteBrand.setBounds(105, 284, 258, 30);
 		}
-		return txtEscribirElMarca;
+		return tWriteBrand;
 	}
 }

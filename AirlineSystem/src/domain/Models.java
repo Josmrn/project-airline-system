@@ -1,36 +1,26 @@
 package domain;
 
-public class Models {
+public class Models extends Brands{
 	
-	private String name;
-	private String Model;
+	private String model;
 	private int execSeats,tourSeats,ecoSeats;
 	
 	public Models() {}
 
-	public Models(String name, String model, int execSeats, int tourSeats, int ecoSeats) {
-		super();
-		this.name = name;
-		Model = model;
+	public Models(String nameBrands, String model, int execSeats, int tourSeats, int ecoSeats) {
+		super(nameBrands);
+		this.model = model;
 		this.execSeats = execSeats;
 		this.tourSeats = tourSeats;
 		this.ecoSeats = ecoSeats;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getModel() {
-		return Model;
+		return model;
 	}
 
 	public void setModel(String model) {
-		Model = model;
+		this.model = model;
 	}
 
 	public int getExecSeats() {
@@ -59,8 +49,7 @@ public class Models {
 
 	@Override
 	public String toString() {
-		return "Models [name=" + name + ", Model=" + Model + ", execSeats=" + execSeats + ", tourSeats=" + tourSeats
-				+ ", ecoSeats=" + ecoSeats + "]";
+		return model + getNameBrands() + execSeats + tourSeats + ecoSeats;
 	}
 	
 	

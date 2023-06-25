@@ -16,7 +16,6 @@ import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
-import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
@@ -31,15 +30,12 @@ public class GUIFlights extends JInternalFrame {
 	private JLabel lFlightsManag;
 	private JLabel lDepartureCity;
 	private JTextField tDepartureCity;
-	private JSeparator separator;
 	private JLabel lDepartureDate;
 	private JLabel lOperationFlights;
 	private JButton btnRemoveFlights;
 	private JButton btnEditFlights;
 	private JButton btnConsultFlight;
-	private JButton btnShowFlights;
 	private JButton btnAddFlight;
-	private JTextArea taInfo;
 	private DefaultTableModel dtmTFlights;
 	private JTable tFlights;
 	private JScrollPane spTFlights;
@@ -48,13 +44,10 @@ public class GUIFlights extends JInternalFrame {
 	private JTextField tSearchFlights;
 	private JLabel lDepartureHour;
 	private JTextField tDepartureHour;
-	private JSeparator separator_2_1;
 	private JLabel lArrivalDate;
 	private JTextField tArrivalDate;
-	private JSeparator separator_2_2;
 	private JLabel lArrivalHour;
 	private JTextField tArrivalHour;
-	private JSeparator separator_2_1_1;
 	private JLabel lPlane;
 	private JLabel lSeatsAmount;
 	private JTextField tExecutive;
@@ -62,6 +55,9 @@ public class GUIFlights extends JInternalFrame {
 	private JTextField tEconomic;
 	@SuppressWarnings("rawtypes")
 	private JComboBox cxFlightAirline;
+	private JTextField textField;
+	private JLabel lArrivalCity;
+	private JTextField tArrivalCity;
 
 	
 	public GUIFlights() {
@@ -70,48 +66,44 @@ public class GUIFlights extends JInternalFrame {
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		setBounds(100, 100, 1540, 773);
+		setBounds(100, 100, 1540, 828);
 		getContentPane().setLayout(null);
 		getContentPane().add(getLFlightsManag());
 		getContentPane().add(getLDepartureCity());
 		getContentPane().add(getTDepartureCity());
-		getContentPane().add(getSeparator());
 		getContentPane().add(getLDepartureDate());
 		getContentPane().add(getLOperationFlights());
 		getContentPane().add(getBtnRemoveFlights());
 		getContentPane().add(getBtnEditFlights());
 		getContentPane().add(getBtnConsultFlight());
-		getContentPane().add(getBtnShowFlights());
 		getContentPane().add(getBtnAddFlight());
-		getContentPane().add(getTaInfo());
 		setDTMTFlights(dataTableM, getColumnsNamesM());
 		setTFlights(dtmTFlights);
 		setSPTFlights(tFlights);
 		getContentPane().add(spTFlights);
-		getContentPane().add(getTaInfo());
 		getContentPane().add(getSeparator_1());
 		getContentPane().add(getTSearchFlights());
 		getContentPane().add(getLDepartureHour());
 		getContentPane().add(getTDepartureHour());
-		getContentPane().add(getSeparator_2_1());
 		getContentPane().add(getLArrivalDate());
 		getContentPane().add(getTArrivalDate());
-		getContentPane().add(getSeparator_2_2());
 		getContentPane().add(getLArrivalHour());
 		getContentPane().add(getTArrivalHour());
-		getContentPane().add(getSeparator_2_1_1());
 		getContentPane().add(getLPlane());
 		getContentPane().add(getLSeatsAmount());
 		getContentPane().add(getTExecutive());
 		getContentPane().add(getTTourist());
 		getContentPane().add(getTEconomic());
 		getContentPane().add(getCxFlightAirline());
+		getContentPane().add(getTextField());
+		getContentPane().add(getLArrivalCity());
+		getContentPane().add(getTArrivalCity());
 		setVisible(true);
 	}
 	public JLabel getLFlightsManag() {
 		if (lFlightsManag == null) {
 			lFlightsManag = new JLabel("Bienvenidos a la Gestión de Vuelos");
-			lFlightsManag.setBounds(10, 10, 1508, 40);
+			lFlightsManag.setBounds(10, 10, 1300, 40);
 			lFlightsManag.setHorizontalAlignment(SwingConstants.CENTER);
 			lFlightsManag.setFont(new Font("Roboto Black", Font.PLAIN, 18));
 			lFlightsManag.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -121,7 +113,7 @@ public class GUIFlights extends JInternalFrame {
 	public JLabel getLDepartureCity() {
 		if (lDepartureCity == null) {
 			lDepartureCity = new JLabel("Ciudad de salida");
-			lDepartureCity.setBounds(10, 180, 120, 25);
+			lDepartureCity.setBounds(10, 175, 120, 25);
 			lDepartureCity.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		}
 		return lDepartureCity;
@@ -132,21 +124,14 @@ public class GUIFlights extends JInternalFrame {
 			tDepartureCity.setBounds(10, 202, 300, 25);
 			tDepartureCity.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tDepartureCity.setColumns(10);
-			tDepartureCity.setBorder(null);
+			tDepartureCity.setBorder(new LineBorder(new Color(0, 0, 0)));
 		}
 		return tDepartureCity;
-	}
-	public JSeparator getSeparator() {
-		if (separator == null) {
-			separator = new JSeparator();
-			separator.setBounds(10, 228, 300, 1);
-		}
-		return separator;
 	}
 	public JLabel getLDepartureDate() {
 		if (lDepartureDate == null) {
 			lDepartureDate = new JLabel("Fecha de salida");
-			lDepartureDate.setBounds(10, 244, 110, 25);
+			lDepartureDate.setBounds(320, 175, 110, 25);
 			lDepartureDate.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		}
 		return lDepartureDate;
@@ -154,7 +139,7 @@ public class GUIFlights extends JInternalFrame {
 	public JLabel getLOperationFlights() {
 		if (lOperationFlights == null) {
 			lOperationFlights = new JLabel("Operaciones");
-			lOperationFlights.setBounds(10, 75, 1508, 25);
+			lOperationFlights.setBounds(10, 75, 1300, 25);
 			lOperationFlights.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			lOperationFlights.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		}
@@ -163,7 +148,7 @@ public class GUIFlights extends JInternalFrame {
 	public JButton getBtnRemoveFlights() {
 		if (btnRemoveFlights == null) {
 			btnRemoveFlights = new JButton("Eliminar");
-			btnRemoveFlights.setBounds(220, 110, 90, 35);
+			btnRemoveFlights.setBounds(220, 115, 90, 28);
 			btnRemoveFlights.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				}
@@ -181,7 +166,7 @@ public class GUIFlights extends JInternalFrame {
 	public JButton getBtnEditFlights() {
 		if (btnEditFlights == null) {
 			btnEditFlights = new JButton("Editar");
-			btnEditFlights.setBounds(10, 110, 80, 35);
+			btnEditFlights.setBounds(10, 115, 80, 28);
 			btnEditFlights.setIcon(new ImageIcon(GUIFlights.class.getResource("/images/icons_edit.png")));
 			btnEditFlights.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnEditFlights.setOpaque(false);
@@ -195,7 +180,7 @@ public class GUIFlights extends JInternalFrame {
 	public JButton getBtnConsultFlight() {
 		if (btnConsultFlight == null) {
 			btnConsultFlight = new JButton("Consultar");
-			btnConsultFlight.setBounds(865, 110, 120, 35);
+			btnConsultFlight.setBounds(630, 115, 120, 28);
 			btnConsultFlight.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnConsultFlight.setHorizontalAlignment(SwingConstants.LEFT);
 			btnConsultFlight.setIcon(new ImageIcon(GUIFlights.class.getResource("/images/icons_consult.png")));
@@ -207,24 +192,10 @@ public class GUIFlights extends JInternalFrame {
 		}
 		return btnConsultFlight;
 	}
-	public JButton getBtnShowFlights() {
-		if (btnShowFlights == null) {
-			btnShowFlights = new JButton("Mostrar");
-			btnShowFlights.setBounds(448, 110, 97, 35);
-			btnShowFlights.setIcon(new ImageIcon(GUIFlights.class.getResource("/images/icons_show.png")));
-			btnShowFlights.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnShowFlights.setOpaque(false);
-			btnShowFlights.setForeground(new Color(0, 0, 128));
-			btnShowFlights.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnShowFlights.setContentAreaFilled(false);
-			btnShowFlights.setBorder(null);
-		}
-		return btnShowFlights;
-	}
 	public JButton getBtnAddFlight() {
 		if (btnAddFlight == null) {
 			btnAddFlight = new JButton("Agregar");
-			btnAddFlight.setBounds(10, 709, 110, 35);
+			btnAddFlight.setBounds(1195, 115, 110, 28);
 			btnAddFlight.setIcon(new ImageIcon(GUIFlights.class.getResource("/images/icons_add.png")));
 			btnAddFlight.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnAddFlight.setOpaque(false);
@@ -235,19 +206,6 @@ public class GUIFlights extends JInternalFrame {
 			btnAddFlight.setBorder(null);
 		}
 		return btnAddFlight;
-	}
-	public JTextArea getTaInfo() {
-		if (taInfo == null) {
-			taInfo = new JTextArea();
-			taInfo.setBounds(448, 183, 540, 54);
-			taInfo.setBorder(null);
-			taInfo.setWrapStyleWord(true);
-			taInfo.setText("Consultar o mostrar los vuelos registrados, se puede hacer individual o grupal, según su preferencia.");
-			taInfo.setLineWrap(true);
-			taInfo.setForeground(new Color(102, 102, 102));
-			taInfo.setEditable(false);
-		}
-		return taInfo;
 	}
 	public void setDTMTFlights(Object data[][], String[] columnsNamesM) {
 		dtmTFlights = new DefaultTableModel(data, columnsNamesM);
@@ -267,7 +225,7 @@ public class GUIFlights extends JInternalFrame {
 	}
 	public void setSPTFlights(JTable tFlights) {
 		spTFlights = new JScrollPane(tFlights);
-		spTFlights.setBounds(448, 233, 1070, 458);
+		spTFlights.setBounds(10, 342, 1302, 447);
 		spTFlights.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Datos de vuelos registrados", TitledBorder.LEFT, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)));
 		spTFlights.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spTFlights.setToolTipText("");
@@ -284,14 +242,14 @@ public class GUIFlights extends JInternalFrame {
 	public JSeparator getSeparator_1() {
 		if (separator_1 == null) {
 			separator_1 = new JSeparator();
-			separator_1.setBounds(10, 150, 1508, 1);
+			separator_1.setBounds(10, 150, 1300, 1);
 		}
 		return separator_1;
 	}
 	public JTextField getTSearchFlights() {
 		if (tSearchFlights == null) {
 			tSearchFlights = new JTextField();
-			tSearchFlights.setBounds(555, 115, 300, 30);
+			tSearchFlights.setBounds(320, 115, 300, 30);
 			tSearchFlights.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			tSearchFlights.setForeground(new Color(192, 192, 192));
 			tSearchFlights.addMouseListener(new MouseAdapter() {
@@ -313,7 +271,7 @@ public class GUIFlights extends JInternalFrame {
 		if (lDepartureHour == null) {
 			lDepartureHour = new JLabel("Hora de salida");
 			lDepartureHour.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lDepartureHour.setBounds(10, 304, 110, 25);
+			lDepartureHour.setBounds(630, 175, 110, 25);
 		}
 		return lDepartureHour;
 	}
@@ -322,23 +280,16 @@ public class GUIFlights extends JInternalFrame {
 			tDepartureHour = new JTextField();
 			tDepartureHour.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tDepartureHour.setColumns(10);
-			tDepartureHour.setBorder(null);
-			tDepartureHour.setBounds(10, 328, 300, 25);
+			tDepartureHour.setBorder(new LineBorder(new Color(0, 0, 0)));
+			tDepartureHour.setBounds(630, 202, 300, 25);
 		}
 		return tDepartureHour;
-	}
-	public JSeparator getSeparator_2_1() {
-		if (separator_2_1 == null) {
-			separator_2_1 = new JSeparator();
-			separator_2_1.setBounds(10, 353, 300, 1);
-		}
-		return separator_2_1;
 	}
 	public JLabel getLArrivalDate() {
 		if (lArrivalDate == null) {
 			lArrivalDate = new JLabel("Fecha de llegada");
 			lArrivalDate.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lArrivalDate.setBounds(10, 364, 120, 25);
+			lArrivalDate.setBounds(320, 255, 120, 25);
 		}
 		return lArrivalDate;
 	}
@@ -347,23 +298,16 @@ public class GUIFlights extends JInternalFrame {
 			tArrivalDate = new JTextField();
 			tArrivalDate.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tArrivalDate.setColumns(10);
-			tArrivalDate.setBorder(null);
-			tArrivalDate.setBounds(10, 388, 300, 25);
+			tArrivalDate.setBorder(new LineBorder(new Color(0, 0, 0)));
+			tArrivalDate.setBounds(320, 280, 300, 25);
 		}
 		return tArrivalDate;
-	}
-	public JSeparator getSeparator_2_2() {
-		if (separator_2_2 == null) {
-			separator_2_2 = new JSeparator();
-			separator_2_2.setBounds(10, 413, 300, 1);
-		}
-		return separator_2_2;
 	}
 	public JLabel getLArrivalHour() {
 		if (lArrivalHour == null) {
 			lArrivalHour = new JLabel("Hora de llegada");
 			lArrivalHour.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lArrivalHour.setBounds(10, 424, 110, 25);
+			lArrivalHour.setBounds(630, 255, 110, 25);
 		}
 		return lArrivalHour;
 	}
@@ -372,23 +316,16 @@ public class GUIFlights extends JInternalFrame {
 			tArrivalHour = new JTextField();
 			tArrivalHour.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tArrivalHour.setColumns(10);
-			tArrivalHour.setBorder(null);
-			tArrivalHour.setBounds(10, 448, 300, 25);
+			tArrivalHour.setBorder(new LineBorder(new Color(0, 0, 0)));
+			tArrivalHour.setBounds(630, 280, 300, 25);
 		}
 		return tArrivalHour;
-	}
-	public JSeparator getSeparator_2_1_1() {
-		if (separator_2_1_1 == null) {
-			separator_2_1_1 = new JSeparator();
-			separator_2_1_1.setBounds(10, 473, 300, 1);
-		}
-		return separator_2_1_1;
 	}
 	public JLabel getLPlane() {
 		if (lPlane == null) {
 			lPlane = new JLabel("Avion");
 			lPlane.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lPlane.setBounds(10, 484, 110, 25);
+			lPlane.setBounds(950, 175, 110, 25);
 		}
 		return lPlane;
 	}
@@ -396,7 +333,7 @@ public class GUIFlights extends JInternalFrame {
 		if (lSeatsAmount == null) {
 			lSeatsAmount = new JLabel("Monto de Asientos");
 			lSeatsAmount.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lSeatsAmount.setBounds(10, 556, 150, 25);
+			lSeatsAmount.setBounds(1155, 175, 150, 25);
 		}
 		return lSeatsAmount;
 	}
@@ -409,7 +346,7 @@ public class GUIFlights extends JInternalFrame {
 			tExecutive.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tExecutive.setColumns(10);
 			tExecutive.setBackground(Color.WHITE);
-			tExecutive.setBounds(10, 591, 150, 25);
+			tExecutive.setBounds(1155, 202, 150, 25);
 		}
 		return tExecutive;
 	}
@@ -421,7 +358,7 @@ public class GUIFlights extends JInternalFrame {
 			tTourist.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tTourist.setColumns(10);
 			tTourist.setBackground(Color.WHITE);
-			tTourist.setBounds(10, 627, 150, 25);
+			tTourist.setBounds(1155, 239, 150, 25);
 		}
 		return tTourist;
 	}
@@ -433,7 +370,7 @@ public class GUIFlights extends JInternalFrame {
 			tEconomic.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tEconomic.setColumns(10);
 			tEconomic.setBackground(Color.WHITE);
-			tEconomic.setBounds(10, 662, 150, 25);
+			tEconomic.setBounds(1155, 280, 150, 25);
 		}
 		return tEconomic;
 	}
@@ -443,8 +380,36 @@ public class GUIFlights extends JInternalFrame {
 			cxFlightAirline = new JComboBox();
 			cxFlightAirline.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar:"}));
 			cxFlightAirline.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			cxFlightAirline.setBounds(10, 520, 150, 25);
+			cxFlightAirline.setBounds(950, 202, 150, 25);
 		}
 		return cxFlightAirline;
+	}
+	public JTextField getTextField() {
+		if (textField == null) {
+			textField = new JTextField();
+			textField.setFont(new Font("Tahoma", Font.PLAIN, 10));
+			textField.setColumns(10);
+			textField.setBorder(new LineBorder(new Color(0, 0, 0)));
+			textField.setBounds(320, 202, 300, 25);
+		}
+		return textField;
+	}
+	public JLabel getLArrivalCity() {
+		if (lArrivalCity == null) {
+			lArrivalCity = new JLabel("Ciudad de salida");
+			lArrivalCity.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+			lArrivalCity.setBounds(10, 255, 120, 25);
+		}
+		return lArrivalCity;
+	}
+	public JTextField getTArrivalCity() {
+		if (tArrivalCity == null) {
+			tArrivalCity = new JTextField();
+			tArrivalCity.setFont(new Font("Tahoma", Font.PLAIN, 10));
+			tArrivalCity.setColumns(10);
+			tArrivalCity.setBorder(new LineBorder(new Color(0, 0, 0)));
+			tArrivalCity.setBounds(10, 280, 300, 25);
+		}
+		return tArrivalCity;
 	}
 }

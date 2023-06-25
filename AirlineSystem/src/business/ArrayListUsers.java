@@ -1,8 +1,8 @@
 package business;
 
 import java.util.ArrayList;
-import domain.Users;
 
+import domain.Users;
 
 public class ArrayListUsers {
 
@@ -10,7 +10,6 @@ public class ArrayListUsers {
 	private Object data[][];
 	
 	public ArrayListUsers() {
-		
 		arrayLUsers = new ArrayList<Users>();
 	}
 	
@@ -19,44 +18,37 @@ public class ArrayListUsers {
 	}
 	
 	public void insertUser(int index, Users u) {
-		
 		arrayLUsers.add(index, u);
 	}
 	
 	public void removeUser(int index) {
-		
 		arrayLUsers.remove(index);
 	}
 	
 	public void removePerson(Users u) {
-		
 		arrayLUsers.remove(u);
 	}
 	
 	public void replaceUser(int index, Users u) {
-		
 		arrayLUsers.set(index, u);
 	}
 	
 	public boolean searchUser(Users u) {
-		
 		return arrayLUsers.contains(u);
 	}
 	
 	public void cleanArrayListUsers() {
-		
 		arrayLUsers.clear();
 	}
 	
 	public ArrayList<Users> getArrayListUsers(){
-		
 		return arrayLUsers;
 	}
 	
 	//La matrix de datos de usuario ingresados
 	public void setDataMatrixUsers(ArrayList<Users> arrayLUsers) {
 		
-		data = new Object[arrayLUsers.size()][5];
+		data = new Object[arrayLUsers.size()][4];
 		
 		for(int i=0; i<this.data.length;i++) {
 
@@ -72,17 +64,13 @@ public class ArrayListUsers {
 		return data;
 	}
 	
-	
 	public String getUsers(ArrayList<Users> arrayLUsers) {
 		
 		String users = "";
-		
+
 		for(Users u:arrayLUsers) {
 			users+=u.toString();
 		}
 		return users;
 	}
-	
-	
-	
 }

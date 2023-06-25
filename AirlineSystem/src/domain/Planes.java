@@ -2,27 +2,27 @@ package domain;
 
 public class Planes {
 	
-	private String tuition;
+	private String registerOfAircft;
 	private String airline;
 	private String model;
 	private int year;
 	
 	public Planes() {}
 
-	public Planes(String tuition, String airline, String model, int year) {
+	public Planes(String registerOfAircft, String airline, String model, int year) {
 		super();
-		this.tuition = tuition;
+		this.registerOfAircft = registerOfAircft;
 		this.airline = airline;
 		this.model = model;
 		this.year = year;
 	}
 
-	public String getTuition() {
-		return tuition;
+	public String getRegisterOfAircft() {
+		return registerOfAircft;
 	}
 
-	public void setTuition(String tuition) {
-		this.tuition = tuition;
+	public void setRegisterOfAircft(String registerOfAircft) {
+		this.registerOfAircft = registerOfAircft;
 	}
 
 	public String getAirline() {
@@ -51,7 +51,7 @@ public class Planes {
 
 	@Override
 	public String toString() {
-		return "Planes [tuition=" + tuition + ", airline=" + airline + ", model=" + model + ", year=" + year + "]";
+		return "Planes [registerOfAircft=" + registerOfAircft + ", airline=" + airline + ", model=" + model + ", year=" + year + "]";
 	}
 	
 	
