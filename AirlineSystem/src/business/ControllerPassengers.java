@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import domain.Passengers;
+import domain.Users;
 import data.FilesXML;
 import data.FilesLoginXML;
 import presentation.GUIMain;
@@ -71,7 +72,7 @@ public class ControllerPassengers implements ActionListener{
 					guiPass.getTBirthDate().getText(),guiPass.getTEmail().getText(),
 					Integer.parseInt(guiPass.getTCellphone().getText()));
 			
-			fLogXML.writePassengerXML("Passengers.xml", "Passengers", passen.getDataName(), passen.getData());
+			fLogXML.writePassengerXML("Passengers.xml", "Passenger", passen.getDataName(), passen.getData());
 			
 			//arrayLPass.addPassenger(passen);
 			
@@ -86,7 +87,23 @@ public class ControllerPassengers implements ActionListener{
 		}
 		if(e.getSource() == guiPass.getBtnConsultPassenger()) {
 			
-			
+			int passportNum = Integer.parseInt(guiPass.getTSearchPassenger().getText());
+		    Passengers passenger = fLogXML.searchPassengers("Passengers.xml", "Passenger", passportNum);
+		    
+		    if (passenger != null) {
+		        // El usuario fue encontrado, puedes mostrar los detalles en la interfaz o realizar cualquier acción adicional
+		    	JOptionPane.showMessageDialog(null, "Pasajero encontrado");
+		    	guiPass.getTPassport().setText(String.valueOf(passenger.getPassportNum()));
+		    	guiPass.getTName().setText(passenger.getName());
+		    	guiPass.getTLastName().setText(passenger.getLastName());
+		    	guiPass.getTBirthDate().setText(passenger.getBornDate());
+		    	guiPass.getTEmail().setText(passenger.getEmail());
+		    	guiPass.getTCellphone().setText(String.valueOf(passenger.getCellphone()));
+		   
+		    } else {
+		        // El usuario no fue encontrado, puedes mostrar un mensaje de error o realizar cualquier acción adicional
+		        JOptionPane.showMessageDialog(null, "Pasajero no encontrado");
+		    }
 			
 			
 			

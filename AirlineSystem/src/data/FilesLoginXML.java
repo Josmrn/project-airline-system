@@ -23,6 +23,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import domain.Users;
+import domain.Passengers;
 
 public class FilesLoginXML {
 
@@ -563,6 +564,45 @@ public class FilesLoginXML {
 
 					return false; // El pasaporte no existe en el archivo o se produjo un error
 				}
+		
+		public Passengers searchPassengers(String Filename, String elementType, int passport) {
+					
+		    Passengers p = null;
+
+			   try {
+			       File inputFile = new File(Filename);
+			       DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			       DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				   Document doc = dBuilder.parse(inputFile);
+				   doc.getDocumentElement().normalize();
+
+				   NodeList nList = doc.getElementsByTagName(elementType);
+
+				   for (int indice = 0; indice < nList.getLength(); indice++) {
+				        Node nNode = nList.item(indice);
+
+				        if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+				            Element eElement = (Element) nNode;
+
+				           if (Integer.parseInt(eElement.getAttribute("passportNum")) == passport) {
+				        	   System.out.println("Entre al if attribute");
+				               p = new Passengers();
+				               p.setPassportNum(Integer.parseInt(eElement.getAttribute("passportNum")));
+				               p.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
+				               p.setLastName(eElement.getElementsByTagName("lastName").item(0).getTextContent());
+				               p.setEmail(eElement.getElementsByTagName("email").item(0).getTextContent());
+				               p.setBornDate(eElement.getElementsByTagName("bornDate").item(0).getTextContent());
+				               p.setCellphone(Integer.parseInt(eElement.getElementsByTagName("cellphone").item(0).getTextContent()));
+				               break;
+				              }
+				          }
+				      }
+				 } catch (Exception e) {
+		       e.printStackTrace();
+		    }
+
+				    return p;
+		}
 
 
 
