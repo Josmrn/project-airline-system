@@ -19,6 +19,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Vector;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -63,7 +64,6 @@ public class GUIPassengers extends JInternalFrame {
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		setBounds(100, 100, 1341, 539);
 		setBounds(100, 100, 1378, 639);
 		getContentPane().setLayout(null);
 		getContentPane().add(getLPassengersManag());
@@ -76,10 +76,6 @@ public class GUIPassengers extends JInternalFrame {
 		getContentPane().add(getBtnEditPassengers());
 		getContentPane().add(getBtnConsultPassenger());
 		getContentPane().add(getBtnAddPassenger());
-		setDTMTPassengers(dataTableP, getColumnsNamesM());
-		setTPassengers(dtmTPassengers);
-		setSPTPassengers(tPassengers);
-		getContentPane().add(spTPassengers);
 		getContentPane().add(getSeparator_1());
 		getContentPane().add(getTSearchPassenger());
 		getContentPane().add(getTName());
@@ -96,12 +92,15 @@ public class GUIPassengers extends JInternalFrame {
 		getContentPane().add(getLLastName());
 		getContentPane().add(getTLastName());
 		getContentPane().add(getSeparator_2_3());
+		setDTMTPassengers(dataTableP, getColumnsNamesM());
+		setTPassengers(dtmTPassengers);
+		setSPTPassengers(tPassengers);
+		getContentPane().add(spTPassengers);
 		setVisible(true);
 	}
 	public JLabel getLPassengersManag() {
 		if (lPassengersManag == null) {
 			lPassengersManag = new JLabel("Bienvenidos a la Gestión de Pasajeros");
-			lPassengersManag.setBounds(10, 10, 1300, 40);
 			lPassengersManag.setBounds(10, 10, 975, 40);
 			lPassengersManag.setHorizontalAlignment(SwingConstants.CENTER);
 			lPassengersManag.setFont(new Font("Roboto Black", Font.PLAIN, 18));
@@ -145,7 +144,6 @@ public class GUIPassengers extends JInternalFrame {
 	public JLabel getLOperationPassengers() {
 		if (lOperationPassengers == null) {
 			lOperationPassengers = new JLabel("Operaciones");
-			lOperationPassengers.setBounds(10, 75, 1300, 25);
 			lOperationPassengers.setBounds(10, 75, 975, 25);
 			lOperationPassengers.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			lOperationPassengers.setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -155,10 +153,7 @@ public class GUIPassengers extends JInternalFrame {
 	public JButton getBtnRemovePassengers() {
 		if (btnRemovePassengers == null) {
 			btnRemovePassengers = new JButton("Eliminar");
-
-			btnRemovePassengers.setBounds(538, 110, 90, 35);
 			btnRemovePassengers.setBounds(220, 110, 90, 35);
-
 			btnRemovePassengers.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				}
@@ -176,11 +171,7 @@ public class GUIPassengers extends JInternalFrame {
 	public JButton getBtnEditPassengers() {
 		if (btnEditPassengers == null) {
 			btnEditPassengers = new JButton("Editar");
-
-			btnEditPassengers.setBounds(252, 110, 80, 35);
-
 			btnEditPassengers.setBounds(10, 110, 80, 35);
-
 			btnEditPassengers.setIcon(new ImageIcon(GUIPassengers.class.getResource("/images/icons_edit.png")));
 			btnEditPassengers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnEditPassengers.setOpaque(false);
@@ -194,11 +185,7 @@ public class GUIPassengers extends JInternalFrame {
 	public JButton getBtnConsultPassenger() {
 		if (btnConsultPassenger == null) {
 			btnConsultPassenger = new JButton("Consultar");
-
-			btnConsultPassenger.setBounds(1190, 110, 120, 35);
-
 			btnConsultPassenger.setBounds(865, 110, 120, 35);
-
 			btnConsultPassenger.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnConsultPassenger.setHorizontalAlignment(SwingConstants.LEFT);
 			btnConsultPassenger.setIcon(new ImageIcon(GUIPassengers.class.getResource("/images/icons_consult.png")));
@@ -233,8 +220,27 @@ public class GUIPassengers extends JInternalFrame {
 	}
 	public void setTPassengers(DefaultTableModel dtmtPassengers) {
 		tPassengers = new JTable(dtmTPassengers);
+		tPassengers.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("unchecked")
+			@Override
+			//Método para poder seleccionar datos en la tabla y ser mostrados en los campos respectivos 
+			public void mouseClicked(MouseEvent e) {
+								
+				int selectedRow = tPassengers.getSelectedRow(); //Variable que va a obtener lo que se encuentra en tPassengers
+	            DefaultTableModel model = (DefaultTableModel) tPassengers.getModel(); //Me va a obtener los datos asociados a tUsers que están en la tabla
+	            Vector<Object> rowData = model.getDataVector().elementAt(selectedRow); //Es el vector del objeto seleccionado en la tabla
+	           //Se agregan los componentes al los campos de texto
+	            tPassport.setText((String) rowData.get(0));
+	            tName.setText((String) rowData.get(1));
+	            tLastName.setText((String) rowData.get(2));
+	            tBirthDate.setText((String) rowData.get(3));
+	            tEmail.setText((String) rowData.get(4));
+	            tCellphone.setText((String) rowData.get(5));
+	         
+			}
+		});
 		tPassengers.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		tPassengers.setEnabled(false);
+		tPassengers.setEnabled(true);
 		tPassengers.getTableHeader().setReorderingAllowed(false);
 		tPassengers.getTableHeader().setResizingAllowed(false);
 	}
@@ -259,9 +265,6 @@ public class GUIPassengers extends JInternalFrame {
 	public JSeparator getSeparator_1() {
 		if (separator_1 == null) {
 			separator_1 = new JSeparator();
-
-			separator_1.setBounds(10, 150, 1300, 1);
-
 			separator_1.setBounds(10, 150, 975, 1);
 
 		}
@@ -270,11 +273,7 @@ public class GUIPassengers extends JInternalFrame {
 	public JTextField getTSearchPassenger() {
 		if (tSearchPassenger == null) {
 			tSearchPassenger = new JTextField();
-
-			tSearchPassenger.setBounds(880, 115, 300, 30);
-
 			tSearchPassenger.setBounds(555, 115, 300, 30);
-
 			tSearchPassenger.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			tSearchPassenger.setForeground(new Color(192, 192, 192));
 			tSearchPassenger.addMouseListener(new MouseAdapter() {
