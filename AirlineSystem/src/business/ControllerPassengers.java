@@ -9,9 +9,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import domain.Passengers;
-import domain.Users;
 import data.FilesXML;
-import data.FilesLoginXML;
+import data.FilesLogicXML;
 import presentation.GUIMain;
 import presentation.GUIPassengers;
 
@@ -20,7 +19,7 @@ public class ControllerPassengers implements ActionListener{
 	private Passengers passen;
 	private GUIPassengers guiPass;
 	private FilesXML fXML;
-	private FilesLoginXML fLogXML;
+	private FilesLogicXML fLogXML;
 //	private ArrayListPasengers arrayLPass;
 	
 	public ControllerPassengers(GUIMain guiMain) {
@@ -29,7 +28,7 @@ public class ControllerPassengers implements ActionListener{
 		guiPass = new GUIPassengers();
 		guiMain.getDesktopMain().add(guiPass);
 		fXML = new FilesXML();
-		fLogXML = new FilesLoginXML();
+		fLogXML = new FilesLogicXML();
 		//arrayLPass = new ArrayListPassengers();
 		
 		fXML.createXML("Passengers", "Passengers.xml");

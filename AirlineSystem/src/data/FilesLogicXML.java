@@ -24,6 +24,7 @@ import org.xml.sax.SAXException;
 
 import domain.Brands;
 import domain.Users;
+import domain.Passengers;
 
 public class FilesLogicXML {
 
@@ -309,6 +310,44 @@ public class FilesLogicXML {
 
 	    return brand;
 	}
+	
+	public Passengers searchPassengers(String Filename, String elementType, int passport) {
+
+		Passengers p = new Passengers();
+
+		try {
+			File inputFile = new File(Filename);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName(elementType);
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+
+					if (Integer.parseInt(eElement.getAttribute("passportNum")) == passport) {
+						p = new Passengers();
+						p.setPassportNum(Integer.parseInt(eElement.getAttribute("passportNum")));
+						p.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
+						p.setLastName(eElement.getElementsByTagName("lastName").item(0).getTextContent());
+						p.setEmail(eElement.getElementsByTagName("email").item(0).getTextContent());
+						p.setBornDate(eElement.getElementsByTagName("bornDate").item(0).getTextContent());
+						p.setCellphone(Integer.parseInt(eElement.getElementsByTagName("cellphone").item(0).getTextContent()));
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return p;
+	}
 
 
 	// Retorno de usuarios
@@ -532,5 +571,102 @@ public class FilesLogicXML {
 			e.printStackTrace();
 		}
 	}
+	
+	// Escribe el XML del pasajero
+		public void writePassengerXML(String FileName, String elementType, String[] dataName, String[] data) {
+
+			boolean passportExist = passportExistOnXML(FileName, elementType, dataName[0],Integer.parseInt(data[0]));
+
+			if (passportExist == true) {
+
+				JOptionPane.showMessageDialog(null, "El pasaporte ya existe en el sistema");
+				return;
+			}
+			
+
+			try {
+
+				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+				DocumentBuilder db = dbf.newDocumentBuilder();
+
+				Document doc = db.parse(new File(FileName));
+				doc.getDocumentElement().normalize();
+
+				Element rootElement = doc.getDocumentElement();
+
+				Element ele = doc.createElement(elementType);
+				rootElement.appendChild(ele);
+
+				Attr attr = doc.createAttribute(dataName[0]);
+				attr.setValue(data[0]);
+				ele.setAttributeNode(attr);
+
+				for (int i = 1; i < data.length; i++) {
+
+					Element dato = doc.createElement(dataName[i]);
+
+					dato.appendChild(doc.createTextNode(data[i]));
+
+					ele.appendChild(dato);
+				}
+
+				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+				Transformer transformer = transformerFactory.newTransformer();
+
+				DOMSource source = new DOMSource(doc);
+
+				StreamResult result = new StreamResult(new File(FileName));
+				transformer.transform(source, result);
+
+				JOptionPane.showMessageDialog(null, "Pasajero registrado");
+
+			} catch (ParserConfigurationException pce) {
+
+				pce.printStackTrace();
+
+			} catch (SAXException e) {
+
+				e.printStackTrace();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			} catch (TransformerConfigurationException e) {
+
+				e.printStackTrace();
+			} catch (TransformerException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+		
+		//Método para saber si el pasajero existe en el XML
+		public boolean passportExistOnXML(String fileName, String elementType, String attributeName, int passport) {
+		    try {
+		        File inputFile = new File(fileName);
+		        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		        Document doc = dBuilder.parse(inputFile);
+		        doc.getDocumentElement().normalize();
+
+		        NodeList nList = doc.getElementsByTagName(elementType);
+
+		        for (int indice = 0; indice < nList.getLength(); indice++) {
+		            Node nNode = nList.item(indice);
+
+		            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+		                Element eElement = (Element) nNode;
+		                int attribute = Integer.parseInt(eElement.getAttribute(attributeName));
+		                if (attribute == passport) {
+		                    return true; // El pasajero ya existe en el XML
+		                }
+		            }
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+
+		    return false; // El pasajero no existe en el XML
+		}
 
 }
