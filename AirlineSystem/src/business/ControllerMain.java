@@ -6,26 +6,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JInternalFrame;
-
-import presentation.GUIAirlines;
-import presentation.GUIBrands;
-import presentation.GUIFlights;
 import presentation.GUIMain;
-import presentation.GUIModel;
-import presentation.GUIPlanes;
+
 
 public class ControllerMain implements ActionListener{
 	
 	private GUIMain guiMain; 
-	private Dimension desktopSize, FrameSize;
-	private GUIPlanes guiPlanes;
-	private GUIFlights guiF;
+	//private Dimension desktopSize, FrameSize;
+	
 
 	public ControllerMain() {
 		guiMain = new GUIMain();
-		guiPlanes = new GUIPlanes();
-		guiF = new GUIFlights();
-		
 		
 		initializerAction();
 	}
@@ -56,7 +47,7 @@ public class ControllerMain implements ActionListener{
 		//Gestion de Usuarios
 		if(e.getSource() == guiMain.getMiUsersManag()) {
 			 System.out.println("MenuItem UsersManag clicked!");
-			 new ControllerUserManage();
+			 new ControllerUserManage(guiMain);
 		}
 		
 		if(e.getSource() == guiMain.getMiAddBrand()) {

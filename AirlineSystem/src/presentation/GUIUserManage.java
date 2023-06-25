@@ -1,8 +1,7 @@
 package presentation;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
@@ -13,9 +12,6 @@ import java.util.Vector;
 
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JPasswordField;
@@ -23,19 +19,18 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.JScrollPane;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;
-import java.awt.Cursor;
 
 @SuppressWarnings("serial")
-public class ViewUserManage extends JFrame {
-
-	private JPanel contentPane;
+public class GUIUserManage extends JInternalFrame {
 	private JLabel lWelcomeUserManage;
 	private JButton btnConsultUser;
 	private JButton btnEditUsers;
 	private JButton btnRemoveUser;
-	private JButton btnReadUsers;
 	private JButton btnRegister;
 	private JSeparator separator;
 	private JLabel lUser;
@@ -53,49 +48,43 @@ public class ViewUserManage extends JFrame {
 	private JLabel lOperationUser;
 	private JTextField tWriteName;
 	private JLabel lPassword;
-	
+	private JScrollPane spTUsers;
 	private DefaultTableModel dtmTUsers;
 	private JTable tUsers;
 	private Object dataTable[][];
-	private JScrollPane spTUsers;
 
-	public ViewUserManage() {
-		
-		setTitle("Airline Software");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	
+
+	public GUIUserManage() {
+		getContentPane().setBackground(new Color(255, 255, 255));
+		setMaximizable(true);
+		setIconifiable(true);
+		setClosable(true);
 		setBounds(100, 100, 860, 703);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 255, 255));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		contentPane.add(getLWelcomeUserManage());
-		contentPane.add(getBtnConsultUser());
-		contentPane.add(getBtnEditUsers());
-		contentPane.add(getBtnRemoveUser());
-		contentPane.add(getBtnReadUsers());
-		contentPane.add(getBtnRegister());
-		contentPane.add(getSeparator());
-		contentPane.add(getLUser());
-		contentPane.add(getLNewPass());
-		contentPane.add(getJPassword());
-		contentPane.add(getSeparator_1());
-		contentPane.add(getLTypeUser());
-		contentPane.add(getCXTypeUser());
-		contentPane.add(getLState());
-		contentPane.add(getCxState());
-		contentPane.add(getLUser_1());
-		contentPane.add(getTUserAdd());
-		contentPane.add(getLOperationUser());
-		contentPane.add(getTWriteName());
-		contentPane.add(getLPassword());
-		
+		getContentPane().setLayout(null);
+		getContentPane().add(getLWelcomeUserManage());
+		getContentPane().add(getBtnConsultUser());
+		getContentPane().add(getBtnEditUsers());
+		getContentPane().add(getBtnRemoveUser());
+		getContentPane().add(getBtnRegister());
+		getContentPane().add(getSeparator());
+		getContentPane().add(getLUser());
+		getContentPane().add(getLNewPass());
+		getContentPane().add(getJPassword());
+		getContentPane().add(getSeparator_1());
+		getContentPane().add(getLTypeUser());
+		getContentPane().add(getCXTypeUser());
+		getContentPane().add(getLState());
+		getContentPane().add(getCxState());
+		getContentPane().add(getLUser_1());
+		getContentPane().add(getTUserAdd());
+		getContentPane().add(getLOperationUser());
+		getContentPane().add(getTWriteName());
+		getContentPane().add(getLPassword());
 		setDTMTUsers(dataTable, getColumnsNames());
 		setTUsers(dtmTUsers);
 		setSPTUsers(tUsers);
 		getContentPane().add(spTUsers);
-		
 		setVisible(true);
 	}
 	public JLabel getLWelcomeUserManage() {
@@ -107,83 +96,66 @@ public class ViewUserManage extends JFrame {
 			lWelcomeUserManage.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 			lWelcomeUserManage.setBorder(new LineBorder(new Color(0, 0, 0)));
 			lWelcomeUserManage.setBackground(Color.BLUE);
-			lWelcomeUserManage.setBounds(12, 10, 828, 40);
+			lWelcomeUserManage.setBounds(14, 10, 828, 40);
 		}
 		return lWelcomeUserManage;
 	}
 	public JButton getBtnConsultUser() {
 		if (btnConsultUser == null) {
 			btnConsultUser = new JButton("Consultar");
-			btnConsultUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnConsultUser.setContentAreaFilled(false);
-			btnConsultUser.setIcon(new ImageIcon(ViewUserManage.class.getResource("/images/icons_consult.png")));
+			btnConsultUser.setIcon(new ImageIcon(GUIUserManage.class.getResource("/images/icons_consult.png")));
 			btnConsultUser.setOpaque(false);
 			btnConsultUser.setForeground(new Color(0, 0, 128));
 			btnConsultUser.setFont(new Font("Segoe UI", Font.BOLD, 15));
+			btnConsultUser.setContentAreaFilled(false);
 			btnConsultUser.setBorder(null);
-			btnConsultUser.setBounds(730, 372, 110, 35);
+			btnConsultUser.setBounds(382, 210, 110, 28);
 		}
 		return btnConsultUser;
 	}
 	public JButton getBtnEditUsers() {
 		if (btnEditUsers == null) {
 			btnEditUsers = new JButton("Editar");
-			btnEditUsers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnEditUsers.setIcon(new ImageIcon(ViewUserManage.class.getResource("/images/icons_edit.png")));
+			btnEditUsers.setIcon(new ImageIcon(GUIUserManage.class.getResource("/images/icons_edit.png")));
 			btnEditUsers.setOpaque(false);
 			btnEditUsers.setForeground(new Color(0, 0, 128));
 			btnEditUsers.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnEditUsers.setContentAreaFilled(false);
 			btnEditUsers.setBorder(null);
-			btnEditUsers.setBounds(564, 109, 106, 25);
+			btnEditUsers.setBounds(382, 160, 81, 25);
 		}
 		return btnEditUsers;
 	}
 	public JButton getBtnRemoveUser() {
 		if (btnRemoveUser == null) {
 			btnRemoveUser = new JButton("Eliminar");
-			btnRemoveUser.setIcon(new ImageIcon(ViewUserManage.class.getResource("/images/icons_remove.png")));
+			btnRemoveUser.setIcon(new ImageIcon(GUIUserManage.class.getResource("/images/icons_remove.png")));
 			btnRemoveUser.setOpaque(false);
 			btnRemoveUser.setForeground(new Color(0, 0, 128));
 			btnRemoveUser.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnRemoveUser.setContentAreaFilled(false);
 			btnRemoveUser.setBorder(null);
-			btnRemoveUser.setBounds(750, 109, 90, 25);
+			btnRemoveUser.setBounds(382, 260, 90, 25);
 		}
 		return btnRemoveUser;
-	}
-	public JButton getBtnReadUsers() {
-		if (btnReadUsers == null) {
-			btnReadUsers = new JButton("Mostrar");
-			btnReadUsers.setIcon(new ImageIcon(ViewUserManage.class.getResource("/images/icons_show.png")));
-			btnReadUsers.setOpaque(false);
-			btnReadUsers.setForeground(new Color(0, 0, 128));
-			btnReadUsers.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnReadUsers.setContentAreaFilled(false);
-			btnReadUsers.setBorder(null);
-			btnReadUsers.setBounds(317, 372, 95, 35);
-		}
-		return btnReadUsers;
 	}
 	public JButton getBtnRegister() {
 		if (btnRegister == null) {
 			btnRegister = new JButton("Registrar");
-			btnRegister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnRegister.setIcon(new ImageIcon(ViewUserManage.class.getResource("/images/icons_add.png")));
+			btnRegister.setIcon(new ImageIcon(GUIUserManage.class.getResource("/images/icons_add.png")));
 			btnRegister.setForeground(new Color(0, 0, 128));
 			btnRegister.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnRegister.setContentAreaFilled(false);
 			btnRegister.setBorder(null);
-			btnRegister.setBounds(381, 110, 105, 25);
+			btnRegister.setBounds(382, 110, 105, 25);
 		}
 		return btnRegister;
 	}
-	
 	public JSeparator getSeparator() {
 		if (separator == null) {
 			separator = new JSeparator();
 			separator.setForeground(Color.BLACK);
-			separator.setBounds(12, 138, 288, 1);
+			separator.setBounds(14, 138, 288, 1);
 		}
 		return separator;
 	}
@@ -194,7 +166,7 @@ public class ViewUserManage extends JFrame {
 			lUser.setFont(new Font("Dialog", Font.BOLD, 15));
 			lUser.setBorder(null);
 			lUser.setBackground(Color.WHITE);
-			lUser.setBounds(12, 62, 64, 38);
+			lUser.setBounds(14, 62, 64, 38);
 		}
 		return lUser;
 	}
@@ -202,31 +174,18 @@ public class ViewUserManage extends JFrame {
 		if (lNewPass == null) {
 			lNewPass = new JLabel("Contraseña");
 			lNewPass.setFont(new Font("Dialog", Font.BOLD, 15));
-			lNewPass.setBounds(12, 170, 206, 20);
+			lNewPass.setBounds(14, 170, 206, 20);
 		}
 		return lNewPass;
 	}
 	public JPasswordField getJPassword() {
 		if (jPassword == null) {
 			jPassword = new JPasswordField();
-			jPassword.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					if(String.valueOf(jPassword.getPassword()).equals("******")) {
-						jPassword.setText("");
-						jPassword.setForeground(Color.black);
-					}
-					if(tUserAdd.getText().isEmpty()) {
-						tUserAdd.setText("Escribir usuario");
-						tUserAdd.setForeground(Color.gray);
-					}
-				}
-			});
 			jPassword.setText("******");
 			jPassword.setForeground(Color.LIGHT_GRAY);
 			jPassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			jPassword.setBorder(null);
-			jPassword.setBounds(45, 202, 252, 25);
+			jPassword.setBounds(47, 202, 252, 25);
 		}
 		return jPassword;
 	}
@@ -234,7 +193,7 @@ public class ViewUserManage extends JFrame {
 		if (separator_1 == null) {
 			separator_1 = new JSeparator();
 			separator_1.setForeground(Color.BLACK);
-			separator_1.setBounds(12, 230, 288, 1);
+			separator_1.setBounds(14, 230, 288, 1);
 		}
 		return separator_1;
 	}
@@ -242,7 +201,7 @@ public class ViewUserManage extends JFrame {
 		if (lTypeUser == null) {
 			lTypeUser = new JLabel("Tipo de usuario");
 			lTypeUser.setFont(new Font("Dialog", Font.BOLD, 15));
-			lTypeUser.setBounds(12, 256, 206, 20);
+			lTypeUser.setBounds(14, 256, 206, 20);
 		}
 		return lTypeUser;
 	}
@@ -255,7 +214,7 @@ public class ViewUserManage extends JFrame {
 			CXTypeUser.setName("");
 			CXTypeUser.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 15));
 			CXTypeUser.setBorder(null);
-			CXTypeUser.setBounds(12, 285, 123, 25);
+			CXTypeUser.setBounds(14, 285, 123, 25);
 		}
 		return CXTypeUser;
 	}
@@ -263,7 +222,7 @@ public class ViewUserManage extends JFrame {
 		if (lState == null) {
 			lState = new JLabel("Estado");
 			lState.setFont(new Font("Dialog", Font.BOLD, 15));
-			lState.setBounds(12, 320, 206, 20);
+			lState.setBounds(14, 320, 206, 20);
 		}
 		return lState;
 	}
@@ -274,21 +233,21 @@ public class ViewUserManage extends JFrame {
 			cxState.setModel(new DefaultComboBoxModel(new String[] {"Activo", "Inactivo"}));
 			cxState.setRequestFocusEnabled(false);
 			cxState.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 14));
-			cxState.setBounds(12, 348, 100, 25);
+			cxState.setBounds(14, 348, 100, 25);
 		}
 		return cxState;
 	}
 	public JLabel getLUser_1() {
 		if (lUser_1 == null) {
 			lUser_1 = new JLabel("");
-			lUser_1.setIcon(new ImageIcon(ViewUserManage.class.getResource("/images/user.png")));
+			lUser_1.setIcon(new ImageIcon(GUIUserManage.class.getResource("/images/user.png")));
 			lUser_1.setRequestFocusEnabled(false);
 			lUser_1.setHorizontalAlignment(SwingConstants.CENTER);
 			lUser_1.setForeground(new Color(30, 144, 255));
 			lUser_1.setFont(new Font("Dialog", Font.BOLD, 15));
 			lUser_1.setBorder(null);
 			lUser_1.setBackground(Color.WHITE);
-			lUser_1.setBounds(10, 99, 40, 38);
+			lUser_1.setBounds(12, 99, 40, 38);
 		}
 		return lUser_1;
 	}
@@ -296,8 +255,7 @@ public class ViewUserManage extends JFrame {
 		if (tUserAdd == null) {
 			tUserAdd = new JTextField();
 			tUserAdd.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseReleased(MouseEvent e) {
+				public void mouseEntered(MouseEvent e) {
 					if(tUserAdd.getText().equals("Escribir usuario")) {
 						tUserAdd.setText("");
 						tUserAdd.setForeground(Color.black);
@@ -313,7 +271,7 @@ public class ViewUserManage extends JFrame {
 			tUserAdd.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tUserAdd.setColumns(10);
 			tUserAdd.setBorder(null);
-			tUserAdd.setBounds(54, 110, 245, 25);
+			tUserAdd.setBounds(56, 110, 245, 25);
 		}
 		return tUserAdd;
 	}
@@ -322,7 +280,7 @@ public class ViewUserManage extends JFrame {
 			lOperationUser = new JLabel("Operaciones");
 			lOperationUser.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			lOperationUser.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-			lOperationUser.setBounds(381, 69, 459, 25);
+			lOperationUser.setBounds(382, 69, 459, 25);
 		}
 		return lOperationUser;
 	}
@@ -330,38 +288,38 @@ public class ViewUserManage extends JFrame {
 		if (tWriteName == null) {
 			tWriteName = new JTextField();
 			tWriteName.addMouseListener(new MouseAdapter() {
-				@Override
 				public void mouseReleased(MouseEvent e) {
-					if(tWriteName.getText().equals("Escribir el nombre usuario que desea consultar/mostrar")) {
+					if(tWriteName.getText().equals("Escribir el nombre usuario que desea eliminar y/o consultar")) {
 						tWriteName.setText("");
 						tWriteName.setForeground(Color.black);
 					}
 				}
 			});
-			tWriteName.setText("Escribir el nombre usuario que desea consultar/mostrar");
+			tWriteName.setText("Escribir el nombre usuario que desea eliminar y/o consultar");
 			tWriteName.setForeground(Color.LIGHT_GRAY);
 			tWriteName.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			tWriteName.setColumns(10);
 			tWriteName.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-			tWriteName.setBounds(417, 372, 310, 30);
+			tWriteName.setBounds(516, 377, 324, 30);
 		}
 		return tWriteName;
 	}
 	public JLabel getLPassword() {
 		if (lPassword == null) {
 			lPassword = new JLabel("");
-			lPassword.setIcon(new ImageIcon("C:\\Users\\UNA\\Downloads\\icons8-bloquear-26.png"));
+			lPassword.setIcon(new ImageIcon(GUIUserManage.class.getResource("/images/ico_password.png")));
 			lPassword.setRequestFocusEnabled(false);
 			lPassword.setHorizontalAlignment(SwingConstants.CENTER);
 			lPassword.setForeground(new Color(30, 144, 255));
 			lPassword.setFont(new Font("Dialog", Font.BOLD, 15));
 			lPassword.setBorder(null);
 			lPassword.setBackground(Color.WHITE);
-			lPassword.setBounds(8, 200, 26, 30);
+			lPassword.setBounds(10, 200, 26, 30);
 		}
 		return lPassword;
 	}
-	//----------------------------------------------------------------------------------------------------------------------
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------
 	public void setDTMTUsers(Object data[][], String [] columnsNames) {
 		dtmTUsers = new DefaultTableModel(data, columnsNames);
 		
@@ -416,6 +374,7 @@ public class ViewUserManage extends JFrame {
 		String columnsName[] = {"Usuario","Contraseña","Tipo de Usuario","Estado del Usuario"};
 		return columnsName;
 	}
+	
 	public void cleanForm() {
 		tUserAdd.setText("Escribir usuario");
 		jPassword.setText("******");

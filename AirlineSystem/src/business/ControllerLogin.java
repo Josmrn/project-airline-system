@@ -7,6 +7,7 @@ import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 import presentation.GUILogin;
+import data.FilesLoginXML;
 import data.FilesXML;
 import domain.Users;
 
@@ -14,6 +15,7 @@ public class ControllerLogin implements ActionListener{
 
 	private GUILogin guiL;
 	private FilesXML fXML;
+	private FilesLoginXML fLXML;
 	private Users users;
 	private ArrayListUsers arrayLU;
 	
@@ -21,12 +23,12 @@ public class ControllerLogin implements ActionListener{
 	public ControllerLogin() {
 		guiL = new GUILogin();
 		fXML = new FilesXML();
-		
+		fLXML = new FilesLoginXML();
 		users = new Users("admin","admin","Administrador","Activo");
 		arrayLU = new ArrayListUsers();
 		
 		fXML.createXML("User", "Users.xml");
-		fXML.writeLoginXML("Users.xml", "User", users.getDataName(), users.getData());
+		fLXML.writeLoginXML("Users.xml", "User", users.getDataName(), users.getData());
 		
 		arrayLU.addUser(users);
 		
@@ -50,16 +52,14 @@ public class ControllerLogin implements ActionListener{
 			String password = new String(passwordChars);
 			/*--------------------------------------------------------*/
 						
-			boolean loginUserAndPassword = fXML.userExistWithPasswordOnXML("Users.xml", "User",guiL.getTUser().getText(), password);
+			boolean loginUserAndPassword = fLXML.userExistWithPasswordOnXML("Users.xml", "User",guiL.getTUser().getText(), password);
 			
 			System.out.println(loginUserAndPassword);
 			
 			//Vector que en la posicion 0 tendra el tipo de usuario y en la posicion 1 tendra el estado del usuario 
 			
-			String[] TypeAndStatus = fXML.returnTypeAndStatus("Users.xml", "User",guiL.getTUser().getText(), password);
+			String[] TypeAndStatus = fLXML.returnTypeAndStatus("Users.xml", "User",guiL.getTUser().getText(), password);
 
-			
-			System.out.println("Hola Login");
 			
 			if(loginUserAndPassword == true) {
 				
@@ -67,8 +67,6 @@ public class ControllerLogin implements ActionListener{
 				System.out.println(TypeAndStatus[1]);
 				
 				if(TypeAndStatus[0].equals("Administrador") && TypeAndStatus[1].equals("Activo")) {
-					
-					System.out.println("Entre en el If admin acti");
 					new ControllerMain();
 					guiL.dispose();
 					
