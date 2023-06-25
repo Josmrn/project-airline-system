@@ -20,7 +20,7 @@ public class ControllerPassengers implements ActionListener{
 	private GUIPassengers guiPass;
 	private FilesXML fXML;
 	private FilesLogicXML fLogXML;
-//	private ArrayListPasengers arrayLPass;
+	private ArrayListPassengers arrayLPass;
 	
 	public ControllerPassengers(GUIMain guiMain) {
 		
@@ -29,7 +29,7 @@ public class ControllerPassengers implements ActionListener{
 		guiMain.getDesktopMain().add(guiPass);
 		fXML = new FilesXML();
 		fLogXML = new FilesLogicXML();
-		//arrayLPass = new ArrayListPassengers();
+		arrayLPass = new ArrayListPassengers();
 		
 		fXML.createXML("Passengers", "Passengers.xml");
 		
@@ -38,7 +38,7 @@ public class ControllerPassengers implements ActionListener{
 	
 	//Método para refrescar la tabla con los datos dentro del xml
 		private void refreshData() {
-		/*	
+			
 			guiPass.getDTMTPassengers().setRowCount(0);
 			ArrayList<Passengers> arrayPassengers = fLogXML.returnPassengers("Passengers.xml", "Passenger");
 			
@@ -46,7 +46,7 @@ public class ControllerPassengers implements ActionListener{
 				guiPass.getDTMTPassengers().addRow(new Object[] { elemento.getPassportNum(),
 						elemento.getName(),elemento.getLastName(), elemento.getEmail(),
 						elemento.getBornDate(),elemento.getCellphone()});
-			}*/
+			}
 		}
 	
 	
@@ -73,14 +73,14 @@ public class ControllerPassengers implements ActionListener{
 			
 			fLogXML.writePassengerXML("Passengers.xml", "Passenger", passen.getDataName(), passen.getData());
 			
-			//arrayLPass.addPassenger(passen);
+			arrayLPass.addPassenger(passen);
 			
 			guiPass.getDTMTPassengers().addRow(new Object[] {guiPass.getTPassport().getText(),
 					guiPass.getTName().getText(),guiPass.getTLastName().getText(),
 					guiPass.getTBirthDate().getText(),guiPass.getTEmail().getText(),
 					guiPass.getTCellphone().getText()});
 			
-			//System.out.print(arrayLPass.getArrayListPassengers().size());
+			System.out.print(arrayLPass.getArrayListPassengers().size());
 			
 			
 		}

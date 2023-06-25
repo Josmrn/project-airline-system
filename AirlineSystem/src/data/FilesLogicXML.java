@@ -412,6 +412,40 @@ public class FilesLogicXML {
 
 		return arrayBrands;
 	}
+	
+	public ArrayList<Passengers> returnPassengers(String Filename, String elementType) {
+		ArrayList<Passengers> arrayPassengers = new ArrayList<>();
+
+		try {
+			File inputFile = new File(Filename);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName(elementType);
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					Passengers passenger = new Passengers();
+					passenger.setPassportNum(Integer.parseInt(eElement.getAttribute("passportNum")));
+					passenger.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
+					passenger.setLastName(eElement.getElementsByTagName("lastName").item(0).getTextContent());
+					passenger.setEmail(eElement.getElementsByTagName("email").item(0).getTextContent());
+					passenger.setBornDate(eElement.getElementsByTagName("bornDate").item(0).getTextContent());
+					passenger.setCellphone(Integer.parseInt(eElement.getElementsByTagName("cellphone").item(0).getTextContent()));
+					arrayPassengers.add(passenger);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return arrayPassengers;
+	}
 
 	public String readXMLToString(String Filename, String elementType) {
 
