@@ -2,9 +2,8 @@ package domain;
 
 public class Passengers {
 	
-	private int passportNum;
+	private int passportNum,cellphone;
 	private String name,lastName,email,bornDate;
-	private int cellphone;
 	
 	public Passengers() {}
 	
