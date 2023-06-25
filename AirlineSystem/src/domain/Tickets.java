@@ -4,15 +4,15 @@ public class Tickets {
 	
 	private int ticketNum;
 	private int passportNum;
-	private int flightNumber;
+	private int flightNum;
 	
 	public Tickets() {}
 
-	public Tickets(int ticketNum, int passportNum, int flightNumber) {
+	public Tickets(int ticketNum, int passportNum, int flightNum) {
 		super();
 		this.ticketNum = ticketNum;
 		this.passportNum = passportNum;
-		this.flightNumber = flightNumber;
+		this.flightNum = flightNum;
 	}
 
 	public int getTicketNum() {
@@ -31,17 +31,28 @@ public class Tickets {
 		this.passportNum = passportNum;
 	}
 
-	public int getFlightNumber() {
-		return flightNumber;
+	public int getFlightNum() {
+		return flightNum;
 	}
 
-	public void setFlightNumber(int flightNumber) {
-		this.flightNumber = flightNumber;
+	public void setFlightNum(int flightNum) {
+		this.flightNum = flightNum;
+	}
+	
+	public String[] getDataName() {
+		String[] dataName = {"ticketNum","passportNum","flightNum"};
+		return dataName;
+	}
+	
+	
+	public String[] getData() {
+		String[] data = {String.valueOf(ticketNum),String.valueOf(passportNum),String.valueOf(flightNum)};
+		return data;
 	}
 
 	@Override
 	public String toString() {
-		return "Tickets [ticketNum=" + ticketNum + ", passportNum=" + passportNum + ", flightNumber=" + flightNumber
+		return "Tickets [ticketNum=" + ticketNum + ", passportNum=" + passportNum + ", flightNum=" + flightNum
 				+ "]";
 	}
 	
