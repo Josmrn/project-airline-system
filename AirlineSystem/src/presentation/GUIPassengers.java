@@ -29,7 +29,7 @@ public class GUIPassengers extends JInternalFrame {
 	private JLabel lPassport;
 	private JTextField tPassport;
 	private JSeparator separator;
-	private JLabel lFullName;
+	private JLabel lName;
 	private JLabel lOperationPassengers;
 	private JButton btnRemovePassengers;
 	private JButton btnEditPassengers;
@@ -41,7 +41,7 @@ public class GUIPassengers extends JInternalFrame {
 	private Object dataTableP[][];
 	private JSeparator separator_1;
 	private JTextField tSearchPassenger;
-	private JTextField tFullName;
+	private JTextField tName;
 	private JSeparator separator_2;
 	private JLabel lBirthDate;
 	private JTextField tBirthDate;
@@ -52,6 +52,9 @@ public class GUIPassengers extends JInternalFrame {
 	private JLabel lCellphone;
 	private JTextField tCellphone;
 	private JSeparator separator_2_1_1;
+	private JLabel lLastName;
+	private JTextField tLastName;
+	private JSeparator separator_2_3;
 
 	
 	public GUIPassengers() {
@@ -67,7 +70,7 @@ public class GUIPassengers extends JInternalFrame {
 		getContentPane().add(getLPassport());
 		getContentPane().add(getTPassport());
 		getContentPane().add(getSeparator());
-		getContentPane().add(getLFullName());
+		getContentPane().add(getLName());
 		getContentPane().add(getLOperationPassengers());
 		getContentPane().add(getBtnRemovePassengers());
 		getContentPane().add(getBtnEditPassengers());
@@ -79,7 +82,7 @@ public class GUIPassengers extends JInternalFrame {
 		getContentPane().add(spTPassengers);
 		getContentPane().add(getSeparator_1());
 		getContentPane().add(getTSearchPassenger());
-		getContentPane().add(getTFullName());
+		getContentPane().add(getTName());
 		getContentPane().add(getSeparator_2());
 		getContentPane().add(getLBirthDate());
 		getContentPane().add(getTBirthDate());
@@ -90,6 +93,9 @@ public class GUIPassengers extends JInternalFrame {
 		getContentPane().add(getLCellphone());
 		getContentPane().add(getTCellphone());
 		getContentPane().add(getSeparator_2_1_1());
+		getContentPane().add(getLLastName());
+		getContentPane().add(getTLastName());
+		getContentPane().add(getSeparator_2_3());
 		setVisible(true);
 	}
 	public JLabel getLPassengersManag() {
@@ -128,13 +134,13 @@ public class GUIPassengers extends JInternalFrame {
 		}
 		return separator;
 	}
-	public JLabel getLFullName() {
-		if (lFullName == null) {
-			lFullName = new JLabel("Nombre completo");
-			lFullName.setBounds(272, 155, 123, 25);
-			lFullName.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+	public JLabel getLName() {
+		if (lName == null) {
+			lName = new JLabel("Nombre/s");
+			lName.setBounds(272, 155, 123, 25);
+			lName.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		}
-		return lFullName;
+		return lName;
 	}
 	public JLabel getLOperationPassengers() {
 		if (lOperationPassengers == null) {
@@ -286,20 +292,20 @@ public class GUIPassengers extends JInternalFrame {
 		}
 		return tSearchPassenger;
 	}
-	public JTextField getTFullName() {
-		if (tFullName == null) {
-			tFullName = new JTextField();
-			tFullName.setFont(new Font("Tahoma", Font.PLAIN, 10));
-			tFullName.setColumns(10);
-			tFullName.setBorder(null);
-			tFullName.setBounds(272, 175, 252, 25);
+	public JTextField getTName() {
+		if (tName == null) {
+			tName = new JTextField();
+			tName.setFont(new Font("Tahoma", Font.PLAIN, 10));
+			tName.setColumns(10);
+			tName.setBorder(null);
+			tName.setBounds(272, 175, 123, 25);
 		}
-		return tFullName;
+		return tName;
 	}
 	public JSeparator getSeparator_2() {
 		if (separator_2 == null) {
 			separator_2 = new JSeparator();
-			separator_2.setBounds(272, 200, 250, 1);
+			separator_2.setBounds(272, 200, 123, 1);
 		}
 		return separator_2;
 	}
@@ -378,6 +384,30 @@ public class GUIPassengers extends JInternalFrame {
 		}
 		return separator_2_1_1;
 	}
-
+	public JLabel getLLastName() {
+		if (lLastName == null) {
+			lLastName = new JLabel("Apellido/s");
+			lLastName.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+			lLastName.setBounds(397, 155, 123, 25);
+		}
+		return lLastName;
+	}
+	public JTextField getTLastName() {
+		if (tLastName == null) {
+			tLastName = new JTextField();
+			tLastName.setFont(new Font("Tahoma", Font.PLAIN, 10));
+			tLastName.setColumns(10);
+			tLastName.setBorder(null);
+			tLastName.setBounds(397, 175, 123, 25);
+		}
+		return tLastName;
+	}
+	public JSeparator getSeparator_2_3() {
+		if (separator_2_3 == null) {
+			separator_2_3 = new JSeparator();
+			separator_2_3.setBounds(397, 200, 123, 1);
+		}
+		return separator_2_3;
+	}
 }
 

@@ -51,6 +51,8 @@ public class ControllerPassengers implements ActionListener{
 	
 	
 	public void initializerAction() {
+		
+		refreshData();
 		guiPass.getBtnAddPassenger().addActionListener(this);
 		guiPass.getBtnConsultPassenger().addActionListener(this);
 		guiPass.getBtnEditPassengers().addActionListener(this);
