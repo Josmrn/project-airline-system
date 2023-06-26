@@ -42,8 +42,8 @@ public class ControllerPassengers implements ActionListener{
 			
 			for(Passengers elemento : arrayPassengers) {
 				guiPass.getDTMTPassengers().addRow(new Object[] { elemento.getPassportNum(),
-						elemento.getName(),elemento.getLastName(), elemento.getEmail(),
-						elemento.getBornDate(),elemento.getCellphone()});
+						elemento.getName(),elemento.getLastName(), elemento.getBornDate(),
+						elemento.getEmail(),elemento.getCellphone()});
 			}
 		}
 	
@@ -116,7 +116,6 @@ public class ControllerPassengers implements ActionListener{
 		    String email = guiPass.getTEmail().getText();
 		    int cellphone = Integer.parseInt(guiPass.getTCellphone().getText());
 
-
 		    int selectedRow = guiPass.getTPassengers().getSelectedRow();
 
 		    // Modifica los datos en la tabla
@@ -128,7 +127,8 @@ public class ControllerPassengers implements ActionListener{
 		    guiPass.getDTMTPassengers().setValueAt(cellphone, selectedRow, 5);
 
 		    // Modifica el pasajero en el archivo XML
-		    fLogXML.modifyPassenger("Passengers.xml", "Passenger", passportNum, name, lastName, birthDate,email,cellphone );
+		    fLogXML.modifyPassenger("Passengers.xml", "Passenger", passportNum
+		    	, name, lastName, birthDate,email,cellphone );
 			
 		}
 		if(e.getSource() == guiPass.getBtnRemovePassengers()) {
@@ -136,7 +136,7 @@ public class ControllerPassengers implements ActionListener{
 			 int passportNum = Integer.parseInt(guiPass.getTSearchPassenger().getText());
 			    
 			    // Elimina el dato dentro del xml y refrescar en la tabla
-			    Passengers p = fLogXML.searchPassengerAndDelete("Passengers.xml", "passenger", passportNum);
+			    Passengers p = fLogXML.searchPassengerAndDelete("Passengers.xml", "Passenger", passportNum);
 
 			    if (p != null) {
 			        arrayLPass.removePassenger(p);

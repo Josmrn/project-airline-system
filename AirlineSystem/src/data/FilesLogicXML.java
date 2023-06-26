@@ -910,11 +910,11 @@ public class FilesLogicXML {
 					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 						Element eElement = (Element) nNode;
 
-						if ( Integer.parseInt(eElement.getAttribute("passportNum"))== passportNum) {
-							// Modifica los elementos del pasajero
+						if ( Integer.parseInt(eElement.getAttribute("passportNum")) == passportNum) {
+							// Modificar los elementos del pasajero
 							eElement.getElementsByTagName("name").item(0).setTextContent(name);
 							eElement.getElementsByTagName("lastName").item(0).setTextContent(lastName);
-							eElement.getElementsByTagName("birthDate").item(0).setTextContent(birthDate);
+							eElement.getElementsByTagName("bornDate").item(0).setTextContent(birthDate);
 							eElement.getElementsByTagName("email").item(0).setTextContent(email);
 							eElement.getElementsByTagName("cellphone").item(0).setTextContent(String.valueOf(cellphone));
 						}
@@ -1049,6 +1049,7 @@ public class FilesLogicXML {
 						Element eElement = (Element) nNode;
 
 						if (Integer.parseInt(eElement.getAttribute("passportNum")) == passportNum) {
+							System.out.println("Encontre el pasaporte");
 
 							eElement.removeAttribute("passportNum");
 							eElement.getParentNode().removeChild(eElement);
