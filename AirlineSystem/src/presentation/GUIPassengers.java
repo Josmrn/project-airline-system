@@ -230,12 +230,12 @@ public class GUIPassengers extends JInternalFrame {
 	            DefaultTableModel model = (DefaultTableModel) tPassengers.getModel(); //Me va a obtener los datos asociados a tUsers que están en la tabla
 	            Vector<Object> rowData = model.getDataVector().elementAt(selectedRow); //Es el vector del objeto seleccionado en la tabla
 	           //Se agregan los componentes al los campos de texto
-	            tPassport.setText((String) rowData.get(0));
+	            tPassport.setText(String.valueOf((int) rowData.get(0)));
 	            tName.setText((String) rowData.get(1));
 	            tLastName.setText((String) rowData.get(2));
 	            tBirthDate.setText((String) rowData.get(3));
 	            tEmail.setText((String) rowData.get(4));
-	            tCellphone.setText((String) rowData.get(5));
+	            tCellphone.setText(String.valueOf((int) rowData.get(5)));
 	         
 			}
 		});

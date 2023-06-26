@@ -83,7 +83,7 @@ public class ControllerPassengers implements ActionListener {
 			Passengers passenger = fLogXML.searchPassengers("Passengers.xml", "Passenger", passportNum);
 
 			if (passenger != null) {
-				// El usuario fue encontrado, puedes mostrar los detalles en la interfaz o
+				// El pasajero fue encontrado, puedes mostrar los detalles en la interfaz o
 				// realizar cualquier acción adicional
 				JOptionPane.showMessageDialog(null, "Pasajero encontrado");
 				guiPass.getTPassport().setText(String.valueOf(passenger.getPassportNum()));
@@ -94,7 +94,7 @@ public class ControllerPassengers implements ActionListener {
 				guiPass.getTCellphone().setText(String.valueOf(passenger.getCellphone()));
 
 			} else {
-				// El usuario no fue encontrado, puedes mostrar un mensaje de error o realizar
+				// El pasajero no fue encontrado, puedes mostrar un mensaje de error o realizar
 				// cualquier acción adicional
 				JOptionPane.showMessageDialog(null, "Pasajero no encontrado");
 			}

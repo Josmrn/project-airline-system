@@ -1,12 +1,20 @@
 package presentation;
 
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Vector;
+import java.awt.Cursor;
+import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-import java.awt.Color;
-import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
@@ -14,13 +22,10 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
-import java.awt.Cursor;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+
 
 @SuppressWarnings("serial")
 public class GUITickets extends JInternalFrame {
@@ -49,7 +54,7 @@ public class GUITickets extends JInternalFrame {
 	
 	public GUITickets() {
 		getContentPane().setBackground(new Color(255, 255, 255));
-		setTitle("Gestión de Modelos");
+		setTitle("Gestión de Tickets");
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
@@ -65,10 +70,6 @@ public class GUITickets extends JInternalFrame {
 		getContentPane().add(getBtnEditTickets());
 		getContentPane().add(getBtnConsultTickets());
 		getContentPane().add(getBtnAddTickets());
-		setDTMTTickets(dataTableT, getColumnsNamesM());
-		setTTickets(dtmTTickets);
-		setSPTTickets(tTickets);
-		getContentPane().add(spTTickets);
 		getContentPane().add(getSeparator_1());
 		getContentPane().add(getTSearchTickets());
 		getContentPane().add(getTPassportNumber());
@@ -76,6 +77,10 @@ public class GUITickets extends JInternalFrame {
 		getContentPane().add(getLFlightNumber());
 		getContentPane().add(getTFlightNumber());
 		getContentPane().add(getSeparator_2_1());
+		setDTMTTickets(dataTableT, getColumnsNamesM());
+		setTTickets(dtmTTickets);
+		setSPTTickets(tTickets);
+		getContentPane().add(spTTickets);
 		setVisible(true);
 	}
 	public JLabel getLTicketsManag() {
@@ -127,11 +132,7 @@ public class GUITickets extends JInternalFrame {
 	public JLabel getLOperationTickets() {
 		if (lOperationTickets == null) {
 			lOperationTickets = new JLabel("Operaciones");
-
-			lOperationTickets.setBounds(10, 75, 1204, 25);
-
 			lOperationTickets.setBounds(10, 75, 975, 25);
-
 			lOperationTickets.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			lOperationTickets.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		}
@@ -187,9 +188,7 @@ public class GUITickets extends JInternalFrame {
 	public JButton getBtnAddTickets() {
 		if (btnAddTickets == null) {
 			btnAddTickets = new JButton("Agregar");
-
 			btnAddTickets.setBounds(388, 110, 124, 35);
-
 			btnAddTickets.setIcon(new ImageIcon(GUITickets.class.getResource("/images/icons_add.png")));
 			btnAddTickets.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnAddTickets.setOpaque(false);
@@ -209,8 +208,23 @@ public class GUITickets extends JInternalFrame {
 	}
 	public void setTTickets(DefaultTableModel dtmtTickets) {
 		tTickets = new JTable(dtmTTickets);
+		tTickets.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				int selectedRow = tTickets.getSelectedRow(); //Variable que va a obtener lo que se encuentra en tUsers
+	            DefaultTableModel model = (DefaultTableModel) tTickets.getModel(); //Me va a obtener los datos asociados a tTickets que están en la tabla
+	            Vector<Object> rowData = model.getDataVector().elementAt(selectedRow); //Es el vector del objeto seleccionado en la tabla
+	           //Se agregan los componentes al los campos de texto y combo box
+	            tTicketNumber.setText(String.valueOf((int) rowData.get(0)));
+	            tPassportNumber.setText(String.valueOf((int) rowData.get(1)));
+	            tFlightNumber.setText(String.valueOf((int) rowData.get(2)));
+	            
+			}
+		});
 		tTickets.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		tTickets.setEnabled(false);
+		tTickets.setEnabled(true);
 		tTickets.getTableHeader().setReorderingAllowed(false);
 		tTickets.getTableHeader().setResizingAllowed(false);
 	}
@@ -235,9 +249,6 @@ public class GUITickets extends JInternalFrame {
 	public JSeparator getSeparator_1() {
 		if (separator_1 == null) {
 			separator_1 = new JSeparator();
-
-			separator_1.setBounds(10, 150, 1204, 1);
-
 			separator_1.setBounds(10, 150, 975, 1);
 
 		}

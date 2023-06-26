@@ -73,6 +73,9 @@ public class ControllerMain implements ActionListener{
 		if(e.getSource() == guiMain.getMiManagePassenger()) {
 			new ControllerPassengers(guiMain);
 		}
+		if(e.getSource() == guiMain.getMiManageTickets()) {
+			new ControllerTickets(guiMain);
+		}
 		
 		
 	}
