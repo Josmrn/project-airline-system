@@ -24,6 +24,17 @@ public class Airlines {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+	
+	public String[] getDataName() {
+		String[] dataName = {"nameAirline","country"};
+		return dataName;
+	}
+	
+	
+	public String[] getData() {
+		String[] data = {nameAirline,country};
+		return data;
+	}
 
 	@Override
 	public String toString() {
