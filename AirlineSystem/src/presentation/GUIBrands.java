@@ -9,6 +9,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -30,10 +33,10 @@ public class GUIBrands extends JInternalFrame {
 	private JButton btnEditBrands;
 	private JButton btnReadBrand;
 	private JButton btnRemoveBrand;
-	
+
 	private DefaultTableModel dtmTBrands;
 	private JTable tBrands;
-	
+
 	private JScrollPane spTBrands;
 	private Object dataTable[][];
 	private JLabel lOperationUser;
@@ -65,6 +68,7 @@ public class GUIBrands extends JInternalFrame {
 		getContentPane().add(getTWriteBrand());
 		setVisible(true);
 	}
+
 	public JLabel getLWelcomeBrand() {
 		if (lWelcomeBrand == null) {
 			lWelcomeBrand = new JLabel("Bienvenido a Gestión de Marcas de Aviones");
@@ -78,6 +82,7 @@ public class GUIBrands extends JInternalFrame {
 		}
 		return lWelcomeBrand;
 	}
+
 	public JLabel getLNameBrands() {
 		if (lNameBrands == null) {
 			lNameBrands = new JLabel("Ingrese la Marca del Avión");
@@ -88,6 +93,7 @@ public class GUIBrands extends JInternalFrame {
 		}
 		return lNameBrands;
 	}
+
 	public JTextField getTAddBrand() {
 		if (tAddBrand == null) {
 			tAddBrand = new JTextField();
@@ -97,6 +103,7 @@ public class GUIBrands extends JInternalFrame {
 		}
 		return tAddBrand;
 	}
+
 	public JButton getBtnRegisterBrand() {
 		if (btnRegisterBrand == null) {
 			btnRegisterBrand = new JButton("Registrar");
@@ -112,6 +119,7 @@ public class GUIBrands extends JInternalFrame {
 		}
 		return btnRegisterBrand;
 	}
+
 	public JSeparator getSeparator() {
 		if (separator == null) {
 			separator = new JSeparator();
@@ -119,6 +127,7 @@ public class GUIBrands extends JInternalFrame {
 		}
 		return separator;
 	}
+
 	public JLabel getLTextBrandsReg() {
 		if (lTextBrandsReg == null) {
 			lTextBrandsReg = new JLabel("Marcas registradas");
@@ -128,6 +137,7 @@ public class GUIBrands extends JInternalFrame {
 		}
 		return lTextBrandsReg;
 	}
+
 	public JButton getBtnConsultBrand() {
 		if (btnConsultBrand == null) {
 			btnConsultBrand = new JButton("Consultar");
@@ -141,6 +151,7 @@ public class GUIBrands extends JInternalFrame {
 		}
 		return btnConsultBrand;
 	}
+
 	public JButton getBtnEditBrands() {
 		if (btnEditBrands == null) {
 			btnEditBrands = new JButton("Editar");
@@ -154,6 +165,7 @@ public class GUIBrands extends JInternalFrame {
 		}
 		return btnEditBrands;
 	}
+
 	public JButton getBtnReadBrand() {
 		if (btnReadBrand == null) {
 			btnReadBrand = new JButton("Mostrar");
@@ -167,6 +179,7 @@ public class GUIBrands extends JInternalFrame {
 		}
 		return btnReadBrand;
 	}
+
 	public JButton getBtnRemoveBrand() {
 		if (btnRemoveBrand == null) {
 			btnRemoveBrand = new JButton("Eliminar");
@@ -180,38 +193,44 @@ public class GUIBrands extends JInternalFrame {
 		}
 		return btnRemoveBrand;
 	}
-	public void setDTMTBrands(Object data[][], String [] columnsNames) {
+
+	public void setDTMTBrands(Object data[][], String[] columnsNames) {
 		dtmTBrands = new DefaultTableModel(data, columnsNames);
 	}
+
 	public DefaultTableModel getDTMTBrands() {
 		return dtmTBrands;
 	}
-	
+
 	public void setTBrands(DefaultTableModel dtmTBrands) {
-		tBrands = new JTable(dtmTBrands);
-		tBrands.setEnabled(false);
-		tBrands.getTableHeader().setReorderingAllowed(false);
-		tBrands.getTableHeader().setResizingAllowed(false);
+	    tBrands = new JTable(dtmTBrands);
+	    tBrands.setEnabled(false);
+	    tBrands.getTableHeader().setReorderingAllowed(false);
+	    tBrands.getTableHeader().setResizingAllowed(false);
 	}
+
 	public JTable getTBrands() {
 		return this.tBrands;
 	}
-	
+
 	public void setSPTBrands(JTable tBrands) {
 		spTBrands = new JScrollPane(tBrands);
 		spTBrands.setBounds(10, 383, 452, 247);
 	}
+
 	public JScrollPane getSPTPeople() {
 		return this.spTBrands;
 	}
-	
+
 	public String[] getColumnsNames() {
-		String columnsName[] = {"Marca de Avión"};
+		String columnsName[] = { "Marca de Avión" };
 		return columnsName;
 	}
-public void cleanForm() {
+
+	public void cleanForm() {
 		tAddBrand.setText("");
 	}
+
 	public JLabel getLOperationUser() {
 		if (lOperationUser == null) {
 			lOperationUser = new JLabel("Operaciones");
@@ -221,10 +240,19 @@ public void cleanForm() {
 		}
 		return lOperationUser;
 	}
+
 	public JTextField getTWriteBrand() {
 		if (tWriteBrand == null) {
 			tWriteBrand = new JTextField();
-			tWriteBrand.setText("Escribir la marca que desea consultar/mostrar");
+			tWriteBrand.addMouseListener(new MouseAdapter() {
+				public void mouseReleased(MouseEvent e) {
+					if (tWriteBrand.getText().equals("Escribir la marca de avión que desea eliminar y/o consultar")) {
+						tWriteBrand.setText("");
+						tWriteBrand.setForeground(Color.black);
+					}
+				}
+			});
+			tWriteBrand.setText("Escribir la marca de avión que desea eliminar y/o consultar");
 			tWriteBrand.setForeground(Color.LIGHT_GRAY);
 			tWriteBrand.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			tWriteBrand.setColumns(10);

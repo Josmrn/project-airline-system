@@ -8,7 +8,6 @@ import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 import data.FilesLogicXML;
-import data.FilesXML;
 import domain.Users;
 import presentation.GUIMain;
 import presentation.GUIUserManage;
@@ -18,7 +17,6 @@ public class ControllerUserManage implements ActionListener {
 
 	private GUIUserManage guiUM;
 	private Users us;
-	private FilesXML fXML;
 	private FilesLogicXML fLXML;
 	private ArrayListUsers arrayLU;
 
@@ -26,7 +24,6 @@ public class ControllerUserManage implements ActionListener {
 		guiUM = new GUIUserManage();
 		guiMain.getDesktopMain().add(guiUM);
 		us = new Users();
-		fXML = new FilesXML();
 		fLXML = new FilesLogicXML();
 		arrayLU = new ArrayListUsers();
 		initializerAction();
@@ -58,8 +55,8 @@ public class ControllerUserManage implements ActionListener {
 		if (e.getSource() == guiUM.getBtnRegister()) {
 
 		    // Verifica si el usuario ya existe en el XML
-		    boolean userExists = fXML.dataExistOnXML("Users.xml", "User", "user", guiUM.getTUserAdd().getText());
-
+		    boolean userExists = fLXML.dataExistOnXML("Users.xml", "User", "user", guiUM.getTUserAdd().getText());
+		    
 		    if (userExists) {
 		        JOptionPane.showMessageDialog(null, "El usuario ya existe en el sistema");
 		        return;
@@ -83,8 +80,10 @@ public class ControllerUserManage implements ActionListener {
 		    guiUM.cleanForm();
 		}
 		
+		
 		if (e.getSource() == guiUM.getBtnEditUsers()) {
-		    // Obtiene los datos del formulario
+			
+		    // Obtiene los datos
 		    String username = guiUM.getTUserAdd().getText();
 		    char[] passwordChars = guiUM.getJPassword().getPassword();
 		    String password = new String(passwordChars);
@@ -93,18 +92,24 @@ public class ControllerUserManage implements ActionListener {
 
 		    int selectedRow = guiUM.getTUsers().getSelectedRow();
 
-		    // Modifica los datos en la tabla
+		    // Verifica si hay una fila seleccionada
+		    if (selectedRow == -1) {
+		        JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila para editar.");
+		        return;
+		    }
+		    
 		    guiUM.getDTMTUsers().setValueAt(username, selectedRow, 0);
 		    guiUM.getDTMTUsers().setValueAt(password, selectedRow, 1);
 		    guiUM.getDTMTUsers().setValueAt(typeUser, selectedRow, 2);
 		    guiUM.getDTMTUsers().setValueAt(statusUser, selectedRow, 3);
 
-		    // Modifica el usuario en el archivo XML
 		    fLXML.modifyUser("Users.xml", "User", username, password, typeUser, statusUser);
 		}
 
 
+
 		if (e.getSource() == guiUM.getBtnRemoveUser()) {
+			
 		    String username = guiUM.getTWriteName().getText();
 		    
 		    // Elimina el dato dentro del xml y refrescar en la tabla
@@ -120,8 +125,8 @@ public class ControllerUserManage implements ActionListener {
 		}
 		
 		if (e.getSource() == guiUM.getBtnConsultUser()) {
-		    String username = guiUM.getTWriteName().getText();
-		    Users user = fLXML.searchUsers("Users.xml", "User", username);
+			 
+		    Users user = fLXML.searchUsers("Users.xml", "User", guiUM.getTWriteName().getText());
 		    
 		    if (user != null) {
 		    	JOptionPane.showMessageDialog(null, "Usuario encontrado");

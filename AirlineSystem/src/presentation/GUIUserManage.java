@@ -346,7 +346,6 @@ public class GUIUserManage extends JInternalFrame {
 		tUsers.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("unchecked")
 			@Override
-			//Método para poder seleccionar datos en la tabla y ser mostrados en los campos respectivos 
 			public void mouseClicked(MouseEvent e) {
 				
 				int index = 0;

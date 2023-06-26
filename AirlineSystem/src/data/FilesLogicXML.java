@@ -3,7 +3,6 @@ package data;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,103 +22,54 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import domain.Brands;
+import domain.Models;
 import domain.Users;
 import domain.Passengers;
 
 public class FilesLogicXML {
 
-	private FilesXML fXML;
 
 	public FilesLogicXML() {
-		fXML = new FilesXML();
-	}
-
-	public void writeBrandsXML(String fileName, String elementType, String[] dataName, String[] data) {
-		try {
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
-
-			Document doc;
-			File file = new File(fileName);
-
-			if (file.exists()) {
-				doc = db.parse(file);
-				doc.getDocumentElement().normalize();
-			} else {
-				doc = db.newDocument();
-				Element rootElement = doc.createElement("Brands");
-				doc.appendChild(rootElement);
-			}
-
-			Element rootElement = doc.getDocumentElement();
-			Element ele = doc.createElement(elementType);
-			rootElement.appendChild(ele);
-
-			for (int i = 0; i < data.length; i++) {
-				Element dato = doc.createElement(dataName[i]);
-				dato.appendChild(doc.createTextNode(data[i]));
-				ele.appendChild(dato);
-			}
-
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(doc);
-
-			StreamResult result = new StreamResult(file);
-			transformer.transform(source, result);
-
-			JOptionPane.showMessageDialog(null, "Marca de avión registrada");
-
-		} catch (ParserConfigurationException pce) {
-			pce.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (TransformerConfigurationException e) {
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			e.printStackTrace();
-		}
 	}
 
 	// Lee el XML del usuario
-	public void readXML(String Filename, String elementType) {
+	public String readXML(String fileName, String elementType) {
+		
+		String information = " ";
 
 		try {
-			File inputFile = new File(Filename);
+			File inputFile = new File(fileName);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(inputFile);
 			doc.getDocumentElement().normalize();
 
-			System.out.println("Raíz de los Elementos:" + doc.getDocumentElement().getNodeName());
+			information += "Raíz de los Elementos:" + doc.getDocumentElement().getNodeName();
 			NodeList nList = doc.getElementsByTagName(elementType);
-			System.out.println("----------------------------");
+			information += "----------------------------";
 
 			for (int indice = 0; indice < nList.getLength(); indice++) {
 				Node nNode = nList.item(indice);
-				System.out.println("\nDatos de las Facturas: " + nNode.getNodeName());
+				information += "\nDatos de las Facturas: " + nNode.getNodeName();
 
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
-					System.out.println("Usuario: " + eElement.getAttribute("user"));
-					System.out.println(
-							"Contraseña: " + eElement.getElementsByTagName("password").item(0).getTextContent());
-					System.out.println(
-							"Tipo de Usuario: " + eElement.getElementsByTagName("typeUser").item(0).getTextContent());
-					System.out.println("Estado: " + eElement.getElementsByTagName("state").item(0).getTextContent());
+					information += "Usuario: " + eElement.getAttribute("user");
+					information += "Contraseña: " + eElement.getElementsByTagName("password").item(0).getTextContent();
+					information += "Tipo de Usuario: " + eElement.getElementsByTagName("typeUser").item(0).getTextContent();
+					information += "Estado: " + eElement.getElementsByTagName("state").item(0).getTextContent();
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return information;
 	}
 
 	// Escribe el XML del login
-	public void writeLoginXML(String FileName, String elementType, String[] dataName, String[] data) {
+	public void writeLoginXML(String fileName, String elementType, String[] dataName, String[] data) {
 
-		boolean userExist = fXML.dataExistOnXML(FileName, elementType, dataName[0], data[0]);
+		boolean userExist = dataExistOnXML(fileName, elementType, dataName[0], data[0]);
 
 		if (userExist && (data[0] == "admin")) {
 
@@ -135,7 +85,7 @@ public class FilesLogicXML {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 
-			Document doc = db.parse(new File(FileName));
+			Document doc = db.parse(new File(fileName));
 			doc.getDocumentElement().normalize();
 
 			Element rootElement = doc.getDocumentElement();
@@ -161,7 +111,7 @@ public class FilesLogicXML {
 
 			DOMSource source = new DOMSource(doc);
 
-			StreamResult result = new StreamResult(new File(FileName));
+			StreamResult result = new StreamResult(new File(fileName));
 			transformer.transform(source, result);
 
 			JOptionPane.showMessageDialog(null, "Usuario registrado");
@@ -187,11 +137,11 @@ public class FilesLogicXML {
 	}
 
 	// Método que elimina al usuario dentro del XML (funcionando)
-	public Users searchUserAndDelete(String Filename, String elementType, String username) {
-		Users u = null;
+	public Users searchUserAndDelete(String fileName, String elementType, String username) {
+		Users u = new Users();
 
 		try {
-			File inputFile = new File(Filename);
+			File inputFile = new File(fileName);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(inputFile);
@@ -213,14 +163,13 @@ public class FilesLogicXML {
 						TransformerFactory transformerFactory = TransformerFactory.newInstance();
 						Transformer transformer = transformerFactory.newTransformer();
 						DOMSource source = new DOMSource(doc);
-						StreamResult result = new StreamResult(new File(Filename));
+						StreamResult result = new StreamResult(new File(fileName));
 						transformer.transform(source, result);
 
 						u = new Users();
 						u.setUser(username);
 
-						// Validaciones que verifican si los nodos hijos existen antes de acceder al
-						// contenido
+						// Validaciones que verifican si los nodos hijos existen antes de acceder al contenido
 						if (eElement.getElementsByTagName("password").getLength() > 0) {
 							u.setPassword(eElement.getElementsByTagName("password").item(0).getTextContent());
 						}
@@ -243,64 +192,30 @@ public class FilesLogicXML {
 	}
 
 	// Método que busca los datos en el archivo xml de usuarios (funcionando)
-	public Users searchUsers(String Filename, String elementType, String user) {
-
-		Users u = new Users();
-
-		try {
-			File inputFile = new File(Filename);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(inputFile);
-			doc.getDocumentElement().normalize();
-
-			NodeList nList = doc.getElementsByTagName(elementType);
-
-			for (int indice = 0; indice < nList.getLength(); indice++) {
-				Node nNode = nList.item(indice);
-
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-					Element eElement = (Element) nNode;
-
-					if (eElement.getAttribute("user").equals(user)) {
-						u = new Users();
-						u.setUser(eElement.getAttribute("user"));
-						u.setPassword(eElement.getElementsByTagName("password").item(0).getTextContent());
-						u.setTypeUser(eElement.getElementsByTagName("typeUser").item(0).getTextContent());
-						u.setState(eElement.getElementsByTagName("state").item(0).getTextContent());
-						break;
-					}
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return u;
-	}
-
-	public Brands searchBrand(String filename, String elementType, String nameBrands) {
-	    Brands brand = new Brands();
+	public Users searchUsers(String fileName, String elementType, String user) {
+	    Users u = null;
 
 	    try {
-	        File inputFile = new File(filename);
+	        File inputFile = new File(fileName);
 	        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 	        Document doc = dBuilder.parse(inputFile);
 	        doc.getDocumentElement().normalize();
 
-	        NodeList brandList = doc.getElementsByTagName(elementType);
+	        NodeList nList = doc.getElementsByTagName(elementType);
 
-	        for (int i = 0; i < brandList.getLength(); i++) {
-	            Node brandNode = brandList.item(i);
+	        for (int indice = 0; indice < nList.getLength(); indice++) {
+	            Node nNode = nList.item(indice);
 
-	            if (brandNode.getNodeType() == Node.ELEMENT_NODE) {
-	                Element brandElement = (Element) brandNode;
+	            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+	                Element eElement = (Element) nNode;
 
-	                if (brandElement.getAttribute("nameBrands").equals(nameBrands)) {
-	                    brand = new Brands();
-	                    brand.setName(brandElement.getAttribute("nameBrands"));
-	                    break;
+	                String username = eElement.getAttribute("user");
+	                if (username.equals(user)) {
+	                    u = new Users(username,eElement.getElementsByTagName("password").item(0).getTextContent(),
+	                                  eElement.getElementsByTagName("typeUser").item(0).getTextContent(),
+	                                  eElement.getElementsByTagName("state").item(0).getTextContent());
+	                    break; 
 	                }
 	            }
 	        }
@@ -308,54 +223,15 @@ public class FilesLogicXML {
 	        e.printStackTrace();
 	    }
 
-	    return brand;
+	    return u;
 	}
-	
-	public Passengers searchPassengers(String Filename, String elementType, int passport) {
-
-		Passengers p = new Passengers();
-
-		try {
-			File inputFile = new File(Filename);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(inputFile);
-			doc.getDocumentElement().normalize();
-
-			NodeList nList = doc.getElementsByTagName(elementType);
-
-			for (int indice = 0; indice < nList.getLength(); indice++) {
-				Node nNode = nList.item(indice);
-
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-					Element eElement = (Element) nNode;
-
-					if (Integer.parseInt(eElement.getAttribute("passportNum")) == passport) {
-						p = new Passengers();
-						p.setPassportNum(Integer.parseInt(eElement.getAttribute("passportNum")));
-						p.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
-						p.setLastName(eElement.getElementsByTagName("lastName").item(0).getTextContent());
-						p.setEmail(eElement.getElementsByTagName("email").item(0).getTextContent());
-						p.setBornDate(eElement.getElementsByTagName("bornDate").item(0).getTextContent());
-						p.setCellphone(Integer.parseInt(eElement.getElementsByTagName("cellphone").item(0).getTextContent()));
-						break;
-					}
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return p;
-	}
-
 
 	// Retorno de usuarios
-	public ArrayList<Users> returnUsers(String Filename, String elementType) {
+	public ArrayList<Users> returnUsers(String fileName, String elementType) {
 		ArrayList<Users> arrayUsers = new ArrayList<>();
 
 		try {
-			File inputFile = new File(Filename);
+			File inputFile = new File(fileName);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(inputFile);
@@ -382,78 +258,14 @@ public class FilesLogicXML {
 
 		return arrayUsers;
 	}
-
-	public ArrayList<Brands> returnBrand(String Filename, String elementType) {
-		ArrayList<Brands> arrayBrands = new ArrayList<>();
-
-		try {
-			File inputFile = new File(Filename);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(inputFile);
-			doc.getDocumentElement().normalize();
-
-			NodeList nList = doc.getElementsByTagName(elementType);
-
-			for (int indice = 0; indice < nList.getLength(); indice++) {
-				Node nNode = nList.item(indice);
-
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-					Element eElement = (Element) nNode;
-					Brands brand = new Brands();
-					// brand.setName(eElement.getAttribute("nameBrands"));
-					brand.setName(eElement.getElementsByTagName("nameBrands").item(0).getTextContent());
-					arrayBrands.add(brand);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return arrayBrands;
-	}
 	
-	public ArrayList<Passengers> returnPassengers(String Filename, String elementType) {
-		ArrayList<Passengers> arrayPassengers = new ArrayList<>();
-
-		try {
-			File inputFile = new File(Filename);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(inputFile);
-			doc.getDocumentElement().normalize();
-
-			NodeList nList = doc.getElementsByTagName(elementType);
-
-			for (int indice = 0; indice < nList.getLength(); indice++) {
-				Node nNode = nList.item(indice);
-
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-					Element eElement = (Element) nNode;
-					Passengers passenger = new Passengers();
-					passenger.setPassportNum(Integer.parseInt(eElement.getAttribute("passportNum")));
-					passenger.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
-					passenger.setLastName(eElement.getElementsByTagName("lastName").item(0).getTextContent());
-					passenger.setEmail(eElement.getElementsByTagName("email").item(0).getTextContent());
-					passenger.setBornDate(eElement.getElementsByTagName("bornDate").item(0).getTextContent());
-					passenger.setCellphone(Integer.parseInt(eElement.getElementsByTagName("cellphone").item(0).getTextContent()));
-					arrayPassengers.add(passenger);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return arrayPassengers;
-	}
-
-	public String readXMLToString(String Filename, String elementType) {
+	public String readXMLToString(String filename, String elementType) {
 
 		String Data = "";
 
 		try {
 
-			File inputFile = new File(Filename);
+			File inputFile = new File(filename);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(inputFile);
@@ -480,6 +292,35 @@ public class FilesLogicXML {
 		}
 		return Data;
 	}
+	
+	//Método para saber si el usuario existe en el XML
+		public boolean dataExistOnXML(String fileName, String elementType, String attributeName, String attributeValue) {
+		    try {
+		        File inputFile = new File(fileName);
+		        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		        Document doc = dBuilder.parse(inputFile);
+		        doc.getDocumentElement().normalize();
+
+		        NodeList nList = doc.getElementsByTagName(elementType);
+
+		        for (int indice = 0; indice < nList.getLength(); indice++) {
+		            Node nNode = nList.item(indice);
+
+		            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+		                Element eElement = (Element) nNode;
+		                String attribute = eElement.getAttribute(attributeName);
+		                if (attribute.equals(attributeValue)) {
+		                    return true; 
+		                }
+		            }
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+
+		    return false; 
+		}
 
 	// metodo que me dice si el usuario y contraseña existen en el archivo XML
 	public boolean userExistWithPasswordOnXML(String fileName, String elementType, String username, String password) {
@@ -520,12 +361,12 @@ public class FilesLogicXML {
 	}
 
 	// Método para verificar el tipo de usuario y el estado
-	public String[] returnTypeAndStatus(String FileName, String elementType, String username, String password) {
+	public String[] returnTypeAndStatus(String fileName, String elementType, String username, String password) {
 
 		String[] userTypeAndStatus = { "", "" };
 
 		try {
-			File file = new File(FileName);
+			File file = new File(fileName);
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 
@@ -569,10 +410,11 @@ public class FilesLogicXML {
 	}
 
 	// Método para modificarme el usuario
-	public void modifyUser(String filename, String elementType, String username, String password, String typeUser,
+	public void modifyUser(String fileName, String elementType, String username, String password, String typeUser,
 			String statusUser) {
+		
 		try {
-			File inputFile = new File(filename);
+			File inputFile = new File(fileName);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(inputFile);
@@ -598,12 +440,456 @@ public class FilesLogicXML {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File(filename));
+			StreamResult result = new StreamResult(new File(fileName));
 			transformer.transform(source, result);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+//-----------------------------------------------------------------------------------------------------------------------------------------	
+	//Método para escribir marcas en el xml
+		public void writeBrandsXML(String fileName, String elementType, String[] dataName, String[] data) {
+			try {
+				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+				DocumentBuilder db = dbf.newDocumentBuilder();
+
+				Document doc;
+				File file = new File(fileName);
+
+				if (file.exists()) {
+					doc = db.parse(file);
+					doc.getDocumentElement().normalize();
+				} else {
+					doc = db.newDocument();
+					Element rootElement = doc.createElement("Brands");
+					doc.appendChild(rootElement);
+				}
+
+				Element rootElement = doc.getDocumentElement();
+				Element ele = doc.createElement(elementType);
+				rootElement.appendChild(ele);
+
+				for (int i = 0; i < data.length; i++) {
+					Element dato = doc.createElement(dataName[i]);
+					dato.appendChild(doc.createTextNode(data[i]));
+					ele.appendChild(dato);
+				}
+
+				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+				Transformer transformer = transformerFactory.newTransformer();
+				DOMSource source = new DOMSource(doc);
+
+				StreamResult result = new StreamResult(file);
+				transformer.transform(source, result);
+
+				JOptionPane.showMessageDialog(null, "Marca de avión registrada");
+
+			} catch (ParserConfigurationException pce) {
+				pce.printStackTrace();
+			} catch (SAXException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (TransformerConfigurationException e) {
+				e.printStackTrace();
+			} catch (TransformerException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public Brands searchBrand(String fileName, String elementType, String brandName) {
+			
+		    Brands brand = null;
+
+		    try {
+		        File inputFile = new File(fileName);
+		        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		        Document doc = dBuilder.parse(inputFile);
+		        doc.getDocumentElement().normalize();
+
+		        NodeList nList = doc.getElementsByTagName(elementType);
+
+		        for (int indice = 0; indice < nList.getLength(); indice++) {
+		            Node nNode = nList.item(indice);
+
+		            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+		                Element eElement = (Element) nNode;
+		                
+		                if (eElement.getElementsByTagName("nameBrands").item(0).getTextContent().equals(brandName)) {
+		                    brand = new Brands();
+		                    brand.setName(eElement.getElementsByTagName("nameBrands").item(0).getTextContent());
+		                    break; 
+		                }
+		            }
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+
+		    return brand;
+		}
+
+
+	public ArrayList<Brands> returnBrand(String fileName, String elementType) {
+		ArrayList<Brands> arrayBrands = new ArrayList<>();
+
+		try {
+			File inputFile = new File(fileName);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName(elementType);
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					Brands brand = new Brands();
+	
+					brand.setName(eElement.getElementsByTagName("nameBrands").item(0).getTextContent());
+					arrayBrands.add(brand);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return arrayBrands;
+	}
+	
+	//Edita las marcas
+	public void modifyBrand(String fileName, String elementType, String nameBrands, String newNameBrands) {
+	    try {
+	        File inputFile = new File(fileName);
+	        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+	        Document doc = dBuilder.parse(inputFile);
+	        doc.getDocumentElement().normalize();
+
+	        NodeList nList = doc.getElementsByTagName(elementType);
+
+	        for (int i = 0; i < nList.getLength(); i++) {
+	            Node nNode = nList.item(i);
+
+	            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+	                Element eElement = (Element) nNode;
+	                String currentName = eElement.getElementsByTagName("nameBrands").item(0).getTextContent();
+
+	                if (currentName.equals(nameBrands)) {
+	                    eElement.getElementsByTagName("nameBrands").item(0).setTextContent(newNameBrands);
+	                    break; // Se encontró la marca, se sale del bucle
+	                }
+	            }
+	        }
+
+	        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+	        Transformer transformer = transformerFactory.newTransformer();
+	        DOMSource source = new DOMSource(doc);
+	        StreamResult result = new StreamResult(new File(fileName));
+	        transformer.transform(source, result);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	public Brands deleteBrand(String fileName, String elementType, String nameBrand) {
+	    Brands brand = new Brands();
+
+	    try {
+	        File inputFile = new File(fileName);
+	        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+	        Document doc = dBuilder.parse(inputFile);
+	        doc.getDocumentElement().normalize();
+
+	        NodeList nList = doc.getElementsByTagName(elementType);
+
+	        for (int i = 0; i < nList.getLength(); i++) {
+	            Node nNode = nList.item(i);
+
+	            if (nNode.getNodeType() == Node.ELEMENT_NODE && nNode.getNodeName().equals(elementType)) {
+	                Element eElement = (Element) nNode;
+	                NodeList nameList = eElement.getElementsByTagName("nameBrands");
+
+	                if (nameList != null && nameList.getLength() > 0) {
+	                    Node nameNode = nameList.item(0);
+
+	                    if (nameNode.getTextContent().trim().equalsIgnoreCase(nameBrand.trim())) {
+	                        Node parent = eElement.getParentNode();
+	                        parent.removeChild(eElement);
+
+	                        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+	                        Transformer transformer = transformerFactory.newTransformer();
+	                        DOMSource source = new DOMSource(doc);
+	                        StreamResult result = new StreamResult(new File(fileName));
+	                        transformer.transform(source, result);
+
+	                        brand = new Brands();
+	                        brand.setName(nameBrand);
+
+	                        System.out.println("Marca eliminada exitosamente: " + nameBrand);
+	                        break;
+	                    }
+	                }
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return brand;
+	}
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+	public boolean ModelsExistOnXML(String fileName, String elementType, String attributeName, String attributeValue) {
+	    try {
+	        File inputFile = new File(fileName);
+	        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+	        Document doc = dBuilder.parse(inputFile);
+	        doc.getDocumentElement().normalize();
+
+	        NodeList nList = doc.getElementsByTagName(elementType);
+
+	        for (int indice = 0; indice < nList.getLength(); indice++) {
+	            Node nNode = nList.item(indice);
+
+	            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+	                Element eElement = (Element) nNode;
+	                String attribute = eElement.getAttribute(attributeName);
+	                if (attribute.equals(attributeValue)) {
+	                    return true; 
+	                }
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return false; 
+	}
+
+	public ArrayList<Models> returnModels(String fileName, String elementType) {
+	    ArrayList<Models> arrayModels = new ArrayList<>();
+
+	    try {
+	        File inputFile = new File(fileName);
+	        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+	        Document doc = dBuilder.parse(inputFile);
+	        doc.getDocumentElement().normalize();
+
+	        NodeList nList = doc.getElementsByTagName(elementType);
+
+	        for (int indice = 0; indice < nList.getLength(); indice++) {
+	            Node nNode = nList.item(indice);
+
+	            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+	                Element eElement = (Element) nNode;
+	                Models model = new Models();
+	                model.setModel(eElement.getAttribute("model"));
+	                model.setNameBrands(eElement.getElementsByTagName("nameBrands").item(0).getTextContent());
+	                model.setExecSeats(Integer.parseInt(eElement.getElementsByTagName("execSeats").item(0).getTextContent()));
+	                model.setTourSeats(Integer.parseInt(eElement.getElementsByTagName("tourSeats").item(0).getTextContent()));
+	                model.setEcoSeats(Integer.parseInt(eElement.getElementsByTagName("ecoSeats").item(0).getTextContent()));
+
+	                arrayModels.add(model);
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return arrayModels;
+	}
+
+	public void writeModelXML(String fileName, String elementType, String[] dataName, String[] data) {
+	    try {
+	        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder db = dbf.newDocumentBuilder();
+
+	        Document doc;
+	        File file = new File(fileName);
+
+	        if (file.exists()) {
+	            doc = db.parse(file);
+	            doc.getDocumentElement().normalize();
+	        } else {
+	            doc = db.newDocument();
+	            Element rootElement = doc.createElement("Models");
+	            doc.appendChild(rootElement);
+	        }
+
+	        Element rootElement = doc.getDocumentElement();
+	        Element element = doc.createElement(elementType);
+	        rootElement.appendChild(element);
+
+	        for (int i = 0; i < data.length; i++) {
+	            Element dato = doc.createElement(dataName[i]);
+	            dato.appendChild(doc.createCDATASection(cleanXMLString(data[i])));
+	            element.appendChild(dato);
+	        }
+
+	        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+	        Transformer transformer = transformerFactory.newTransformer();
+	        DOMSource source = new DOMSource(doc);
+
+	        StreamResult result = new StreamResult(file);
+	        transformer.transform(source, result);
+
+	        JOptionPane.showMessageDialog(null, "Modelo de avión registrado");
+
+	    } catch (ParserConfigurationException pce) {
+	        pce.printStackTrace();
+	    } catch (SAXException e) {
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    } catch (TransformerConfigurationException e) {
+	        e.printStackTrace();
+	    } catch (TransformerException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+
+	private String cleanXMLString(String input) {
+	    if (input == null) {
+	        return "";
+	    }
+	    StringBuilder stringBuilder = new StringBuilder();
+	    for (int i = 0; i < input.length(); i++) {
+	        char ch = input.charAt(i);
+	        if (isXMLValidCharacter(ch)) {
+	            stringBuilder.append(ch);
+	        }
+	    }
+	    return stringBuilder.toString();
+	}
+
+	private boolean isXMLValidCharacter(char ch) {
+	    return ch == 0x9 || ch == 0xA || ch == 0xD ||
+	            (ch >= 0x20 && ch <= 0xD7FF) ||
+	            (ch >= 0xE000 && ch <= 0xFFFD) ||
+	            (ch >= 0x10000 && ch <= 0x10FFFF);
+	}
+
+
+
+
+	
+	public ArrayList<Brands> getBrandXML(String filename, String elementType) {
+	    ArrayList<Brands> arrayBrands = new ArrayList<>();
+
+	    try {
+	        File inputFile = new File(filename);
+	        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+	        Document doc = dBuilder.parse(inputFile);
+	        doc.getDocumentElement().normalize();
+
+	        NodeList nList = doc.getElementsByTagName(elementType);
+
+	        for (int index = 0; index < nList.getLength(); index++) {
+	            Node nNode = nList.item(index);
+
+	            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+	                Element eElement = (Element) nNode;
+	                Brands brand = new Brands();
+
+	                brand.setName(eElement.getElementsByTagName("nameBrands").item(0).getTextContent());
+	                arrayBrands.add(brand);
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return arrayBrands;
+	}
+	
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+	
+	public Passengers searchPassengers(String Filename, String elementType, int passport) {
+
+		Passengers p = new Passengers();
+
+		try {
+			File inputFile = new File(Filename);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName(elementType);
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+
+					if (Integer.parseInt(eElement.getAttribute("passportNum")) == passport) {
+						p = new Passengers();
+						p.setPassportNum(Integer.parseInt(eElement.getAttribute("passportNum")));
+						p.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
+						p.setLastName(eElement.getElementsByTagName("lastName").item(0).getTextContent());
+						p.setEmail(eElement.getElementsByTagName("email").item(0).getTextContent());
+						p.setBornDate(eElement.getElementsByTagName("bornDate").item(0).getTextContent());
+						p.setCellphone(Integer.parseInt(eElement.getElementsByTagName("cellphone").item(0).getTextContent()));
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return p;
+	}
+	
+	public ArrayList<Passengers> returnPassengers(String Filename, String elementType) {
+		ArrayList<Passengers> arrayPassengers = new ArrayList<>();
+
+		try {
+			File inputFile = new File(Filename);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName(elementType);
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					Passengers passenger = new Passengers();
+					passenger.setPassportNum(Integer.parseInt(eElement.getAttribute("passportNum")));
+					passenger.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
+					passenger.setLastName(eElement.getElementsByTagName("lastName").item(0).getTextContent());
+					passenger.setEmail(eElement.getElementsByTagName("email").item(0).getTextContent());
+					passenger.setBornDate(eElement.getElementsByTagName("bornDate").item(0).getTextContent());
+					passenger.setCellphone(Integer.parseInt(eElement.getElementsByTagName("cellphone").item(0).getTextContent()));
+					arrayPassengers.add(passenger);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return arrayPassengers;
 	}
 	
 	// Método para modificar el pasajero
@@ -625,7 +911,7 @@ public class FilesLogicXML {
 						Element eElement = (Element) nNode;
 
 						if ( Integer.parseInt(eElement.getAttribute("passportNum"))== passportNum) {
-							// Modificar los elementos del pasajero
+							// Modifica los elementos del pasajero
 							eElement.getElementsByTagName("name").item(0).setTextContent(name);
 							eElement.getElementsByTagName("lastName").item(0).setTextContent(lastName);
 							eElement.getElementsByTagName("birthDate").item(0).setTextContent(birthDate);
@@ -732,7 +1018,7 @@ public class FilesLogicXML {
 		                Element eElement = (Element) nNode;
 		                int attribute = Integer.parseInt(eElement.getAttribute(attributeName));
 		                if (attribute == passport) {
-		                    return true; // El pasajero ya existe en el XML
+		                    return true; 
 		                }
 		            }
 		        }
@@ -740,7 +1026,7 @@ public class FilesLogicXML {
 		        e.printStackTrace();
 		    }
 
-		    return false; // El pasajero no existe en el XML
+		    return false; 
 		}
 		
 		// Método que elimina al pasajero dentro del XML (funcionando)
@@ -776,8 +1062,7 @@ public class FilesLogicXML {
 							p = new Passengers();
 							p.setPassportNum(passportNum);
 
-							// Validaciones que verifican si los nodos hijos existen antes de acceder al
-							// contenido
+							// Validaciones que verifican si los nodos hijos existen antes de acceder al contenido
 							if (eElement.getElementsByTagName("name").getLength() > 0) {
 								p.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
 							}
@@ -804,5 +1089,7 @@ public class FilesLogicXML {
 
 			return p;
 		}
+		
+//-----------------------------------------------------------------------------------------------------------------------------------------
 
 }

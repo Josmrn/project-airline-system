@@ -16,14 +16,14 @@ import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import domain.Brands;
 
 @SuppressWarnings("serial")
 public class GUIModel extends JInternalFrame {
@@ -31,10 +31,8 @@ public class GUIModel extends JInternalFrame {
 	private JLabel lModelManag;
 	private JLabel lblNewLabel;
 	private JTextField tWriteModels;
-	private JSeparator separator;
 	private JLabel lAircraftBrand;
-	@SuppressWarnings("rawtypes")
-	private JComboBox cxBrandAircraft;
+	private JComboBox<String> cxBrandAircraft;
 	private JLabel lNumberOfSeats;
 	private JTextField tExecutiveSeats;
 	private JTextField tTouristSeats;
@@ -50,47 +48,51 @@ public class GUIModel extends JInternalFrame {
 	private Object dataTableM[][];
 	private JSeparator separator_1;
 	private JTextField tSearchModels;
+
 	
 
 	
 	public GUIModel() {
-		getContentPane().setBackground(new Color(255, 255, 255));
-		setTitle("Gestión de Modelos");
-		setMaximizable(true);
-		setIconifiable(true);
-		setClosable(true);
-		setBounds(100, 100, 1010, 535);
-		getContentPane().setLayout(null);
-		getContentPane().add(getLModelManag());
-		getContentPane().add(getLblNewLabel());
-		getContentPane().add(getTWriteModels());
-		getContentPane().add(getSeparator());
-		getContentPane().add(getLAircraftBrand());
-		getContentPane().add(getCxBrandAircraft());
-		getContentPane().add(getLNumberOfSeats());
-		getContentPane().add(getTExecutiveSeats());
-		getContentPane().add(getTTouristSeats());
-		getContentPane().add(getTEconomicSeats());
-		getContentPane().add(getLOperationModels());
-		getContentPane().add(getBtnRemoveModels());
-		getContentPane().add(getBtnEditModels());
-		getContentPane().add(getBtnConsultModel());
-		getContentPane().add(getBtnAddModels());
-		setDTMTModels(dataTableM, getColumnsNamesM());
-		setTModels(dtmTModels);
-		setSPTModels(tModels);
-		getContentPane().add(spTModels);
-		getContentPane().add(getSeparator_1());
-		getContentPane().add(getTSearchModels());
-		setVisible(true);
+	    getContentPane().setBackground(new Color(255, 255, 255));
+	    setTitle("Gestión de Modelos");
+	    setMaximizable(true);
+	    setIconifiable(true);
+	    setClosable(true);
+	    setBounds(100, 100, 928, 550);
+	    getContentPane().setLayout(null);
+	    getContentPane().add(getLModelManag());
+	    getContentPane().add(getLblNewLabel());
+	    getContentPane().add(getTWriteModels());
+	    getContentPane().add(getLAircraftBrand());
+	    getContentPane().add(getCxBrandAircraft());
+	    getContentPane().add(getLNumberOfSeats());
+	    getContentPane().add(getTExecutiveSeats());
+	    getContentPane().add(getTTouristSeats());
+	    getContentPane().add(getTEconomicSeats());
+	    getContentPane().add(getLOperationModels());
+	    getContentPane().add(getBtnRemoveModels());
+	    getContentPane().add(getBtnEditModels());
+	    getContentPane().add(getBtnConsultModel());
+	    getContentPane().add(getBtnAddModels());
+	    setDTMTModels(dataTableM, getColumnsNamesM());
+	    setTModels(dtmTModels);
+	    setSPTModels(tModels);
+	    getContentPane().add(spTModels);
+	    getContentPane().add(getSeparator_1());
+	    getContentPane().add(getTSearchModels());
+
+	    //fLXML = new FilesLogicXML(); // Inicializar fLXML
+	    
+	    setVisible(true);
 	}
+	
 	public JLabel getLModelManag() {
 		if (lModelManag == null) {
 			lModelManag = new JLabel("Bienvenidos a la Gestión de Modelos");
 			lModelManag.setHorizontalAlignment(SwingConstants.CENTER);
 			lModelManag.setFont(new Font("Roboto Black", Font.PLAIN, 18));
 			lModelManag.setBorder(new LineBorder(new Color(0, 0, 0)));
-			lModelManag.setBounds(10, 10, 975, 40);
+			lModelManag.setBounds(10, 10, 895, 40);
 		}
 		return lModelManag;
 	}
@@ -105,19 +107,12 @@ public class GUIModel extends JInternalFrame {
 	public JTextField getTWriteModels() {
 		if (tWriteModels == null) {
 			tWriteModels = new JTextField();
-			tWriteModels.setFont(new Font("Tahoma", Font.PLAIN, 10));
+			tWriteModels.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tWriteModels.setColumns(10);
-			tWriteModels.setBorder(null);
+			tWriteModels.setBorder(new LineBorder(new Color(0, 0, 0)));
 			tWriteModels.setBounds(10, 178, 255, 25);
 		}
 		return tWriteModels;
-	}
-	public JSeparator getSeparator() {
-		if (separator == null) {
-			separator = new JSeparator();
-			separator.setBounds(10, 204, 255, 1);
-		}
-		return separator;
 	}
 	public JLabel getLAircraftBrand() {
 		if (lAircraftBrand == null) {
@@ -127,16 +122,24 @@ public class GUIModel extends JInternalFrame {
 		}
 		return lAircraftBrand;
 	}
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public JComboBox getCxBrandAircraft() {
+	
+	public JComboBox<String> getCxBrandAircraft() {
 		if (cxBrandAircraft == null) {
-			cxBrandAircraft = new JComboBox();
-			cxBrandAircraft.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar:"}));
+			cxBrandAircraft = new JComboBox<String>();
 			cxBrandAircraft.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			cxBrandAircraft.setBounds(275, 178, 150, 25);
 		}
 		return cxBrandAircraft;
 	}
+	
+	public void fillBrandCXComboBox(ArrayList<Brands> brands) {
+	    cxBrandAircraft.addItem("Seleccionar:");
+
+	    for (Brands brand : brands) {
+	        cxBrandAircraft.addItem(brand.getNameBrands());
+	    }
+	}
+	
 	public JLabel getLNumberOfSeats() {
 		if (lNumberOfSeats == null) {
 			lNumberOfSeats = new JLabel("Cantidad de Asientos");
@@ -148,6 +151,22 @@ public class GUIModel extends JInternalFrame {
 	public JTextField getTExecutiveSeats() {
 		if (tExecutiveSeats == null) {
 			tExecutiveSeats = new JTextField();
+			tExecutiveSeats.addMouseListener(new MouseAdapter() {
+				public void mouseEntered(MouseEvent e) {
+					if(tExecutiveSeats.getText().equals("Clase Ejecutiva")) {
+						tExecutiveSeats.setText("");
+						tExecutiveSeats.setForeground(Color.black);
+					}
+					if(tTouristSeats.getText().isEmpty()) {
+						tTouristSeats.setText("Turista");
+						tTouristSeats.setForeground(Color.gray);
+					}
+					if(tEconomicSeats.getText().isEmpty()) {
+						tEconomicSeats.setText("Económico");
+						tEconomicSeats.setForeground(Color.gray);
+					}
+				}
+			});
 			tExecutiveSeats.setText("Clase Ejecutiva");
 			tExecutiveSeats.setHorizontalAlignment(SwingConstants.LEFT);
 			tExecutiveSeats.setForeground(Color.LIGHT_GRAY);
@@ -161,6 +180,22 @@ public class GUIModel extends JInternalFrame {
 	public JTextField getTTouristSeats() {
 		if (tTouristSeats == null) {
 			tTouristSeats = new JTextField();
+			tTouristSeats.addMouseListener(new MouseAdapter() {
+				public void mouseEntered(MouseEvent e) {
+					if(tTouristSeats.getText().equals("Turista")) {
+						tTouristSeats.setText("");
+						tTouristSeats.setForeground(Color.black);
+					}
+					if(tExecutiveSeats.getText().isEmpty()) {
+						tExecutiveSeats.setText("Clase Ejecutiva");
+						tExecutiveSeats.setForeground(Color.gray);
+					}
+					if(tEconomicSeats.getText().isEmpty()) {
+						tEconomicSeats.setText("Económico");
+						tEconomicSeats.setForeground(Color.gray);
+					}
+				}
+			});
 			tTouristSeats.setText("Turista");
 			tTouristSeats.setForeground(Color.LIGHT_GRAY);
 			tTouristSeats.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -173,6 +208,22 @@ public class GUIModel extends JInternalFrame {
 	public JTextField getTEconomicSeats() {
 		if (tEconomicSeats == null) {
 			tEconomicSeats = new JTextField();
+			tEconomicSeats.addMouseListener(new MouseAdapter() {
+				public void mouseEntered(MouseEvent e) {
+					if(tEconomicSeats.getText().equals("Económico")) {
+						tEconomicSeats.setText("");
+						tEconomicSeats.setForeground(Color.black);
+					}
+					if(tTouristSeats.getText().isEmpty()) {
+						tTouristSeats.setText("Turista");
+						tTouristSeats.setForeground(Color.gray);
+					}
+					if(tExecutiveSeats.getText().isEmpty()) {
+						tExecutiveSeats.setText("Clase Ejecutiva");
+						tExecutiveSeats.setForeground(Color.gray);
+					}
+				}
+			});
 			tEconomicSeats.setText("Económico");
 			tEconomicSeats.setForeground(Color.LIGHT_GRAY);
 			tEconomicSeats.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -187,7 +238,7 @@ public class GUIModel extends JInternalFrame {
 			lOperationModels = new JLabel("Operaciones");
 			lOperationModels.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			lOperationModels.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			lOperationModels.setBounds(10, 75, 975, 25);
+			lOperationModels.setBounds(10, 75, 895, 25);
 		}
 		return lOperationModels;
 	}
@@ -205,7 +256,7 @@ public class GUIModel extends JInternalFrame {
 			btnRemoveModels.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnRemoveModels.setContentAreaFilled(false);
 			btnRemoveModels.setBorder(null);
-			btnRemoveModels.setBounds(220, 110, 90, 35);
+			btnRemoveModels.setBounds(150, 110, 90, 35);
 		}
 		return btnRemoveModels;
 	}
@@ -234,7 +285,7 @@ public class GUIModel extends JInternalFrame {
 			btnConsultModel.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnConsultModel.setContentAreaFilled(false);
 			btnConsultModel.setBorder(null);
-			btnConsultModel.setBounds(865, 110, 120, 35);
+			btnConsultModel.setBounds(785, 110, 120, 35);
 		}
 		return btnConsultModel;
 	}
@@ -249,7 +300,7 @@ public class GUIModel extends JInternalFrame {
 			btnAddModels.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			btnAddModels.setContentAreaFilled(false);
 			btnAddModels.setBorder(null);
-			btnAddModels.setBounds(435, 110, 110, 35);
+			btnAddModels.setBounds(350, 110, 110, 35);
 		}
 		return btnAddModels;
 	}
@@ -275,7 +326,7 @@ public class GUIModel extends JInternalFrame {
 		spTModels.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spTModels.setToolTipText("");
 		spTModels.setBackground(new Color(255, 255, 255));
-		spTModels.setBounds(10, 214, 895, 280);
+		spTModels.setBounds(10, 231, 895, 280);
 	}
 	public JScrollPane getSPTModels() {
 		return this.spTModels;
@@ -287,7 +338,7 @@ public class GUIModel extends JInternalFrame {
 	public JSeparator getSeparator_1() {
 		if (separator_1 == null) {
 			separator_1 = new JSeparator();
-			separator_1.setBounds(10, 150, 975, 1);
+			separator_1.setBounds(10, 150, 895, 1);
 		}
 		return separator_1;
 	}
@@ -307,9 +358,18 @@ public class GUIModel extends JInternalFrame {
 			});
 			tSearchModels.setText("Escribir el modelo que desea consultar/mostrar");
 			tSearchModels.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			tSearchModels.setBounds(555, 115, 300, 30);
+			tSearchModels.setBounds(470, 115, 300, 30);
 			tSearchModels.setColumns(10);
 		}
 		return tSearchModels;
+	}
+	
+	public void cleanForm() {
+		tWriteModels.setText("");
+		cxBrandAircraft.setSelectedIndex(0);
+		tExecutiveSeats.setText("");
+		tTouristSeats.setText("");
+		tEconomicSeats.setText("");
+		
 	}
 }

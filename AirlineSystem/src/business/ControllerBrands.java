@@ -28,7 +28,6 @@ public class ControllerBrands implements ActionListener {
         fLXML = new FilesLogicXML();
         arrayLB = new ArrayListBrands();
         fXML.createXML("Brands", "Brands.xml");
-
         initializerAction();
     }
 
@@ -56,7 +55,7 @@ public class ControllerBrands implements ActionListener {
 		if (e.getSource() == guiB.getBtnRegisterBrand()) {
 			
 
-	        boolean brandExists = fXML.dataExistOnXML("Brands.xml", "Brand", "nameBrands", guiB.getTAddBrand().getText());
+	        boolean brandExists = fLXML.dataExistOnXML("Brands.xml", "Brand", "nameBrands", guiB.getTAddBrand().getText());
 
 	        if (brandExists) {
 	            JOptionPane.showMessageDialog(null, "La marca ya existe en el sistema");
@@ -72,32 +71,43 @@ public class ControllerBrands implements ActionListener {
 	    }
 
 		if (e.getSource() == guiB.getBtnEditBrands()) {
+		    String currentBrandName = guiB.getTWriteBrand().getText();
+		    String newBrandName = guiB.getTAddBrand().getText();
 
+		    fLXML.modifyBrand("Brands.xml", "Brand", currentBrandName, newBrandName);
+
+		    JOptionPane.showMessageDialog(null, "Marca modificada exitosamente");
+		    refreshData();
 		}
 
 		if (e.getSource() == guiB.getBtnRemoveBrand()) {
-			
-			//Falta crear el XML para eliminar
-			
-			if(brand != null) {
-				arrayLB.removeBrand(brand);
-				refreshData();
-				JOptionPane.showMessageDialog(null, "La marca se eliminó correctamente.");
+		    String brandName = guiB.getTWriteBrand().getText();
+		    Brands brand = fLXML.deleteBrand("Brands.xml", "Brand", brandName);
+		    
+		    if (brand != null) {
+		        arrayLB.removeBrand(brand);
+		        refreshData();
+		        JOptionPane.showMessageDialog(null, "La marca se eliminó correctamente.");
 		    } else {
-		    	JOptionPane.showMessageDialog(null, "La marca no se encontró o no pudo ser eliminado.");  
+		        JOptionPane.showMessageDialog(null, "La marca no se encontró o no pudo ser eliminada.");
 		    }
 		}
+
+
+
 		
-		if(e.getSource() == guiB.getBtnConsultBrand()) {
-			//No funciona aún
-			Brands brand = fLXML.searchBrand("Brands.xml", "Brand", guiB.getTWriteBrand().getText());
+		if (e.getSource() == guiB.getBtnConsultBrand()) {
 			
-			if(brand != null) {
-				JOptionPane.showMessageDialog(null, "Marca encontrada");
-				guiB.getTAddBrand().setText(brand.getNameBrands());
-			}else {
-				JOptionPane.showMessageDialog(null, "Marca NO encontrada");
-			}
+		    String brandName = guiB.getTWriteBrand().getText();
+
+		    Brands brand = fLXML.searchBrand("Brands.xml", "Brand", brandName);
+
+		    if (brand != null) {
+		        JOptionPane.showMessageDialog(null, "Marca encontrada");
+		        guiB.getTAddBrand().setText(brand.getNameBrands());
+		    } else {
+		        JOptionPane.showMessageDialog(null, "Marca NO encontrada");
+		    }
 			
 		}
 

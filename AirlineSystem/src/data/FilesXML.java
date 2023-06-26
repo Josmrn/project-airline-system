@@ -16,8 +16,6 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 
@@ -114,35 +112,4 @@ public class FilesXML {
 			e.printStackTrace();
 		}
 	}
-	
-	//Método para saber si el usuario existe en el XML
-	public boolean dataExistOnXML(String fileName, String elementType, String attributeName, String attributeValue) {
-	    try {
-	        File inputFile = new File(fileName);
-	        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-	        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-	        Document doc = dBuilder.parse(inputFile);
-	        doc.getDocumentElement().normalize();
-
-	        NodeList nList = doc.getElementsByTagName(elementType);
-
-	        for (int indice = 0; indice < nList.getLength(); indice++) {
-	            Node nNode = nList.item(indice);
-
-	            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-	                Element eElement = (Element) nNode;
-	                String attribute = eElement.getAttribute(attributeName);
-	                if (attribute.equals(attributeValue)) {
-	                    return true; // La marca ya existe en el XML
-	                }
-	            }
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-
-	    return false; // La marca no existe en el XML
-	}
-
-
 }
