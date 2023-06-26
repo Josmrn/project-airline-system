@@ -95,11 +95,12 @@ public class ControllerTickets implements ActionListener {
 		        return;
 		    }
 		    // Verifica si hay una columna de ticket seleccionada
-		    if (selectedColumn == -1) {
-		        JOptionPane.showMessageDialog(null, "Por favor, seleccione la columna del numero del ticket para editar.");
+		    if (selectedColumn != 0) {
+		        JOptionPane.showMessageDialog(null, "Por favor, seleccione la columna del numero de ticket para editar.");
 		        return;
 		    }
 		    
+		    //Guarda el valor del ticket original
 		    Object ticketNumOriginal = guiT.getDTMTTickets().getValueAt(selectedRow, selectedColumn);
 		    
 		    // Modifica el pasajero en el archivo XML

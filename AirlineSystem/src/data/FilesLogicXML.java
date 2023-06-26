@@ -905,7 +905,7 @@ public class FilesLogicXML {
 	}
 
 	// Método para modificar el pasajero
-	public void modifyPassenger(String filename, String elementType, int passportNum, String name, String lastName,
+	public void modifyPassenger(String filename, String elementType,Object passportNumOriginal, int passportNum, String name, String lastName,
 			String birthDate, String email, int cellphone) {
 		try {
 			File inputFile = new File(filename);
@@ -922,8 +922,9 @@ public class FilesLogicXML {
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
 
-					if (Integer.parseInt(eElement.getAttribute("passportNum")) == passportNum) {
+					if (eElement.getAttribute("passportNum").equals(String.valueOf(passportNumOriginal))) {
 						// Modificar los elementos del pasajero
+						eElement.setAttribute("passportNum", String.valueOf(passportNum));
 						eElement.getElementsByTagName("name").item(0).setTextContent(name);
 						eElement.getElementsByTagName("lastName").item(0).setTextContent(lastName);
 						eElement.getElementsByTagName("bornDate").item(0).setTextContent(birthDate);
