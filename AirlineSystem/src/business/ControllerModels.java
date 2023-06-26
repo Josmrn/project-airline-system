@@ -59,36 +59,35 @@ public class ControllerModels implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == guiM.getBtnAddModels()) {
-			
-		    boolean modelExist = fLXML.ModelsExistOnXML("Models.xml", "Model", "model", guiM.getTWriteModels().getText());
+	        boolean modelExist = fLXML.modelsExistOnXML("Models.xml", "Model", "model", guiM.getTWriteModels().getText());
 
-		    if (modelExist) {
-		        JOptionPane.showMessageDialog(null, "El modelo de avión ya se encuentra en el sistema");
-		        return;
-		    }
+	        if (modelExist) {
+	            JOptionPane.showMessageDialog(null, "El modelo de avión ya se encuentra en el sistema");
+	            return;
+	        }
 
-		    String nameBrand = (String) guiM.getCxBrandAircraft().getSelectedItem();
-		    int execSeats = 0;
-		    int tourSeats = 0;
-		    int ecoSeats = 0;
+	        String nameBrand = (String) guiM.getCxBrandAircraft().getSelectedItem();
+	        int execSeats = 0;
+	        int tourSeats = 0;
+	        int ecoSeats = 0;
 
-		    try {
-		        execSeats = Integer.parseInt(guiM.getTExecutiveSeats().getText());
-		        tourSeats = Integer.parseInt(guiM.getTTouristSeats().getText());
-		        ecoSeats = Integer.parseInt(guiM.getTEconomicSeats().getText());
-		    } catch (NumberFormatException ex) {
-		        JOptionPane.showMessageDialog(null, "Por favor ingresa un valor numérico válido en los campos de asientos");
-		        return;
-		    }
+	        try {
+	            execSeats = Integer.parseInt(guiM.getTExecutiveSeats().getText());
+	            tourSeats = Integer.parseInt(guiM.getTTouristSeats().getText());
+	            ecoSeats = Integer.parseInt(guiM.getTEconomicSeats().getText());
+	        } catch (NumberFormatException ex) {
+	            JOptionPane.showMessageDialog(null, "Por favor ingresa un valor numérico válido en los campos de asientos");
+	            return;
+	        }
 
-		    model = new Models(guiM.getTWriteModels().getText(), nameBrand, execSeats, tourSeats, ecoSeats);
+	        model = new Models(guiM.getTWriteModels().getText(), nameBrand, execSeats, tourSeats, ecoSeats);
 
-		    fLXML.writeModelXML("Models.xml", "Model", model.getDataName(), model.getData());
-		    arrayLM.addModel(model);
-		    guiM.getDTMTModels().addRow(new Object[]{guiM.getTWriteModels(), nameBrand, execSeats, tourSeats, ecoSeats});
-		    guiM.cleanForm();
-		    refreshModel();
-		}
+	        fLXML.writeModelXML("Models.xml", "Model", model.getDataName(), model.getData());
+	        arrayLM.addModel(model);
+	        guiM.getDTMTModels().addRow(new Object[]{guiM.getTWriteModels().getText(), nameBrand, execSeats, tourSeats, ecoSeats});
+	        guiM.cleanForm();
+	        refreshModel();
+	    }
 
 		
 		if(e.getSource() == guiM.getBtnEditModels()) {
