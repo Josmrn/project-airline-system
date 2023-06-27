@@ -27,6 +27,7 @@ import domain.Brands;
 import domain.Models;
 import domain.Users;
 import domain.Passengers;
+import domain.Planes;
 import domain.Tickets;
 
 public class FilesLogicXML {
@@ -1712,6 +1713,7 @@ public class FilesLogicXML {
 
 			return false;
 		}
+		
 		public void modifyAirline(String filename, String elementType,Object nameAirlineOriginal, String nameAirline, String country) {
 			try {
 				File inputFile = new File(filename);
@@ -1832,5 +1834,265 @@ public class FilesLogicXML {
 			}
 
 			return a;
+		}
+//-----------------------------------------------------------------------------------------------------------------------------------------
+		public ArrayList<Planes> returnPlanes(String Filename, String elementType) {
+			ArrayList<Planes> arrayPlanes = new ArrayList<>();
+
+			try {
+				File inputFile = new File(Filename);
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(inputFile);
+				doc.getDocumentElement().normalize();
+
+				NodeList nList = doc.getElementsByTagName(elementType);
+
+				for (int indice = 0; indice < nList.getLength(); indice++) {
+					Node nNode = nList.item(indice);
+
+					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+						Element eElement = (Element) nNode;
+						Planes plane = new Planes();
+						plane.setRegisterOfAircft(eElement.getAttribute("registerOfAircft"));
+						plane.setAirline(eElement.getElementsByTagName("airline").item(0).getTextContent());
+						plane.setModel(eElement.getElementsByTagName("model").item(0).getTextContent());
+						plane.setYear(Integer.parseInt(eElement.getElementsByTagName("year").item(0).getTextContent()));
+						
+						arrayPlanes.add(plane);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return arrayPlanes;
+		}
+		public void writePlaneXML(String FileName, String elementType, String[] dataName, String[] data) {
+
+			boolean planeExist = planeExistOnXML(FileName, elementType, dataName[0],data[0]);
+
+			if (planeExist == true) {
+
+				JOptionPane.showMessageDialog(null, "El avion ya existe en el sistema");
+				return;
+			}
+
+			try {
+
+				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+				DocumentBuilder db = dbf.newDocumentBuilder();
+
+				Document doc = db.parse(new File(FileName));
+				doc.getDocumentElement().normalize();
+
+				Element rootElement = doc.getDocumentElement();
+
+				Element ele = doc.createElement(elementType);
+				rootElement.appendChild(ele);
+
+				Attr attr = doc.createAttribute(dataName[0]);
+				attr.setValue(data[0]);
+				ele.setAttributeNode(attr);
+
+				for (int i = 1; i < data.length; i++) {
+
+					Element dato = doc.createElement(dataName[i]);
+
+					dato.appendChild(doc.createTextNode(data[i]));
+
+					ele.appendChild(dato);
+				}
+
+				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+				Transformer transformer = transformerFactory.newTransformer();
+
+				DOMSource source = new DOMSource(doc);
+
+				StreamResult result = new StreamResult(new File(FileName));
+				transformer.transform(source, result);
+
+				JOptionPane.showMessageDialog(null, "Avion registrado");
+
+			} catch (ParserConfigurationException pce) {
+
+				pce.printStackTrace();
+
+			} catch (SAXException e) {
+
+				e.printStackTrace();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			} catch (TransformerConfigurationException e) {
+
+				e.printStackTrace();
+			} catch (TransformerException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+		
+		public boolean planeExistOnXML(String fileName, String elementType, String attributeName, String plane) {
+			try {
+				File inputFile = new File(fileName);
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(inputFile);
+				doc.getDocumentElement().normalize();
+
+				NodeList nList = doc.getElementsByTagName(elementType);
+
+				for (int indice = 0; indice < nList.getLength(); indice++) {
+					Node nNode = nList.item(indice);
+
+					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+						Element eElement = (Element) nNode;
+						String attribute = eElement.getAttribute(attributeName);
+						if (attribute.equals(plane) ) {
+							return true;
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return false;
+		}
+		public void modifyPlane(String filename, String elementType,Object planeOriginal, String plane, String airline,
+				String model, String year) {
+			try {
+				File inputFile = new File(filename);
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(inputFile);
+				doc.getDocumentElement().normalize();
+
+				NodeList nList = doc.getElementsByTagName(elementType);
+
+				for (int i = 0; i < nList.getLength(); i++) {
+					Node nNode = nList.item(i);
+
+					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+						Element eElement = (Element) nNode;
+
+						if (eElement.getAttribute("registerOfAircft").equals(planeOriginal)) {
+							// Modificar los elementos del ticket
+							System.out.println("Entre a modificar la ostia");
+							eElement.setAttribute("registerOfAircft", plane);
+							eElement.getElementsByTagName("airline").item(0).setTextContent(airline);
+							eElement.getElementsByTagName("model").item(0).setTextContent(model);
+							eElement.getElementsByTagName("year").item(0).setTextContent(year);
+						}
+					}
+				}
+
+				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+				Transformer transformer = transformerFactory.newTransformer();
+				DOMSource source = new DOMSource(doc);
+				StreamResult result = new StreamResult(new File(filename));
+				transformer.transform(source, result);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public Planes searchPlaneAndDelete(String Filename, String elementType, String plane) {
+			Planes p = null;
+
+			try {
+				File inputFile = new File(Filename);
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(inputFile);
+				doc.getDocumentElement().normalize();
+
+				NodeList nList = doc.getElementsByTagName(elementType);
+
+				for (int indice = 0; indice < nList.getLength(); indice++) {
+					Node nNode = nList.item(indice);
+
+					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+						Element eElement = (Element) nNode;
+
+						if (eElement.getAttribute("registerOfAircft").equals(plane)) {
+							System.out.println("Encontre la Aerolinea");
+
+							eElement.removeAttribute("registerOfAircft");
+							eElement.getParentNode().removeChild(eElement);
+
+							TransformerFactory transformerFactory = TransformerFactory.newInstance();
+							Transformer transformer = transformerFactory.newTransformer();
+							DOMSource source = new DOMSource(doc);
+							StreamResult result = new StreamResult(new File(Filename));
+							transformer.transform(source, result);
+
+							p = new Planes();
+							p.setRegisterOfAircft(plane);
+
+							// Validaciones que verifican si los nodos hijos existen antes de acceder al
+							// contenido
+							if (eElement.getElementsByTagName("airline").getLength() > 0) {
+								p.setAirline(eElement.getElementsByTagName("airline").item(0).getTextContent());
+							}
+							if (eElement.getElementsByTagName("model").getLength() > 0) {
+								p.setModel(eElement.getElementsByTagName("model").item(0).getTextContent());
+							}
+							if (eElement.getElementsByTagName("year").getLength() > 0) {
+								p.setYear(Integer.parseInt(eElement.getElementsByTagName("year").item(0).getTextContent()));
+							}
+							
+							
+
+							break;
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return p;
+		}
+		
+		public Planes searchPlane(String Filename, String elementType, String plane) {
+
+			Planes p = new Planes();
+
+			try {
+				File inputFile = new File(Filename);
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(inputFile);
+				doc.getDocumentElement().normalize();
+
+				NodeList nList = doc.getElementsByTagName(elementType);
+
+				for (int indice = 0; indice < nList.getLength(); indice++) {
+					Node nNode = nList.item(indice);
+
+					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+						Element eElement = (Element) nNode;
+
+						if (eElement.getAttribute("registerOfAircft").equals(plane)) {
+							p = new Planes();
+							p.setRegisterOfAircft(eElement.getAttribute("registerOfAircft"));
+							p.setAirline(eElement.getElementsByTagName("airline").item(0).getTextContent());
+							p.setModel(eElement.getElementsByTagName("model").item(0).getTextContent());
+							p.setYear(Integer.parseInt(eElement.getElementsByTagName("year").item(0).getTextContent()));
+
+							
+							break;
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return p;
 		}
 }

@@ -48,6 +48,17 @@ public class Planes {
 	public void setYear(int year) {
 		this.year = year;
 	}
+	
+	public String[] getDataName() {
+		String[] dataName = {"registerOfAircft","airline","model","year"};
+		return dataName;
+	}
+	
+	
+	public String[] getData() {
+		String[] data = {registerOfAircft,airline,model,String.valueOf(year)};
+		return data;
+	}
 
 	@Override
 	public String toString() {
