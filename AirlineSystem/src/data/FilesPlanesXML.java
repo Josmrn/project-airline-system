@@ -22,110 +22,15 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import domain.Airlines;
+import domain.Planes;
 
-public class FilesAirlinesXML {
+public class FilesPlanesXML {
 
-	public FilesAirlinesXML() {
+	public FilesPlanesXML() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public ArrayList<Airlines> returnAirlines(String Filename, String elementType) {
-		ArrayList<Airlines> arrayAirlines = new ArrayList<>();
 
-		try {
-			File inputFile = new File(Filename);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(inputFile);
-			doc.getDocumentElement().normalize();
-
-			NodeList nList = doc.getElementsByTagName(elementType);
-
-			for (int indice = 0; indice < nList.getLength(); indice++) {
-				Node nNode = nList.item(indice);
-
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-					Element eElement = (Element) nNode;
-					Airlines airline = new Airlines();
-					airline.setNameAirline(eElement.getAttribute("nameAirline"));
-					airline.setCountry(eElement.getElementsByTagName("country").item(0).getTextContent());
-					
-					arrayAirlines.add(airline);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return arrayAirlines;
-	}
-	
-	public void writeAirlineXML(String FileName, String elementType, String[] dataName, String[] data) {
-
-		boolean airlineExist = airlineExistOnXML(FileName, elementType, dataName[0],data[0]);
-
-		if (airlineExist == true) {
-
-			JOptionPane.showMessageDialog(null, "La aerolinea ya existe en el sistema");
-			return;
-		}
-
-		try {
-
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
-
-			Document doc = db.parse(new File(FileName));
-			doc.getDocumentElement().normalize();
-
-			Element rootElement = doc.getDocumentElement();
-
-			Element ele = doc.createElement(elementType);
-			rootElement.appendChild(ele);
-
-			Attr attr = doc.createAttribute(dataName[0]);
-			attr.setValue(data[0]);
-			ele.setAttributeNode(attr);
-
-			for (int i = 1; i < data.length; i++) {
-
-				Element dato = doc.createElement(dataName[i]);
-				dato.appendChild(doc.createTextNode(data[i]));
-				ele.appendChild(dato);
-			}
-
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-
-			DOMSource source = new DOMSource(doc);
-
-			StreamResult result = new StreamResult(new File(FileName));
-			transformer.transform(source, result);
-
-			JOptionPane.showMessageDialog(null, "Aerolinea registrada");
-
-		} catch (ParserConfigurationException pce) {
-
-			pce.printStackTrace();
-
-		} catch (SAXException e) {
-
-			e.printStackTrace();
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		} catch (TransformerConfigurationException e) {
-
-			e.printStackTrace();
-		} catch (TransformerException e) {
-
-			e.printStackTrace();
-		}
-
-	}
-	
-	public boolean airlineExistOnXML(String fileName, String elementType, String attributeName, String airlineName) {
+	public boolean dataExistOnXML(String fileName, String elementType, String attributeName, String attributeValue) {
 		try {
 			File inputFile = new File(fileName);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -141,7 +46,7 @@ public class FilesAirlinesXML {
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
 					String attribute = eElement.getAttribute(attributeName);
-					if (attribute.equals(airlineName) ) {
+					if (attribute.equals(attributeValue)) {
 						return true;
 					}
 				}
@@ -152,9 +57,182 @@ public class FilesAirlinesXML {
 
 		return false;
 	}
-	public void modifyAirline(String filename, String elementType,Object nameAirlineOriginal, String nameAirline, String country) {
+
+	public void writePlanesXML(String fileName, String elementType, String[] dataName, String[] data) {
+		boolean modelExist = dataExistOnXML(fileName, elementType, dataName[0], data[0]);
+
+		if (modelExist) {
+			JOptionPane.showMessageDialog(null, "El vuelo ya existe en el sistema");
+			return;
+		}
+
 		try {
-			File inputFile = new File(filename);
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+
+			Document doc = db.parse(new File(fileName));
+			doc.getDocumentElement().normalize();
+
+			Element rootElement = doc.getDocumentElement();
+
+			Element ele = doc.createElement(elementType);
+			rootElement.appendChild(ele);
+
+			Attr atrr = doc.createAttribute(dataName[0]);
+			atrr.setValue(data[0]);
+			ele.setAttributeNode(atrr);
+
+			for (int i = 1; i < data.length; i++) {
+				Element dato = doc.createElement(dataName[i]);
+				dato.appendChild(doc.createTextNode(data[i]));
+				ele.appendChild(dato);
+			}
+
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+
+			DOMSource source = new DOMSource(doc);
+
+			StreamResult result = new StreamResult(new File(fileName));
+			transformer.transform(source, result);
+
+			JOptionPane.showMessageDialog(null, "Registro Exitoso");
+
+		} catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TransformerConfigurationException e) {
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Planes searchPlanes(String fileName, String elementType, String nameRegisAirc) {
+		Planes p = null;
+
+		try {
+			File inputFile = new File(fileName);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName(elementType);
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+
+					if (eElement.getAttribute("registerOfAircft").equals(nameRegisAirc)) {
+						p = new Planes(eElement.getAttribute("registerOfAircft"),
+								eElement.getElementsByTagName("airline").item(0).getTextContent(),
+								eElement.getElementsByTagName("model").item(0).getTextContent(),
+								Integer.parseInt(eElement.getElementsByTagName("year").item(0).getTextContent()));
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return p;
+	}
+	
+	public Planes planesDelete(String fileName, String elementType, String nameRegisAirc) {
+		Planes p = new Planes();
+
+		try {
+			File inputFile = new File(fileName);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName(elementType);
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+
+					if (eElement.getAttribute("registerOfAircft").equals(nameRegisAirc)) {
+
+						eElement.removeAttribute("registerOfAircft");
+						eElement.getParentNode().removeChild(eElement);
+
+						TransformerFactory transformerFactory = TransformerFactory.newInstance();
+						Transformer transformer = transformerFactory.newTransformer();
+						DOMSource source = new DOMSource(doc);
+						StreamResult result = new StreamResult(new File(fileName));
+						transformer.transform(source, result);
+
+						p = new Planes();
+						p.setRegisterOfAircft(nameRegisAirc);
+
+						if (eElement.getElementsByTagName("airline").getLength() > 0) {
+							p.setAirline(eElement.getElementsByTagName("airline").item(0).getTextContent());
+						}
+						if (eElement.getElementsByTagName("model").getLength() > 0) {
+							p.setModel(eElement.getElementsByTagName("model").item(0).getTextContent());
+						}
+						if (eElement.getElementsByTagName("year").getLength() > 0) {
+							p.setYear(Integer.parseInt(eElement.getElementsByTagName("year").item(0).getTextContent()));
+						}
+
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return p;
+	}
+	
+	public ArrayList<Planes> returnPlanes(String fileName, String elementType) {
+		ArrayList<Planes> arrayPlanes = new ArrayList<>();
+
+		try {
+			File inputFile = new File(fileName);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName(elementType);
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					Planes p = new Planes();
+					p.setRegisterOfAircft(eElement.getAttribute("registerOfAircft"));
+					p.setAirline(eElement.getElementsByTagName("airline").item(0).getTextContent());
+					p.setModel(eElement.getElementsByTagName("model").item(0).getTextContent());
+					p.setYear(Integer.parseInt(eElement.getElementsByTagName("year").item(0).getTextContent()));
+					arrayPlanes.add(p);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return arrayPlanes;
+	}
+	
+	public void modifyPlanes(String fileName, String elementType, String nameRegister, String airline, String model, int year) {
+
+		try {
+			File inputFile = new File(fileName);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(inputFile);
@@ -168,9 +246,11 @@ public class FilesAirlinesXML {
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
 
-					if (eElement.getAttribute("nameAirline").equals(nameAirlineOriginal)) {
-						eElement.setAttribute("nameAirline", nameAirline);
-						eElement.getElementsByTagName("country").item(0).setTextContent(country);
+					if (eElement.getAttribute("registerOfAircft").equals(nameRegister)) {
+						eElement.getElementsByTagName("airline").item(0).setTextContent(airline);
+						eElement.getElementsByTagName("model").item(0).setTextContent(model);
+						eElement.getElementsByTagName("year").item(0).setTextContent(String.valueOf(year));
+						
 					}
 				}
 			}
@@ -178,98 +258,12 @@ public class FilesAirlinesXML {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File(filename));
+			StreamResult result = new StreamResult(new File(fileName));
 			transformer.transform(source, result);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public Airlines searchAirlineAndDelete(String Filename, String elementType, String nameAirline) {
-		Airlines a = null;
-
-		try {
-			File inputFile = new File(Filename);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(inputFile);
-			doc.getDocumentElement().normalize();
-
-			NodeList nList = doc.getElementsByTagName(elementType);
-
-			for (int indice = 0; indice < nList.getLength(); indice++) {
-				Node nNode = nList.item(indice);
-
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-					Element eElement = (Element) nNode;
-
-					if (eElement.getAttribute("nameAirline").equals(nameAirline)) {
-						System.out.println("Encontre la Aerolinea");
-
-						eElement.removeAttribute("nameAirline");
-						eElement.getParentNode().removeChild(eElement);
-
-						TransformerFactory transformerFactory = TransformerFactory.newInstance();
-						Transformer transformer = transformerFactory.newTransformer();
-						DOMSource source = new DOMSource(doc);
-						StreamResult result = new StreamResult(new File(Filename));
-						transformer.transform(source, result);
-
-						a = new Airlines();
-						a.setNameAirline(nameAirline);
-
-						// Validaciones que verifican si los nodos hijos existen antes de acceder al
-						// contenido
-						if (eElement.getElementsByTagName("country").getLength() > 0) {
-							a.setCountry(eElement.getElementsByTagName("country").item(0).getTextContent());
-						}
-						
-						
-
-						break;
-					}
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return a;
-	}
-	
-	public Airlines searchAirline(String Filename, String elementType, String nameAirline) {
-
-		Airlines a = new Airlines();
-
-		try {
-			File inputFile = new File(Filename);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(inputFile);
-			doc.getDocumentElement().normalize();
-
-			NodeList nList = doc.getElementsByTagName(elementType);
-
-			for (int indice = 0; indice < nList.getLength(); indice++) {
-				Node nNode = nList.item(indice);
-
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-					Element eElement = (Element) nNode;
-
-					if (eElement.getAttribute("nameAirline").equals(nameAirline)) {
-						a = new Airlines();
-						a.setNameAirline(eElement.getAttribute("nameAirline"));
-						a.setCountry(eElement.getElementsByTagName("country").item(0).getTextContent());
-						break;
-					}
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return a;
 	}
 
 }

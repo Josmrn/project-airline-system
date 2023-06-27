@@ -164,8 +164,6 @@ public class FilesLogicXML {
 						u = new Users();
 						u.setUser(username);
 
-						// Validaciones que verifican si los nodos hijos existen antes de acceder al
-						// contenido
 						if (eElement.getElementsByTagName("password").getLength() > 0) {
 							u.setPassword(eElement.getElementsByTagName("password").item(0).getTextContent());
 						}

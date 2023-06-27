@@ -6,31 +6,37 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import domain.Airlines;
+import domain.Models;
 import domain.Planes;
 import data.FilesXML;
-import data.FilesLogicXML;
+import data.FilesModelsXML;
+import data.FilesPlanesXML;
 import presentation.GUIMain;
 import presentation.GUIPlanes;
 
-public class ControllerAircraft implements ActionListener{
+public class ControllerPlanes implements ActionListener{
 
 	private GUIPlanes guiP;
 	private FilesXML fXML;
-	private FilesLogicXML fLogXML;
+	private FilesPlanesXML fPXML;
+	private FilesModelsXML fMXML;
 	private Planes plane;
 	private ArrayListAircraft arrayLAircrafts;
 	
-	public ControllerAircraft(GUIMain guiMain) {
+	public ControllerPlanes(GUIMain guiMain) {
 		// TODO Auto-generated constructor stub
 		plane = new Planes();
 		guiP = new GUIPlanes();
 		guiMain.getDesktopMain().add(guiP);
 		fXML = new FilesXML();
-		fLogXML = new FilesLogicXML();
+		fPXML = new FilesPlanesXML();
+		fMXML = new FilesModelsXML();
 		arrayLAircrafts = new ArrayListAircraft();
 		
 		fXML.createXML("Planes", "Planes.xml");
+		
+		ArrayList<Models> modelList = fMXML.returnModels("Models.xml", "Model");
+		guiP.fillModelsComboBox(modelList);
 		
 		initializerAction();
 	}
@@ -50,7 +56,7 @@ public class ControllerAircraft implements ActionListener{
 			private void refreshData() {
 
 			guiP.getDTMTPlanes().setRowCount(0);
-			ArrayList<Planes> arrayPlanes = fLogXML.returnPlanes("Planes.xml", "Plane");
+			ArrayList<Planes> arrayPlanes = fPXML.returnPlanes("Planes.xml", "Plane");
 
 			for (Planes elemento : arrayPlanes) {
 				guiP.getDTMTPlanes().addRow( new Object[] { elemento.getRegisterOfAircft(), elemento.getAirline(),
@@ -68,7 +74,7 @@ public class ControllerAircraft implements ActionListener{
 			
 			plane = new Planes(guiP.getTWritePlanes().getText(),airline,model,Integer.parseInt(guiP.getTYear().getText()));
 
-			fLogXML.writePlaneXML("Airlines.xml", "Airline", plane.getDataName(), plane.getData());
+			fPXML.writePlanesXML("Planes.xml", "Plane", plane.getDataName(), plane.getData());
 
 			arrayLAircrafts.addAircraft(plane);
 
@@ -80,12 +86,6 @@ public class ControllerAircraft implements ActionListener{
 		}
 		
 		if(e.getSource() == guiP.getBtnEditPlanes()) {
-			
-			// Obtiene los datos del formulario
-			String plane = guiP.getTWritePlanes().getText();
-			String airline = (String) guiP.getCxPlaneAirline().getSelectedItem();
-			String model = (String) guiP.getCxPlaneModel().getSelectedItem();
-			String year = guiP.getTYear().getText();
 			
 
 			int selectedRow = guiP.getTPlanes().getSelectedRow();
@@ -102,18 +102,14 @@ public class ControllerAircraft implements ActionListener{
 			return;
 			}
 								    
-			//Guarda el valor del ticket original
-			Object planeOriginal = guiP.getDTMTPlanes().getValueAt(selectedRow, selectedColumn);
-								    
-			// Modifica el pasajero en el archivo XML
-			fLogXML.modifyPlane("Planes.xml", "Plane",planeOriginal,plane, airline, model,year);
-								    
-			// Modifica los datos en la tabla
-			guiP.getDTMTPlanes().setValueAt(plane, selectedRow, 0);
-			guiP.getDTMTPlanes().setValueAt(airline, selectedRow, 1);
-			guiP.getDTMTPlanes().setValueAt(model, selectedRow, 2);
-			guiP.getDTMTPlanes().setValueAt(year, selectedRow, 3);
+			guiP.getDTMTPlanes().setValueAt(guiP.getTWritePlanes().getText(), selectedRow, 0);
+			guiP.getDTMTPlanes().setValueAt(guiP.getCxPlaneAirline().getSelectedItem(), selectedRow, 1);
+			guiP.getDTMTPlanes().setValueAt(guiP.getCxPlaneModel().getSelectedItem(), selectedRow, 2);
+			guiP.getDTMTPlanes().setValueAt(guiP.getTYear().getText(), selectedRow, 3);
 
+			fPXML.modifyPlanes("Planes.xml", "Plane", guiP.getTWritePlanes().getText(), (String) guiP.getCxPlaneAirline().getSelectedItem(), (String) guiP.getCxPlaneModel().getSelectedItem(), 
+					Integer.parseInt(guiP.getTYear().getText()));
+			
 			
 		}
 		
@@ -122,7 +118,7 @@ public class ControllerAircraft implements ActionListener{
 			String plane = guiP.getTSearchPlanes().getText();
 
 			// Elimina el dato dentro del xml y refrescar en la tabla
-			Planes p = fLogXML.searchPlaneAndDelete("Planes.xml", "Plane", plane);
+			Planes p = fPXML.planesDelete("Planes.xml", "Plane", plane);
 
 			if (p != null) {
 				arrayLAircrafts.removePlanes(p);
@@ -130,38 +126,25 @@ public class ControllerAircraft implements ActionListener{
 				JOptionPane.showMessageDialog(null, "El avion se eliminó correctamente.");
 			} else {
 				JOptionPane.showMessageDialog(null, "El avion no se encontró o no pudo ser eliminado.");
-			}
-			
-			
+			}		
 		}
 		if(e.getSource() == guiP.getBtnConsultPlane()) {
 			
-			String planee = guiP.getTSearchPlanes().getText();
-			Planes plane = fLogXML.searchPlane("Planes.xml", "Plane", planee);
+			Planes plane = fPXML.searchPlanes("Planes.xml", "Plane", guiP.getTSearchPlanes().getText());
 
 			if (plane != null) {
-				// El usuario fue encontrado, puedes mostrar los detalles en la interfaz o
-				// realizar cualquier acción adicional
 				JOptionPane.showMessageDialog(null, "Avion encontrado");
 				guiP.getTWritePlanes().setText(plane.getRegisterOfAircft());
 				guiP.getCxPlaneAirline().setSelectedItem(plane.getAirline());
 				guiP.getCxPlaneModel().setSelectedItem(plane.getModel());
 				guiP.getTYear().setText(String.valueOf(plane.getYear()));
-				
-				
-
+		
 			} else {
-				// El usuario no fue encontrado, puedes mostrar un mensaje de error o realizar
-				// cualquier acción adicional
 				JOptionPane.showMessageDialog(null, "Avion no encontrado");
-			}
-			
-			
+			}	
 			
 		}
-		
-		
-		
+				
 	}
 
 }

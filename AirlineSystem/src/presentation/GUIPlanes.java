@@ -5,6 +5,10 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+
+import domain.Airlines;
+import domain.Models;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -16,11 +20,11 @@ import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -30,12 +34,9 @@ public class GUIPlanes extends JInternalFrame {
 	private JLabel lPlaneManag;
 	private JLabel lId;
 	private JTextField tWritePlanes;
-	private JSeparator separator;
 	private JLabel lAirline;
-	@SuppressWarnings("rawtypes")
-	private JComboBox cxPlaneAirline;
+	private JComboBox<String> cxPlaneAirline;
 	private JLabel lYear;
-	private JTextField tYear;
 	private JLabel lOperationPlanes;
 	private JButton btnRemovePlanes;
 	private JButton btnEditPlanes;
@@ -48,8 +49,8 @@ public class GUIPlanes extends JInternalFrame {
 	private JSeparator separator_1;
 	private JTextField tSearchPlanes;
 	private JLabel lPlane;
-	@SuppressWarnings("rawtypes")
-	private JComboBox cxPlaneModel;
+	private JComboBox<String> cxPlaneModel;
+	private JTextField tYear;
 
 	
 	public GUIPlanes() {
@@ -58,16 +59,14 @@ public class GUIPlanes extends JInternalFrame {
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		setBounds(100, 100, 1010, 535);
+		setBounds(100, 100, 839, 565);
 		getContentPane().setLayout(null);
 		getContentPane().add(getLPlaneManag());
 		getContentPane().add(getLId());
 		getContentPane().add(getTWritePlanes());
-		getContentPane().add(getSeparator());
 		getContentPane().add(getLAirline());
 		getContentPane().add(getCxPlaneAirline());
 		getContentPane().add(getLYear());
-		getContentPane().add(getTYear());
 		getContentPane().add(getLOperationPlanes());
 		getContentPane().add(getBtnRemovePlanes());
 		getContentPane().add(getBtnEditPlanes());
@@ -81,6 +80,7 @@ public class GUIPlanes extends JInternalFrame {
 		getContentPane().add(getTSearchPlanes());
 		getContentPane().add(getLModel());
 		getContentPane().add(getCxPlaneModel());
+		getContentPane().add(getTYear());
 		setVisible(true);
 	}
 	public JLabel getLPlaneManag() {
@@ -89,7 +89,7 @@ public class GUIPlanes extends JInternalFrame {
 			lPlaneManag.setHorizontalAlignment(SwingConstants.CENTER);
 			lPlaneManag.setFont(new Font("Roboto Black", Font.PLAIN, 18));
 			lPlaneManag.setBorder(new LineBorder(new Color(0, 0, 0)));
-			lPlaneManag.setBounds(10, 10, 975, 40);
+			lPlaneManag.setBounds(10, 10, 810, 40);
 		}
 		return lPlaneManag;
 	}
@@ -97,7 +97,7 @@ public class GUIPlanes extends JInternalFrame {
 		if (lId == null) {
 			lId = new JLabel("Matricula");
 			lId.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lId.setBounds(10, 155, 68, 25);
+			lId.setBounds(10, 180, 68, 25);
 		}
 		return lId;
 	}
@@ -106,63 +106,51 @@ public class GUIPlanes extends JInternalFrame {
 			tWritePlanes = new JTextField();
 			tWritePlanes.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tWritePlanes.setColumns(10);
-			tWritePlanes.setBorder(null);
-			tWritePlanes.setBounds(10, 175, 300, 25);
+			tWritePlanes.setBorder(new LineBorder(new Color(0, 0, 0)));
+			tWritePlanes.setBounds(10, 205, 300, 25);
 		}
 		return tWritePlanes;
-	}
-	public JSeparator getSeparator() {
-		if (separator == null) {
-			separator = new JSeparator();
-			separator.setBounds(10, 200, 300, 1);
-		}
-		return separator;
 	}
 	public JLabel getLAirline() {
 		if (lAirline == null) {
 			lAirline = new JLabel("Aerolinea de Avión");
 			lAirline.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lAirline.setBounds(480, 155, 127, 25);
+			lAirline.setBounds(340, 180, 150, 25);
 		}
 		return lAirline;
 	}
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes" })
 	public JComboBox getCxPlaneAirline() {
 		if (cxPlaneAirline == null) {
-			cxPlaneAirline = new JComboBox();
-			cxPlaneAirline.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar:"}));
+			cxPlaneAirline = new JComboBox<String>();
 			cxPlaneAirline.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			cxPlaneAirline.setBounds(480, 180, 150, 25);
+			cxPlaneAirline.setBounds(340, 205, 150, 25);
 		}
 		return cxPlaneAirline;
 	}
+	
+	public void fillAirlineComboBox(ArrayList<Airlines> airlines) {
+		cxPlaneAirline.addItem("Seleccionar:");
+
+	    for (Airlines airline : airlines) {
+	        cxPlaneAirline.addItem(airline.getNameAirline());
+	    }
+	}
+	
 	public JLabel getLYear() {
 		if (lYear == null) {
 			lYear = new JLabel("Año del Avion");
 			lYear.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lYear.setBounds(320, 155, 97, 25);
+			lYear.setBounds(693, 180, 97, 25);
 		}
 		return lYear;
-	}
-	public JTextField getTYear() {
-		if (tYear == null) {
-			tYear = new JTextField();
-			tYear.setText("Año");
-			tYear.setHorizontalAlignment(SwingConstants.LEFT);
-			tYear.setForeground(Color.LIGHT_GRAY);
-			tYear.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			tYear.setColumns(10);
-			tYear.setBackground(Color.WHITE);
-			tYear.setBounds(320, 180, 150, 25);
-		}
-		return tYear;
 	}
 	public JLabel getLOperationPlanes() {
 		if (lOperationPlanes == null) {
 			lOperationPlanes = new JLabel("Operaciones");
 			lOperationPlanes.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			lOperationPlanes.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			lOperationPlanes.setBounds(10, 75, 975, 25);
+			lOperationPlanes.setBounds(10, 75, 810, 25);
 		}
 		return lOperationPlanes;
 	}
@@ -180,7 +168,7 @@ public class GUIPlanes extends JInternalFrame {
 			btnRemovePlanes.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnRemovePlanes.setContentAreaFilled(false);
 			btnRemovePlanes.setBorder(null);
-			btnRemovePlanes.setBounds(220, 110, 90, 35);
+			btnRemovePlanes.setBounds(130, 110, 90, 35);
 		}
 		return btnRemovePlanes;
 	}
@@ -209,7 +197,7 @@ public class GUIPlanes extends JInternalFrame {
 			btnConsultPlane.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnConsultPlane.setContentAreaFilled(false);
 			btnConsultPlane.setBorder(null);
-			btnConsultPlane.setBounds(865, 110, 120, 35);
+			btnConsultPlane.setBounds(700, 110, 120, 35);
 		}
 		return btnConsultPlane;
 	}
@@ -224,7 +212,7 @@ public class GUIPlanes extends JInternalFrame {
 			btnAddPlanes.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			btnAddPlanes.setContentAreaFilled(false);
 			btnAddPlanes.setBorder(null);
-			btnAddPlanes.setBounds(423, 110, 110, 35);
+			btnAddPlanes.setBounds(260, 110, 110, 35);
 		}
 		return btnAddPlanes;
 	}
@@ -250,7 +238,7 @@ public class GUIPlanes extends JInternalFrame {
 		spTPlanes.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spTPlanes.setToolTipText("");
 		spTPlanes.setBackground(new Color(255, 255, 255));
-		spTPlanes.setBounds(10, 216, 780, 278);
+		spTPlanes.setBounds(10, 248, 780, 278);
 	}
 	public JScrollPane getSPTPlanes() {
 		return this.spTPlanes;
@@ -262,7 +250,7 @@ public class GUIPlanes extends JInternalFrame {
 	public JSeparator getSeparator_1() {
 		if (separator_1 == null) {
 			separator_1 = new JSeparator();
-			separator_1.setBounds(10, 150, 975, 1);
+			separator_1.setBounds(10, 150, 810, 1);
 		}
 		return separator_1;
 	}
@@ -282,7 +270,7 @@ public class GUIPlanes extends JInternalFrame {
 			});
 			tSearchPlanes.setText("Escribir el Avion que desea consultar/mostrar");
 			tSearchPlanes.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			tSearchPlanes.setBounds(555, 115, 300, 30);
+			tSearchPlanes.setBounds(380, 110, 300, 30);
 			tSearchPlanes.setColumns(10);
 		}
 		return tSearchPlanes;
@@ -291,18 +279,47 @@ public class GUIPlanes extends JInternalFrame {
 		if (lPlane == null) {
 			lPlane = new JLabel("Modelo del Avion");
 			lPlane.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lPlane.setBounds(640, 155, 127, 25);
+			lPlane.setBounds(520, 180, 127, 25);
 		}
 		return lPlane;
 	}
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes" })
 	public JComboBox getCxPlaneModel() {
 		if (cxPlaneModel == null) {
-			cxPlaneModel = new JComboBox();
-			cxPlaneModel.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar:"}));
+			cxPlaneModel = new JComboBox<String>();
 			cxPlaneModel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			cxPlaneModel.setBounds(640, 180, 150, 25);
+			cxPlaneModel.setBounds(520, 205, 150, 25);
 		}
 		return cxPlaneModel;
+	}
+	
+	public void fillModelsComboBox(ArrayList<Models> models) {
+		cxPlaneModel.addItem("Seleccionar:");
+		
+		for(Models model: models) {
+			cxPlaneModel.addItem(model.getBrand());
+		}
+	}
+	
+	public JTextField getTYear() {
+		if (tYear == null) {
+			tYear = new JTextField();
+			tYear.addMouseListener(new MouseAdapter() {
+				public void mouseReleased(MouseEvent e) {
+					if(tYear.getText().equals("AAAA")) {
+						tYear.setText("");
+						tYear.setForeground(Color.black);
+					}
+				}
+			});
+			tYear.setText("AAAA");
+			tYear.setHorizontalAlignment(SwingConstants.LEFT);
+			tYear.setForeground(Color.LIGHT_GRAY);
+			tYear.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			tYear.setColumns(10);
+			tYear.setBackground(Color.WHITE);
+			tYear.setBounds(693, 205, 97, 25);
+		}
+		return tYear;
 	}
 }
