@@ -2,34 +2,35 @@ package domain;
 
 public class Models{
 	
-	private String model;
-	private String nameBrands;
+	private String name;
+	private String brand;
 	private int execSeats,tourSeats,ecoSeats;
 	
 	public Models() {}
 
-	public Models(String nameBrands, String model, int execSeats, int tourSeats, int ecoSeats) {
+	public Models(String name, String brand, int execSeats, int tourSeats, int ecoSeats) {
 		super();
-		this.model = model;
+		this.name = name;
+		this.brand = brand;
 		this.execSeats = execSeats;
 		this.tourSeats = tourSeats;
 		this.ecoSeats = ecoSeats;
 	}
 
-	public String getModel() {
-		return model;
+	public String getName() {
+		return name;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
-	public String getNameBrands() {
-		return nameBrands;
+	public String getBrand() {
+		return brand;
 	}
 
-	public void setNameBrands(String nameBrands) {
-		this.nameBrands = nameBrands;
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 
 	public int getExecSeats() {
@@ -57,20 +58,20 @@ public class Models{
 	}
 	
 	public String[] getDataName() {
-		String[] dataName = {"model","nameBrands","	execSeats","tourSeats", "ecoSeats"};
+		String[] dataName = {"name","brand","	execSeats","tourSeats", "ecoSeats"};
 		return dataName;
 	}
 	
 	
 	public String[] getData() {
-		String[] data = {model, getNameBrands(), String.valueOf(execSeats), String.valueOf(tourSeats), String.valueOf(ecoSeats)};
+		String[] data = {name, brand, String.valueOf(execSeats), String.valueOf(tourSeats), String.valueOf(ecoSeats)};
 		return data;
 	}
 
 	@Override
 	public String toString() {
-		return "Modelo = " + model + "Marca = " + nameBrands + "Asientos Ejecutivos = " + execSeats 
-				+ "Asientos Turista = " + tourSeats + "Asientos Economicos = " + ecoSeats;
+		return "Modelo = " + name + "\n Marca = " + brand + "\n Asientos Ejecutivos = " + execSeats 
+				+ "\n Asientos Turista = " + tourSeats + "\n Asientos Economicos = " + ecoSeats;
 	}
 	
 	

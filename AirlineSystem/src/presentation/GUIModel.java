@@ -64,7 +64,7 @@ public class GUIModel extends JInternalFrame {
 	    getContentPane().add(getLblNewLabel());
 	    getContentPane().add(getTWriteModels());
 	    getContentPane().add(getLAircraftBrand());
-	    getContentPane().add(getCxBrandAircraft());
+	    getContentPane().add(getCXBrandAircraft());
 	    getContentPane().add(getLNumberOfSeats());
 	    getContentPane().add(getTExecutiveSeats());
 	    getContentPane().add(getTTouristSeats());
@@ -123,7 +123,7 @@ public class GUIModel extends JInternalFrame {
 		return lAircraftBrand;
 	}
 	
-	public JComboBox<String> getCxBrandAircraft() {
+	public JComboBox<String> getCXBrandAircraft() {
 		if (cxBrandAircraft == null) {
 			cxBrandAircraft = new JComboBox<String>();
 			cxBrandAircraft.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -345,18 +345,17 @@ public class GUIModel extends JInternalFrame {
 	public JTextField getTSearchModels() {
 		if (tSearchModels == null) {
 			tSearchModels = new JTextField();
-			tSearchModels.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-			tSearchModels.setForeground(new Color(192, 192, 192));
 			tSearchModels.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mousePressed(MouseEvent e) {
-					if(tSearchModels.getText().equals("Escribir el modelo que desea consultar")) {
+				public void mouseReleased(MouseEvent e) {
+					if (tSearchModels.getText().equals("Escribir el modelo que desea eliminar y/o consultar")) {
 						tSearchModels.setText("");
 						tSearchModels.setForeground(Color.black);
 					}
 				}
 			});
-			tSearchModels.setText("Escribir el modelo que desea consultar/mostrar");
+			tSearchModels.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+			tSearchModels.setForeground(new Color(192, 192, 192));
+			tSearchModels.setText("Escribir el modelo que desea eliminar y/o consultar");
 			tSearchModels.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			tSearchModels.setBounds(470, 115, 300, 30);
 			tSearchModels.setColumns(10);

@@ -23,7 +23,7 @@ public class FilesXML {
 
 	public FilesXML() {
 	}
-
+	
 	// Crea el XML
 	public void createXML(String objectName, String fileName) {
 

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JOptionPane;
-
 import data.FilesLogicXML;
 import domain.Users;
 import presentation.GUIMain;
@@ -105,8 +104,6 @@ public class ControllerUserManage implements ActionListener {
 
 		    fLXML.modifyUser("Users.xml", "User", username, password, typeUser, statusUser);
 		}
-
-
 
 		if (e.getSource() == guiUM.getBtnRemoveUser()) {
 			

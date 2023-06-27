@@ -13,38 +13,37 @@ import domain.Models;
 import presentation.GUIMain;
 import presentation.GUIModel;
 
-public class ControllerModels implements ActionListener{
+public class ControllerModels implements ActionListener {
 
 	private GUIModel guiM;
 	private Models model;
 	private FilesXML fXML;
 	private FilesLogicXML fLXML;
 	private ArrayListModels arrayLM;
-	
-	public ControllerModels(GUIMain guiMain) {
-	    guiM = new GUIModel();
-	    guiMain.getDesktopMain().add(guiM);
-	    model = new Models();
-	    fXML = new FilesXML();
-	    fLXML = new FilesLogicXML();
 
-	    arrayLM = new ArrayListModels();
-	    fXML.createXML("Models", "Models.xml");
-	   
-	    ArrayList<Brands> brandList = fLXML.getBrandXML("Brands.xml", "Brand");
-	    guiM.fillBrandCXComboBox(brandList);
-	    
-	    initializerAction();
+	public ControllerModels(GUIMain guiMain) {
+		guiM = new GUIModel();
+		guiMain.getDesktopMain().add(guiM);
+		model = new Models();
+		fXML = new FilesXML();
+		fLXML = new FilesLogicXML();
+
+		arrayLM = new ArrayListModels();
+		fXML.createXML("Models", "Models.xml");
+
+		ArrayList<Brands> brandList = fLXML.getBrandXML("Brands.xml", "Brand");
+		guiM.fillBrandCXComboBox(brandList);
+
+		initializerAction();
 	}
 
-	
 	public void refreshModel() {
 		guiM.getDTMTModels().setRowCount(0);
 		ArrayList<Models> arrayModels = fLXML.returnModels("Models.xml", "Model");
-		
-		for(Models elemento: arrayModels) {
-			guiM.getDTMTModels().addRow(new Object[] {elemento.getModel(), elemento.getNameBrands(), 
-					elemento.getExecSeats(), elemento.getTourSeats(), elemento.getEcoSeats()});
+
+		for (Models elemento : arrayModels) {
+			guiM.getDTMTModels().addRow(new Object[] { elemento.getName(), elemento.getBrand(), elemento.getExecSeats(),
+					elemento.getTourSeats(), elemento.getEcoSeats() });
 		}
 	}
 
@@ -53,50 +52,82 @@ public class ControllerModels implements ActionListener{
 		guiM.getBtnAddModels().addActionListener(this);
 		guiM.getBtnEditModels().addActionListener(this);
 		guiM.getBtnRemoveModels().addActionListener(this);
+		guiM.getBtnConsultModel().addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		
 		if (e.getSource() == guiM.getBtnAddModels()) {
-	        boolean modelExist = fLXML.modelsExistOnXML("Models.xml", "Model", "model", guiM.getTWriteModels().getText());
+			boolean modelExist = fLXML.modelsExistOnXML("Models.xml", "Model", "model",
+					guiM.getTWriteModels().getText());
 
-	        if (modelExist) {
-	            JOptionPane.showMessageDialog(null, "El modelo de avión ya se encuentra en el sistema");
-	            return;
-	        }
+			if (modelExist) {
+				JOptionPane.showMessageDialog(null, "El modelo de avión ya se encuentra en el sistema");
+				return;
+			}
 
-	        String nameBrand = (String) guiM.getCxBrandAircraft().getSelectedItem();
-	        int execSeats = 0;
-	        int tourSeats = 0;
-	        int ecoSeats = 0;
 
-	        try {
-	            execSeats = Integer.parseInt(guiM.getTExecutiveSeats().getText());
-	            tourSeats = Integer.parseInt(guiM.getTTouristSeats().getText());
-	            ecoSeats = Integer.parseInt(guiM.getTEconomicSeats().getText());
-	        } catch (NumberFormatException ex) {
-	            JOptionPane.showMessageDialog(null, "Por favor ingresa un valor numérico válido en los campos de asientos");
-	            return;
-	        }
+			model = new Models(guiM.getTWriteModels().getText(), guiM.getCXBrandAircraft().getSelectedItem().toString(),
+					Integer.parseInt(guiM.getTExecutiveSeats().getText()),
+					Integer.parseInt(guiM.getTTouristSeats().getText()),
+					Integer.parseInt(guiM.getTEconomicSeats().getText()));
 
-	        model = new Models(guiM.getTWriteModels().getText(), nameBrand, execSeats, tourSeats, ecoSeats);
+			fLXML.writeModelXML("Models.xml", "Model", model.getDataName(), model.getData());
+			arrayLM.addModel(model);
+			guiM.getDTMTModels().addRow(new Object[] { guiM.getTWriteModels().getText(),
+					guiM.getCXBrandAircraft().getSelectedItem(), Integer.parseInt(guiM.getTExecutiveSeats().getText()),
+					Integer.parseInt(guiM.getTTouristSeats().getText()),
+					Integer.parseInt(guiM.getTEconomicSeats().getText())});
+			guiM.cleanForm();
+			refreshModel();
+		}
 
-	        fLXML.writeModelXML("Models.xml", "Model", model.getDataName(), model.getData());
-	        arrayLM.addModel(model);
-	        guiM.getDTMTModels().addRow(new Object[]{guiM.getTWriteModels().getText(), nameBrand, execSeats, tourSeats, ecoSeats});
-	        guiM.cleanForm();
-	        refreshModel();
-	    }
+		if (e.getSource() == guiM.getBtnEditModels()) {
+		    String execSeatsStr = guiM.getTExecutiveSeats().getText();
+		    String tourSeatsStr = guiM.getTTouristSeats().getText();
+		    String ecoSeatsStr = guiM.getTEconomicSeats().getText();
 
-		
-		if(e.getSource() == guiM.getBtnEditModels()) {
+		    int execSeats = Integer.parseInt(execSeatsStr);
+		    int tourSeats = Integer.parseInt(tourSeatsStr);
+		    int ecoSeats = Integer.parseInt(ecoSeatsStr);
+
+		    fLXML.modifyModel("Models.xml", "Model", guiM.getTWriteModels().getText(), String.valueOf(guiM.getCXBrandAircraft().getSelectedItem()), execSeats, tourSeats, ecoSeats);
+
+		    JOptionPane.showMessageDialog(null, "Se ha modificado exitosamente");
+		    refreshModel();
+		}
+
+
+		if (e.getSource() == guiM.getBtnRemoveModels()) {
 			
+			Models model = fLXML.modelDelete("Models.xml", "Model", guiM.getTSearchModels().getText());
+			
+			if(model != null) {
+				arrayLM.removeModel(model);
+				refreshModel();
+				JOptionPane.showMessageDialog(null, "El modelo se eliminó correctamente.");
+			}else {
+				JOptionPane.showMessageDialog(null, "El modelo no se encontró o no pudo ser eliminado.");
+			}
 		}
 		
-		if(e.getSource() == guiM.getBtnRemoveModels()) {
+		if(e.getSource() == guiM.getBtnConsultModel()) {
+			
+			Models model = fLXML.searchModel("Models.xml", "Model", guiM.getTSearchModels().getText());
+			
+			if(model != null) {
+				JOptionPane.showMessageDialog(null, "Modelo encontrado");
+				guiM.getTWriteModels().setText(model.getName());
+				guiM.getCXBrandAircraft().setSelectedItem(model.getBrand());
+				guiM.getTExecutiveSeats().setText(String.valueOf(model.getExecSeats()));
+				guiM.getTTouristSeats().setText(String.valueOf(model.getTourSeats()));
+				guiM.getTEconomicSeats().setText(String.valueOf(model.getEcoSeats()));
+				
+			}else {
+				JOptionPane.showMessageDialog(null, "Modelo NO encontrado");
+			}
 			
 		}
-		
 	}
 }

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -26,15 +25,11 @@ import org.xml.sax.SAXException;
 import domain.Brands;
 import domain.Models;
 import domain.Users;
-import presentation.GUIModel;
 import domain.Passengers;
 
 public class FilesLogicXML {
 
-	 private GUIModel guiM;
-	 
 	public FilesLogicXML() {
-		guiM = new GUIModel();
 	}
 
 	// Lee el XML del usuario
@@ -217,9 +212,9 @@ public class FilesLogicXML {
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
 
-					String username = eElement.getAttribute("user");
-					if (username.equals(user)) {
-						u = new Users(username, eElement.getElementsByTagName("password").item(0).getTextContent(),
+					if (eElement.getAttribute("user").equals(user)) {
+						u = new Users(eElement.getAttribute("user"),
+								eElement.getElementsByTagName("password").item(0).getTextContent(),
 								eElement.getElementsByTagName("typeUser").item(0).getTextContent(),
 								eElement.getElementsByTagName("state").item(0).getTextContent());
 						break;
@@ -652,7 +647,7 @@ public class FilesLogicXML {
 
 		return brand;
 	}
-	
+
 	public ArrayList<Brands> getBrandXML(String filename, String elementType) {
 		ArrayList<Brands> arrayBrands = new ArrayList<>();
 
@@ -684,6 +679,115 @@ public class FilesLogicXML {
 	}
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
+
+	public String readModelsXML(String fileName, String elementType) {
+
+		String data = " ";
+		try {
+			File inputFile = new File(fileName);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			data += "Raíz de los Elementos:" + doc.getDocumentElement().getNodeName();
+			NodeList nList = doc.getElementsByTagName(elementType);
+			data += "----------------------------";
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+				data += "\nDatos de las Facturas: " + nNode.getNodeName();
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					data += "Nombre: " + eElement.getAttribute("name");
+					data += "Marca: " + eElement.getElementsByTagName("brand").item(0).getTextContent();
+					data += "Ejecutivo: " + eElement.getElementsByTagName("execSeats").item(0).getTextContent();
+					data += "Turista: " + eElement.getElementsByTagName("tourSeats").item(0).getTextContent();
+					data += "Economico: " + eElement.getElementsByTagName("ecoSeats").item(0).getTextContent();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+	public ArrayList<Models> readXMLToArrayList(String fileName, String elementType) {
+
+		ArrayList<Models> arrayLModels = new ArrayList<Models>();
+		Models m = new Models();
+
+		try {
+			File inputFile = new File(fileName);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			System.out.println("Raíz de los Elementos:" + doc.getDocumentElement().getNodeName());
+			NodeList nList = doc.getElementsByTagName(elementType);
+			System.out.println("----------------------------");
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+				System.out.println("\nDatos de las Facturas: " + nNode.getNodeName());
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					m = new Models();
+					m.setName(eElement.getAttribute("name"));
+					m.setBrand(eElement.getElementsByTagName("brand").item(0).getTextContent());
+					m.setExecSeats(
+							Integer.parseInt(eElement.getElementsByTagName("execSeats").item(0).getTextContent()));
+					m.setTourSeats(
+							Integer.parseInt(eElement.getElementsByTagName("tourSeats").item(0).getTextContent()));
+					m.setTourSeats(
+							Integer.parseInt(eElement.getElementsByTagName("ecoSeats").item(0).getTextContent()));
+					arrayLModels.add(m);
+
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return arrayLModels;
+	}
+
+	public String readBrandXMLToString(String fileName, String elementType) {
+
+		String information = "";
+
+		try {
+			File inputFile = new File(fileName);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			information += "Raíz de los Elementos:" + doc.getDocumentElement().getNodeName();
+			NodeList nList = doc.getElementsByTagName(elementType);
+			information += "----------------------------";
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+				information += "\nDatos de las Facturas: " + nNode.getNodeName();
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					information += "\nNombre: " + eElement.getAttribute("name");
+					information += "\nMarca: " + eElement.getElementsByTagName("brand").item(0).getTextContent();
+					information += "\nEjecutivo: "
+							+ eElement.getElementsByTagName("execSeats").item(0).getTextContent();
+					information += "\nTurista: " + eElement.getElementsByTagName("tourSeats").item(0).getTextContent();
+					information += "\nEconomico: " + eElement.getElementsByTagName("ecoSeats").item(0).getTextContent();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return information;
+	}
 
 	public boolean modelsExistOnXML(String fileName, String elementType, String attributeName, String attributeValue) {
 		try {
@@ -731,11 +835,14 @@ public class FilesLogicXML {
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
 					Models model = new Models();
-					model.setModel(eElement.getAttribute("model"));
-					model.setNameBrands(eElement.getElementsByTagName("nameBrands").item(0).getTextContent());
-					model.setExecSeats(Integer.parseInt(eElement.getElementsByTagName("execSeats").item(0).getTextContent()));
-					model.setTourSeats(Integer.parseInt(eElement.getElementsByTagName("tourSeats").item(0).getTextContent()));
-					model.setEcoSeats(Integer.parseInt(eElement.getElementsByTagName("ecoSeats").item(0).getTextContent()));
+					model.setName(eElement.getAttribute("name"));
+					model.setBrand(eElement.getElementsByTagName("brand").item(0).getTextContent());
+					model.setExecSeats(
+							Integer.parseInt(eElement.getElementsByTagName("execSeats").item(0).getTextContent()));
+					model.setTourSeats(
+							Integer.parseInt(eElement.getElementsByTagName("tourSeats").item(0).getTextContent()));
+					model.setEcoSeats(
+							Integer.parseInt(eElement.getElementsByTagName("ecoSeats").item(0).getTextContent()));
 
 					arrayModels.add(model);
 				}
@@ -746,72 +853,62 @@ public class FilesLogicXML {
 
 		return arrayModels;
 	}
-	
+
 	public void writeModelXML(String fileName, String elementType, String[] dataName, String[] data) {
-	    boolean modelExist = modelsExistOnXML(fileName, elementType, dataName[0], data[0]);
+		boolean modelExist = modelsExistOnXML(fileName, elementType, dataName[0], data[0]);
 
-	    if (modelExist) {
-	        JOptionPane.showMessageDialog(null, "El modelo ya existe en el sistema");
-	        return;
-	    }
+		if (modelExist) {
+			JOptionPane.showMessageDialog(null, "El modelo ya existe en el sistema");
+			return;
+		}
 
-	    try {
-	        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-	        DocumentBuilder db = dbf.newDocumentBuilder();
+		try {
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
 
-	        Document doc = db.parse(new File(fileName));
-	        doc.getDocumentElement().normalize();
+			Document doc = db.parse(new File(fileName));
+			doc.getDocumentElement().normalize();
 
-	        Element rootElement = doc.getDocumentElement();
+			Element rootElement = doc.getDocumentElement();
 
-	        Element ele = doc.createElement(elementType);
-	        rootElement.appendChild(ele);
+			Element ele = doc.createElement(elementType);
+			rootElement.appendChild(ele);
 
-	        String selectedBrand = getSelectedBrand(); // Obtén la marca seleccionada del combo box
+			Attr atrr = doc.createAttribute(dataName[0]);
+			atrr.setValue(data[0]);
+			ele.setAttributeNode(atrr);
 
-	        Element brandElement = doc.createElement("Brand");
-	        brandElement.appendChild(doc.createTextNode(selectedBrand));
-	        ele.appendChild(brandElement);
+			for (int i = 1; i < data.length; i++) {
+				String elementName = sanitizeElementName(dataName[i]);
+				Element dato = doc.createElement(elementName);
 
-	        for (int i = 1; i < data.length; i++) {
-	            String elementName = sanitizeElementName(dataName[i]); // Sanitizar el nombre del elemento
-	            Element dato = doc.createElement(elementName);
+				dato.appendChild(doc.createTextNode(data[i]));
 
-	            dato.appendChild(doc.createTextNode(data[i]));
+				ele.appendChild(dato);
+			}
 
-	            ele.appendChild(dato);
-	        }
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
 
-	        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-	        Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
 
-	        DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File(fileName));
+			transformer.transform(source, result);
 
-	        StreamResult result = new StreamResult(new File(fileName));
-	        transformer.transform(source, result);
+			JOptionPane.showMessageDialog(null, "Registro Exitoso");
 
-	        JOptionPane.showMessageDialog(null, "Registro Exitoso");
-
-	    } catch (ParserConfigurationException pce) {
-	        pce.printStackTrace();
-	    } catch (SAXException e) {
-	        e.printStackTrace();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    } catch (TransformerConfigurationException e) {
-	        e.printStackTrace();
-	    } catch (TransformerException e) {
-	        e.printStackTrace();
-	    }
+		} catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TransformerConfigurationException e) {
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		}
 	}
-
-
-
-	private String getSelectedBrand() {
-        JComboBox<String> comboBox = guiM.getCxBrandAircraft();
-        Object selectedBrand = comboBox.getSelectedItem();
-        return selectedBrand != null ? selectedBrand.toString() : "";
-    }
 
 	private String sanitizeElementName(String elementName) {
 		// Remover caracteres no válidos en XML
@@ -826,6 +923,135 @@ public class FilesLogicXML {
 		return elementName;
 	}
 
+	public void modifyModel(String fileName, String elementType, String nameModel, String brand, int execSeats, int tourSeats, int ecoSeats) {
+
+		try {
+			File inputFile = new File(fileName);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName(elementType);
+
+			for (int i = 0; i < nList.getLength(); i++) {
+				Node nNode = nList.item(i);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+
+					if (eElement.getAttribute("name").equals(nameModel)) {
+						
+						eElement.getElementsByTagName("brand").item(0).setTextContent(brand);
+						eElement.getElementsByTagName("execSeats").item(0).setTextContent(String.valueOf(execSeats));
+						eElement.getElementsByTagName("tourSeats").item(0).setTextContent(String.valueOf(tourSeats));
+						eElement.getElementsByTagName("ecoSeats").item(0).setTextContent(String.valueOf(ecoSeats));
+					}
+				}
+			}
+
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File(fileName));
+			transformer.transform(source, result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Models searchModel(String fileName, String elementType, String nameModel) {
+		Models m = null;
+
+		try {
+			File inputFile = new File(fileName);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName(elementType);
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+
+					if (eElement.getAttribute("name").equals(nameModel)) {
+						m = new Models(eElement.getAttribute("name"),
+								eElement.getElementsByTagName("brand").item(0).getTextContent(),
+								Integer.parseInt(eElement.getElementsByTagName("execSeats").item(0).getTextContent()),
+								Integer.parseInt(eElement.getElementsByTagName("tourSeats").item(0).getTextContent()),
+								Integer.parseInt(eElement.getElementsByTagName("ecoSeats").item(0).getTextContent()));
+
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return m;
+	}
+	
+	public Models modelDelete(String fileName, String elementType, String modelName) {
+		Models m = new Models();
+
+		try {
+			File inputFile = new File(fileName);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName(elementType);
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+
+					if (eElement.getAttribute("name").equals(modelName)) {
+
+						eElement.removeAttribute("name");
+						eElement.getParentNode().removeChild(eElement);
+
+						TransformerFactory transformerFactory = TransformerFactory.newInstance();
+						Transformer transformer = transformerFactory.newTransformer();
+						DOMSource source = new DOMSource(doc);
+						StreamResult result = new StreamResult(new File(fileName));
+						transformer.transform(source, result);
+
+						m = new Models();
+						m.setName(modelName);
+
+						if (eElement.getElementsByTagName("brand").getLength() > 0) {
+							m.setBrand(eElement.getElementsByTagName("brand").item(0).getTextContent());
+						}
+						if (eElement.getElementsByTagName("execSeats").getLength() > 0) {
+							m.setExecSeats(Integer.parseInt(eElement.getElementsByTagName("execSeats").item(0).getTextContent()));
+						}
+						if (eElement.getElementsByTagName("tourSeats").getLength() > 0) {
+							m.setTourSeats(Integer.parseInt(eElement.getElementsByTagName("tourSeats").item(0).getTextContent()));
+						}
+						if (eElement.getElementsByTagName("tourSeats").getLength() > 0) {
+							m.setEcoSeats(Integer.parseInt(eElement.getElementsByTagName("ecoSeats").item(0).getTextContent()));
+						}
+
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return m;
+	}
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
 

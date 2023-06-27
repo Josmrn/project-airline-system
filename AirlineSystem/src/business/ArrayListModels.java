@@ -49,8 +49,8 @@ public class ArrayListModels {
 		data = new Object[arrayLModels.size()][5];
 		
 		for(int i=0; i<this.data.length; i++) {
-			data[i][0] = arrayLModels.get(i).getModel();
-			data[i][1] = arrayLModels.get(i).getNameBrands();
+			data[i][0] = arrayLModels.get(i).getName();
+			data[i][1] = arrayLModels.get(i).getBrand();
 			data[i][2] = arrayLModels.get(i).getExecSeats();
 			data[i][3] = arrayLModels.get(i).getTourSeats();
 			data[i][4] = arrayLModels.get(i).getEcoSeats();
@@ -62,7 +62,7 @@ public class ArrayListModels {
 	}
 	
 	public String getModels(ArrayList<Models> arrayLModels) {
-		String models = "";
+		String models = " ";
 		
 		for(Models model: arrayLModels) {
 			models += model.toString();
