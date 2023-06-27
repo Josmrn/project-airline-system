@@ -279,13 +279,13 @@ public class GUIPassengers extends JInternalFrame {
 			tSearchPassenger.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
-					if(tSearchPassenger.getText().equals("Escribir el pasajero que desea consultar")) {
+					if(tSearchPassenger.getText().equals("Escribir el pasajero que desea consultar/eliminar")) {
 						tSearchPassenger.setText("");
 						tSearchPassenger.setForeground(Color.black);
 					}
 				}
 			});
-			tSearchPassenger.setText("Escribir el pasajero que desea consultar/mostrar");
+			tSearchPassenger.setText("Escribir el pasajero que desea consultar/eliminar");
 			tSearchPassenger.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			tSearchPassenger.setColumns(10);
 		}

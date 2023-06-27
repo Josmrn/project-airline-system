@@ -250,13 +250,13 @@ public class GUITickets extends JInternalFrame {
 			tSearchTickets.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
-					if(tSearchTickets.getText().equals("Escribir el ticket que desea consultar")) {
+					if(tSearchTickets.getText().equals("Escribir el ticket que desea consultar/eliminar")) {
 						tSearchTickets.setText("");
 						tSearchTickets.setForeground(Color.black);
 					}
 				}
 			});
-			tSearchTickets.setText("Escribir el ticket que desea consultar/mostrar");
+			tSearchTickets.setText("Escribir el ticket que desea consultar/eliminar");
 			tSearchTickets.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			tSearchTickets.setColumns(10);
 		}

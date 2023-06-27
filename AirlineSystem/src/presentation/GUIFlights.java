@@ -276,13 +276,13 @@ public class GUIFlights extends JInternalFrame {
 			tSearchFlights.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
-					if (tSearchFlights.getText().equals("Escribir el vuelo que desea consultar")) {
+					if (tSearchFlights.getText().equals("Escribir el vuelo que desea consultar/eliminar")) {
 						tSearchFlights.setText("");
 						tSearchFlights.setForeground(Color.black);
 					}
 				}
 			});
-			tSearchFlights.setText("Escribir el vuelo que desea consultar/mostrar");
+			tSearchFlights.setText("Escribir el vuelo que desea consultar/eliminar");
 			tSearchFlights.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			tSearchFlights.setColumns(10);
 		}

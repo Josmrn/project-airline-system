@@ -232,18 +232,17 @@ public class GUIAirlines extends JInternalFrame {
 	public JTextField getTSearchAirline() {
 		if (tSearchAirline == null) {
 			tSearchAirline = new JTextField();
-			tSearchAirline.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-			tSearchAirline.setForeground(new Color(192, 192, 192));
 			tSearchAirline.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mousePressed(MouseEvent e) {
-					if(tSearchAirline.getText().equals("Escribir el aerolinea que desea consultar")) {
+				public void mouseReleased(MouseEvent e) {
+					if (tSearchAirline.getText().equals("Escribir la aerolinea que desea eliminar y/o consultar")) {
 						tSearchAirline.setText("");
 						tSearchAirline.setForeground(Color.black);
 					}
 				}
 			});
-			tSearchAirline.setText("Escribir la Aerolinea que desea consultar/mostrar");
+			tSearchAirline.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+			tSearchAirline.setForeground(new Color(192, 192, 192));
+			tSearchAirline.setText("Escribir la aerolinea que desea eliminar y/o consultar");
 			tSearchAirline.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			tSearchAirline.setBounds(555, 115, 300, 30);
 			tSearchAirline.setColumns(10);

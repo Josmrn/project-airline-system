@@ -300,13 +300,13 @@ public class GUIPlanes extends JInternalFrame {
 			tSearchPlanes.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
-					if(tSearchPlanes.getText().equals("Escribir el avion que desea consultar")) {
+					if(tSearchPlanes.getText().equals("Escribir el Avion que desea consultar/eliminar")) {
 						tSearchPlanes.setText("");
 						tSearchPlanes.setForeground(Color.black);
 					}
 				}
 			});
-			tSearchPlanes.setText("Escribir el Avion que desea consultar/mostrar");
+			tSearchPlanes.setText("Escribir el Avion que desea consultar/eliminar");
 			tSearchPlanes.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			tSearchPlanes.setBounds(380, 110, 300, 30);
 			tSearchPlanes.setColumns(10);
