@@ -24,7 +24,6 @@ import org.xml.sax.SAXException;
 
 import domain.Users;
 
-
 public class FilesLogicXML {
 
 	public FilesLogicXML() {
