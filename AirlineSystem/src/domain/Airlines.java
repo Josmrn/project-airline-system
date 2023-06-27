@@ -15,7 +15,7 @@ public class Airlines {
 	public String getNameAirline() {
 		return nameAirline;
 	}
-	public void setNameAirlne(String nameAirline) {
+	public void setNameAirline(String nameAirline) {
 		this.nameAirline = nameAirline;
 	}
 	public String getCountry() {
@@ -23,6 +23,17 @@ public class Airlines {
 	}
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	
+	public String[] getDataName() {
+		String[] dataName = {"nameAirline","country"};
+		return dataName;
+	}
+	
+	
+	public String[] getData() {
+		String[] data = {nameAirline,country};
+		return data;
 	}
 
 	@Override

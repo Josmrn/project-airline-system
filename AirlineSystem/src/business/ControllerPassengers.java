@@ -83,7 +83,7 @@ public class ControllerPassengers implements ActionListener {
 			Passengers passenger = fLogXML.searchPassengers("Passengers.xml", "Passenger", passportNum);
 
 			if (passenger != null) {
-				// El usuario fue encontrado, puedes mostrar los detalles en la interfaz o
+				// El pasajero fue encontrado, puedes mostrar los detalles en la interfaz o
 				// realizar cualquier acción adicional
 				JOptionPane.showMessageDialog(null, "Pasajero encontrado");
 				guiPass.getTPassport().setText(String.valueOf(passenger.getPassportNum()));
@@ -94,7 +94,7 @@ public class ControllerPassengers implements ActionListener {
 				guiPass.getTCellphone().setText(String.valueOf(passenger.getCellphone()));
 
 			} else {
-				// El usuario no fue encontrado, puedes mostrar un mensaje de error o realizar
+				// El pasajero no fue encontrado, puedes mostrar un mensaje de error o realizar
 				// cualquier acción adicional
 				JOptionPane.showMessageDialog(null, "Pasajero no encontrado");
 			}
@@ -111,6 +111,24 @@ public class ControllerPassengers implements ActionListener {
 			int cellphone = Integer.parseInt(guiPass.getTCellphone().getText());
 
 			int selectedRow = guiPass.getTPassengers().getSelectedRow();
+			int selectedColumn = guiPass.getTPassengers().getSelectedColumn();
+			
+			// Verifica si hay una fila seleccionada
+		    if (selectedRow == -1) {
+		        JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila para editar.");
+		        return;
+		    }
+		    // Verifica si hay una columna de ticket seleccionada
+		    if (selectedColumn != 0) {
+		        JOptionPane.showMessageDialog(null, "Por favor, seleccione la columna del numero de pasaporte para editar.");
+		        return;
+		    }
+		    //Guarda el numero de pasaporte original
+		    Object passportNumOriginal = guiPass.getDTMTPassengers().getValueAt(selectedRow, selectedColumn);
+		    
+		    // Modifica el pasajero en el archivo XML
+		 	fLogXML.modifyPassenger("Passengers.xml", "Passenger",passportNumOriginal, passportNum, name, lastName, birthDate, email,
+		 	cellphone);
 
 			// Modifica los datos en la tabla
 			guiPass.getDTMTPassengers().setValueAt(passportNum, selectedRow, 0);
@@ -120,9 +138,7 @@ public class ControllerPassengers implements ActionListener {
 			guiPass.getDTMTPassengers().setValueAt(email, selectedRow, 4);
 			guiPass.getDTMTPassengers().setValueAt(cellphone, selectedRow, 5);
 
-			// Modifica el pasajero en el archivo XML
-			fLogXML.modifyPassenger("Passengers.xml", "Passenger", passportNum, name, lastName, birthDate, email,
-					cellphone);
+			
 
 		}
 		if (e.getSource() == guiPass.getBtnRemovePassengers()) {

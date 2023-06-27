@@ -60,7 +60,7 @@ public class ControllerMain implements ActionListener{
 		
 		if(e.getSource() == guiMain.getMiManageAirline()) {
 			System.out.println("MenuItem ManageAirline clicked!");
-			new ControllerAirline(guiMain);
+			new ControllerAirlines(guiMain);
 		}
 		
 		if(e.getSource() == guiMain.getMiManageAircraft()) {
@@ -72,6 +72,9 @@ public class ControllerMain implements ActionListener{
 		}
 		if(e.getSource() == guiMain.getMiManagePassenger()) {
 			new ControllerPassengers(guiMain);
+		}
+		if(e.getSource() == guiMain.getMiManageTickets()) {
+			new ControllerTickets(guiMain);
 		}
 		
 		

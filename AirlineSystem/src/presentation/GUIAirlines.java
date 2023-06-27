@@ -19,6 +19,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Vector;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -63,14 +64,14 @@ public class GUIAirlines extends JInternalFrame {
 		getContentPane().add(getBtnEditAirlines());
 		getContentPane().add(getBtnConsultAirlines());
 		getContentPane().add(getBtnAddAirlines());
-		setDTMTAirlines(dataTableM, getColumnsNamesM());
-		setTAirlines(dtmTAirlines);
-		setSPTAirlines(tAirlines);
-		getContentPane().add(spTAirlines);
 		getContentPane().add(getSeparator_1());
 		getContentPane().add(getTSearchAirline());
 		getContentPane().add(getTOpeCenter());
 		getContentPane().add(getSeparator_2());
+		setDTMTAirlines(dataTableM, getColumnsNamesM());
+		setTAirlines(dtmTAirlines);
+		setSPTAirlines(tAirlines);
+		getContentPane().add(spTAirlines);
 		setVisible(true);
 	}
 	public JLabel getLAirlineManag() {
@@ -195,8 +196,22 @@ public class GUIAirlines extends JInternalFrame {
 	}
 	public void setTAirlines(DefaultTableModel dtmtAirlines) {
 		tAirlines = new JTable(dtmTAirlines);
+		tAirlines.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				int selectedRow = tAirlines.getSelectedRow(); //Variable que va a obtener lo que se encuentra en tUsers
+	            DefaultTableModel model = (DefaultTableModel) tAirlines.getModel(); //Me va a obtener los datos asociados a tTickets que están en la tabla
+	            Vector<Object> rowData = model.getDataVector().elementAt(selectedRow); //Es el vector del objeto seleccionado en la tabla
+	           //Se agregan los componentes al los campos de texto y combo box
+	            tWriteAirlines.setText((String) rowData.get(0));
+	            tOpeCenter.setText((String) rowData.get(1));
+	            
+			}
+		});
 		tAirlines.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		tAirlines.setEnabled(false);
+		tAirlines.setEnabled(true);
 		tAirlines.getTableHeader().setReorderingAllowed(false);
 		tAirlines.getTableHeader().setResizingAllowed(false);
 	}
