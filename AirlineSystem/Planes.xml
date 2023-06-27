@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Planes/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Planes><Plane registerOfAircft="Matricula1"><airline>American Airlines</airline><model>Boeing</model><year>2000</year></Plane><Plane registerOfAircft="Matricula2"><airline>AirAsia</airline><model>Airbus</model><year>2001</year></Plane></Planes>

@@ -62,7 +62,7 @@ public class FilesPlanesXML {
 		boolean modelExist = dataExistOnXML(fileName, elementType, dataName[0], data[0]);
 
 		if (modelExist) {
-			JOptionPane.showMessageDialog(null, "El vuelo ya existe en el sistema");
+			JOptionPane.showMessageDialog(null, "El avion ya existe en el sistema");
 			return;
 		}
 
@@ -229,7 +229,8 @@ public class FilesPlanesXML {
 		return arrayPlanes;
 	}
 	
-	public void modifyPlanes(String fileName, String elementType, String nameRegister, String airline, String model, int year) {
+	public void modifyPlanes(String fileName, String elementType, Object nameRegisterOriginal,String nameRegister, 
+			String airline, String model, int year) {
 
 		try {
 			File inputFile = new File(fileName);
@@ -246,7 +247,8 @@ public class FilesPlanesXML {
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
 
-					if (eElement.getAttribute("registerOfAircft").equals(nameRegister)) {
+					if (eElement.getAttribute("registerOfAircft").equals(nameRegisterOriginal)) {
+						eElement.setAttribute("registerOfAircft", nameRegister);
 						eElement.getElementsByTagName("airline").item(0).setTextContent(airline);
 						eElement.getElementsByTagName("model").item(0).setTextContent(model);
 						eElement.getElementsByTagName("year").item(0).setTextContent(String.valueOf(year));

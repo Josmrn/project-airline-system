@@ -6,10 +6,12 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import domain.Airlines;
 import domain.Models;
 import domain.Planes;
 import data.FilesXML;
 import data.FilesModelsXML;
+import data.FilesAirlinesXML;
 import data.FilesPlanesXML;
 import presentation.GUIMain;
 import presentation.GUIPlanes;
@@ -20,6 +22,7 @@ public class ControllerPlanes implements ActionListener{
 	private FilesXML fXML;
 	private FilesPlanesXML fPXML;
 	private FilesModelsXML fMXML;
+	private FilesAirlinesXML fAXML;
 	private Planes plane;
 	private ArrayListAircraft arrayLAircrafts;
 	
@@ -31,12 +34,17 @@ public class ControllerPlanes implements ActionListener{
 		fXML = new FilesXML();
 		fPXML = new FilesPlanesXML();
 		fMXML = new FilesModelsXML();
+		fAXML = new FilesAirlinesXML();
 		arrayLAircrafts = new ArrayListAircraft();
 		
 		fXML.createXML("Planes", "Planes.xml");
 		
 		ArrayList<Models> modelList = fMXML.returnModels("Models.xml", "Model");
+		ArrayList<Airlines> airlineList = fAXML.returnAirlines("Airlines.xml", "Airline");
+
 		guiP.fillModelsComboBox(modelList);
+		guiP.fillAirlineComboBox(airlineList);
+
 		
 		initializerAction();
 	}
@@ -87,7 +95,12 @@ public class ControllerPlanes implements ActionListener{
 		
 		if(e.getSource() == guiP.getBtnEditPlanes()) {
 			
-
+			
+			String nameRegister = guiP.getTWritePlanes().getText();
+			String airline = (String) guiP.getCxPlaneAirline().getSelectedItem();
+		    String model = (String) guiP.getCxPlaneModel().getSelectedItem();
+			int year = Integer.parseInt(guiP.getTYear().getText());
+			
 			int selectedRow = guiP.getTPlanes().getSelectedRow();
 			int selectedColumn = guiP.getTPlanes().getSelectedColumn();
 									
@@ -101,14 +114,16 @@ public class ControllerPlanes implements ActionListener{
 			JOptionPane.showMessageDialog(null, "Por favor, seleccione la columna de la matricula del avion para editar.");
 			return;
 			}
-								    
-			guiP.getDTMTPlanes().setValueAt(guiP.getTWritePlanes().getText(), selectedRow, 0);
-			guiP.getDTMTPlanes().setValueAt(guiP.getCxPlaneAirline().getSelectedItem(), selectedRow, 1);
-			guiP.getDTMTPlanes().setValueAt(guiP.getCxPlaneModel().getSelectedItem(), selectedRow, 2);
-			guiP.getDTMTPlanes().setValueAt(guiP.getTYear().getText(), selectedRow, 3);
+			
+			Object nameRegisterOriginal = guiP.getDTMTPlanes().getValueAt(selectedRow, selectedColumn);
 
-			fPXML.modifyPlanes("Planes.xml", "Plane", guiP.getTWritePlanes().getText(), (String) guiP.getCxPlaneAirline().getSelectedItem(), (String) guiP.getCxPlaneModel().getSelectedItem(), 
-					Integer.parseInt(guiP.getTYear().getText()));
+			
+			guiP.getDTMTPlanes().setValueAt(nameRegister, selectedRow, 0);
+			guiP.getDTMTPlanes().setValueAt(airline, selectedRow, 1);
+			guiP.getDTMTPlanes().setValueAt(model, selectedRow, 2);
+			guiP.getDTMTPlanes().setValueAt(year, selectedRow, 3);
+
+			fPXML.modifyPlanes("Planes.xml", "Plane",nameRegisterOriginal ,nameRegister ,airline ,model, year);
 			
 			
 		}
