@@ -15,7 +15,7 @@ public class Airlines {
 	public String getNameAirline() {
 		return nameAirline;
 	}
-	public void setNameAirlne(String nameAirline) {
+	public void setNameAirline(String nameAirline) {
 		this.nameAirline = nameAirline;
 	}
 	public String getCountry() {
