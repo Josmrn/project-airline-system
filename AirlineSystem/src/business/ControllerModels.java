@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import data.FilesLogicXML;
+import data.FilesBrandsXML;
+import data.FilesModelsXML;
 import data.FilesXML;
 import domain.Brands;
 import domain.Models;
@@ -18,7 +19,8 @@ public class ControllerModels implements ActionListener {
 	private GUIModel guiM;
 	private Models model;
 	private FilesXML fXML;
-	private FilesLogicXML fLXML;
+	private FilesBrandsXML fBXML;
+	private FilesModelsXML fMXML;
 	private ArrayListModels arrayLM;
 
 	public ControllerModels(GUIMain guiMain) {
@@ -26,12 +28,12 @@ public class ControllerModels implements ActionListener {
 		guiMain.getDesktopMain().add(guiM);
 		model = new Models();
 		fXML = new FilesXML();
-		fLXML = new FilesLogicXML();
-
+		fBXML = new FilesBrandsXML();
+		fMXML = new FilesModelsXML();
 		arrayLM = new ArrayListModels();
 		fXML.createXML("Models", "Models.xml");
 
-		ArrayList<Brands> brandList = fLXML.getBrandXML("Brands.xml", "Brand");
+		ArrayList<Brands> brandList = fBXML.getBrandXML("Brands.xml", "Brand");
 		guiM.fillBrandCXComboBox(brandList);
 
 		initializerAction();
@@ -39,7 +41,7 @@ public class ControllerModels implements ActionListener {
 
 	public void refreshModel() {
 		guiM.getDTMTModels().setRowCount(0);
-		ArrayList<Models> arrayModels = fLXML.returnModels("Models.xml", "Model");
+		ArrayList<Models> arrayModels = fMXML.returnModels("Models.xml", "Model");
 
 		for (Models elemento : arrayModels) {
 			guiM.getDTMTModels().addRow(new Object[] { elemento.getName(), elemento.getBrand(), elemento.getExecSeats(),
@@ -59,7 +61,7 @@ public class ControllerModels implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getSource() == guiM.getBtnAddModels()) {
-			boolean modelExist = fLXML.modelsExistOnXML("Models.xml", "Model", "model",
+			boolean modelExist = fMXML.modelsExistOnXML("Models.xml", "Model", "model",
 					guiM.getTWriteModels().getText());
 
 			if (modelExist) {
@@ -73,7 +75,7 @@ public class ControllerModels implements ActionListener {
 					Integer.parseInt(guiM.getTTouristSeats().getText()),
 					Integer.parseInt(guiM.getTEconomicSeats().getText()));
 
-			fLXML.writeModelXML("Models.xml", "Model", model.getDataName(), model.getData());
+			fMXML.writeModelXML("Models.xml", "Model", model.getDataName(), model.getData());
 			arrayLM.addModel(model);
 			guiM.getDTMTModels().addRow(new Object[] { guiM.getTWriteModels().getText(),
 					guiM.getCXBrandAircraft().getSelectedItem(), Integer.parseInt(guiM.getTExecutiveSeats().getText()),
@@ -92,7 +94,7 @@ public class ControllerModels implements ActionListener {
 		    int tourSeats = Integer.parseInt(tourSeatsStr);
 		    int ecoSeats = Integer.parseInt(ecoSeatsStr);
 
-		    fLXML.modifyModel("Models.xml", "Model", guiM.getTWriteModels().getText(), String.valueOf(guiM.getCXBrandAircraft().getSelectedItem()), execSeats, tourSeats, ecoSeats);
+		    fMXML.modifyModel("Models.xml", "Model", guiM.getTWriteModels().getText(), String.valueOf(guiM.getCXBrandAircraft().getSelectedItem()), execSeats, tourSeats, ecoSeats);
 
 		    JOptionPane.showMessageDialog(null, "Se ha modificado exitosamente");
 		    refreshModel();
@@ -101,7 +103,7 @@ public class ControllerModels implements ActionListener {
 
 		if (e.getSource() == guiM.getBtnRemoveModels()) {
 			
-			Models model = fLXML.modelDelete("Models.xml", "Model", guiM.getTSearchModels().getText());
+			Models model = fMXML.modelDelete("Models.xml", "Model", guiM.getTSearchModels().getText());
 			
 			if(model != null) {
 				arrayLM.removeModel(model);
@@ -114,7 +116,7 @@ public class ControllerModels implements ActionListener {
 		
 		if(e.getSource() == guiM.getBtnConsultModel()) {
 			
-			Models model = fLXML.searchModel("Models.xml", "Model", guiM.getTSearchModels().getText());
+			Models model = fMXML.searchModel("Models.xml", "Model", guiM.getTSearchModels().getText());
 			
 			if(model != null) {
 				JOptionPane.showMessageDialog(null, "Modelo encontrado");

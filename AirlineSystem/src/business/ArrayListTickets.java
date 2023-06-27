@@ -20,6 +20,16 @@ public class ArrayListTickets {
 		arrayLTickets.add(index, t);
 	}
 	
+	public boolean ticketExists(int ticketNumber) {
+	    for (Tickets ticket : arrayLTickets) {
+	        if (ticket.getTicketNum() == ticketNumber) {
+	            return true;
+	        }
+	    }
+	    return false; 
+	}
+
+	
 	public void removeTicket(int index) {
 		arrayLTickets.remove(index);
 	}

@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 import domain.Passengers;
 import data.FilesXML;
-import data.FilesLogicXML;
+import data.FilesPassXML;
 import presentation.GUIMain;
 import presentation.GUIPassengers;
 
@@ -17,7 +17,7 @@ public class ControllerPassengers implements ActionListener {
 	private Passengers passen;
 	private GUIPassengers guiPass;
 	private FilesXML fXML;
-	private FilesLogicXML fLogXML;
+	private FilesPassXML fPXML;
 	private ArrayListPassengers arrayLPass;
 
 	public ControllerPassengers(GUIMain guiMain) {
@@ -26,7 +26,7 @@ public class ControllerPassengers implements ActionListener {
 		guiPass = new GUIPassengers();
 		guiMain.getDesktopMain().add(guiPass);
 		fXML = new FilesXML();
-		fLogXML = new FilesLogicXML();
+		fPXML = new FilesPassXML();
 		arrayLPass = new ArrayListPassengers();
 
 		fXML.createXML("Passengers", "Passengers.xml");
@@ -38,7 +38,7 @@ public class ControllerPassengers implements ActionListener {
 	private void refreshData() {
 
 		guiPass.getDTMTPassengers().setRowCount(0);
-		ArrayList<Passengers> arrayPassengers = fLogXML.returnPassengers("Passengers.xml", "Passenger");
+		ArrayList<Passengers> arrayPassengers = fPXML.returnPassengers("Passengers.xml", "Passenger");
 
 		for (Passengers elemento : arrayPassengers) {
 			guiPass.getDTMTPassengers().addRow(new Object[] { elemento.getPassportNum(), elemento.getName(),
@@ -65,7 +65,7 @@ public class ControllerPassengers implements ActionListener {
 					guiPass.getTLastName().getText(), guiPass.getTBirthDate().getText(), guiPass.getTEmail().getText(),
 					Integer.parseInt(guiPass.getTCellphone().getText()));
 
-			fLogXML.writePassengerXML("Passengers.xml", "Passenger", passen.getDataName(), passen.getData());
+			fPXML.writePassengerXML("Passengers.xml", "Passenger", passen.getDataName(), passen.getData());
 
 			arrayLPass.addPassenger(passen);
 
@@ -80,7 +80,7 @@ public class ControllerPassengers implements ActionListener {
 		if (e.getSource() == guiPass.getBtnConsultPassenger()) {
 
 			int passportNum = Integer.parseInt(guiPass.getTSearchPassenger().getText());
-			Passengers passenger = fLogXML.searchPassengers("Passengers.xml", "Passenger", passportNum);
+			Passengers passenger = fPXML.searchPassengers("Passengers.xml", "Passenger", passportNum);
 
 			if (passenger != null) {
 				// El pasajero fue encontrado, puedes mostrar los detalles en la interfaz o
@@ -127,7 +127,7 @@ public class ControllerPassengers implements ActionListener {
 		    Object passportNumOriginal = guiPass.getDTMTPassengers().getValueAt(selectedRow, selectedColumn);
 		    
 		    // Modifica el pasajero en el archivo XML
-		 	fLogXML.modifyPassenger("Passengers.xml", "Passenger",passportNumOriginal, passportNum, name, lastName, birthDate, email,
+		    fPXML.modifyPassenger("Passengers.xml", "Passenger",passportNumOriginal, passportNum, name, lastName, birthDate, email,
 		 	cellphone);
 
 			// Modifica los datos en la tabla
@@ -146,7 +146,7 @@ public class ControllerPassengers implements ActionListener {
 			int passportNum = Integer.parseInt(guiPass.getTSearchPassenger().getText());
 
 			// Elimina el dato dentro del xml y refrescar en la tabla
-			Passengers p = fLogXML.searchPassengerAndDelete("Passengers.xml", "Passenger", passportNum);
+			Passengers p = fPXML.searchPassengerAndDelete("Passengers.xml", "Passenger", passportNum);
 
 			if (p != null) {
 				arrayLPass.removePassenger(p);

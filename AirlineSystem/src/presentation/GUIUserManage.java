@@ -24,9 +24,11 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class GUIUserManage extends JInternalFrame {
+public class GUIUserManage extends JInternalFrame implements ActionListener {
 	private JLabel lWelcomeUserManage;
 	private JButton btnConsultUser;
 	private JButton btnEditUsers;
@@ -52,6 +54,7 @@ public class GUIUserManage extends JInternalFrame {
 	private DefaultTableModel dtmTUsers;
 	private JTable tUsers;
 	private Object dataTable[][];
+	private JSeparator separator_2;
 
 	
 
@@ -60,7 +63,7 @@ public class GUIUserManage extends JInternalFrame {
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		setBounds(100, 100, 860, 703);
+		setBounds(100, 100, 868, 687);
 		getContentPane().setLayout(null);
 		getContentPane().add(getLWelcomeUserManage());
 		getContentPane().add(getBtnConsultUser());
@@ -85,6 +88,7 @@ public class GUIUserManage extends JInternalFrame {
 		setTUsers(dtmTUsers);
 		setSPTUsers(tUsers);
 		getContentPane().add(spTUsers);
+		getContentPane().add(getSeparator_2());
 		setVisible(true);
 	}
 	public JLabel getLWelcomeUserManage() {
@@ -109,20 +113,21 @@ public class GUIUserManage extends JInternalFrame {
 			btnConsultUser.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnConsultUser.setContentAreaFilled(false);
 			btnConsultUser.setBorder(null);
-			btnConsultUser.setBounds(382, 210, 110, 28);
+			btnConsultUser.setBounds(294, 110, 110, 28);
 		}
 		return btnConsultUser;
 	}
 	public JButton getBtnEditUsers() {
 		if (btnEditUsers == null) {
 			btnEditUsers = new JButton("Editar");
+			btnEditUsers.addActionListener(this);
 			btnEditUsers.setIcon(new ImageIcon(GUIUserManage.class.getResource("/images/icons_edit.png")));
 			btnEditUsers.setOpaque(false);
 			btnEditUsers.setForeground(new Color(0, 0, 128));
 			btnEditUsers.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnEditUsers.setContentAreaFilled(false);
 			btnEditUsers.setBorder(null);
-			btnEditUsers.setBounds(382, 160, 81, 25);
+			btnEditUsers.setBounds(160, 110, 81, 25);
 		}
 		return btnEditUsers;
 	}
@@ -135,7 +140,7 @@ public class GUIUserManage extends JInternalFrame {
 			btnRemoveUser.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnRemoveUser.setContentAreaFilled(false);
 			btnRemoveUser.setBorder(null);
-			btnRemoveUser.setBounds(382, 260, 90, 25);
+			btnRemoveUser.setBounds(748, 110, 90, 25);
 		}
 		return btnRemoveUser;
 	}
@@ -147,7 +152,7 @@ public class GUIUserManage extends JInternalFrame {
 			btnRegister.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnRegister.setContentAreaFilled(false);
 			btnRegister.setBorder(null);
-			btnRegister.setBounds(382, 110, 105, 25);
+			btnRegister.setBounds(14, 110, 105, 25);
 		}
 		return btnRegister;
 	}
@@ -155,7 +160,7 @@ public class GUIUserManage extends JInternalFrame {
 		if (separator == null) {
 			separator = new JSeparator();
 			separator.setForeground(Color.BLACK);
-			separator.setBounds(14, 138, 288, 1);
+			separator.setBounds(16, 248, 280, 1);
 		}
 		return separator;
 	}
@@ -166,7 +171,7 @@ public class GUIUserManage extends JInternalFrame {
 			lUser.setFont(new Font("Dialog", Font.BOLD, 15));
 			lUser.setBorder(null);
 			lUser.setBackground(Color.WHITE);
-			lUser.setBounds(14, 62, 64, 38);
+			lUser.setBounds(16, 170, 64, 35);
 		}
 		return lUser;
 	}
@@ -174,7 +179,7 @@ public class GUIUserManage extends JInternalFrame {
 		if (lNewPass == null) {
 			lNewPass = new JLabel("Contraseña");
 			lNewPass.setFont(new Font("Dialog", Font.BOLD, 15));
-			lNewPass.setBounds(14, 170, 206, 20);
+			lNewPass.setBounds(18, 270, 206, 20);
 		}
 		return lNewPass;
 	}
@@ -197,7 +202,7 @@ public class GUIUserManage extends JInternalFrame {
 			jPassword.setForeground(Color.LIGHT_GRAY);
 			jPassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			jPassword.setBorder(null);
-			jPassword.setBounds(47, 202, 252, 25);
+			jPassword.setBounds(51, 303, 252, 25);
 			
 		}
 		return jPassword;
@@ -206,7 +211,7 @@ public class GUIUserManage extends JInternalFrame {
 		if (separator_1 == null) {
 			separator_1 = new JSeparator();
 			separator_1.setForeground(Color.BLACK);
-			separator_1.setBounds(14, 230, 288, 1);
+			separator_1.setBounds(18, 331, 288, 1);
 		}
 		return separator_1;
 	}
@@ -214,7 +219,7 @@ public class GUIUserManage extends JInternalFrame {
 		if (lTypeUser == null) {
 			lTypeUser = new JLabel("Tipo de usuario");
 			lTypeUser.setFont(new Font("Dialog", Font.BOLD, 15));
-			lTypeUser.setBounds(14, 256, 206, 20);
+			lTypeUser.setBounds(414, 170, 126, 35);
 		}
 		return lTypeUser;
 	}
@@ -227,7 +232,7 @@ public class GUIUserManage extends JInternalFrame {
 			CXTypeUser.setName("");
 			CXTypeUser.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 15));
 			CXTypeUser.setBorder(null);
-			CXTypeUser.setBounds(14, 285, 123, 25);
+			CXTypeUser.setBounds(414, 220, 126, 25);
 		}
 		return CXTypeUser;
 	}
@@ -235,7 +240,7 @@ public class GUIUserManage extends JInternalFrame {
 		if (lState == null) {
 			lState = new JLabel("Estado");
 			lState.setFont(new Font("Dialog", Font.BOLD, 15));
-			lState.setBounds(14, 320, 206, 20);
+			lState.setBounds(414, 270, 100, 20);
 		}
 		return lState;
 	}
@@ -246,7 +251,7 @@ public class GUIUserManage extends JInternalFrame {
 			cxState.setModel(new DefaultComboBoxModel(new String[] {"Activo", "Inactivo"}));
 			cxState.setRequestFocusEnabled(false);
 			cxState.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 14));
-			cxState.setBounds(14, 348, 100, 25);
+			cxState.setBounds(414, 303, 100, 25);
 		}
 		return cxState;
 	}
@@ -260,7 +265,7 @@ public class GUIUserManage extends JInternalFrame {
 			lUser_1.setFont(new Font("Dialog", Font.BOLD, 15));
 			lUser_1.setBorder(null);
 			lUser_1.setBackground(Color.WHITE);
-			lUser_1.setBounds(12, 99, 40, 38);
+			lUser_1.setBounds(14, 209, 40, 38);
 		}
 		return lUser_1;
 	}
@@ -284,7 +289,7 @@ public class GUIUserManage extends JInternalFrame {
 			tUserAdd.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tUserAdd.setColumns(10);
 			tUserAdd.setBorder(null);
-			tUserAdd.setBounds(56, 110, 245, 25);
+			tUserAdd.setBounds(58, 220, 235, 25);
 		}
 		return tUserAdd;
 	}
@@ -293,7 +298,7 @@ public class GUIUserManage extends JInternalFrame {
 			lOperationUser = new JLabel("Operaciones");
 			lOperationUser.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			lOperationUser.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-			lOperationUser.setBounds(382, 69, 459, 25);
+			lOperationUser.setBounds(14, 69, 825, 25);
 		}
 		return lOperationUser;
 	}
@@ -313,7 +318,7 @@ public class GUIUserManage extends JInternalFrame {
 			tWriteName.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			tWriteName.setColumns(10);
 			tWriteName.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-			tWriteName.setBounds(516, 377, 324, 30);
+			tWriteName.setBounds(414, 110, 324, 30);
 		}
 		return tWriteName;
 	}
@@ -327,7 +332,7 @@ public class GUIUserManage extends JInternalFrame {
 			lPassword.setFont(new Font("Dialog", Font.BOLD, 15));
 			lPassword.setBorder(null);
 			lPassword.setBackground(Color.WHITE);
-			lPassword.setBounds(10, 200, 26, 30);
+			lPassword.setBounds(14, 300, 26, 30);
 		}
 		return lPassword;
 	}
@@ -376,7 +381,7 @@ public class GUIUserManage extends JInternalFrame {
 	public void setSPTUsers(JTable tUsers) {
 		spTUsers = new JScrollPane(tUsers);
 		spTUsers.setBorder(new TitledBorder(null, "Datos de usuarios", TitledBorder.LEFT, TitledBorder.ABOVE_TOP, null, null));
-		spTUsers.setBounds(10, 417, 828, 247);
+		spTUsers.setBounds(10, 395, 595, 250);
 	}
 	public JScrollPane getSPTPeople() {
 		return this.spTUsers;
@@ -393,5 +398,14 @@ public class GUIUserManage extends JInternalFrame {
 		CXTypeUser.setSelectedIndex(0);
 		cxState.setSelectedIndex(0);
 		
+	}
+	public void actionPerformed(ActionEvent e) {
+	}
+	public JSeparator getSeparator_2() {
+		if (separator_2 == null) {
+			separator_2 = new JSeparator();
+			separator_2.setBounds(14, 160, 825, 2);
+		}
+		return separator_2;
 	}
 }

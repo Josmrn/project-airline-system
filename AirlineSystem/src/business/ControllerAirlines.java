@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 import domain.Airlines;
 import data.FilesXML;
-import data.FilesLogicXML;
+import data.FilesAirlinesXML;
 import presentation.GUIAirlines;
 import presentation.GUIMain;
 
@@ -17,7 +17,7 @@ public class ControllerAirlines implements ActionListener{
 	private GUIAirlines guiAir;
 	private Airlines airline;
 	private FilesXML fXML;
-	private FilesLogicXML fLogXML;
+	private FilesAirlinesXML fAXML;
 	private ArrayListAirline arrayLAirlines;
 	
 	
@@ -27,7 +27,7 @@ public class ControllerAirlines implements ActionListener{
 		guiAir = new GUIAirlines();
 		guiMain.getDesktopMain().add(guiAir);
 		fXML = new FilesXML();
-		fLogXML = new FilesLogicXML();
+		fAXML = new FilesAirlinesXML();
 		arrayLAirlines = new ArrayListAirline();
 		
 		fXML.createXML("Airlines", "Airlines.xml");
@@ -49,7 +49,7 @@ public class ControllerAirlines implements ActionListener{
 		private void refreshData() {
 
 		guiAir.getDTMTAirlines().setRowCount(0);
-		ArrayList<Airlines> arrayAirlines = fLogXML.returnAirlines("Airlines.xml", "Airline");
+		ArrayList<Airlines> arrayAirlines = fAXML.returnAirlines("Airlines.xml", "Airline");
 
 		for (Airlines elemento : arrayAirlines) {
 			guiAir.getDTMTAirlines().addRow( new Object[] { elemento.getNameAirline(), elemento.getCountry() });
@@ -63,7 +63,7 @@ public class ControllerAirlines implements ActionListener{
 			
 			airline = new Airlines(guiAir.getTWriteAirlines().getText(),guiAir.getTOpeCenter().getText());
 
-			fLogXML.writeAirlineXML("Airlines.xml", "Airline", airline.getDataName(), airline.getData());
+			fAXML.writeAirlineXML("Airlines.xml", "Airline", airline.getDataName(), airline.getData());
 
 			arrayLAirlines.addAirline(airline);
 
@@ -97,7 +97,7 @@ public class ControllerAirlines implements ActionListener{
 			Object nameAirlineOriginal = guiAir.getDTMTAirlines().getValueAt(selectedRow, selectedColumn);
 					    
 			// Modifica el pasajero en el archivo XML
-			fLogXML.modifyAirline("Airlines.xml", "Airline",nameAirlineOriginal, nameAirline, country);
+			fAXML.modifyAirline("Airlines.xml", "Airline",nameAirlineOriginal, nameAirline, country);
 					    
 			// Modifica los datos en la tabla
 			guiAir.getDTMTAirlines().setValueAt(nameAirline, selectedRow, 0);
@@ -111,7 +111,7 @@ public class ControllerAirlines implements ActionListener{
 			String nameAirline = guiAir.getTSearchAirline().getText();
 
 			// Elimina el dato dentro del xml y refrescar en la tabla
-			Airlines a = fLogXML.searchAirlineAndDelete("Airlines.xml", "Airline", nameAirline);
+			Airlines a = fAXML.searchAirlineAndDelete("Airlines.xml", "Airline", nameAirline);
 
 			if (a != null) {
 				arrayLAirlines.removeAirline(a);
@@ -125,7 +125,7 @@ public class ControllerAirlines implements ActionListener{
 		if(e.getSource() == guiAir.getBtnConsultAirlines()) {
 			
 			String nameAirline = guiAir.getTSearchAirline().getText();
-			Airlines airline = fLogXML.searchAirline("Airlines.xml", "Airline", nameAirline);
+			Airlines airline = fAXML.searchAirline("Airlines.xml", "Airline", nameAirline);
 
 			if (airline != null) {
 				// El usuario fue encontrado, puedes mostrar los detalles en la interfaz o

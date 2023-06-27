@@ -32,7 +32,6 @@ public class GUITickets extends JInternalFrame {
 	private JLabel lTicketsManag;
 	private JLabel lTicketNumber;
 	private JTextField tTicketNumber;
-	private JSeparator separator;
 	private JLabel lPassportNumber;
 	private JLabel lOperationTickets;
 	private JButton btnRemoveTickets;
@@ -46,10 +45,8 @@ public class GUITickets extends JInternalFrame {
 	private JSeparator separator_1;
 	private JTextField tSearchTickets;
 	private JTextField tPassportNumber;
-	private JSeparator separator_2;
 	private JLabel lFlightNumber;
 	private JTextField tFlightNumber;
-	private JSeparator separator_2_1;
 
 	
 	public GUITickets() {
@@ -63,7 +60,6 @@ public class GUITickets extends JInternalFrame {
 		getContentPane().add(getLTicketsManag());
 		getContentPane().add(getLTicketNumber());
 		getContentPane().add(getTTicketNumber());
-		getContentPane().add(getSeparator());
 		getContentPane().add(getLPassportNumber());
 		getContentPane().add(getLOperationTickets());
 		getContentPane().add(getBtnRemoveTickets());
@@ -73,10 +69,8 @@ public class GUITickets extends JInternalFrame {
 		getContentPane().add(getSeparator_1());
 		getContentPane().add(getTSearchTickets());
 		getContentPane().add(getTPassportNumber());
-		getContentPane().add(getSeparator_2());
 		getContentPane().add(getLFlightNumber());
 		getContentPane().add(getTFlightNumber());
-		getContentPane().add(getSeparator_2_1());
 		setDTMTTickets(dataTableT, getColumnsNamesM());
 		setTTickets(dtmTTickets);
 		setSPTTickets(tTickets);
@@ -107,18 +101,11 @@ public class GUITickets extends JInternalFrame {
 		if (tTicketNumber == null) {
 			tTicketNumber = new JTextField();
 			tTicketNumber.setBounds(10, 200, 300, 25);
-			tTicketNumber.setFont(new Font("Tahoma", Font.PLAIN, 10));
+			tTicketNumber.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			tTicketNumber.setColumns(10);
-			tTicketNumber.setBorder(null);
+			tTicketNumber.setBorder(new LineBorder(new Color(0, 0, 0)));
 		}
 		return tTicketNumber;
-	}
-	public JSeparator getSeparator() {
-		if (separator == null) {
-			separator = new JSeparator();
-			separator.setBounds(10, 228, 300, 1);
-		}
-		return separator;
 	}
 	public JLabel getLPassportNumber() {
 		if (lPassportNumber == null) {
@@ -233,7 +220,7 @@ public class GUITickets extends JInternalFrame {
 	}
 	public void setSPTTickets(JTable tTickets) {
 		spTTickets = new JScrollPane(tTickets);
-		spTTickets.setBounds(10, 246, 920, 328);
+		spTTickets.setBounds(10, 272, 610, 328);
 		spTTickets.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Datos de tickets registrados", TitledBorder.LEFT, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)));
 		spTTickets.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spTTickets.setToolTipText("");
@@ -278,20 +265,13 @@ public class GUITickets extends JInternalFrame {
 	public JTextField getTPassportNumber() {
 		if (tPassportNumber == null) {
 			tPassportNumber = new JTextField();
-			tPassportNumber.setFont(new Font("Tahoma", Font.PLAIN, 10));
+			tPassportNumber.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			tPassportNumber.setColumns(10);
-			tPassportNumber.setBorder(null);
+			tPassportNumber.setBorder(new LineBorder(new Color(0, 0, 0)));
 			tPassportNumber.setBounds(320, 200, 300, 25);
 		
 		}
 		return tPassportNumber;
-	}
-	public JSeparator getSeparator_2() {
-		if (separator_2 == null) {
-			separator_2 = new JSeparator();
-			separator_2.setBounds(320, 228, 300, 1);
-		}
-		return separator_2;
 	}
 	public JLabel getLFlightNumber() {
 		if (lFlightNumber == null) {
@@ -305,19 +285,12 @@ public class GUITickets extends JInternalFrame {
 	public JTextField getTFlightNumber() {
 		if (tFlightNumber == null) {
 			tFlightNumber = new JTextField();
-			tFlightNumber.setFont(new Font("Tahoma", Font.PLAIN, 10));
+			tFlightNumber.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			tFlightNumber.setColumns(10);
-			tFlightNumber.setBorder(null);
+			tFlightNumber.setBorder(new LineBorder(new Color(0, 0, 0)));
 			tFlightNumber.setBounds(630, 200, 300, 25);
 
 		}
 		return tFlightNumber;
-	}
-	public JSeparator getSeparator_2_1() {
-		if (separator_2_1 == null) {
-			separator_2_1 = new JSeparator();
-			separator_2_1.setBounds(630, 228, 300, 1);
-		}
-		return separator_2_1;
 	}
 }

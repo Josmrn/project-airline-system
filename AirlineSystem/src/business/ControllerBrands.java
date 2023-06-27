@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import presentation.GUIBrands;
 import presentation.GUIMain;
 import domain.Brands;
+import data.FilesBrandsXML;
 import data.FilesLogicXML;
 import data.FilesXML;
 
@@ -17,6 +18,7 @@ public class ControllerBrands implements ActionListener {
 	private GUIBrands guiB;
 	private FilesXML fXML;
 	private Brands brand;
+	private FilesBrandsXML fBXML;
 	private FilesLogicXML fLXML;
 	private ArrayListBrands arrayLB;
 
@@ -25,6 +27,7 @@ public class ControllerBrands implements ActionListener {
         guiMain.getDesktopMain().add(guiB);
         brand = new Brands();
         fXML = new FilesXML();
+        fBXML = new FilesBrandsXML();
         fLXML = new FilesLogicXML();
         arrayLB = new ArrayListBrands();
         fXML.createXML("Brands", "Brands.xml");
@@ -33,7 +36,7 @@ public class ControllerBrands implements ActionListener {
 
 	private void refreshData() {
 		guiB.getDTMTBrands().setRowCount(0);
-		ArrayList<Brands> arrayBrands = fLXML.returnBrand("Brands.xml", "Brand");
+		ArrayList<Brands> arrayBrands = fBXML.returnBrand("Brands.xml", "Brand");
 
 		for (Brands elemento : arrayBrands) {
 			guiB.getDTMTBrands().addRow(new Object[] { elemento.getNameBrands() });
@@ -45,7 +48,6 @@ public class ControllerBrands implements ActionListener {
 		guiB.getBtnRegisterBrand().addActionListener(this);
 		guiB.getBtnConsultBrand().addActionListener(this);
 		guiB.getBtnEditBrands().addActionListener(this);
-		guiB.getBtnReadBrand().addActionListener(this);
 		guiB.getBtnRemoveBrand().addActionListener(this);
 	}
 
@@ -63,7 +65,7 @@ public class ControllerBrands implements ActionListener {
 	        }
 
 	        brand = new Brands(guiB.getTAddBrand().getText());
-	        fLXML.writeBrandsXML("Brands.xml", "Brand", brand.getDataName(), brand.getData());
+	        fBXML.writeBrandsXML("Brands.xml", "Brand", brand.getDataName(), brand.getData());
 	        arrayLB.addBrand(brand);
 	        guiB.getDTMTBrands().addRow(new Object[]{guiB.getTAddBrand().getText()});
 	        guiB.cleanForm();
@@ -74,7 +76,7 @@ public class ControllerBrands implements ActionListener {
 		    String currentBrandName = guiB.getTWriteBrand().getText();
 		    String newBrandName = guiB.getTAddBrand().getText();
 
-		    fLXML.modifyBrand("Brands.xml", "Brand", currentBrandName, newBrandName);
+		    fBXML.modifyBrand("Brands.xml", "Brand", currentBrandName, newBrandName);
 
 		    JOptionPane.showMessageDialog(null, "Marca modificada exitosamente");
 		    refreshData();
@@ -82,7 +84,7 @@ public class ControllerBrands implements ActionListener {
 
 		if (e.getSource() == guiB.getBtnRemoveBrand()) {
 		    String brandName = guiB.getTWriteBrand().getText();
-		    Brands brand = fLXML.deleteBrand("Brands.xml", "Brand", brandName);
+		    Brands brand = fBXML.deleteBrand("Brands.xml", "Brand", brandName);
 		    
 		    if (brand != null) {
 		        arrayLB.removeBrand(brand);
@@ -100,7 +102,7 @@ public class ControllerBrands implements ActionListener {
 			
 		    String brandName = guiB.getTWriteBrand().getText();
 
-		    Brands brand = fLXML.searchBrand("Brands.xml", "Brand", brandName);
+		    Brands brand = fBXML.searchBrand("Brands.xml", "Brand", brandName);
 
 		    if (brand != null) {
 		        JOptionPane.showMessageDialog(null, "Marca encontrada");

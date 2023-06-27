@@ -1,4 +1,4 @@
-package business;
+ package business;
 
 import java.util.ArrayList;
 
@@ -52,15 +52,15 @@ public class ArrayListFlight {
 		
 		for(int i=0; i<this.data.length;i++) {
 
-			data[i][0]=arrayLFlights.get(i).getDepartureCity();
-			data[i][1]=arrayLFlights.get(i).getDepartureDate();
-			data[i][2]=arrayLFlights.get(i).getDepartureHour();
-			data[i][3]=arrayLFlights.get(i).getArrivalCity();
-			data[i][4]=arrayLFlights.get(i).getArrivalDate();
-			data[i][5]=arrayLFlights.get(i).getArrivalHour();
-			data[i][6]=arrayLFlights.get(i).getAmountOfExecSeat();
-			data[i][8]=arrayLFlights.get(i).getAmountOfTourSeat();
-			data[i][9]=arrayLFlights.get(i).getAmountOfEcoSeat();
+			data[i][0] = arrayLFlights.get(i).getDepartureCity();
+			data[i][1] = arrayLFlights.get(i).getDepartureDate();
+			data[i][2] = arrayLFlights.get(i).getDepartureHour();
+			data[i][3] = arrayLFlights.get(i).getArrivalCity();
+			data[i][4] = arrayLFlights.get(i).getArrivalDate();
+			data[i][5] = arrayLFlights.get(i).getArrivalHour();
+			data[i][6] = arrayLFlights.get(i).getAmountOfExecSeat();
+			data[i][8] = arrayLFlights.get(i).getAmountOfTourSeat();
+			data[i][9] = arrayLFlights.get(i).getAmountOfEcoSeat();
 		}
 	}
 	

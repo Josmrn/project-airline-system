@@ -15,7 +15,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
@@ -27,11 +26,9 @@ public class GUIBrands extends JInternalFrame {
 	private JLabel lNameBrands;
 	private JTextField tAddBrand;
 	private JButton btnRegisterBrand;
-	private JSeparator separator;
 	private JLabel lTextBrandsReg;
 	private JButton btnConsultBrand;
 	private JButton btnEditBrands;
-	private JButton btnReadBrand;
 	private JButton btnRemoveBrand;
 
 	private DefaultTableModel dtmTBrands;
@@ -54,11 +51,9 @@ public class GUIBrands extends JInternalFrame {
 		getContentPane().add(getLNameBrands());
 		getContentPane().add(getTAddBrand());
 		getContentPane().add(getBtnRegisterBrand());
-		getContentPane().add(getSeparator());
 		getContentPane().add(getLTextBrandsReg());
 		getContentPane().add(getBtnConsultBrand());
 		getContentPane().add(getBtnEditBrands());
-		getContentPane().add(getBtnReadBrand());
 		getContentPane().add(getBtnRemoveBrand());
 		setDTMTBrands(dataTable, getColumnsNames());
 		setTBrands(dtmTBrands);
@@ -98,8 +93,8 @@ public class GUIBrands extends JInternalFrame {
 		if (tAddBrand == null) {
 			tAddBrand = new JTextField();
 			tAddBrand.setColumns(10);
-			tAddBrand.setBorder(null);
-			tAddBrand.setBounds(10, 113, 300, 25);
+			tAddBrand.setBorder(new LineBorder(new Color(0, 0, 0)));
+			tAddBrand.setBounds(10, 113, 300, 30);
 		}
 		return tAddBrand;
 	}
@@ -115,17 +110,9 @@ public class GUIBrands extends JInternalFrame {
 			btnRegisterBrand.setContentAreaFilled(false);
 			btnRegisterBrand.setBorder(null);
 			btnRegisterBrand.setBackground(new Color(95, 158, 160));
-			btnRegisterBrand.setBounds(10, 232, 102, 25);
+			btnRegisterBrand.setBounds(10, 232, 100, 25);
 		}
 		return btnRegisterBrand;
-	}
-
-	public JSeparator getSeparator() {
-		if (separator == null) {
-			separator = new JSeparator();
-			separator.setBounds(10, 138, 300, 1);
-		}
-		return separator;
 	}
 
 	public JLabel getLTextBrandsReg() {
@@ -147,7 +134,7 @@ public class GUIBrands extends JInternalFrame {
 			btnConsultBrand.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnConsultBrand.setContentAreaFilled(false);
 			btnConsultBrand.setBorder(null);
-			btnConsultBrand.setBounds(373, 289, 109, 25);
+			btnConsultBrand.setBounds(373, 285, 109, 28);
 		}
 		return btnConsultBrand;
 	}
@@ -161,23 +148,9 @@ public class GUIBrands extends JInternalFrame {
 			btnEditBrands.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnEditBrands.setContentAreaFilled(false);
 			btnEditBrands.setBorder(null);
-			btnEditBrands.setBounds(200, 232, 84, 25);
+			btnEditBrands.setBounds(378, 232, 84, 25);
 		}
 		return btnEditBrands;
-	}
-
-	public JButton getBtnReadBrand() {
-		if (btnReadBrand == null) {
-			btnReadBrand = new JButton("Mostrar");
-			btnReadBrand.setIcon(new ImageIcon(GUIBrands.class.getResource("/images/icons_show.png")));
-			btnReadBrand.setOpaque(false);
-			btnReadBrand.setForeground(new Color(0, 0, 128));
-			btnReadBrand.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnReadBrand.setContentAreaFilled(false);
-			btnReadBrand.setBorder(null);
-			btnReadBrand.setBounds(10, 289, 85, 25);
-		}
-		return btnReadBrand;
 	}
 
 	public JButton getBtnRemoveBrand() {
@@ -189,7 +162,7 @@ public class GUIBrands extends JInternalFrame {
 			btnRemoveBrand.setFont(new Font("Segoe UI", Font.BOLD, 15));
 			btnRemoveBrand.setContentAreaFilled(false);
 			btnRemoveBrand.setBorder(null);
-			btnRemoveBrand.setBounds(380, 232, 102, 25);
+			btnRemoveBrand.setBounds(10, 285, 88, 25);
 		}
 		return btnRemoveBrand;
 	}
@@ -257,7 +230,7 @@ public class GUIBrands extends JInternalFrame {
 			tWriteBrand.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			tWriteBrand.setColumns(10);
 			tWriteBrand.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-			tWriteBrand.setBounds(105, 284, 258, 30);
+			tWriteBrand.setBounds(105, 285, 258, 30);
 		}
 		return tWriteBrand;
 	}

@@ -29,7 +29,6 @@ public class GUIAirlines extends JInternalFrame {
 	private JLabel lAirlineManag;
 	private JLabel lName;
 	private JTextField tWriteAirlines;
-	private JSeparator separator;
 	private JLabel lOpeCenter;
 	private JLabel lOperationAirlines;
 	private JButton btnRemoveAirlines;
@@ -43,7 +42,6 @@ public class GUIAirlines extends JInternalFrame {
 	private JSeparator separator_1;
 	private JTextField tSearchAirline;
 	private JTextField tOpeCenter;
-	private JSeparator separator_2;
 
 	
 	public GUIAirlines() {
@@ -57,7 +55,6 @@ public class GUIAirlines extends JInternalFrame {
 		getContentPane().add(getLAirlineManag());
 		getContentPane().add(getLName());
 		getContentPane().add(getTWriteAirlines());
-		getContentPane().add(getSeparator());
 		getContentPane().add(getLOpeCenter());
 		getContentPane().add(getLOperationAirlines());
 		getContentPane().add(getBtnRemoveAirlines());
@@ -67,7 +64,6 @@ public class GUIAirlines extends JInternalFrame {
 		getContentPane().add(getSeparator_1());
 		getContentPane().add(getTSearchAirline());
 		getContentPane().add(getTOpeCenter());
-		getContentPane().add(getSeparator_2());
 		setDTMTAirlines(dataTableM, getColumnsNamesM());
 		setTAirlines(dtmTAirlines);
 		setSPTAirlines(tAirlines);
@@ -97,17 +93,10 @@ public class GUIAirlines extends JInternalFrame {
 			tWriteAirlines = new JTextField();
 			tWriteAirlines.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tWriteAirlines.setColumns(10);
-			tWriteAirlines.setBorder(null);
+			tWriteAirlines.setBorder(new LineBorder(new Color(0, 0, 0)));
 			tWriteAirlines.setBounds(10, 178, 300, 25);
 		}
 		return tWriteAirlines;
-	}
-	public JSeparator getSeparator() {
-		if (separator == null) {
-			separator = new JSeparator();
-			separator.setBounds(10, 204, 300, 1);
-		}
-		return separator;
 	}
 	public JLabel getLOpeCenter() {
 		if (lOpeCenter == null) {
@@ -266,16 +255,9 @@ public class GUIAirlines extends JInternalFrame {
 			tOpeCenter = new JTextField();
 			tOpeCenter.setFont(new Font("Tahoma", Font.PLAIN, 10));
 			tOpeCenter.setColumns(10);
-			tOpeCenter.setBorder(null);
+			tOpeCenter.setBorder(new LineBorder(new Color(0, 0, 0)));
 			tOpeCenter.setBounds(320, 178, 300, 25);
 		}
 		return tOpeCenter;
-	}
-	public JSeparator getSeparator_2() {
-		if (separator_2 == null) {
-			separator_2 = new JSeparator();
-			separator_2.setBounds(320, 204, 300, 1);
-		}
-		return separator_2;
 	}
 }
