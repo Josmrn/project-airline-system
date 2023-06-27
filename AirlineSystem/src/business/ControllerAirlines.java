@@ -6,11 +6,11 @@ import java.awt.event.ActionListener;
 import presentation.GUIAirlines;
 import presentation.GUIMain;
 
-public class ControllerAirline implements ActionListener{
+public class ControllerAirlines implements ActionListener{
 
 	private GUIAirlines guiAir; 
 	
-	public ControllerAirline(GUIMain guiMain) {
+	public ControllerAirlines(GUIMain guiMain) {
 		// TODO Auto-generated constructor stub
 		guiAir = new GUIAirlines();
 		guiMain.getDesktopMain().add(guiAir);
