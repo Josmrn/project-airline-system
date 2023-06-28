@@ -35,6 +35,9 @@ public class GUIHisFlights extends JInternalFrame {
 	private JSeparator separator;
 
 	public GUIHisFlights() {
+		setClosable(true);
+		setMaximizable(true);
+		setIconifiable(true);
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		getContentPane().setBackground(new Color(255, 255, 255));
 		setBounds(100, 100, 1345, 539);

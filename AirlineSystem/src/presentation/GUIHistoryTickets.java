@@ -8,6 +8,7 @@ import javax.swing.JTable;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.awt.Color;
 
@@ -15,6 +16,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import domain.Flights;
+import domain.Tickets;
 
 import javax.swing.JComboBox;
 import javax.swing.JSeparator;
@@ -25,18 +29,18 @@ import javax.swing.ImageIcon;
 @SuppressWarnings("serial")
 public class GUIHistoryTickets extends JInternalFrame {
 	private JLabel lWelcomePrint;
-	private JComboBox<?> cxTicketsHistory;
+	private JComboBox<String> cxTicketsHistory;
 	private JLabel lCodTicket;
 	private JLabel lDepurDate;
-	private JComboBox cxDepurateDateHis;
+	private JComboBox<String> cxDepurateDateHis;
 	private JLabel lArrivDate;
-	private JComboBox cxArrivDateHis;
+	private JComboBox<String> cxArrivDateHis;
 	private JLabel lReserDate;
-	private JComboBox cxReservTickets;
+	private JComboBox<String> cxReservTickets;
 	private JLabel lOrigin;
-	private JComboBox cxDeparture;
+	private JComboBox<String> cxDeparture;
 	private JLabel lArrival;
-	private JComboBox cxArrival;
+	private JComboBox<String> cxArrival;
 	private DefaultTableModel dtmTHTickets;
 	private JTable tHTickts;
 	private JScrollPane spTHTickts;
@@ -45,6 +49,9 @@ public class GUIHistoryTickets extends JInternalFrame {
 	private JButton btnFilter;
 
 	public GUIHistoryTickets() {
+		setMaximizable(true);
+		setIconifiable(true);
+		setClosable(true);
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		getContentPane().setBackground(new Color(255, 255, 255));
 		setBounds(100, 100, 872, 569);
@@ -94,6 +101,14 @@ public class GUIHistoryTickets extends JInternalFrame {
 	    }
 	    return cxTicketsHistory;
 	}
+	
+	public void fillTickets(ArrayList<Tickets> tickets) {
+		cxTicketsHistory.addItem("Seleccionar:");
+		
+		for(Tickets ticket: tickets) {
+			cxTicketsHistory.addItem(String.valueOf(ticket.getTicketNum()));
+		}
+	}
 
 	public JLabel getLCodTicket() {
 		if (lCodTicket == null) {
@@ -115,14 +130,23 @@ public class GUIHistoryTickets extends JInternalFrame {
 		return lDepurDate;
 	}
 
-	public JComboBox getCxDepurateDateHis() {
+	public JComboBox<String> getCxDepurateDateHis() {
 		if (cxDepurateDateHis == null) {
-			cxDepurateDateHis = new JComboBox();
+			cxDepurateDateHis = new JComboBox<String>();
 			cxDepurateDateHis.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			cxDepurateDateHis.setFont(new Font("Roboto", Font.PLAIN, 14));
 			cxDepurateDateHis.setBounds(145, 95, 125, 25);
 		}
 		return cxDepurateDateHis;
+	}
+	
+	public void fillDepartData(ArrayList<Flights> flights) {
+		cxDepurateDateHis.addItem("Seleccinar:");
+		
+		for(Flights flight : flights) {
+			cxDepurateDateHis.addItem(String.valueOf(flight.getDepartureDate() + 
+					" / " + String.valueOf(flight.getDepartureHour())));
+		}
 	}
 
 	public JLabel getLArrivDate() {
@@ -135,14 +159,23 @@ public class GUIHistoryTickets extends JInternalFrame {
 		return lArrivDate;
 	}
 
-	public JComboBox getCxArrivDateHis() {
+	public JComboBox<String> getCxArrivDateHis() {
 		if (cxArrivDateHis == null) {
-			cxArrivDateHis = new JComboBox();
+			cxArrivDateHis = new JComboBox<String>();
 			cxArrivDateHis.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			cxArrivDateHis.setFont(new Font("Roboto", Font.PLAIN, 14));
 			cxArrivDateHis.setBounds(280, 95, 125, 25);
 		}
 		return cxArrivDateHis;
+	}
+	
+	public void fillArrivaDate(ArrayList<Flights> flights) {
+		cxArrivDateHis.addItem("Seleccionar:");
+		
+		for(Flights flight : flights) {
+			cxArrivDateHis.addItem(String.valueOf(flight.getArrivalDate() + 
+					" / " + String.valueOf(flight.getArrivalHour())));
+		}
 	}
 
 	public JLabel getLReserDate() {
@@ -155,15 +188,16 @@ public class GUIHistoryTickets extends JInternalFrame {
 		return lReserDate;
 	}
 
-	public JComboBox getCxReservTickets() {
+	public JComboBox<String> getCxReservTickets() {
 		if (cxReservTickets == null) {
-			cxReservTickets = new JComboBox();
+			cxReservTickets = new JComboBox<String>();
 			cxReservTickets.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			cxReservTickets.setFont(new Font("Roboto", Font.PLAIN, 14));
 			cxReservTickets.setBounds(415, 95, 125, 25);
 		}
 		return cxReservTickets;
 	}
+
 
 	public JLabel getLOrigin() {
 		if (lOrigin == null) {
@@ -175,14 +209,22 @@ public class GUIHistoryTickets extends JInternalFrame {
 		return lOrigin;
 	}
 
-	public JComboBox getCxDeparture() {
+	public JComboBox<String> getCxDeparture() {
 		if (cxDeparture == null) {
-			cxDeparture = new JComboBox();
+			cxDeparture = new JComboBox<String>();
 			cxDeparture.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			cxDeparture.setFont(new Font("Roboto", Font.PLAIN, 14));
 			cxDeparture.setBounds(550, 95, 145, 25);
 		}
 		return cxDeparture;
+	}
+	
+	public void fillDeparture(ArrayList<Flights> flights) {
+		cxDeparture.addItem("Seleccionar:");
+		
+		for(Flights flight : flights) {
+			cxDeparture.addItem(flight.getDepartureCity());
+		}
 	}
 
 	public JLabel getLArrival() {
@@ -195,14 +237,22 @@ public class GUIHistoryTickets extends JInternalFrame {
 		return lArrival;
 	}
 
-	public JComboBox getCxArrival() {
+	public JComboBox<String> getCxArrival() {
 		if (cxArrival == null) {
-			cxArrival = new JComboBox();
+			cxArrival = new JComboBox<String>();
 			cxArrival.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			cxArrival.setFont(new Font("Roboto", Font.PLAIN, 14));
 			cxArrival.setBounds(705, 95, 145, 25);
 		}
 		return cxArrival;
+	}
+	
+	public void fillArrival(ArrayList<Flights> flights) {
+		cxArrival.addItem("Seleccionar:");
+		
+		for(Flights flight : flights) {
+			cxArrival.addItem(flight.getArrivalCity());
+		}
 	}
 	
 	public void setDTMTHTickets(Object data[][], String[] columnsNames) {

@@ -44,7 +44,8 @@ public class ControllerMain implements ActionListener{
 		guiMain.getMiAboutAdmin(userType).addActionListener(this);
 		guiMain.getMiAboutColab().addActionListener(this);
 		guiMain.getMiPrintTicket().addActionListener(this);
-
+		guiMain.getMiTicketsHistory().addActionListener(this);
+		guiMain.getMiConsultFlight().addActionListener(this);
 	}
 
 	@Override
@@ -87,18 +88,14 @@ public class ControllerMain implements ActionListener{
 		}
 		if(e.getSource() == guiMain.getMiAboutAdmin(userType)) {
 			 try {
-		            // URL que deseas abrir
+		            // Abrirá la URL 
 		            String url = "https://ayuda-admin.jafeth1110jafet.repl.co";
-
-		            // Crear una instancia de Desktop
 		            Desktop desktop = Desktop.getDesktop();
 
-		            // Verificar si Desktop es compatible para abrir enlaces
+		            // Verifica la compatibilidad del escritorio con el enlace
 		            if (Desktop.isDesktopSupported() && desktop.isSupported(Desktop.Action.BROWSE)) {
 		                // Crear un objeto URI a partir de la URL
 		                URI uri = new URI(url);
-
-		                // Abrir el enlace en el navegador predeterminado
 		                desktop.browse(uri);
 		            }
 		        } catch (Exception e1) {
@@ -110,6 +107,14 @@ public class ControllerMain implements ActionListener{
 		
 		if(e.getSource() == guiMain.getMiAboutColab()) {
 			
+		}
+		
+		if(e.getSource() == guiMain.getMiTicketsHistory()) {
+			new ControllerHistoryTicket(guiMain);
+		}
+		
+		if(e.getSource() == guiMain.getMiConsultFlight()) {
+			new ControllerHistoryFlight(guiMain);
 		}
 		
 		
