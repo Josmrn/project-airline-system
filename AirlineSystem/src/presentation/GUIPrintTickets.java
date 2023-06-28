@@ -41,11 +41,13 @@ public class GUIPrintTickets extends JInternalFrame {
 	private JTable tPrint;
 	private JScrollPane spTPrint;
 	private Object dataTable[][];
-	private JSeparator separator;
+	private JButton btnPrint;
+	private JLabel lblNewLabel_1;
 
 	public GUIPrintTickets() {
+		setTitle("Impresión de tiquete");
 		getContentPane().setBackground(new Color(255, 255, 255));
-		setBounds(100, 100, 985, 586);
+		setBounds(100, 100, 985, 752);
 		getContentPane().setLayout(null);
 		getContentPane().add(getLblNewLabel());
 		getContentPane().add(getLblNmeroDeVuelo());
@@ -68,14 +70,15 @@ public class GUIPrintTickets extends JInternalFrame {
 		setTPrint(dtmTPrint);
 		setSPTPrint(tPrint);
 		getContentPane().add(spTPrint);
-		getContentPane().add(getSeparator());
+		getContentPane().add(getBtnPrint());
+		getContentPane().add(getLblNewLabel_1());
 		
 		setVisible(true);
 	}
 
 	public JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("Impresión de tiquetes");
+			lblNewLabel = new JLabel("Ingreso de datos");
 			lblNewLabel.setOpaque(true);
 			lblNewLabel.setForeground(new Color(255, 255, 255));
 			lblNewLabel.setBackground(new Color(0, 0, 205));
@@ -154,7 +157,7 @@ public class GUIPrintTickets extends JInternalFrame {
 			tAmountTotal = new JTextField();
 			tAmountTotal.setColumns(10);
 			tAmountTotal.setBorder(new LineBorder(new Color(171, 173, 179)));
-			tAmountTotal.setBounds(810, 85, 150, 25);
+			tAmountTotal.setBounds(475, 85, 150, 25);
 		}
 		return tAmountTotal;
 	}
@@ -164,7 +167,7 @@ public class GUIPrintTickets extends JInternalFrame {
 			lblMonto.setHorizontalTextPosition(SwingConstants.CENTER);
 			lblMonto.setHorizontalAlignment(SwingConstants.LEFT);
 			lblMonto.setFont(new Font("Segoe UI", Font.BOLD, 14));
-			lblMonto.setBounds(677, 83, 131, 25);
+			lblMonto.setBounds(475, 50, 131, 25);
 		}
 		return lblMonto;
 	}
@@ -179,7 +182,7 @@ public class GUIPrintTickets extends JInternalFrame {
 			btnContinue.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			btnContinue.setContentAreaFilled(false);
 			btnContinue.setBorder(new LineBorder(new Color(0, 0, 0)));
-			btnContinue.setBounds(860, 161, 100, 30);
+			btnContinue.setBounds(10, 222, 100, 30);
 		}
 		return btnContinue;
 	}
@@ -250,7 +253,7 @@ public class GUIPrintTickets extends JInternalFrame {
 		spTPrint.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spTPrint.setToolTipText("");
 		spTPrint.setBackground(new Color(255, 255, 255));
-		spTPrint.setBounds(10, 230, 950, 317);
+		spTPrint.setBounds(10, 395, 950, 317);
 	}
 	public JScrollPane getSPTPrint() {
 		return this.spTPrint;
@@ -259,11 +262,31 @@ public class GUIPrintTickets extends JInternalFrame {
 		String columnsName[] = {"Pasajero","Tiquete","Datos de avión","Datos de venta"};
 		return columnsName;
 	}
-	public JSeparator getSeparator() {
-		if (separator == null) {
-			separator = new JSeparator();
-			separator.setBounds(10, 200, 950, 2);
+	public JButton getBtnPrint() {
+		if (btnPrint == null) {
+			btnPrint = new JButton("Imprimir");
+			btnPrint.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			btnPrint.setIcon(new ImageIcon(GUIPrintTickets.class.getResource("/images/icons8-imprimir-24.png")));
+			btnPrint.setOpaque(false);
+			btnPrint.setHorizontalAlignment(SwingConstants.LEADING);
+			btnPrint.setForeground(new Color(0, 0, 128));
+			btnPrint.setFont(new Font("Segoe UI", Font.BOLD, 16));
+			btnPrint.setContentAreaFilled(false);
+			btnPrint.setBorder(null);
+			btnPrint.setBounds(840, 355, 100, 30);
 		}
-		return separator;
+		return btnPrint;
+	}
+	public JLabel getLblNewLabel_1() {
+		if (lblNewLabel_1 == null) {
+			lblNewLabel_1 = new JLabel("Impresión de tiquetes");
+			lblNewLabel_1.setOpaque(true);
+			lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel_1.setForeground(Color.WHITE);
+			lblNewLabel_1.setFont(new Font("Roboto", Font.BOLD, 18));
+			lblNewLabel_1.setBackground(new Color(0, 0, 205));
+			lblNewLabel_1.setBounds(10, 307, 950, 30);
+		}
+		return lblNewLabel_1;
 	}
 }
