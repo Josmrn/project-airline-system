@@ -58,7 +58,7 @@ public class GUIPassengers extends JInternalFrame {
 	private JSeparator separator_2_3;
 
 	
-	public GUIPassengers() {
+	public GUIPassengers(String userType) {
 		getContentPane().setBackground(new Color(255, 255, 255));
 		setTitle("Gestión de Modelos");
 		setMaximizable(true);
@@ -72,8 +72,8 @@ public class GUIPassengers extends JInternalFrame {
 		getContentPane().add(getSeparator());
 		getContentPane().add(getLName());
 		getContentPane().add(getLOperationPassengers());
-		getContentPane().add(getBtnRemovePassengers());
-		getContentPane().add(getBtnEditPassengers());
+		getContentPane().add(getBtnRemovePassengers(userType));
+		getContentPane().add(getBtnEditPassengers(userType));
 		getContentPane().add(getBtnConsultPassenger());
 		getContentPane().add(getBtnAddPassenger());
 		getContentPane().add(getSeparator_1());
@@ -150,35 +150,65 @@ public class GUIPassengers extends JInternalFrame {
 		}
 		return lOperationPassengers;
 	}
-	public JButton getBtnRemovePassengers() {
+	public JButton getBtnRemovePassengers(String userType) {
 		if (btnRemovePassengers == null) {
-			btnRemovePassengers = new JButton("Eliminar");
-			btnRemovePassengers.setBounds(220, 110, 90, 35);
-			btnRemovePassengers.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				}
-			});
-			btnRemovePassengers.setIcon(new ImageIcon(GUIPassengers.class.getResource("/images/icons_remove.png")));
-			btnRemovePassengers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnRemovePassengers.setOpaque(false);
-			btnRemovePassengers.setForeground(new Color(0, 0, 128));
-			btnRemovePassengers.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnRemovePassengers.setContentAreaFilled(false);
-			btnRemovePassengers.setBorder(null);
+			if(userType.equals("Administrador")) {
+				btnRemovePassengers = new JButton("Eliminar");
+				btnRemovePassengers.setBounds(220, 110, 90, 35);
+				btnRemovePassengers.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				btnRemovePassengers.setIcon(new ImageIcon(GUIPassengers.class.getResource("/images/icons_remove.png")));
+				btnRemovePassengers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnRemovePassengers.setOpaque(false);
+				btnRemovePassengers.setForeground(new Color(0, 0, 128));
+				btnRemovePassengers.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnRemovePassengers.setContentAreaFilled(false);
+				btnRemovePassengers.setBorder(null);
+			}else if(userType.equals("Colaborador")) {
+				btnRemovePassengers = new JButton("Eliminar");
+				btnRemovePassengers.setBounds(220, 110, 90, 35);
+				btnRemovePassengers.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				btnRemovePassengers.setIcon(new ImageIcon(GUIPassengers.class.getResource("/images/icons_remove.png")));
+				btnRemovePassengers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnRemovePassengers.setOpaque(false);
+				btnRemovePassengers.setForeground(new Color(0, 0, 128));
+				btnRemovePassengers.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnRemovePassengers.setContentAreaFilled(false);
+				btnRemovePassengers.setBorder(null);
+				btnRemovePassengers.setVisible(false);
+			}
 		}
 		return btnRemovePassengers;
 	}
-	public JButton getBtnEditPassengers() {
+	public JButton getBtnEditPassengers(String userType) {
 		if (btnEditPassengers == null) {
-			btnEditPassengers = new JButton("Editar");
-			btnEditPassengers.setBounds(10, 110, 80, 35);
-			btnEditPassengers.setIcon(new ImageIcon(GUIPassengers.class.getResource("/images/icons_edit.png")));
-			btnEditPassengers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnEditPassengers.setOpaque(false);
-			btnEditPassengers.setForeground(new Color(0, 0, 128));
-			btnEditPassengers.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnEditPassengers.setContentAreaFilled(false);
-			btnEditPassengers.setBorder(null);
+			if(userType.equals("Administrador")) {
+				btnEditPassengers = new JButton("Editar");
+				btnEditPassengers.setBounds(10, 110, 80, 35);
+				btnEditPassengers.setIcon(new ImageIcon(GUIPassengers.class.getResource("/images/icons_edit.png")));
+				btnEditPassengers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnEditPassengers.setOpaque(false);
+				btnEditPassengers.setForeground(new Color(0, 0, 128));
+				btnEditPassengers.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnEditPassengers.setContentAreaFilled(false);
+				btnEditPassengers.setBorder(null);
+			}else if(userType.equals("Colaborador")) {
+				btnEditPassengers = new JButton("Editar");
+				btnEditPassengers.setBounds(10, 110, 80, 35);
+				btnEditPassengers.setIcon(new ImageIcon(GUIPassengers.class.getResource("/images/icons_edit.png")));
+				btnEditPassengers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnEditPassengers.setOpaque(false);
+				btnEditPassengers.setForeground(new Color(0, 0, 128));
+				btnEditPassengers.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnEditPassengers.setContentAreaFilled(false);
+				btnEditPassengers.setBorder(null);
+				btnEditPassengers.setVisible(false);
+			}
 		}
 		return btnEditPassengers;
 	}

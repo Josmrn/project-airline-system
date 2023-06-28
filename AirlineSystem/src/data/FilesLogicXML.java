@@ -377,8 +377,6 @@ public class FilesLogicXML {
 						Element element = (Element) node;
 
 						// Se verifica el usuario y Contraseña
-						System.out.println(element.getAttribute("user"));
-						System.out.println(element.getElementsByTagName("password").item(0).getTextContent());
 						String userValue = element.getAttribute("user");
 
 						String passwordValue = element.getElementsByTagName("password").item(0).getTextContent();

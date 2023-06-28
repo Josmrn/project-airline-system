@@ -224,8 +224,7 @@ public class FilesAirlinesXML {
 						if (eElement.getElementsByTagName("country").getLength() > 0) {
 							a.setCountry(eElement.getElementsByTagName("country").item(0).getTextContent());
 						}
-						
-						
+					
 
 						break;
 					}

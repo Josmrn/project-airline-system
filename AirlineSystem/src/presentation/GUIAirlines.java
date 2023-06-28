@@ -44,7 +44,7 @@ public class GUIAirlines extends JInternalFrame {
 	private JTextField tOpeCenter;
 
 	
-	public GUIAirlines() {
+	public GUIAirlines(String userType) {
 		getContentPane().setBackground(new Color(255, 255, 255));
 		setTitle("Gestión de Aerolineas");
 		setMaximizable(true);
@@ -57,8 +57,8 @@ public class GUIAirlines extends JInternalFrame {
 		getContentPane().add(getTWriteAirlines());
 		getContentPane().add(getLOpeCenter());
 		getContentPane().add(getLOperationAirlines());
-		getContentPane().add(getBtnRemoveAirlines());
-		getContentPane().add(getBtnEditAirlines());
+		getContentPane().add(getBtnRemoveAirlines(userType));
+		getContentPane().add(getBtnEditAirlines(userType));
 		getContentPane().add(getBtnConsultAirlines());
 		getContentPane().add(getBtnAddAirlines());
 		getContentPane().add(getSeparator_1());
@@ -115,35 +115,67 @@ public class GUIAirlines extends JInternalFrame {
 		}
 		return lOperationAirlines;
 	}
-	public JButton getBtnRemoveAirlines() {
+	public JButton getBtnRemoveAirlines(String userType) {
 		if (btnRemoveAirlines == null) {
-			btnRemoveAirlines = new JButton("Eliminar");
-			btnRemoveAirlines.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				}
-			});
-			btnRemoveAirlines.setIcon(new ImageIcon(GUIAirlines.class.getResource("/images/icons_remove.png")));
-			btnRemoveAirlines.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnRemoveAirlines.setOpaque(false);
-			btnRemoveAirlines.setForeground(new Color(0, 0, 128));
-			btnRemoveAirlines.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnRemoveAirlines.setContentAreaFilled(false);
-			btnRemoveAirlines.setBorder(null);
-			btnRemoveAirlines.setBounds(220, 110, 90, 35);
+			
+			if(userType.equals("Administrador")) {
+				btnRemoveAirlines = new JButton("Eliminar");
+				btnRemoveAirlines.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				btnRemoveAirlines.setIcon(new ImageIcon(GUIAirlines.class.getResource("/images/icons_remove.png")));
+				btnRemoveAirlines.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnRemoveAirlines.setOpaque(false);
+				btnRemoveAirlines.setForeground(new Color(0, 0, 128));
+				btnRemoveAirlines.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnRemoveAirlines.setContentAreaFilled(false);
+				btnRemoveAirlines.setBorder(null);
+				btnRemoveAirlines.setBounds(220, 110, 90, 35);
+			}else if(userType.equals("Colaborador")) {
+				btnRemoveAirlines = new JButton("Eliminar");
+				btnRemoveAirlines.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				btnRemoveAirlines.setIcon(new ImageIcon(GUIAirlines.class.getResource("/images/icons_remove.png")));
+				btnRemoveAirlines.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnRemoveAirlines.setOpaque(false);
+				btnRemoveAirlines.setForeground(new Color(0, 0, 128));
+				btnRemoveAirlines.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnRemoveAirlines.setContentAreaFilled(false);
+				btnRemoveAirlines.setBorder(null);
+				btnRemoveAirlines.setBounds(220, 110, 90, 35);
+				btnRemoveAirlines.setVisible(false);
+			}
+			
 		}
 		return btnRemoveAirlines;
 	}
-	public JButton getBtnEditAirlines() {
+	public JButton getBtnEditAirlines(String userType) {
 		if (btnEditAirlines == null) {
-			btnEditAirlines = new JButton("Editar");
-			btnEditAirlines.setIcon(new ImageIcon(GUIAirlines.class.getResource("/images/icons_edit.png")));
-			btnEditAirlines.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnEditAirlines.setOpaque(false);
-			btnEditAirlines.setForeground(new Color(0, 0, 128));
-			btnEditAirlines.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnEditAirlines.setContentAreaFilled(false);
-			btnEditAirlines.setBorder(null);
-			btnEditAirlines.setBounds(10, 110, 80, 35);
+			if(userType.equals("Administrador")) {
+				btnEditAirlines = new JButton("Editar");
+				btnEditAirlines.setIcon(new ImageIcon(GUIAirlines.class.getResource("/images/icons_edit.png")));
+				btnEditAirlines.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnEditAirlines.setOpaque(false);
+				btnEditAirlines.setForeground(new Color(0, 0, 128));
+				btnEditAirlines.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnEditAirlines.setContentAreaFilled(false);
+				btnEditAirlines.setBorder(null);
+				btnEditAirlines.setBounds(10, 110, 80, 35);
+			}else if(userType.equals("Colaborador")) {
+				btnEditAirlines = new JButton("Editar");
+				btnEditAirlines.setIcon(new ImageIcon(GUIAirlines.class.getResource("/images/icons_edit.png")));
+				btnEditAirlines.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnEditAirlines.setOpaque(false);
+				btnEditAirlines.setForeground(new Color(0, 0, 128));
+				btnEditAirlines.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnEditAirlines.setContentAreaFilled(false);
+				btnEditAirlines.setBorder(null);
+				btnEditAirlines.setBounds(10, 110, 80, 35);
+				btnEditAirlines.setVisible(false);
+			}
 		}
 		return btnEditAirlines;
 	}

@@ -31,10 +31,12 @@ public class ControllerFlights implements ActionListener {
 	private FilesFlightXML fFXML;
 	private FilesPlanesXML fPXML;
 	private ArrayListFlight arrayLFlight;
+	
+	private String UserType;
 
-	public ControllerFlights(GUIMain guiMain) {
+	public ControllerFlights(GUIMain guiMain,String userType) {
 		// TODO Auto-generated constructor stub
-		guiF = new GUIFlights();
+		guiF = new GUIFlights(userType);
 		guiMain.getDesktopMain().add(guiF);
 		f = new Flights();
 		fXML = new FilesXML();
@@ -42,6 +44,7 @@ public class ControllerFlights implements ActionListener {
 		fPXML = new FilesPlanesXML();
 		arrayLFlight = new ArrayListFlight();
 		fXML.createXML("Flights", "Flights.xml");
+		UserType = userType;
 		
 		ArrayList<Planes> planelList = fPXML.returnPlanes("Planes.xml", "Plane");
 		
@@ -53,8 +56,8 @@ public class ControllerFlights implements ActionListener {
 		// TODO Auto-generated method stub
 		refreshFlight();
 		guiF.getBtnAddFlight().addActionListener(this);
-		guiF.getBtnEditFlights().addActionListener(this);
-		guiF.getBtnRemoveFlights().addActionListener(this);
+		guiF.getBtnEditFlights(UserType).addActionListener(this);
+		guiF.getBtnRemoveFlights(UserType).addActionListener(this);
 		guiF.getBtnConsultFlight().addActionListener(this);
 	}
 	
@@ -142,29 +145,29 @@ public class ControllerFlights implements ActionListener {
 		    } else {
 		    	JOptionPane.showMessageDialog(null, "No se pudo registrar el vuelo");
 		    }
-			
-			
-			/*fFXML.writeFlightXML("Flights.xml", "Flight", f.getDataName(), f.getData());
-			
-			arrayLFlight.addFlight(f);
-			
-			guiF.getDTMTFlights().addRow(new Object[] {randomNumber,guiF.getTDepartureCity().getText(),departureDate,
-			departureHour,guiF.getTArrivalCity().getText(),
-			arrivalDate,arrivalHour,planeAirline,
-			Integer.parseInt(guiF.getTExecutive().getText()),Integer.parseInt(guiF.getTTourist().getText()),
-			Integer.parseInt(guiF.getTEconomic().getText()) });
-			
-			System.out.print(arrayLFlight.getArrayListFlights().size());*/
-			
-			
+		    
 		}
 
-		if (e.getSource() == guiF.getBtnEditFlights()) {
+		if (e.getSource() == guiF.getBtnEditFlights(UserType)) {
 
 		}
 
-		if (e.getSource() == guiF.getBtnRemoveFlights()) {
+		if (e.getSource() == guiF.getBtnRemoveFlights(UserType)) {
+			
+			int flightNum = Integer.parseInt(guiF.getTSearchFlights().getText());
 
+			// Elimina el dato dentro del xml y refrescar en la tabla
+			Flights f = fFXML.searchFlightAndDelete("Flights.xml", "Flight", flightNum);
+
+			if (f != null) {
+				arrayLFlight.removeFlight(f);
+				refreshFlight();
+				JOptionPane.showMessageDialog(null, "El vuelo se eliminó correctamente.");
+			} else {
+				JOptionPane.showMessageDialog(null, "El vuelo no se encontró o no pudo ser eliminado.");
+			}	
+			
+			
 		}
 		
 		if(e.getSource() == guiF.getBtnConsultFlight()) {

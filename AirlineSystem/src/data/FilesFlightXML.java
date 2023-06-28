@@ -201,6 +201,68 @@ public class FilesFlightXML {
 
 	    return f;
 	}
+	
+	public Flights searchFlightAndDelete(String Filename, String elementType, int flightNum) {
+		Flights f = null;
+
+		try {
+			File inputFile = new File(Filename);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName(elementType);
+
+			for (int indice = 0; indice < nList.getLength(); indice++) {
+				Node nNode = nList.item(indice);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+
+					if (Integer.parseInt(eElement.getAttribute("flightNum")) == flightNum) {
+						System.out.println("Encontre el vuelo");
+
+						eElement.removeAttribute("flightNum");
+						eElement.getParentNode().removeChild(eElement);
+
+						TransformerFactory transformerFactory = TransformerFactory.newInstance();
+						Transformer transformer = transformerFactory.newTransformer();
+						DOMSource source = new DOMSource(doc);
+						StreamResult result = new StreamResult(new File(Filename));
+						transformer.transform(source, result);
+
+						f = new Flights();
+	                    f.setFlightNum(flightNum);
+	                    f.setDepartureCity(eElement.getElementsByTagName("departureCity").item(0).getTextContent());
+	                    f.setDepartureDate(parseDate(eElement.getElementsByTagName("departureDate").item(0).getTextContent()));
+	                    f.setDepartureHour(parseTime(eElement.getElementsByTagName("departureHour").item(0).getTextContent()));
+	                    
+	                    // Verifica si los elementos de llegada existen antes de asignarlos
+	                    if (eElement.getElementsByTagName("arrivalDate").getLength() > 0) {
+	                        f.setArrivalDate(parseDate(eElement.getElementsByTagName("arrivalDate").item(0).getTextContent()));
+	                    }
+	                    if (eElement.getElementsByTagName("arrivalHour").getLength() > 0) {
+	                        f.setArrivalHour(parseTime(eElement.getElementsByTagName("arrivalHour").item(0).getTextContent()));
+	                    }
+	                    
+	                    f.setPlane(eElement.getElementsByTagName("plane").item(0).getTextContent());
+	                    f.setArrivalCity(eElement.getElementsByTagName("arrivalCity").item(0).getTextContent());
+	                    f.setAmountOfExecSeat(Integer.parseInt(eElement.getElementsByTagName("amountOfExecSeat").item(0).getTextContent()));
+	                    f.setAmountOfTourSeat(Integer.parseInt(eElement.getElementsByTagName("amountOfTourSeat").item(0).getTextContent()));
+	                    f.setAmountOfEcoSeat(Integer.parseInt(eElement.getElementsByTagName("amountOfEcoSeat").item(0).getTextContent()));
+						
+
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return f;
+	}
 
 	private LocalDate parseDate(String date) {
 	    String[] parts = date.split("-");

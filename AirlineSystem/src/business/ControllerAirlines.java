@@ -20,15 +20,17 @@ public class ControllerAirlines implements ActionListener{
 	private FilesAirlinesXML fAXML;
 	private ArrayListAirline arrayLAirlines;
 	
+	private String UserType;
 	
-	public ControllerAirlines(GUIMain guiMain) {
+	public ControllerAirlines(GUIMain guiMain, String userType) {
 		// TODO Auto-generated constructor stub
 		airline = new Airlines();
-		guiAir = new GUIAirlines();
+		guiAir = new GUIAirlines(userType);
 		guiMain.getDesktopMain().add(guiAir);
 		fXML = new FilesXML();
 		fAXML = new FilesAirlinesXML();
 		arrayLAirlines = new ArrayListAirline();
+		UserType = userType;
 		
 		fXML.createXML("Airlines", "Airlines.xml");
 
@@ -39,8 +41,8 @@ public class ControllerAirlines implements ActionListener{
 		// TODO Auto-generated method stub
 		refreshData();
 		guiAir.getBtnAddAirlines().addActionListener(this);
-		guiAir.getBtnEditAirlines().addActionListener(this);
-		guiAir.getBtnRemoveAirlines().addActionListener(this);
+		guiAir.getBtnEditAirlines(UserType).addActionListener(this);
+		guiAir.getBtnRemoveAirlines(UserType).addActionListener(this);
 		guiAir.getBtnConsultAirlines().addActionListener(this);
 	}
 	
@@ -73,7 +75,7 @@ public class ControllerAirlines implements ActionListener{
 			
 		}
 		
-		if(e.getSource() == guiAir.getBtnEditAirlines()) {
+		if(e.getSource() == guiAir.getBtnEditAirlines(UserType)) {
 			
 			// Obtiene los datos del formulario
 			String nameAirline = guiAir.getTWriteAirlines().getText();
@@ -106,7 +108,7 @@ public class ControllerAirlines implements ActionListener{
 			
 		}
 		
-		if(e.getSource() == guiAir.getBtnRemoveAirlines()) {
+		if(e.getSource() == guiAir.getBtnRemoveAirlines(UserType)) {
 			
 			String nameAirline = guiAir.getTSearchAirline().getText();
 

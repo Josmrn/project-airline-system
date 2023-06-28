@@ -13,11 +13,11 @@ public class ControllerMain implements ActionListener{
 	
 	private GUIMain guiMain; 
 	//private Dimension desktopSize, FrameSize;
-	
+	private String userType;
 
-	public ControllerMain() {
-		guiMain = new GUIMain();
-		
+	public ControllerMain(String typeUser) {
+		guiMain = new GUIMain(typeUser);
+		userType = typeUser; 
 		initializerAction();
 	}
 	
@@ -51,30 +51,30 @@ public class ControllerMain implements ActionListener{
 		}
 		
 		if(e.getSource() == guiMain.getMiAddBrand()) {
-			new ControllerBrands(guiMain);
+			new ControllerBrands(guiMain,userType);
 		}
 		
 		if(e.getSource() == guiMain.getMiEditModels()) {
-			new ControllerModels(guiMain);
+			new ControllerModels(guiMain,userType);
 		}
 		
 		if(e.getSource() == guiMain.getMiManageAirline()) {
 			System.out.println("MenuItem ManageAirline clicked!");
-			new ControllerAirlines(guiMain);
+			new ControllerAirlines(guiMain,userType);
 		}
 		
 		if(e.getSource() == guiMain.getMiManageAircraft()) {
-			new ControllerPlanes(guiMain);
+			new ControllerPlanes(guiMain,userType);
 		}
 		
 		if(e.getSource() == guiMain.getMiManageFlight()) {
-			new ControllerFlights(guiMain);
+			new ControllerFlights(guiMain,userType);
 		}
 		if(e.getSource() == guiMain.getMiManagePassenger()) {
-			new ControllerPassengers(guiMain);
+			new ControllerPassengers(guiMain,userType);
 		}
 		if(e.getSource() == guiMain.getMiManageTickets()) {
-			new ControllerTickets(guiMain);
+			new ControllerTickets(guiMain,userType);
 		}
 		
 		

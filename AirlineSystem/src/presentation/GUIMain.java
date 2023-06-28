@@ -48,38 +48,65 @@ public class GUIMain extends JFrame {
 	private JMenu mManagement;
 	private JMenu mOperations;
 	
-	public GUIMain() {
-		setTitle("Airline Software");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 550, 500);
-		setJMenuBar(getMenuBar_1());
-		contentPane = new JPanel();
-		contentPane.setBackground(Color.WHITE);
-		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+	public GUIMain(String userType) {
+		
+		if(userType.equals("Administrador")) {
+			setTitle("Airline Software");
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			setBounds(100, 100, 550, 500);
+			setJMenuBar(getMenuBar_1(userType));
+			contentPane = new JPanel();
+			contentPane.setBackground(Color.WHITE);
+			contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(new CardLayout(0, 0));
-		contentPane.add(getDesktopMain(), "name_264125534228499");
-		//contentPane.setLayout(null);
-		setExtendedState(MAXIMIZED_BOTH);
-		setLocationRelativeTo(null);
-		setVisible(true);
+			setContentPane(contentPane);
+			contentPane.setLayout(new CardLayout(0, 0));
+			contentPane.add(getDesktopMain(), "name_264125534228499");
+			//contentPane.setLayout(null);
+			setExtendedState(MAXIMIZED_BOTH);
+			setLocationRelativeTo(null);
+			setVisible(true);
+		}else if(userType.equals("Colaborador")) {
+			setTitle("Airline Software");
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			setBounds(100, 100, 550, 500);
+			setJMenuBar(getMenuBar_1(userType));
+			contentPane = new JPanel();
+			contentPane.setBackground(Color.WHITE);
+			contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+
+			setContentPane(contentPane);
+			contentPane.setLayout(new CardLayout(0, 0));
+			contentPane.add(getDesktopMain(), "name_264125534228499");
+			//contentPane.setLayout(null);
+			setExtendedState(MAXIMIZED_BOTH);
+			setLocationRelativeTo(null);
+			setVisible(true);
+		}
+		
 	}
-	public JMenuBar getMenuBar_1() {
+	public JMenuBar getMenuBar_1(String userType) {
 		if (menuBar == null) {
 			menuBar = new JMenuBar();
 			menuBar.setBorderPainted(false);
-			menuBar.add(getMManagement());
+			menuBar.add(getMManagement(userType));
 			menuBar.add(getMOperations());
 			menuBar.add(getMHelp());
 		}
 		return menuBar;
 	}
-	public JMenu getMUsers() {
+	public JMenu getMUsers(String userType) {
 		if (mUsers == null) {
-			mUsers = new JMenu("Usuarios");
-			mUsers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			mUsers.add(getMiUsersManag());
+			if(userType.equals("Administrador")) {
+				mUsers = new JMenu("Usuarios");
+				mUsers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				mUsers.add(getMiUsersManag());
+			}else {
+				mUsers = new JMenu("Usuarios");
+				mUsers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				mUsers.add(getMiUsersManag());
+				mUsers.setVisible(false);
+			}
 		}
 		return mUsers;
 	}
@@ -245,11 +272,11 @@ public class GUIMain extends JFrame {
 		}
 		return desktopMain;
 	}
-	public JMenu getMManagement() {
+	public JMenu getMManagement(String userType) {
 		if (mManagement == null) {
 			mManagement = new JMenu("Gestiones");
 			mManagement.setFont(new Font("Roboto Black", Font.PLAIN, 15));
-			mManagement.add(getMUsers());
+			mManagement.add(getMUsers(userType));
 			mManagement.add(getMBrand());
 			mManagement.add(getMModels());
 			mManagement.add(getMAirlines());

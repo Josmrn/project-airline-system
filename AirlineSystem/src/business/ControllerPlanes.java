@@ -26,16 +26,19 @@ public class ControllerPlanes implements ActionListener{
 	private Planes plane;
 	private ArrayListAircraft arrayLAircrafts;
 	
-	public ControllerPlanes(GUIMain guiMain) {
+	private String UserType;
+	
+	public ControllerPlanes(GUIMain guiMain, String userType) {
 		// TODO Auto-generated constructor stub
 		plane = new Planes();
-		guiP = new GUIPlanes();
+		guiP = new GUIPlanes(userType);
 		guiMain.getDesktopMain().add(guiP);
 		fXML = new FilesXML();
 		fPXML = new FilesPlanesXML();
 		fMXML = new FilesModelsXML();
 		fAXML = new FilesAirlinesXML();
 		arrayLAircrafts = new ArrayListAircraft();
+		UserType = userType;
 		
 		fXML.createXML("Planes", "Planes.xml");
 		
@@ -54,8 +57,8 @@ public class ControllerPlanes implements ActionListener{
 		
 		refreshData();
 		guiP.getBtnAddPlanes().addActionListener(this);
-		guiP.getBtnEditPlanes().addActionListener(this);
-		guiP.getBtnRemovePlanes().addActionListener(this);
+		guiP.getBtnEditPlanes(UserType).addActionListener(this);
+		guiP.getBtnRemovePlanes(UserType).addActionListener(this);
 		guiP.getBtnConsultPlane().addActionListener(this);
 	}
 	
@@ -93,7 +96,7 @@ public class ControllerPlanes implements ActionListener{
 			
 		}
 		
-		if(e.getSource() == guiP.getBtnEditPlanes()) {
+		if(e.getSource() == guiP.getBtnEditPlanes(UserType)) {
 			
 			
 			String nameRegister = guiP.getTWritePlanes().getText();
@@ -127,7 +130,7 @@ public class ControllerPlanes implements ActionListener{
 			
 		}
 		
-		if(e.getSource() == guiP.getBtnRemovePlanes()) {
+		if(e.getSource() == guiP.getBtnRemovePlanes(UserType)) {
 			
 			String plane = guiP.getTSearchPlanes().getText();
 
