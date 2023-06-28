@@ -82,15 +82,24 @@ public class ControllerMain implements ActionListener{
 			new ControllerTickets(guiMain,userType);
 		}
 		if(e.getSource() == guiMain.getMiAboutAdmin(userType)) {
-			/* // URL que deseas abrir
-            String url = "ayuda-admin.jafeth1110jafet.repl.co";
-            
-            URI uri = new URI(url);
+			 try {
+		            // URL que deseas abrir
+		            String url = "https://ayuda-admin.jafeth1110jafet.repl.co";
 
-            // Crear una instancia de Desktop
-            Desktop desktop = Desktop.getDesktop();
+		            // Crear una instancia de Desktop
+		            Desktop desktop = Desktop.getDesktop();
 
-            desktop.browse(uri);*/
+		            // Verificar si Desktop es compatible para abrir enlaces
+		            if (Desktop.isDesktopSupported() && desktop.isSupported(Desktop.Action.BROWSE)) {
+		                // Crear un objeto URI a partir de la URL
+		                URI uri = new URI(url);
+
+		                // Abrir el enlace en el navegador predeterminado
+		                desktop.browse(uri);
+		            }
+		        } catch (Exception e1) {
+		            e1.printStackTrace();
+		        }
 		}     
            
 		
