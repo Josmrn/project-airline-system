@@ -55,7 +55,7 @@ public class GUITickets extends JInternalFrame {
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		setBounds(100, 100, 1017, 639);
+		setBounds(100, 100, 765, 639);
 		getContentPane().setLayout(null);
 		getContentPane().add(getLTicketsManag());
 		getContentPane().add(getLTicketNumber());
@@ -81,7 +81,7 @@ public class GUITickets extends JInternalFrame {
 		if (lTicketsManag == null) {
 			lTicketsManag = new JLabel("Bienvenidos a la Gestión de Tickets");
 			lTicketsManag.setBackground(new Color(255, 255, 255));
-			lTicketsManag.setBounds(10, 10, 975, 40);
+			lTicketsManag.setBounds(10, 10, 740, 40);
 			lTicketsManag.setHorizontalAlignment(SwingConstants.CENTER);
 			lTicketsManag.setFont(new Font("Roboto Black", Font.PLAIN, 18));
 			lTicketsManag.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -100,7 +100,7 @@ public class GUITickets extends JInternalFrame {
 	public JTextField getTTicketNumber() {
 		if (tTicketNumber == null) {
 			tTicketNumber = new JTextField();
-			tTicketNumber.setBounds(10, 200, 300, 25);
+			tTicketNumber.setBounds(10, 200, 200, 25);
 			tTicketNumber.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			tTicketNumber.setColumns(10);
 			tTicketNumber.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -110,7 +110,7 @@ public class GUITickets extends JInternalFrame {
 	public JLabel getLPassportNumber() {
 		if (lPassportNumber == null) {
 			lPassportNumber = new JLabel("Numero de Pasaporte");
-			lPassportNumber.setBounds(341, 172, 150, 25);
+			lPassportNumber.setBounds(220, 172, 150, 25);
 			lPassportNumber.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 
 		}
@@ -119,7 +119,7 @@ public class GUITickets extends JInternalFrame {
 	public JLabel getLOperationTickets() {
 		if (lOperationTickets == null) {
 			lOperationTickets = new JLabel("Operaciones");
-			lOperationTickets.setBounds(10, 75, 975, 25);
+			lOperationTickets.setBounds(10, 75, 740, 25);
 			lOperationTickets.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			lOperationTickets.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		}
@@ -128,7 +128,7 @@ public class GUITickets extends JInternalFrame {
 	public JButton getBtnRemoveTickets() {
 		if (btnRemoveTickets == null) {
 			btnRemoveTickets = new JButton("Eliminar");
-			btnRemoveTickets.setBounds(220, 110, 90, 35);
+			btnRemoveTickets.setBounds(100, 110, 90, 35);
 			btnRemoveTickets.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				}
@@ -160,7 +160,7 @@ public class GUITickets extends JInternalFrame {
 	public JButton getBtnConsultTickets() {
 		if (btnConsultTickets == null) {
 			btnConsultTickets = new JButton("Consultar");
-			btnConsultTickets.setBounds(865, 110, 120, 35);
+			btnConsultTickets.setBounds(630, 110, 120, 35);
 			btnConsultTickets.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnConsultTickets.setHorizontalAlignment(SwingConstants.LEFT);
 			btnConsultTickets.setIcon(new ImageIcon(GUITickets.class.getResource("/images/icons_consult.png")));
@@ -175,7 +175,7 @@ public class GUITickets extends JInternalFrame {
 	public JButton getBtnAddTickets() {
 		if (btnAddTickets == null) {
 			btnAddTickets = new JButton("Agregar");
-			btnAddTickets.setBounds(388, 110, 124, 35);
+			btnAddTickets.setBounds(210, 110, 100, 35);
 			btnAddTickets.setIcon(new ImageIcon(GUITickets.class.getResource("/images/icons_add.png")));
 			btnAddTickets.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnAddTickets.setOpaque(false);
@@ -220,7 +220,7 @@ public class GUITickets extends JInternalFrame {
 	}
 	public void setSPTTickets(JTable tTickets) {
 		spTTickets = new JScrollPane(tTickets);
-		spTTickets.setBounds(10, 272, 610, 328);
+		spTTickets.setBounds(10, 272, 520, 328);
 		spTTickets.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Datos de tickets registrados", TitledBorder.LEFT, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)));
 		spTTickets.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spTTickets.setToolTipText("");
@@ -236,7 +236,7 @@ public class GUITickets extends JInternalFrame {
 	public JSeparator getSeparator_1() {
 		if (separator_1 == null) {
 			separator_1 = new JSeparator();
-			separator_1.setBounds(10, 150, 975, 1);
+			separator_1.setBounds(10, 150, 740, 1);
 
 		}
 		return separator_1;
@@ -244,7 +244,7 @@ public class GUITickets extends JInternalFrame {
 	public JTextField getTSearchTickets() {
 		if (tSearchTickets == null) {
 			tSearchTickets = new JTextField();
-			tSearchTickets.setBounds(555, 110, 300, 30);
+			tSearchTickets.setBounds(320, 115, 300, 30);
 			tSearchTickets.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			tSearchTickets.setForeground(new Color(192, 192, 192));
 			tSearchTickets.addMouseListener(new MouseAdapter() {
@@ -257,7 +257,7 @@ public class GUITickets extends JInternalFrame {
 				}
 			});
 			tSearchTickets.setText("Escribir el ticket que desea consultar/eliminar");
-			tSearchTickets.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			tSearchTickets.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tSearchTickets.setColumns(10);
 		}
 		return tSearchTickets;
@@ -268,7 +268,7 @@ public class GUITickets extends JInternalFrame {
 			tPassportNumber.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			tPassportNumber.setColumns(10);
 			tPassportNumber.setBorder(new LineBorder(new Color(0, 0, 0)));
-			tPassportNumber.setBounds(320, 200, 300, 25);
+			tPassportNumber.setBounds(220, 200, 200, 25);
 		
 		}
 		return tPassportNumber;
@@ -277,7 +277,7 @@ public class GUITickets extends JInternalFrame {
 		if (lFlightNumber == null) {
 			lFlightNumber = new JLabel("Numero de Vuelo");
 			lFlightNumber.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lFlightNumber.setBounds(633, 172, 123, 25);
+			lFlightNumber.setBounds(430, 172, 123, 25);
 
 		}
 		return lFlightNumber;
@@ -288,7 +288,7 @@ public class GUITickets extends JInternalFrame {
 			tFlightNumber.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			tFlightNumber.setColumns(10);
 			tFlightNumber.setBorder(new LineBorder(new Color(0, 0, 0)));
-			tFlightNumber.setBounds(630, 200, 300, 25);
+			tFlightNumber.setBounds(430, 200, 100, 25);
 
 		}
 		return tFlightNumber;

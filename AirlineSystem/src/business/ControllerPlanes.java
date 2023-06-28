@@ -104,12 +104,11 @@ public class ControllerPlanes implements ActionListener{
 			int selectedRow = guiP.getTPlanes().getSelectedRow();
 			int selectedColumn = guiP.getTPlanes().getSelectedColumn();
 									
-			// Verifica si hay una fila seleccionada
 			if (selectedRow == -1) {
 			JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila para editar.");
 			return;
 			}
-			// Verifica si hay una columna de ticket seleccionada
+			
 			if (selectedColumn != 0) {
 			JOptionPane.showMessageDialog(null, "Por favor, seleccione la columna de la matricula del avion para editar.");
 			return;

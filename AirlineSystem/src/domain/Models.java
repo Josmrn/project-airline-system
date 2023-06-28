@@ -58,7 +58,7 @@ public class Models{
 	}
 	
 	public String[] getDataName() {
-		String[] dataName = {"name","brand","	execSeats","tourSeats", "ecoSeats"};
+		String[] dataName = {"name","brand","execSeats","tourSeats", "ecoSeats"};
 		return dataName;
 	}
 	

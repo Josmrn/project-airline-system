@@ -29,7 +29,6 @@ import java.util.Vector;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
 @SuppressWarnings("serial")
 public class GUIPlanes extends JInternalFrame {
 	private JLabel lPlaneManag;
@@ -53,7 +52,6 @@ public class GUIPlanes extends JInternalFrame {
 	private JComboBox<String> cxPlaneModel;
 	private JTextField tYear;
 
-	
 	public GUIPlanes() {
 		getContentPane().setBackground(new Color(255, 255, 255));
 		setTitle("Gestión de Aviones");
@@ -84,6 +82,7 @@ public class GUIPlanes extends JInternalFrame {
 		getContentPane().add(spTPlanes);
 		setVisible(true);
 	}
+
 	public JLabel getLPlaneManag() {
 		if (lPlaneManag == null) {
 			lPlaneManag = new JLabel("Bienvenidos a la Gestión de Aviones");
@@ -94,6 +93,7 @@ public class GUIPlanes extends JInternalFrame {
 		}
 		return lPlaneManag;
 	}
+
 	public JLabel getLId() {
 		if (lId == null) {
 			lId = new JLabel("Matricula");
@@ -102,6 +102,7 @@ public class GUIPlanes extends JInternalFrame {
 		}
 		return lId;
 	}
+
 	public JTextField getTWritePlanes() {
 		if (tWritePlanes == null) {
 			tWritePlanes = new JTextField();
@@ -112,6 +113,7 @@ public class GUIPlanes extends JInternalFrame {
 		}
 		return tWritePlanes;
 	}
+
 	public JLabel getLAirline() {
 		if (lAirline == null) {
 			lAirline = new JLabel("Aerolinea de Avión");
@@ -120,6 +122,7 @@ public class GUIPlanes extends JInternalFrame {
 		}
 		return lAirline;
 	}
+
 	@SuppressWarnings({ "rawtypes" })
 	public JComboBox getCxPlaneAirline() {
 		if (cxPlaneAirline == null) {
@@ -129,15 +132,15 @@ public class GUIPlanes extends JInternalFrame {
 		}
 		return cxPlaneAirline;
 	}
-	
+
 	public void fillAirlineComboBox(ArrayList<Airlines> airlines) {
 		cxPlaneAirline.addItem("Seleccionar:");
 
-	    for (Airlines airline : airlines) {
-	        cxPlaneAirline.addItem(airline.getNameAirline());
-	    }
+		for (Airlines airline : airlines) {
+			cxPlaneAirline.addItem(airline.getNameAirline());
+		}
 	}
-	
+
 	@SuppressWarnings({ "rawtypes" })
 	public JComboBox getCxPlaneModel() {
 		if (cxPlaneModel == null) {
@@ -147,15 +150,15 @@ public class GUIPlanes extends JInternalFrame {
 		}
 		return cxPlaneModel;
 	}
-	
+
 	public void fillModelsComboBox(ArrayList<Models> models) {
 		cxPlaneModel.addItem("Seleccionar:");
-		
-		for(Models model: models) {
-			cxPlaneModel.addItem(model.getBrand());
+
+		for (Models model : models) {
+			cxPlaneModel.addItem(model.getName());
 		}
 	}
-	
+
 	public JLabel getLYear() {
 		if (lYear == null) {
 			lYear = new JLabel("Año del Avion");
@@ -164,6 +167,7 @@ public class GUIPlanes extends JInternalFrame {
 		}
 		return lYear;
 	}
+
 	public JLabel getLOperationPlanes() {
 		if (lOperationPlanes == null) {
 			lOperationPlanes = new JLabel("Operaciones");
@@ -173,6 +177,7 @@ public class GUIPlanes extends JInternalFrame {
 		}
 		return lOperationPlanes;
 	}
+
 	public JButton getBtnRemovePlanes() {
 		if (btnRemovePlanes == null) {
 			btnRemovePlanes = new JButton("Eliminar");
@@ -191,6 +196,7 @@ public class GUIPlanes extends JInternalFrame {
 		}
 		return btnRemovePlanes;
 	}
+
 	public JButton getBtnEditPlanes() {
 		if (btnEditPlanes == null) {
 			btnEditPlanes = new JButton("Editar");
@@ -205,6 +211,7 @@ public class GUIPlanes extends JInternalFrame {
 		}
 		return btnEditPlanes;
 	}
+
 	public JButton getBtnConsultPlane() {
 		if (btnConsultPlane == null) {
 			btnConsultPlane = new JButton("Consultar");
@@ -220,6 +227,7 @@ public class GUIPlanes extends JInternalFrame {
 		}
 		return btnConsultPlane;
 	}
+
 	public JButton getBtnAddPlanes() {
 		if (btnAddPlanes == null) {
 			btnAddPlanes = new JButton("Agregar");
@@ -235,31 +243,35 @@ public class GUIPlanes extends JInternalFrame {
 		}
 		return btnAddPlanes;
 	}
+
 	public void setDTMTPlanes(Object data[][], String[] columnsNamesM) {
 		dtmTPlanes = new DefaultTableModel(data, columnsNamesM);
 	}
+
 	public DefaultTableModel getDTMTPlanes() {
 		return dtmTPlanes;
 	}
+
 	public void setTPlanes(DefaultTableModel dtmtPlanes) {
 		tPlanes = new JTable(dtmTPlanes);
 		tPlanes.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				
-				int selectedRow = tPlanes.getSelectedRow(); //Variable que va a obtener lo que se encuentra en tUsers
-	            DefaultTableModel model = (DefaultTableModel) tPlanes.getModel(); //Me va a obtener los datos asociados a tTickets que están en la tabla
-	            Vector<Object> rowData = model.getDataVector().elementAt(selectedRow); //Es el vector del objeto seleccionado en la tabla
-	           //Se agregan los componentes al los campos de texto y combo box
-	            tWritePlanes.setText((String) rowData.get(0));
-	            
-	            cxPlaneAirline.setSelectedItem(rowData.get(1));
-	            
-	            cxPlaneModel.setSelectedItem(rowData.get(2));
-	            
-	            tYear.setText(String.valueOf((int) rowData.get(3)));
+
+				int selectedRow = tPlanes.getSelectedRow(); // Variable que va a obtener lo que se encuentra en tUsers
+				DefaultTableModel model = (DefaultTableModel) tPlanes.getModel(); // Me va a obtener los datos asociados
+																					// a tTickets que están en la tabla
+				Vector<Object> rowData = model.getDataVector().elementAt(selectedRow); // Es el vector del objeto
+																						// seleccionado en la tabla
+				// Se agregan los componentes al los campos de texto y combo box
+				tWritePlanes.setText((String) rowData.get(0));
+
+				cxPlaneAirline.setSelectedItem(rowData.get(1));
+
+				cxPlaneModel.setSelectedItem(rowData.get(2));
+
+				tYear.setText(String.valueOf((int) rowData.get(3)));
 			}
 		});
 		tPlanes.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -267,24 +279,31 @@ public class GUIPlanes extends JInternalFrame {
 		tPlanes.getTableHeader().setReorderingAllowed(false);
 		tPlanes.getTableHeader().setResizingAllowed(false);
 	}
+
 	public JTable getTPlanes() {
 		return this.tPlanes;
 	}
+
 	public void setSPTPlanes(JTable tModels) {
 		spTPlanes = new JScrollPane(tModels);
-		spTPlanes.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Datos de aviones registrados", TitledBorder.LEFT, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)));
+		spTPlanes.setBorder(new TitledBorder(
+				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
+				"Datos de aviones registrados", TitledBorder.LEFT, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)));
 		spTPlanes.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spTPlanes.setToolTipText("");
 		spTPlanes.setBackground(new Color(255, 255, 255));
 		spTPlanes.setBounds(10, 248, 780, 278);
 	}
+
 	public JScrollPane getSPTPlanes() {
 		return this.spTPlanes;
 	}
+
 	public String[] getColumnsNamesM() {
-		String columnsName[] = {"Matricula","Aerolinea","Modelo","Año"};
+		String columnsName[] = { "Matricula", "Aerolinea", "Modelo", "Año" };
 		return columnsName;
 	}
+
 	public JSeparator getSeparator_1() {
 		if (separator_1 == null) {
 			separator_1 = new JSeparator();
@@ -292,6 +311,7 @@ public class GUIPlanes extends JInternalFrame {
 		}
 		return separator_1;
 	}
+
 	public JTextField getTSearchPlanes() {
 		if (tSearchPlanes == null) {
 			tSearchPlanes = new JTextField();
@@ -300,7 +320,7 @@ public class GUIPlanes extends JInternalFrame {
 			tSearchPlanes.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
-					if(tSearchPlanes.getText().equals("Escribir el Avion que desea consultar/eliminar")) {
+					if (tSearchPlanes.getText().equals("Escribir el Avion que desea consultar/eliminar")) {
 						tSearchPlanes.setText("");
 						tSearchPlanes.setForeground(Color.black);
 					}
@@ -313,6 +333,7 @@ public class GUIPlanes extends JInternalFrame {
 		}
 		return tSearchPlanes;
 	}
+
 	public JLabel getLModel() {
 		if (lPlane == null) {
 			lPlane = new JLabel("Modelo del Avion");
@@ -321,13 +342,13 @@ public class GUIPlanes extends JInternalFrame {
 		}
 		return lPlane;
 	}
-	
+
 	public JTextField getTYear() {
 		if (tYear == null) {
 			tYear = new JTextField();
 			tYear.addMouseListener(new MouseAdapter() {
 				public void mouseReleased(MouseEvent e) {
-					if(tYear.getText().equals("AAAA")) {
+					if (tYear.getText().equals("AAAA")) {
 						tYear.setText("");
 						tYear.setForeground(Color.black);
 					}
