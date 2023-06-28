@@ -41,6 +41,7 @@ public class ControllerMain implements ActionListener{
 		guiMain.getMiManageTickets().addActionListener(this);
 		guiMain.getMiAboutAdmin(userType).addActionListener(this);
 		guiMain.getMiAboutColab().addActionListener(this);
+		guiMain.getMiPrintTicket().addActionListener(this);
 
 	}
 
@@ -78,6 +79,9 @@ public class ControllerMain implements ActionListener{
 		}
 		if(e.getSource() == guiMain.getMiManageTickets()) {
 			new ControllerTickets(guiMain,userType);
+		}
+		if(e.getSource() == guiMain.getMiPrintTicket()) {
+			new ControllerPrint(guiMain);
 		}
 		if(e.getSource() == guiMain.getMiAboutAdmin(userType)) {
 			

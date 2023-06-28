@@ -6,6 +6,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -13,11 +14,15 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import domain.Airlines;
+import domain.Flights;
+import domain.Tickets;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
-import javax.swing.JSeparator;
 
 @SuppressWarnings("serial")
 public class GUIPrintTickets extends JInternalFrame {
@@ -26,15 +31,15 @@ public class GUIPrintTickets extends JInternalFrame {
 	private JLabel lTickets;
 	private JTextField tPassport;
 	private JLabel lblPasaporte;
-	private JComboBox cxTicketNum;
+	private JComboBox<String> cxTicketNum;
 	private JLabel lblClase;
-	private JComboBox cxTypeClass;
+	private JComboBox<String> cxTypeClass;
 	private JTextField tAmountTotal;
 	private JLabel lblMonto;
 	private JButton btnContinue;
-	private JComboBox cxFlightNum;
+	private JComboBox<String> cxFlightNum;
 	private JLabel lblAerolnea;
-	private JComboBox cxAirline;
+	private JComboBox<String> cxAirline;
 	private JTextField tRegisterAircrf;
 	private JLabel lblMatrcula;
 	private DefaultTableModel dtmTPrint;
@@ -45,6 +50,9 @@ public class GUIPrintTickets extends JInternalFrame {
 	private JLabel lblNewLabel_1;
 
 	public GUIPrintTickets() {
+		setMaximizable(true);
+		setIconifiable(true);
+		setClosable(true);
 		setTitle("Impresión de tiquete");
 		getContentPane().setBackground(new Color(255, 255, 255));
 		setBounds(100, 100, 985, 752);
@@ -126,13 +134,22 @@ public class GUIPrintTickets extends JInternalFrame {
 		}
 		return lblPasaporte;
 	}
-	public JComboBox getCxTicketNum() {
+	public JComboBox<String> getCxTicketNum() {
 		if (cxTicketNum == null) {
-			cxTicketNum = new JComboBox();
+			cxTicketNum = new JComboBox<String>();
+			cxTicketNum.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 			cxTicketNum.setBounds(175, 161, 131, 25);
 		}
 		return cxTicketNum;
 	}
+	
+	public void fillTicketNum(ArrayList<Tickets> tickets) {
+		cxTicketNum.addItem("Seleccionar:");
+		for(Tickets ticket : tickets) {
+			cxTicketNum.addItem(String.valueOf(ticket.getTicketNum()));
+		}
+	}
+	
 	public JLabel getLblClase() {
 		if (lblClase == null) {
 			lblClase = new JLabel("Clase");
@@ -143,15 +160,16 @@ public class GUIPrintTickets extends JInternalFrame {
 		}
 		return lblClase;
 	}
-	public JComboBox getCxTypeClass() {
+	public JComboBox<String> getCxTypeClass() {
 		if (cxTypeClass == null) {
-			cxTypeClass = new JComboBox();
+			cxTypeClass = new JComboBox<String>();
 			cxTypeClass.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			cxTypeClass.setModel(new DefaultComboBoxModel(new String[] {"Seleccione:", "Ejecutiva", "Turista", "Económica"}));
+			cxTypeClass.setModel(new DefaultComboBoxModel<String>(new String[] {"Seleccione:", "Ejecutiva", "Turista", "Económica"}));
 			cxTypeClass.setBounds(325, 161, 131, 25);
 		}
 		return cxTypeClass;
 	}
+	
 	public JTextField getTAmountTotal() {
 		if (tAmountTotal == null) {
 			tAmountTotal = new JTextField();
@@ -186,13 +204,23 @@ public class GUIPrintTickets extends JInternalFrame {
 		}
 		return btnContinue;
 	}
-	public JComboBox getCxFlightNum() {
+	public JComboBox<String> getCxFlightNum() {
 		if (cxFlightNum == null) {
-			cxFlightNum = new JComboBox();
+			cxFlightNum = new JComboBox<String>();
+			cxFlightNum.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 			cxFlightNum.setBounds(175, 85, 131, 25);
 		}
 		return cxFlightNum;
 	}
+	
+	public void fillFlightNum(ArrayList<Flights> flights) {
+		cxFlightNum.addItem("Seleccionar:");
+		
+		for(Flights flight : flights) {
+			cxFlightNum.addItem(String.valueOf(flight.getFlightNum()));
+		}
+	}
+	
 	public JLabel getLblAerolnea() {
 		if (lblAerolnea == null) {
 			lblAerolnea = new JLabel("Aerolínea");
@@ -203,13 +231,23 @@ public class GUIPrintTickets extends JInternalFrame {
 		}
 		return lblAerolnea;
 	}
-	public JComboBox getCxAirline() {
+	public JComboBox<String> getCxAirline() {
 		if (cxAirline == null) {
-			cxAirline = new JComboBox();
+			cxAirline = new JComboBox<String>();
+			cxAirline.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 			cxAirline.setBounds(325, 85, 131, 25);
 		}
 		return cxAirline;
 	}
+	
+	public void fillAirlineName(ArrayList<Airlines> airlines) {
+		cxAirline.addItem("Seleccionar:");
+		
+		for(Airlines airline : airlines) {
+			cxAirline.addItem(String.valueOf(airline.getNameAirline()));
+		}
+	}
+	
 	public JTextField getTRegisterAircrf() {
 		if (tRegisterAircrf == null) {
 			tRegisterAircrf = new JTextField();

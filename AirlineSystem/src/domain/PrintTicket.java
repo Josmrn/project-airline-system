@@ -6,9 +6,7 @@ import java.time.LocalTime;
 public class PrintTicket {
 
 	private int ticketNum, passportNum, cellphone, year, execSeats, tourSeats, ecoSeats, totalAmount;
-	private String name, lastName, email, bornDate, nameAirline, country, registerOfAircft;
-	private String airline;
-	private String model;
+	private String name, lastName, email, bornDate, nameAirline, country, registerOfAircft,airline,model, arrivalCity, departureCity;
 	private LocalDate dateTicketPurchase, departureDate, arrivalDate;
 	private LocalTime hourTicketPurchase, departureHour, arrivalHour;
 
@@ -18,7 +16,7 @@ public class PrintTicket {
 	public PrintTicket(int ticketNum, int passportNum, int cellphone, int year, int execSeats, int tourSeats,
 			int ecoSeats, int totalAmount, String name, String lastName, String email, String bornDate,
 			String nameAirline, String country, String registerOfAircft, String airline, String model,
-			LocalDate dateTicketPurchase, LocalDate departureDate, LocalDate arrivalDate, LocalTime hourTicketPurchase,
+			LocalDate dateTicketPurchase, String arrivalCity, String departureCity, LocalDate departureDate, LocalDate arrivalDate, LocalTime hourTicketPurchase,
 			LocalTime departureHour, LocalTime arrivalHour) {
 		super();
 		this.ticketNum = ticketNum;
@@ -44,6 +42,8 @@ public class PrintTicket {
 		this.hourTicketPurchase = hourTicketPurchase;
 		this.departureHour = departureHour;
 		this.arrivalHour = arrivalHour;
+		this.arrivalCity = arrivalCity;
+		this.departureCity = departureCity;
 	}
 
 	public int getTicketNum() {
@@ -230,11 +230,27 @@ public class PrintTicket {
 		this.arrivalHour = arrivalHour;
 	}
 
+	public String getArrivalCity() {
+		return arrivalCity;
+	}
+
+	public void setArrivalCity(String arrivalCity) {
+		this.arrivalCity = arrivalCity;
+	}
+
+	public String getDepartureCity() {
+		return departureCity;
+	}
+
+	public void setDepartureCity(String departureCity) {
+		this.departureCity = departureCity;
+	}
+
 	public String[] getDataName() {
-		String[] dataName = { "ticketNum", "passportNum", "name", "lastName", "bornDate", "email", "cellphone",
-				"dateTicketPurchase", "hourTicketPurchase", "nameAirline", "country", "registerOfAircft", "airline",
-				"model", "year", "departureCity", "departureDate", "departureHour", "arrivalCity", "arrivalDate",
-				"arrivalHour", "execSeats", "tourSeats", "ecoSeats", "totalAmount" };
+		String[] dataName = {"passportNum","name","lastName","bornDate","email","cellphone",
+				"ticketNum","departureCity", "departureDate", "departureHour", "arrivalCity", "arrivalDate","arrivalHour",
+				 "nameAirline", "country", "registerOfAircft", "airline","model", "year",
+				 "dateTicketPurchase", "hourTicketPurchase",  "execSeats", "tourSeats", "ecoSeats", "totalAmount" };			
 		return dataName;
 	}
 
@@ -242,8 +258,8 @@ public class PrintTicket {
 		String[] data = { String.valueOf(ticketNum), String.valueOf(passportNum), name, lastName, email, bornDate,
 				String.valueOf(cellphone), String.valueOf(dateTicketPurchase), String.valueOf(hourTicketPurchase),
 				nameAirline, country, registerOfAircft, airline, model, String.valueOf(year),
-				String.valueOf(departureDate), String.valueOf(departureHour), String.valueOf(arrivalDate),
-				String.valueOf(arrivalHour), String.valueOf(execSeats), String.valueOf(tourSeats),
+				departureCity,String.valueOf(departureDate), String.valueOf(departureHour), String.valueOf(arrivalDate),
+				String.valueOf(arrivalHour),arrivalCity, String.valueOf(execSeats), String.valueOf(tourSeats),
 				String.valueOf(ecoSeats), String.valueOf(totalAmount) };
 		return data;
 	}
@@ -257,7 +273,7 @@ public class PrintTicket {
 				+ ", registerOfAircft=" + registerOfAircft + ", airline=" + airline + ", model=" + model
 				+ ", dateTicketPurchase=" + dateTicketPurchase + ", departureDate=" + departureDate + ", arrivalDate="
 				+ arrivalDate + ", hourTicketPurchase=" + hourTicketPurchase + ", departureHour=" + departureHour
-				+ ", arrivalHour=" + arrivalHour + "]";
+				+ ", arrivalHour=" + arrivalHour + ", Origen = " + departureCity + ", Destino = " + arrivalCity +"]";
 	}
 
 }

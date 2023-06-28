@@ -80,8 +80,6 @@ public class GUIModel extends JInternalFrame {
 	    getContentPane().add(spTModels);
 	    getContentPane().add(getSeparator_1());
 	    getContentPane().add(getTSearchModels());
-
-	    //fLXML = new FilesLogicXML(); // Inicializar fLXML
 	    
 	    setVisible(true);
 	}
