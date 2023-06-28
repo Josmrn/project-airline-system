@@ -112,6 +112,7 @@ public class ControllerModels implements ActionListener {
 				arrayLM.removeModel(model);
 				refreshModel();
 				JOptionPane.showMessageDialog(null, "El modelo se eliminó correctamente.");
+				guiM.cleanForm();
 			}else {
 				JOptionPane.showMessageDialog(null, "El modelo no se encontró o no pudo ser eliminado.");
 			}
