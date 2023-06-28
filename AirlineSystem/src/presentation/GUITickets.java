@@ -49,7 +49,7 @@ public class GUITickets extends JInternalFrame {
 	private JTextField tFlightNumber;
 
 	
-	public GUITickets() {
+	public GUITickets(String userType) {
 		getContentPane().setBackground(new Color(255, 255, 255));
 		setTitle("Gestión de Tickets");
 		setMaximizable(true);
@@ -62,8 +62,8 @@ public class GUITickets extends JInternalFrame {
 		getContentPane().add(getTTicketNumber());
 		getContentPane().add(getLPassportNumber());
 		getContentPane().add(getLOperationTickets());
-		getContentPane().add(getBtnRemoveTickets());
-		getContentPane().add(getBtnEditTickets());
+		getContentPane().add(getBtnRemoveTickets(userType));
+		getContentPane().add(getBtnEditTickets(userType));
 		getContentPane().add(getBtnConsultTickets());
 		getContentPane().add(getBtnAddTickets());
 		getContentPane().add(getSeparator_1());
@@ -125,35 +125,69 @@ public class GUITickets extends JInternalFrame {
 		}
 		return lOperationTickets;
 	}
-	public JButton getBtnRemoveTickets() {
+	public JButton getBtnRemoveTickets(String userType) {
 		if (btnRemoveTickets == null) {
-			btnRemoveTickets = new JButton("Eliminar");
-			btnRemoveTickets.setBounds(220, 110, 90, 35);
-			btnRemoveTickets.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				}
-			});
-			btnRemoveTickets.setIcon(new ImageIcon(GUITickets.class.getResource("/images/icons_remove.png")));
-			btnRemoveTickets.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnRemoveTickets.setOpaque(false);
-			btnRemoveTickets.setForeground(new Color(0, 0, 128));
-			btnRemoveTickets.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnRemoveTickets.setContentAreaFilled(false);
-			btnRemoveTickets.setBorder(null);
+			
+			if(userType.equals("Administrador")) {
+
+				btnRemoveTickets = new JButton("Eliminar");
+				btnRemoveTickets.setBounds(220, 110, 90, 35);
+				btnRemoveTickets.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				btnRemoveTickets.setIcon(new ImageIcon(GUITickets.class.getResource("/images/icons_remove.png")));
+				btnRemoveTickets.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnRemoveTickets.setOpaque(false);
+				btnRemoveTickets.setForeground(new Color(0, 0, 128));
+				btnRemoveTickets.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnRemoveTickets.setContentAreaFilled(false);
+				btnRemoveTickets.setBorder(null);
+			}else if(userType.equals("Colaborador")) {
+
+				btnRemoveTickets = new JButton("Eliminar");
+				btnRemoveTickets.setBounds(220, 110, 90, 35);
+				btnRemoveTickets.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				btnRemoveTickets.setIcon(new ImageIcon(GUITickets.class.getResource("/images/icons_remove.png")));
+				btnRemoveTickets.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnRemoveTickets.setOpaque(false);
+				btnRemoveTickets.setForeground(new Color(0, 0, 128));
+				btnRemoveTickets.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnRemoveTickets.setContentAreaFilled(false);
+				btnRemoveTickets.setBorder(null);
+				btnRemoveTickets.setVisible(false);
+			}
+			
 		}
 		return btnRemoveTickets;
 	}
-	public JButton getBtnEditTickets() {
+	public JButton getBtnEditTickets(String userType) {
 		if (btnEditTickets == null) {
-			btnEditTickets = new JButton("Editar");
-			btnEditTickets.setBounds(10, 110, 80, 35);
-			btnEditTickets.setIcon(new ImageIcon(GUITickets.class.getResource("/images/icons_edit.png")));
-			btnEditTickets.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnEditTickets.setOpaque(false);
-			btnEditTickets.setForeground(new Color(0, 0, 128));
-			btnEditTickets.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnEditTickets.setContentAreaFilled(false);
-			btnEditTickets.setBorder(null);
+			if(userType.equals("Administrador")) {
+				btnEditTickets = new JButton("Editar");
+				btnEditTickets.setBounds(10, 110, 80, 35);
+				btnEditTickets.setIcon(new ImageIcon(GUITickets.class.getResource("/images/icons_edit.png")));
+				btnEditTickets.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnEditTickets.setOpaque(false);
+				btnEditTickets.setForeground(new Color(0, 0, 128));
+				btnEditTickets.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnEditTickets.setContentAreaFilled(false);
+				btnEditTickets.setBorder(null);
+			}else if(userType.equals("Colaborador")) {
+				btnEditTickets = new JButton("Editar");
+				btnEditTickets.setBounds(10, 110, 80, 35);
+				btnEditTickets.setIcon(new ImageIcon(GUITickets.class.getResource("/images/icons_edit.png")));
+				btnEditTickets.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnEditTickets.setOpaque(false);
+				btnEditTickets.setForeground(new Color(0, 0, 128));
+				btnEditTickets.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnEditTickets.setContentAreaFilled(false);
+				btnEditTickets.setBorder(null);
+				btnEditTickets.setVisible(false);
+			}
 		}
 		return btnEditTickets;
 	}

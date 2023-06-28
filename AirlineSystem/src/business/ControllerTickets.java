@@ -20,15 +20,17 @@ public class ControllerTickets implements ActionListener {
 	private FilesTicketsXML fTXML;
 	private ArrayListTickets arrayLTickets;
 	
+	private String UserType;
 
-	public ControllerTickets(GUIMain guiMain) {
+	public ControllerTickets(GUIMain guiMain,String userType) {
 		// TODO Auto-generated constructor stub
 		ticket = new Tickets();
-		guiT = new GUITickets();
+		guiT = new GUITickets(userType);
 		guiMain.getDesktopMain().add(guiT);
 		fXML = new FilesXML();
 		fTXML = new FilesTicketsXML();
 		arrayLTickets = new ArrayListTickets();
+		UserType = userType;
 		
 		fXML.createXML("Tickets", "Tickets.xml");
 		
@@ -39,8 +41,8 @@ public class ControllerTickets implements ActionListener {
 		// TODO Auto-generated method stub
 		refreshData();
 		guiT.getBtnAddTickets().addActionListener(this);
-		guiT.getBtnEditTickets().addActionListener(this);
-		guiT.getBtnRemoveTickets().addActionListener(this);
+		guiT.getBtnEditTickets(UserType).addActionListener(this);
+		guiT.getBtnRemoveTickets(UserType).addActionListener(this);
 		guiT.getBtnConsultTickets().addActionListener(this);
 	}
 	
@@ -82,7 +84,7 @@ public class ControllerTickets implements ActionListener {
 		}
 
 
-		if (e.getSource() == guiT.getBtnEditTickets()) {
+		if (e.getSource() == guiT.getBtnEditTickets(UserType)) {
 		
 			int ticketNum = Integer.parseInt(guiT.getTTicketNumber().getText());
 			int passportNum = Integer.parseInt(guiT.getTPassportNumber().getText());
@@ -116,7 +118,7 @@ public class ControllerTickets implements ActionListener {
 			
 		}
 
-		if (e.getSource() == guiT.getBtnRemoveTickets()) {
+		if (e.getSource() == guiT.getBtnRemoveTickets(UserType)) {
 			
 			int ticketNum = Integer.parseInt(guiT.getTSearchTickets().getText());
 

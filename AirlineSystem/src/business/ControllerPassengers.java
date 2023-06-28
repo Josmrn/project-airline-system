@@ -19,15 +19,18 @@ public class ControllerPassengers implements ActionListener {
 	private FilesXML fXML;
 	private FilesPassXML fPXML;
 	private ArrayListPassengers arrayLPass;
+	
+	private String UserType;
 
-	public ControllerPassengers(GUIMain guiMain) {
+	public ControllerPassengers(GUIMain guiMain, String userType) {
 
 		passen = new Passengers();
-		guiPass = new GUIPassengers();
+		guiPass = new GUIPassengers(userType);
 		guiMain.getDesktopMain().add(guiPass);
 		fXML = new FilesXML();
 		fPXML = new FilesPassXML();
 		arrayLPass = new ArrayListPassengers();
+		UserType = userType;
 
 		fXML.createXML("Passengers", "Passengers.xml");
 
@@ -51,8 +54,8 @@ public class ControllerPassengers implements ActionListener {
 		refreshData();
 		guiPass.getBtnAddPassenger().addActionListener(this);
 		guiPass.getBtnConsultPassenger().addActionListener(this);
-		guiPass.getBtnEditPassengers().addActionListener(this);
-		guiPass.getBtnRemovePassengers().addActionListener(this);
+		guiPass.getBtnEditPassengers(UserType).addActionListener(this);
+		guiPass.getBtnRemovePassengers(UserType).addActionListener(this);
 
 	}
 
@@ -100,7 +103,7 @@ public class ControllerPassengers implements ActionListener {
 			}
 
 		}
-		if (e.getSource() == guiPass.getBtnEditPassengers()) {
+		if (e.getSource() == guiPass.getBtnEditPassengers(UserType)) {
 
 			// Obtiene los datos del formulario
 			int passportNum = Integer.parseInt(guiPass.getTPassport().getText());
@@ -141,7 +144,7 @@ public class ControllerPassengers implements ActionListener {
 			
 
 		}
-		if (e.getSource() == guiPass.getBtnRemovePassengers()) {
+		if (e.getSource() == guiPass.getBtnRemovePassengers(UserType)) {
 
 			int passportNum = Integer.parseInt(guiPass.getTSearchPassenger().getText());
 

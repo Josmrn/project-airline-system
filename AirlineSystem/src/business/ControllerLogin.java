@@ -65,7 +65,7 @@ public class ControllerLogin implements ActionListener{
 				System.out.println(TypeAndStatus[1]);
 				
 				if(TypeAndStatus[0].equals("Administrador") && TypeAndStatus[1].equals("Activo")) {
-					new ControllerMain();
+					new ControllerMain(TypeAndStatus[0]);
 					guiL.dispose();
 					
 					
@@ -76,7 +76,7 @@ public class ControllerLogin implements ActionListener{
 				}
 				if(TypeAndStatus[0].equals("Colaborador") && TypeAndStatus[1].equals("Activo")) {
 					
-					new ControllerMain2();
+					new ControllerMain(TypeAndStatus[0]);
 					guiL.dispose();
 					
 				}else if(TypeAndStatus[0].equals("Colaborador") && TypeAndStatus[1].equals("Inactivo")) {

@@ -31,10 +31,12 @@ public class ControllerFlights implements ActionListener {
 	private FilesFlightXML fFXML;
 	private FilesPlanesXML fPXML;
 	private ArrayListFlight arrayLFlight;
+	
+	private String UserType;
 
-	public ControllerFlights(GUIMain guiMain) {
+	public ControllerFlights(GUIMain guiMain,String userType) {
 		// TODO Auto-generated constructor stub
-		guiF = new GUIFlights();
+		guiF = new GUIFlights(userType);
 		guiMain.getDesktopMain().add(guiF);
 		f = new Flights();
 		fXML = new FilesXML();
@@ -42,6 +44,7 @@ public class ControllerFlights implements ActionListener {
 		fPXML = new FilesPlanesXML();
 		arrayLFlight = new ArrayListFlight();
 		fXML.createXML("Flights", "Flights.xml");
+		UserType = userType;
 		
 		ArrayList<Planes> planelList = fPXML.returnPlanes("Planes.xml", "Plane");
 		
@@ -53,8 +56,8 @@ public class ControllerFlights implements ActionListener {
 		// TODO Auto-generated method stub
 		refreshFlight();
 		guiF.getBtnAddFlight().addActionListener(this);
-		guiF.getBtnEditFlights().addActionListener(this);
-		guiF.getBtnRemoveFlights().addActionListener(this);
+		guiF.getBtnEditFlights(UserType).addActionListener(this);
+		guiF.getBtnRemoveFlights(UserType).addActionListener(this);
 		guiF.getBtnConsultFlight().addActionListener(this);
 	}
 	
@@ -145,11 +148,11 @@ public class ControllerFlights implements ActionListener {
 		    
 		}
 
-		if (e.getSource() == guiF.getBtnEditFlights()) {
+		if (e.getSource() == guiF.getBtnEditFlights(UserType)) {
 
 		}
 
-		if (e.getSource() == guiF.getBtnRemoveFlights()) {
+		if (e.getSource() == guiF.getBtnRemoveFlights(UserType)) {
 			
 			int flightNum = Integer.parseInt(guiF.getTSearchFlights().getText());
 

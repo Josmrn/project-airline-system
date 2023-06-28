@@ -21,15 +21,18 @@ public class ControllerBrands implements ActionListener {
 	private FilesBrandsXML fBXML;
 	private FilesLogicXML fLXML;
 	private ArrayListBrands arrayLB;
+	
+	private String userType;
 
-	public ControllerBrands(GUIMain guiMain) {
-        guiB = new GUIBrands();
+	public ControllerBrands(GUIMain guiMain, String userType) {
+        guiB = new GUIBrands(userType);
         guiMain.getDesktopMain().add(guiB);
         brand = new Brands();
         fXML = new FilesXML();
         fBXML = new FilesBrandsXML();
         fLXML = new FilesLogicXML();
         arrayLB = new ArrayListBrands();
+        this.userType = userType;
         fXML.createXML("Brands", "Brands.xml");
         initializerAction();
     }
@@ -47,8 +50,8 @@ public class ControllerBrands implements ActionListener {
 		refreshData();
 		guiB.getBtnRegisterBrand().addActionListener(this);
 		guiB.getBtnConsultBrand().addActionListener(this);
-		guiB.getBtnEditBrands().addActionListener(this);
-		guiB.getBtnRemoveBrand().addActionListener(this);
+		guiB.getBtnEditBrands(userType).addActionListener(this);
+		guiB.getBtnRemoveBrand(userType).addActionListener(this);
 	}
 
 	@Override
@@ -72,7 +75,7 @@ public class ControllerBrands implements ActionListener {
 	        refreshData();
 	    }
 
-		if (e.getSource() == guiB.getBtnEditBrands()) {
+		if (e.getSource() == guiB.getBtnEditBrands(userType)) {
 		    String currentBrandName = guiB.getTWriteBrand().getText();
 		    String newBrandName = guiB.getTAddBrand().getText();
 
@@ -82,7 +85,7 @@ public class ControllerBrands implements ActionListener {
 		    refreshData();
 		}
 
-		if (e.getSource() == guiB.getBtnRemoveBrand()) {
+		if (e.getSource() == guiB.getBtnRemoveBrand(userType)) {
 		    String brandName = guiB.getTWriteBrand().getText();
 		    Brands brand = fBXML.deleteBrand("Brands.xml", "Brand", brandName);
 		    

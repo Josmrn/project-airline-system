@@ -22,15 +22,18 @@ public class ControllerModels implements ActionListener {
 	private FilesBrandsXML fBXML;
 	private FilesModelsXML fMXML;
 	private ArrayListModels arrayLM;
+	
+	private String UserType;
 
-	public ControllerModels(GUIMain guiMain) {
-		guiM = new GUIModel();
+	public ControllerModels(GUIMain guiMain,String userType) {
+		guiM = new GUIModel(userType);
 		guiMain.getDesktopMain().add(guiM);
 		model = new Models();
 		fXML = new FilesXML();
 		fBXML = new FilesBrandsXML();
 		fMXML = new FilesModelsXML();
 		arrayLM = new ArrayListModels();
+		UserType = userType;
 		fXML.createXML("Models", "Models.xml");
 
 		ArrayList<Brands> brandList = fBXML.getBrandXML("Brands.xml", "Brand");
@@ -52,8 +55,8 @@ public class ControllerModels implements ActionListener {
 	private void initializerAction() {
 		refreshModel();
 		guiM.getBtnAddModels().addActionListener(this);
-		guiM.getBtnEditModels().addActionListener(this);
-		guiM.getBtnRemoveModels().addActionListener(this);
+		guiM.getBtnEditModels(UserType).addActionListener(this);
+		guiM.getBtnRemoveModels(UserType).addActionListener(this);
 		guiM.getBtnConsultModel().addActionListener(this);
 	}
 
@@ -85,7 +88,7 @@ public class ControllerModels implements ActionListener {
 			refreshModel();
 		}
 
-		if (e.getSource() == guiM.getBtnEditModels()) {
+		if (e.getSource() == guiM.getBtnEditModels(UserType)) {
 		    String execSeatsStr = guiM.getTExecutiveSeats().getText();
 		    String tourSeatsStr = guiM.getTTouristSeats().getText();
 		    String ecoSeatsStr = guiM.getTEconomicSeats().getText();
@@ -101,7 +104,7 @@ public class ControllerModels implements ActionListener {
 		}
 
 
-		if (e.getSource() == guiM.getBtnRemoveModels()) {
+		if (e.getSource() == guiM.getBtnRemoveModels(UserType)) {
 			
 			Models model = fMXML.modelDelete("Models.xml", "Model", guiM.getTSearchModels().getText());
 			

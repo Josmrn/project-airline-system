@@ -39,7 +39,7 @@ public class GUIBrands extends JInternalFrame {
 	private JLabel lOperationUser;
 	private JTextField tWriteBrand;
 
-	public GUIBrands() {
+	public GUIBrands(String userType) {
 		getContentPane().setBackground(Color.WHITE);
 		setTitle("Registro de Marcas");
 		setIconifiable(true);
@@ -53,8 +53,8 @@ public class GUIBrands extends JInternalFrame {
 		getContentPane().add(getBtnRegisterBrand());
 		getContentPane().add(getLTextBrandsReg());
 		getContentPane().add(getBtnConsultBrand());
-		getContentPane().add(getBtnEditBrands());
-		getContentPane().add(getBtnRemoveBrand());
+		getContentPane().add(getBtnEditBrands(userType));
+		getContentPane().add(getBtnRemoveBrand(userType));
 		setDTMTBrands(dataTable, getColumnsNames());
 		setTBrands(dtmTBrands);
 		setSPTBrands(tBrands);
@@ -139,30 +139,59 @@ public class GUIBrands extends JInternalFrame {
 		return btnConsultBrand;
 	}
 
-	public JButton getBtnEditBrands() {
+	public JButton getBtnEditBrands(String userType) {
 		if (btnEditBrands == null) {
-			btnEditBrands = new JButton("Editar");
-			btnEditBrands.setIcon(new ImageIcon(GUIBrands.class.getResource("/images/icons_edit.png")));
-			btnEditBrands.setOpaque(false);
-			btnEditBrands.setForeground(new Color(0, 0, 128));
-			btnEditBrands.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnEditBrands.setContentAreaFilled(false);
-			btnEditBrands.setBorder(null);
-			btnEditBrands.setBounds(378, 232, 84, 25);
+			
+			if(userType.equals("Administrador")) {
+				btnEditBrands = new JButton("Editar");
+				btnEditBrands.setIcon(new ImageIcon(GUIBrands.class.getResource("/images/icons_edit.png")));
+				btnEditBrands.setOpaque(false);
+				btnEditBrands.setForeground(new Color(0, 0, 128));
+				btnEditBrands.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnEditBrands.setContentAreaFilled(false);
+				btnEditBrands.setBorder(null);
+				btnEditBrands.setBounds(378, 232, 84, 25);
+			}else if(userType.equals("Colaborador")) {
+				btnEditBrands = new JButton("Editar");
+				btnEditBrands.setIcon(new ImageIcon(GUIBrands.class.getResource("/images/icons_edit.png")));
+				btnEditBrands.setOpaque(false);
+				btnEditBrands.setForeground(new Color(0, 0, 128));
+				btnEditBrands.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnEditBrands.setContentAreaFilled(false);
+				btnEditBrands.setBorder(null);
+				btnEditBrands.setBounds(378, 232, 84, 25);
+				btnEditBrands.setVisible(false);
+			}
+			
 		}
 		return btnEditBrands;
 	}
 
-	public JButton getBtnRemoveBrand() {
+	public JButton getBtnRemoveBrand(String userType) {
 		if (btnRemoveBrand == null) {
-			btnRemoveBrand = new JButton("Eliminar");
-			btnRemoveBrand.setIcon(new ImageIcon(GUIBrands.class.getResource("/images/icons_remove.png")));
-			btnRemoveBrand.setOpaque(false);
-			btnRemoveBrand.setForeground(new Color(0, 0, 128));
-			btnRemoveBrand.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnRemoveBrand.setContentAreaFilled(false);
-			btnRemoveBrand.setBorder(null);
-			btnRemoveBrand.setBounds(10, 285, 88, 25);
+			
+			if(userType.equals("Administrador")) {
+				btnRemoveBrand = new JButton("Eliminar");
+				btnRemoveBrand.setIcon(new ImageIcon(GUIBrands.class.getResource("/images/icons_remove.png")));
+				btnRemoveBrand.setOpaque(false);
+				btnRemoveBrand.setForeground(new Color(0, 0, 128));
+				btnRemoveBrand.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnRemoveBrand.setContentAreaFilled(false);
+				btnRemoveBrand.setBorder(null);
+				btnRemoveBrand.setBounds(10, 285, 88, 25);
+			}else if(userType.equals("Colaborador")) {
+				btnRemoveBrand = new JButton("Eliminar");
+				btnRemoveBrand.setIcon(new ImageIcon(GUIBrands.class.getResource("/images/icons_remove.png")));
+				btnRemoveBrand.setOpaque(false);
+				btnRemoveBrand.setForeground(new Color(0, 0, 128));
+				btnRemoveBrand.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnRemoveBrand.setContentAreaFilled(false);
+				btnRemoveBrand.setBorder(null);
+				btnRemoveBrand.setBounds(10, 285, 88, 25);
+				btnRemoveBrand.setVisible(false);
+			}
+			
+			
 		}
 		return btnRemoveBrand;
 	}

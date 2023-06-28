@@ -52,7 +52,7 @@ public class GUIModel extends JInternalFrame {
 	
 
 	
-	public GUIModel() {
+	public GUIModel(String userType) {
 	    getContentPane().setBackground(new Color(255, 255, 255));
 	    setTitle("Gestión de Modelos");
 	    setMaximizable(true);
@@ -70,8 +70,8 @@ public class GUIModel extends JInternalFrame {
 	    getContentPane().add(getTTouristSeats());
 	    getContentPane().add(getTEconomicSeats());
 	    getContentPane().add(getLOperationModels());
-	    getContentPane().add(getBtnRemoveModels());
-	    getContentPane().add(getBtnEditModels());
+	    getContentPane().add(getBtnRemoveModels(userType));
+	    getContentPane().add(getBtnEditModels(userType));
 	    getContentPane().add(getBtnConsultModel());
 	    getContentPane().add(getBtnAddModels());
 	    setDTMTModels(dataTableM, getColumnsNamesM());
@@ -242,35 +242,65 @@ public class GUIModel extends JInternalFrame {
 		}
 		return lOperationModels;
 	}
-	public JButton getBtnRemoveModels() {
+	public JButton getBtnRemoveModels(String userType) {
 		if (btnRemoveModels == null) {
-			btnRemoveModels = new JButton("Eliminar");
-			btnRemoveModels.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				}
-			});
-			btnRemoveModels.setIcon(new ImageIcon(GUIModel.class.getResource("/images/icons_remove.png")));
-			btnRemoveModels.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnRemoveModels.setOpaque(false);
-			btnRemoveModels.setForeground(new Color(0, 0, 128));
-			btnRemoveModels.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnRemoveModels.setContentAreaFilled(false);
-			btnRemoveModels.setBorder(null);
-			btnRemoveModels.setBounds(150, 110, 90, 35);
+			if(userType.equals("Administrador")) {
+				btnRemoveModels = new JButton("Eliminar");
+				btnRemoveModels.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				btnRemoveModels.setIcon(new ImageIcon(GUIModel.class.getResource("/images/icons_remove.png")));
+				btnRemoveModels.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnRemoveModels.setOpaque(false);
+				btnRemoveModels.setForeground(new Color(0, 0, 128));
+				btnRemoveModels.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnRemoveModels.setContentAreaFilled(false);
+				btnRemoveModels.setBorder(null);
+				btnRemoveModels.setBounds(150, 110, 90, 35);
+			}else if(userType.equals("Colaborador")) {
+				btnRemoveModels = new JButton("Eliminar");
+				btnRemoveModels.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				btnRemoveModels.setIcon(new ImageIcon(GUIModel.class.getResource("/images/icons_remove.png")));
+				btnRemoveModels.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnRemoveModels.setOpaque(false);
+				btnRemoveModels.setForeground(new Color(0, 0, 128));
+				btnRemoveModels.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnRemoveModels.setContentAreaFilled(false);
+				btnRemoveModels.setBorder(null);
+				btnRemoveModels.setBounds(150, 110, 90, 35);
+				btnRemoveModels.setVisible(false);
+			}
 		}
 		return btnRemoveModels;
 	}
-	public JButton getBtnEditModels() {
+	public JButton getBtnEditModels(String userType) {
 		if (btnEditModels == null) {
-			btnEditModels = new JButton("Editar");
-			btnEditModels.setIcon(new ImageIcon(GUIModel.class.getResource("/images/icons_edit.png")));
-			btnEditModels.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			btnEditModels.setOpaque(false);
-			btnEditModels.setForeground(new Color(0, 0, 128));
-			btnEditModels.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnEditModels.setContentAreaFilled(false);
-			btnEditModels.setBorder(null);
-			btnEditModels.setBounds(10, 110, 80, 35);
+			if(userType.equals("Administrador")) {
+				btnEditModels = new JButton("Editar");
+				btnEditModels.setIcon(new ImageIcon(GUIModel.class.getResource("/images/icons_edit.png")));
+				btnEditModels.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnEditModels.setOpaque(false);
+				btnEditModels.setForeground(new Color(0, 0, 128));
+				btnEditModels.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnEditModels.setContentAreaFilled(false);
+				btnEditModels.setBorder(null);
+				btnEditModels.setBounds(10, 110, 80, 35);
+			}else if(userType.equals("Colaborador")) {
+				btnEditModels = new JButton("Editar");
+				btnEditModels.setIcon(new ImageIcon(GUIModel.class.getResource("/images/icons_edit.png")));
+				btnEditModels.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnEditModels.setOpaque(false);
+				btnEditModels.setForeground(new Color(0, 0, 128));
+				btnEditModels.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnEditModels.setContentAreaFilled(false);
+				btnEditModels.setBorder(null);
+				btnEditModels.setBounds(10, 110, 80, 35);
+				btnEditModels.setVisible(false);
+			}
 		}
 		return btnEditModels;
 	}
