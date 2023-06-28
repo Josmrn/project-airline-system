@@ -16,14 +16,16 @@ import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
+
+import domain.Planes;
 
 @SuppressWarnings("serial")
 public class GUIFlights extends JInternalFrame {
@@ -52,8 +54,7 @@ public class GUIFlights extends JInternalFrame {
 	private JTextField tExecutive;
 	private JTextField tTourist;
 	private JTextField tEconomic;
-	@SuppressWarnings("rawtypes")
-	private JComboBox cxFlightAirline;
+	private JComboBox<String> cxFlightAirline;
 	private JLabel lArrivalCity;
 	private JTextField tArrivalCity;
 	private JDateChooser departureData;
@@ -362,6 +363,15 @@ public class GUIFlights extends JInternalFrame {
 			tExecutive.setText("Clase Ejecutiva");
 			tExecutive.setHorizontalAlignment(SwingConstants.LEFT);
 			tExecutive.setForeground(Color.LIGHT_GRAY);
+			tExecutive.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					if (tExecutive.getText().equals("Clase Ejecutiva")) {
+						tExecutive.setText("");
+						tExecutive.setForeground(Color.black);
+					}
+				}
+			});
 			tExecutive.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tExecutive.setColumns(10);
 			tExecutive.setBackground(Color.WHITE);
@@ -375,6 +385,15 @@ public class GUIFlights extends JInternalFrame {
 			tTourist = new JTextField();
 			tTourist.setText("Turista");
 			tTourist.setForeground(Color.LIGHT_GRAY);
+			tTourist.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					if (tTourist.getText().equals("Turista")) {
+						tTourist.setText("");
+						tTourist.setForeground(Color.black);
+					}
+				}
+			});
 			tTourist.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tTourist.setColumns(10);
 			tTourist.setBackground(Color.WHITE);
@@ -388,6 +407,15 @@ public class GUIFlights extends JInternalFrame {
 			tEconomic = new JTextField();
 			tEconomic.setText("Económico");
 			tEconomic.setForeground(Color.LIGHT_GRAY);
+			tEconomic.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					if (tEconomic.getText().equals("Económico")) {
+						tEconomic.setText("");
+						tEconomic.setForeground(Color.black);
+					}
+				}
+			});
 			tEconomic.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tEconomic.setColumns(10);
 			tEconomic.setBackground(Color.WHITE);
@@ -396,24 +424,29 @@ public class GUIFlights extends JInternalFrame {
 		return tEconomic;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes" })
 	public JComboBox getCxFlightAirline() {
 		if (cxFlightAirline == null) {
-			cxFlightAirline = new JComboBox();
-			cxFlightAirline.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			cxFlightAirline.setBackground(new Color(255, 255, 255));
-			cxFlightAirline.setModel(new DefaultComboBoxModel(new String[] { "Seleccionar:" }));
+			cxFlightAirline = new JComboBox<String>();
 			cxFlightAirline.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			cxFlightAirline.setBounds(950, 202, 150, 25);
 		}
 		return cxFlightAirline;
 	}
+	
+	public void fillAirlineComboBox(ArrayList<Planes> planes) {
+		cxFlightAirline.addItem("Seleccionar:");
+
+	    for (Planes plane : planes) {
+	    	cxFlightAirline.addItem(plane.getAirline());
+	    }
+	}
 
 	public JLabel getLArrivalCity() {
 		if (lArrivalCity == null) {
-			lArrivalCity = new JLabel("Ciudad de salida");
+			lArrivalCity = new JLabel("Ciudad de llegada");
 			lArrivalCity.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-			lArrivalCity.setBounds(10, 255, 120, 25);
+			lArrivalCity.setBounds(10, 255, 122, 25);
 		}
 		return lArrivalCity;
 	}

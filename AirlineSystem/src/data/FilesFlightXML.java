@@ -31,7 +31,7 @@ public class FilesFlightXML {
 
 	public FilesFlightXML() {}
 	
-	public boolean dataExistOnXML(String fileName, String elementType, String attributeName, int numFlight) {
+	public boolean planeExistOnXML(String fileName, String elementType, String attributeName, String plane) {
 		try {
 			File inputFile = new File(fileName);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -46,8 +46,8 @@ public class FilesFlightXML {
 
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
-					int attribute = Integer.parseInt(eElement.getAttribute(attributeName));
-					if (attribute == numFlight) {
+					String planeExist = eElement.getElementsByTagName(attributeName).item(0).getTextContent();
+					if (planeExist.equals(plane)) {
 						return true;
 					}
 				}
@@ -60,12 +60,13 @@ public class FilesFlightXML {
 	}
 
 	public void writeFlightXML(String fileName, String elementType, String[] dataName, String[] data) {
-		boolean modelExist = dataExistOnXML(fileName, elementType, dataName[0], Integer.parseInt(data[0]));
+		
+		//boolean planeExist = dataExistOnXML(fileName, elementType, dataName[0], data[0]);
 
-		if (modelExist) {
-			JOptionPane.showMessageDialog(null, "El vuelo ya existe en el sistema");
-			return;
-		}
+		//if (planeExist) {
+			//JOptionPane.showMessageDialog(null, "El vuelo ya existe en el sistema");
+			//return;
+		//}
 
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -152,7 +153,7 @@ public class FilesFlightXML {
 		return arrayFlight;
 	}
 	
-	public Flights searchFlight(String Filename, String elementType, int numFlight) {
+	public Flights searchFlight(String Filename, String elementType, String plane) {
 	    Flights f = null;
 
 	    try {
@@ -170,7 +171,7 @@ public class FilesFlightXML {
 	            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 	                Element eElement = (Element) nNode;
 
-	                if (Integer.parseInt(eElement.getAttribute("flightNum")) == numFlight) {
+	                if (eElement.getAttribute("flightNum").equals(plane)) {
 	                    f = new Flights();
 	                    f.setFlightNum(Integer.parseInt(eElement.getAttribute("flightNum")));
 	                    f.setDepartureCity(eElement.getElementsByTagName("departureCity").item(0).getTextContent());
