@@ -1,9 +1,11 @@
 package business;
 
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
 
 import javax.swing.JInternalFrame;
 import presentation.GUIMain;
@@ -80,8 +82,19 @@ public class ControllerMain implements ActionListener{
 			new ControllerTickets(guiMain,userType);
 		}
 		if(e.getSource() == guiMain.getMiAboutAdmin(userType)) {
-			
-		}
+			/* // URL que deseas abrir
+            String url = "ayuda-admin.jafeth1110jafet.repl.co";
+            
+            URI uri = new URI(url);
+
+            // Crear una instancia de Desktop
+            Desktop desktop = Desktop.getDesktop();
+
+            desktop.browse(uri);*/
+		}     
+           
+		
+		
 		if(e.getSource() == guiMain.getMiAboutColab()) {
 			
 		}
