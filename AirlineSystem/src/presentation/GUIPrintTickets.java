@@ -174,15 +174,15 @@ public class GUIPrintTickets extends JInternalFrame {
 	public JButton getBtnContinue() {
 		if (btnContinue == null) {
 			btnContinue = new JButton("Aceptar");
+			btnContinue.setOpaque(false);
+			btnContinue.setHideActionText(true);
+			btnContinue.setBackground(new Color(204, 255, 255));
 			btnContinue.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnContinue.setIcon(new ImageIcon("C:\\Users\\UNA\\Downloads\\icons8-aceptar-28.png"));
-			btnContinue.setOpaque(false);
-			btnContinue.setHorizontalAlignment(SwingConstants.LEADING);
 			btnContinue.setForeground(new Color(0, 0, 128));
 			btnContinue.setFont(new Font("Segoe UI", Font.BOLD, 16));
-			btnContinue.setContentAreaFilled(false);
 			btnContinue.setBorder(new LineBorder(new Color(0, 0, 0)));
-			btnContinue.setBounds(10, 222, 100, 30);
+			btnContinue.setBounds(10, 230, 256, 30);
 		}
 		return btnContinue;
 	}
