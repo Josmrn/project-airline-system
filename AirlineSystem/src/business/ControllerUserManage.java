@@ -93,6 +93,7 @@ public class ControllerUserManage implements ActionListener {
 		    String statusUser = (String) guiUM.getCxState().getSelectedItem();
 
 		    int selectedRow = guiUM.getTUsers().getSelectedRow();
+		    int selectedColumn = guiUM.getTUsers().getSelectedColumn();
 
 		    // Verifica si hay una fila seleccionada
 		    if (selectedRow == -1) {
@@ -100,12 +101,19 @@ public class ControllerUserManage implements ActionListener {
 		        return;
 		    }
 		    
+		    if (selectedColumn != 0) {
+		        JOptionPane.showMessageDialog(null, "Por favor, seleccione la columna del numero de ticket para editar.");
+		        return;
+		    }
+		    
+		    Object usernameOriginal = guiUM.getDTMTUsers().getValueAt(selectedRow, selectedColumn);
+		    
 		    guiUM.getDTMTUsers().setValueAt(username, selectedRow, 0);
 		    guiUM.getDTMTUsers().setValueAt(password, selectedRow, 1);
 		    guiUM.getDTMTUsers().setValueAt(typeUser, selectedRow, 2);
 		    guiUM.getDTMTUsers().setValueAt(statusUser, selectedRow, 3);
 
-		    fLXML.modifyUser("Users.xml", "User", username, password, typeUser, statusUser);
+		    fLXML.modifyUser("Users.xml", "User",usernameOriginal, username, password, typeUser, statusUser);
 		}
 
 		if (e.getSource() == guiUM.getBtnRemoveUser(UserType)) {

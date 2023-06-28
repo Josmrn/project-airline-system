@@ -402,7 +402,7 @@ public class FilesLogicXML {
 	}
 
 	// Método para modificarme el usuario
-	public void modifyUser(String fileName, String elementType, String username, String password, String typeUser,
+	public void modifyUser(String fileName, String elementType,Object usernameOriginal, String username, String password, String typeUser,
 			String statusUser) {
 
 		try {
@@ -420,8 +420,9 @@ public class FilesLogicXML {
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
 
-					if (eElement.getAttribute("user").equals(username)) {
+					if (eElement.getAttribute("user").equals(usernameOriginal)) {
 						// Modificar los elementos del usuario
+						eElement.setAttribute("user", username);
 						eElement.getElementsByTagName("password").item(0).setTextContent(password);
 						eElement.getElementsByTagName("typeUser").item(0).setTextContent(typeUser);
 						eElement.getElementsByTagName("state").item(0).setTextContent(statusUser);
