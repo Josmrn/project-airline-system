@@ -114,7 +114,6 @@ public class ControllerTickets implements ActionListener {
 			guiT.getDTMTTickets().setValueAt(flightNum, selectedRow, 2);
 
 			
-			
 		}
 
 		if (e.getSource() == guiT.getBtnRemoveTickets()) {

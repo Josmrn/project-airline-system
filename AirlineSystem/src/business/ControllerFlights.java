@@ -142,21 +142,7 @@ public class ControllerFlights implements ActionListener {
 		    } else {
 		    	JOptionPane.showMessageDialog(null, "No se pudo registrar el vuelo");
 		    }
-			
-			
-			/*fFXML.writeFlightXML("Flights.xml", "Flight", f.getDataName(), f.getData());
-			
-			arrayLFlight.addFlight(f);
-			
-			guiF.getDTMTFlights().addRow(new Object[] {randomNumber,guiF.getTDepartureCity().getText(),departureDate,
-			departureHour,guiF.getTArrivalCity().getText(),
-			arrivalDate,arrivalHour,planeAirline,
-			Integer.parseInt(guiF.getTExecutive().getText()),Integer.parseInt(guiF.getTTourist().getText()),
-			Integer.parseInt(guiF.getTEconomic().getText()) });
-			
-			System.out.print(arrayLFlight.getArrayListFlights().size());*/
-			
-			
+		    
 		}
 
 		if (e.getSource() == guiF.getBtnEditFlights()) {
@@ -164,7 +150,21 @@ public class ControllerFlights implements ActionListener {
 		}
 
 		if (e.getSource() == guiF.getBtnRemoveFlights()) {
+			
+			int flightNum = Integer.parseInt(guiF.getTSearchFlights().getText());
 
+			// Elimina el dato dentro del xml y refrescar en la tabla
+			Flights f = fFXML.searchFlightAndDelete("Flights.xml", "Flight", flightNum);
+
+			if (f != null) {
+				arrayLFlight.removeFlight(f);
+				refreshFlight();
+				JOptionPane.showMessageDialog(null, "El vuelo se eliminó correctamente.");
+			} else {
+				JOptionPane.showMessageDialog(null, "El vuelo no se encontró o no pudo ser eliminado.");
+			}	
+			
+			
 		}
 		
 		if(e.getSource() == guiF.getBtnConsultFlight()) {
