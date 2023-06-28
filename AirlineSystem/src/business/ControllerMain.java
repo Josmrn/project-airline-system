@@ -39,6 +39,9 @@ public class ControllerMain implements ActionListener{
 		guiMain.getMiManageFlight().addActionListener(this);
 		guiMain.getMiManagePassenger().addActionListener(this);
 		guiMain.getMiManageTickets().addActionListener(this);
+		guiMain.getMiAboutAdmin(userType).addActionListener(this);
+		guiMain.getMiAboutColab().addActionListener(this);
+
 	}
 
 	@Override
@@ -47,7 +50,7 @@ public class ControllerMain implements ActionListener{
 		//Gestion de Usuarios
 		if(e.getSource() == guiMain.getMiUsersManag()) {
 			 System.out.println("MenuItem UsersManag clicked!");
-			 new ControllerUserManage(guiMain);
+			 new ControllerUserManage(guiMain,userType);
 		}
 		
 		if(e.getSource() == guiMain.getMiAddBrand()) {
@@ -75,6 +78,12 @@ public class ControllerMain implements ActionListener{
 		}
 		if(e.getSource() == guiMain.getMiManageTickets()) {
 			new ControllerTickets(guiMain,userType);
+		}
+		if(e.getSource() == guiMain.getMiAboutAdmin(userType)) {
+			
+		}
+		if(e.getSource() == guiMain.getMiAboutColab()) {
+			
 		}
 		
 		

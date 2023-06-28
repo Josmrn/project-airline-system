@@ -31,7 +31,8 @@ public class GUIMain extends JFrame {
 	private JMenu mPassenger;
 	private JMenu mTickets;
 	private JMenu mHelp;
-	private JMenuItem miAbout;
+	private JMenuItem miAboutAdmin;
+	private JMenuItem miAboutColab;
 	private JMenuItem miExit;
 	private JMenuItem miAddBrand;
 	private JMenuItem miEditModels;
@@ -84,6 +85,7 @@ public class GUIMain extends JFrame {
 			setVisible(true);
 		}
 		
+		
 	}
 	public JMenuBar getMenuBar_1(String userType) {
 		if (menuBar == null) {
@@ -91,7 +93,7 @@ public class GUIMain extends JFrame {
 			menuBar.setBorderPainted(false);
 			menuBar.add(getMManagement(userType));
 			menuBar.add(getMOperations());
-			menuBar.add(getMHelp());
+			menuBar.add(getMHelp(userType));
 		}
 		return menuBar;
 	}
@@ -171,20 +173,40 @@ public class GUIMain extends JFrame {
 		}
 		return mTickets;
 	}
-	public JMenu getMHelp() {
+	public JMenu getMHelp(String userType) {
 		if (mHelp == null) {
-			mHelp = new JMenu("Ayuda");
-			mHelp.setFont(new Font("Roboto Black", Font.PLAIN, 15));
-			mHelp.add(getMiAbout());
-			mHelp.add(getMiExit());
+			if(userType.equals("Administrador")) {
+				mHelp = new JMenu("Ayuda");
+				mHelp.setFont(new Font("Roboto Black", Font.PLAIN, 15));
+				mHelp.add(getMiAboutAdmin(userType));
+				mHelp.add(getMiAboutColab());
+				mHelp.add(getMiExit());
+			}else if(userType.equals("Colaborador")) {
+				mHelp = new JMenu("Ayuda");
+				mHelp.setFont(new Font("Roboto Black", Font.PLAIN, 15));
+				mHelp.add(getMiAboutAdmin(userType));
+				mHelp.add(getMiAboutColab());
+				mHelp.add(getMiExit());
+			}
 		}
 		return mHelp;
 	}
-	public JMenuItem getMiAbout() {
-		if (miAbout == null) {
-			miAbout = new JMenuItem("Acerca de");
+	public JMenuItem getMiAboutAdmin(String userType) {
+		if (miAboutAdmin == null) {
+			if(userType.equals("Administrador")) {
+				miAboutAdmin = new JMenuItem("Acerca de Administrador");
+			}else if(userType.equals("Colaborador")) {
+				miAboutAdmin = new JMenuItem("Acerca de Administrador");
+				miAboutAdmin.setVisible(false);
+			}
 		}
-		return miAbout;
+		return miAboutAdmin;
+	}
+	public JMenuItem getMiAboutColab() {
+		if (miAboutColab == null) {
+			miAboutColab = new JMenuItem("Acerca de Colaborador");			
+		}
+		return miAboutColab;
 	}
 	public JMenuItem getMiExit() {
 		if (miExit == null) {

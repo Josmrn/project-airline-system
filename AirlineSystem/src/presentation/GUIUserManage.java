@@ -58,7 +58,7 @@ public class GUIUserManage extends JInternalFrame implements ActionListener {
 
 	
 
-	public GUIUserManage() {
+	public GUIUserManage(String userType) {
 		getContentPane().setBackground(new Color(255, 255, 255));
 		setMaximizable(true);
 		setIconifiable(true);
@@ -67,8 +67,8 @@ public class GUIUserManage extends JInternalFrame implements ActionListener {
 		getContentPane().setLayout(null);
 		getContentPane().add(getLWelcomeUserManage());
 		getContentPane().add(getBtnConsultUser());
-		getContentPane().add(getBtnEditUsers());
-		getContentPane().add(getBtnRemoveUser());
+		getContentPane().add(getBtnEditUsers(userType));
+		getContentPane().add(getBtnRemoveUser(userType));
 		getContentPane().add(getBtnRegister());
 		getContentPane().add(getSeparator());
 		getContentPane().add(getLUser());
@@ -117,30 +117,55 @@ public class GUIUserManage extends JInternalFrame implements ActionListener {
 		}
 		return btnConsultUser;
 	}
-	public JButton getBtnEditUsers() {
+	public JButton getBtnEditUsers(String userType) {
 		if (btnEditUsers == null) {
-			btnEditUsers = new JButton("Editar");
-			btnEditUsers.addActionListener(this);
-			btnEditUsers.setIcon(new ImageIcon(GUIUserManage.class.getResource("/images/icons_edit.png")));
-			btnEditUsers.setOpaque(false);
-			btnEditUsers.setForeground(new Color(0, 0, 128));
-			btnEditUsers.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnEditUsers.setContentAreaFilled(false);
-			btnEditUsers.setBorder(null);
-			btnEditUsers.setBounds(160, 110, 81, 25);
+			if(userType.equals("Administrador")) {
+				btnEditUsers = new JButton("Editar");
+				btnEditUsers.addActionListener(this);
+				btnEditUsers.setIcon(new ImageIcon(GUIUserManage.class.getResource("/images/icons_edit.png")));
+				btnEditUsers.setOpaque(false);
+				btnEditUsers.setForeground(new Color(0, 0, 128));
+				btnEditUsers.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnEditUsers.setContentAreaFilled(false);
+				btnEditUsers.setBorder(null);
+				btnEditUsers.setBounds(160, 110, 81, 25);
+			}else if(userType.equals("Colaborador")) {
+				btnEditUsers = new JButton("Editar");
+				btnEditUsers.addActionListener(this);
+				btnEditUsers.setIcon(new ImageIcon(GUIUserManage.class.getResource("/images/icons_edit.png")));
+				btnEditUsers.setOpaque(false);
+				btnEditUsers.setForeground(new Color(0, 0, 128));
+				btnEditUsers.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnEditUsers.setContentAreaFilled(false);
+				btnEditUsers.setBorder(null);
+				btnEditUsers.setBounds(160, 110, 81, 25);
+				btnEditUsers.setVisible(false);
+			}
 		}
 		return btnEditUsers;
 	}
-	public JButton getBtnRemoveUser() {
+	public JButton getBtnRemoveUser(String userType) {
 		if (btnRemoveUser == null) {
-			btnRemoveUser = new JButton("Eliminar");
-			btnRemoveUser.setIcon(new ImageIcon(GUIUserManage.class.getResource("/images/icons_remove.png")));
-			btnRemoveUser.setOpaque(false);
-			btnRemoveUser.setForeground(new Color(0, 0, 128));
-			btnRemoveUser.setFont(new Font("Segoe UI", Font.BOLD, 15));
-			btnRemoveUser.setContentAreaFilled(false);
-			btnRemoveUser.setBorder(null);
-			btnRemoveUser.setBounds(748, 110, 90, 25);
+			if(userType.equals("Administrador")) {
+				btnRemoveUser = new JButton("Eliminar");
+				btnRemoveUser.setIcon(new ImageIcon(GUIUserManage.class.getResource("/images/icons_remove.png")));
+				btnRemoveUser.setOpaque(false);
+				btnRemoveUser.setForeground(new Color(0, 0, 128));
+				btnRemoveUser.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnRemoveUser.setContentAreaFilled(false);
+				btnRemoveUser.setBorder(null);
+				btnRemoveUser.setBounds(748, 110, 90, 25);
+			}else if(userType.equals("Colaborador")) {
+				btnRemoveUser = new JButton("Eliminar");
+				btnRemoveUser.setIcon(new ImageIcon(GUIUserManage.class.getResource("/images/icons_remove.png")));
+				btnRemoveUser.setOpaque(false);
+				btnRemoveUser.setForeground(new Color(0, 0, 128));
+				btnRemoveUser.setFont(new Font("Segoe UI", Font.BOLD, 15));
+				btnRemoveUser.setContentAreaFilled(false);
+				btnRemoveUser.setBorder(null);
+				btnRemoveUser.setBounds(748, 110, 90, 25);
+				btnRemoveUser.setVisible(false);
+			}
 		}
 		return btnRemoveUser;
 	}

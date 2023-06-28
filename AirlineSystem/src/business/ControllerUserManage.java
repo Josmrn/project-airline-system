@@ -18,11 +18,14 @@ public class ControllerUserManage implements ActionListener {
 	private Users us;
 	private FilesLogicXML fLXML;
 	private ArrayListUsers arrayLU;
+	
+	private String UserType;
 
-	public ControllerUserManage(GUIMain guiMain) {
-		guiUM = new GUIUserManage();
+	public ControllerUserManage(GUIMain guiMain, String userType) {
+		guiUM = new GUIUserManage(userType);
 		guiMain.getDesktopMain().add(guiUM);
 		us = new Users();
+		UserType = userType;
 		fLXML = new FilesLogicXML();
 		arrayLU = new ArrayListUsers();
 		initializerAction();
@@ -43,8 +46,8 @@ public class ControllerUserManage implements ActionListener {
 		refreshData();
 		guiUM.getBtnRegister().addActionListener(this);
 		guiUM.getBtnConsultUser().addActionListener(this);
-		guiUM.getBtnEditUsers().addActionListener(this);
-		guiUM.getBtnRemoveUser().addActionListener(this);
+		guiUM.getBtnEditUsers(UserType).addActionListener(this);
+		guiUM.getBtnRemoveUser(UserType).addActionListener(this);
 	}
 
 	@Override
@@ -80,7 +83,7 @@ public class ControllerUserManage implements ActionListener {
 		}
 		
 		
-		if (e.getSource() == guiUM.getBtnEditUsers()) {
+		if (e.getSource() == guiUM.getBtnEditUsers(UserType)) {
 			
 		    // Obtiene los datos
 		    String username = guiUM.getTUserAdd().getText();
@@ -105,7 +108,7 @@ public class ControllerUserManage implements ActionListener {
 		    fLXML.modifyUser("Users.xml", "User", username, password, typeUser, statusUser);
 		}
 
-		if (e.getSource() == guiUM.getBtnRemoveUser()) {
+		if (e.getSource() == guiUM.getBtnRemoveUser(UserType)) {
 			
 		    String username = guiUM.getTWriteName().getText();
 		    
