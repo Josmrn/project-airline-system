@@ -107,6 +107,21 @@ public class ControllerMain implements ActionListener{
 		
 		if(e.getSource() == guiMain.getMiAboutColab()) {
 			
+			try {
+	            // Abrirá la URL 
+	            String url = "https://ayuda-colaborador.jafeth1110jafet.repl.co";
+	            Desktop desktop = Desktop.getDesktop();
+
+	            // Verifica la compatibilidad del escritorio con el enlace
+	            if (Desktop.isDesktopSupported() && desktop.isSupported(Desktop.Action.BROWSE)) {
+	                // Crear un objeto URI a partir de la URL
+	                URI uri = new URI(url);
+	                desktop.browse(uri);
+	            }
+	        } catch (Exception e1) {
+	            e1.printStackTrace();
+	        }
+			
 		}
 		
 		if(e.getSource() == guiMain.getMiTicketsHistory()) {
