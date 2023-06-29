@@ -60,13 +60,6 @@ public class FilesFlightXML {
 	}
 
 	public void writeFlightXML(String fileName, String elementType, String[] dataName, String[] data) {
-		
-		//boolean planeExist = dataExistOnXML(fileName, elementType, dataName[0], data[0]);
-
-		//if (planeExist) {
-			//JOptionPane.showMessageDialog(null, "El vuelo ya existe en el sistema");
-			//return;
-		//}
 
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -278,4 +271,49 @@ public class FilesFlightXML {
 	    int minute = Integer.parseInt(parts[1]);
 	    return LocalTime.of(hour, minute);
 	}
+	
+	public void modifyFlight(String fileName, String elementType, String flightNum, String[] dataName, String[] newData) {
+	    try {
+	        File inputFile = new File(fileName);
+	        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+	        Document doc = dBuilder.parse(inputFile);
+	        doc.getDocumentElement().normalize();
+
+	        NodeList nList = doc.getElementsByTagName(elementType);
+
+	        for (int i = 0; i < nList.getLength(); i++) {
+	            Node nNode = nList.item(i);
+
+	            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+	                Element eElement = (Element) nNode;
+
+	                String currentFlightNum = eElement.getAttribute("flightNum");
+	                if (currentFlightNum.equals(flightNum)) {
+	                    
+	                    for (int j = 0; j < dataName.length; j++) {
+	                        String currentDataName = dataName[j];
+	                        String newDataValue = newData[j];
+	                        NodeList dataList = eElement.getElementsByTagName(currentDataName);
+	                        Element dataElement = (Element) dataList.item(0);
+	                        dataElement.setTextContent(newDataValue);
+	                    }
+	                }
+	            }
+	        }
+
+	        
+	        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+	        Transformer transformer = transformerFactory.newTransformer();
+	        DOMSource source = new DOMSource(doc);
+	        StreamResult result = new StreamResult(new File(fileName));
+	        transformer.transform(source, result);
+
+	        JOptionPane.showMessageDialog(null, "Vuelo modificado");
+
+	    } catch (ParserConfigurationException | SAXException | IOException | TransformerException e) {
+	        e.printStackTrace();
+	    }
+	}
+
 }

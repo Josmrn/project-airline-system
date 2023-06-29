@@ -148,9 +148,8 @@ public class ControllerFlights implements ActionListener {
 		    
 		}
 
-		if (e.getSource() == guiF.getBtnEditFlights(UserType)) {
+		fFXML.modifyFlight("Flights.xml", "Flight", guiF.getTSearchFlights().getText(), f.getDataName(), f.getData());
 
-		}
 
 		if (e.getSource() == guiF.getBtnRemoveFlights(UserType)) {
 			
@@ -171,7 +170,22 @@ public class ControllerFlights implements ActionListener {
 		}
 		
 		if(e.getSource() == guiF.getBtnConsultFlight()) {
+			Flights flight = fFXML.searchFlight("Flights.xml", "Flight", guiF.getTSearchFlights().getText());
 			
+			if(flight != null ) {
+				//Falta agregar las horas en la consulta
+				JOptionPane.showMessageDialog(null, "Vuelo encontrado");
+				guiF.getTDepartureCity().setText(flight.getDepartureCity());
+				guiF.getTArrivalCity().setText(flight.getArrivalCity());
+				//guiF.getDepartureData().setSelectableDateRange(f.getDepartureDate(), f.getDepartureDate());
+				//guiF.getArrivalDate().setSelectableDateRange(arrivalDate, arrivalDate);
+				guiF.getTDepartureHour().setText(String.valueOf(flight.getDepartureHour()));
+				guiF.getTArrivalHour().setText(String.valueOf(flight.getArrivalHour()));
+				guiF.getCxFlightAirline().setSelectedItem(flight.getPlane());
+				guiF.getTExecutive().setText(String.valueOf(flight.getAmountOfExecSeat()));
+				guiF.getTTourist().setText(String.valueOf(flight.getAmountOfTourSeat()));
+				guiF.getTEconomic().setText(String.valueOf(flight.getAmountOfEcoSeat()));
+			}
 		}
 	}
 
